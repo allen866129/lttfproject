@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+<p><%= @user.username %>球友您好,</p>
+
+<p>您參與的桌球愛好者聯盟 <%= @gamename %>比賽成績已開始納入積分更新作業。</p>
+<p>您此次的參賽成績結果如下 </p>
+<table border=1 align=center>
+  <tr>
+    <th align=center>比賽名稱</th>
+    <th align=center>會員編號</th>
+    <th align=center>會員姓名</th>
+    <th align=center>賽前積分</th>
+    <th align=center>勝場數</th>
+    <th align=center>敗場數</th>
+    <th align=center>賽後積分</th>
+    <th align=center>積分增減</th>
+  
+  </tr>
+
+   <tr>  
+       <td align=left><font color=blue>  <%= @gamename %></td>  
+      <td align=center><font color=blue>  <%= @gameplayer["id"] %></td>
+      <td align=center><font color=blue><%= @gameplayer["name"] %></td>
+      <td align=center><font color=blue><%= @gameplayer["bgamescore"] %></td>
+      <td align=center><font color=blue><%= @gameplayer["wongames"] %></td>
+      <td align=center><font color=blue><%= @gameplayer["losegames"] %></td>
+      <td align=center><font color=blue><font color=red><%= @gameplayer["agamescore"] %></font></td>
+      <td align=right><font color=blue><font color=red> <%= @gameplayer["scorechanged"] %></font></td>
+    
+    
+    </tr>
+
+   
+ 
+</table>  
+<p>您參加桌盟積分賽總成績結果如下 </p>
+<table border=1 align=center link=blue>
+  <tr>
+    <th align=center>會員編號</th>
+    <th align=center>會員姓名</th>
+    <th align=center>初始積分</th>
+    <th align=center>目前積分</th>
+    <th align=center>總勝場數</th>
+    <th align=center>總敗場數</th>
+    <th align=center>積分更新日期</th>
+  </tr>
+
+
+  <tr>
+    <td align=center><font color=blue><%= @user.id %></td>
+    <td align=center><font color=blue><%= @user.username %></td>
+    <td align=center><font color=blue><%= @user.playerprofile.initscore %></td>
+    <td align=center><font color=blue><%= @user.playerprofile.curscore %></td>
+    <td align=center><font color=blue><%= @user.playerprofile.totalwongames %></td>
+    <td align=center><font color=blue><%= @user.playerprofile.totallosegames %></td>
+    <td align=center><font color=blue><%= @user.playerprofile.lastscoreupdatedate %></td>
+  </tr>
+  </table>  
+  <p>桌球愛好者聯盟敬上  </p>
+  </body>
+</html>

@@ -1,0 +1,173 @@
+
+
+  <p align=center><%= link_to '返回前頁', :back %><br>
+   <strong><font color="red">請注意:此表內積分增減及賽後積分僅為參考之用，正確積分須待勝負紀錄查核完畢後之積分更新為準!</font>  </strong>
+ </p>
+  <div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1 link=blue>
+      <caption class="text-center" >
+        <strong>
+          <%= @uploadgame.gamename %> 
+        </strong>
+      </caption> 
+      <thead>
+        <tr>
+        <th>序號</th>
+        <th>會員編號</th>
+        <th>姓名</th>
+        <th>賽前積分</th>
+        <th>前置調整積分</th>
+        <th>勝場數</th>
+        <th>敗場數</th>
+        <th>賽後積分</th>
+        <th>積分增減</th>
+        <th>建議積分</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <%  @playerssummery.each do |player| %> 
+          <tr>
+          <td><%= player["serial"] %></td>
+          <td><%= player["id"] %></td>
+          <td style="white-space: nowrap;">
+              <%= link_to  show_player_games_uploadgames_path(@uploadgame,:player_name=>player["name"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+            <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= player["name"] %></font>
+          <% end %>
+
+          </td>
+         
+          <td><%= player["original bscore"] %></td>
+          <% if player["original bscore"]==player["bgamescore"] %>
+            <td>----</td>
+          <%else%>  
+            <td><%= player["bgamescore"] %></td>
+          <%end%>  
+          <td><%= player["wongames"] %></td>
+          <td><%= player["losegames"] %></td>
+          <td><%= player["agamescore"] %></td>
+          <td><%= player["scorechanged"] %></td>
+          <% if player["suggestscore"].to_i==0 %>
+            <td>----</td>
+          <%else%>  
+            <td><%= player["suggestscore"] %></td>
+          <%end%>  
+          </tr>
+        <% end %>
+      </tbody>    
+      <tfoot>
+        <td colspan=10>
+          <div class="text-center">
+            <%if current_user && !@uploadgame.publishedforchecking %>
+              <%= button_to '公告查核', {:controller => "uploadgames", :action => "publishuploadgame", :game_id => @uploadgame.id }, data: { confirm: 'Are you sure?' },:disabled =>  !((current_user.has_role? :admin) ||(current_user.has_role? :superuser) )  %>
+                     
+            <%end%> 
+          </div>
+        </td>  
+      </tfoot> 
+    </table>  
+  </div>
+   
+  
+  
+  <div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1 link=blue>
+      <caption class="text-center" ><strong>詳細比賽紀錄表</strong></caption> 
+      <thead>
+        <tr> 
+        <th>比賽組別</th>
+        <th>勝方姓名</th>
+        <th>大比數</th>
+        <th>敗方姓名</th>
+        <th>小比數</th>
+        </tr>
+      </thead>
+      <tbody>  
+        <%  @gamesrecords.each do |game| %>
+          <tr>
+          <td align=left><font color=blue><%= game["group"] %></font></td>
+
+          <% if current_user && game["Aplayer"]==current_user.username %>
+              <td align=center bgcolor=yellow>
+                    <%= link_to show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+                       <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
+                   <% end %>
+                  
+                <br> 
+                <font color='red'>
+                  <%= game["Aplayer bgamescore"] %>
+                  <%if game["Players_scorechanged"] %>
+                    :(+<%= game["Players_scorechanged"].to_s %>) </font>
+                  <%end%>
+                </font>
+              </td>  
+            <%else%>
+              <td align=center>
+                <%= link_to show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+                  <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
+                <% end %>
+                <br>
+                <font color='red'>
+                  <%= game["Aplayer bgamescore"] %> 
+                  <%if game["Players_scorechanged"] %>
+                    :(+<%= game["Players_scorechanged"].to_s %>) 
+                  <%end%>
+                </font>  
+              </td>
+          <%end%>  
+
+          <td align=center><font color=blue><%= game["gameresult"] %></font></td>
+          <% if current_user && game["Bplayer"]==current_user.username %>
+            <td align=center bgcolor=yellow>
+              <%= link_to show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Bplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
+              <% end %>
+          <%else%>
+            <td align=center>
+              <%= link_to show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Bplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
+              <% end %>
+          <%end%> 
+
+             <br> 
+              <font color='red'>
+                <%= game["Bplayer bgamescore"] %>
+                <%if game["Players_scorechanged"] %>
+                  :(-<%= game["Players_scorechanged"].to_s %>) 
+                <%end%>
+              </font>
+          </td>
+
+          <td align=left><font color=blue><%= game["detailrecords"] %></font></td>
+          </tr>
+        <% end %>
+      </tbody> 
+    </table>
+  </div>
+        
+
+     
+          
+ <p align=center><%= link_to '返回前頁', :back %></p>
+
+<!-- Modal -->
+         
+<div class="modal fade modal-wide" id="player_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>                 
+      </div>
+    <div class="modal-body">
+      <div class="container">
+        <div class="row">   
+          <div id="modal_content">
+          </div>
+                
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

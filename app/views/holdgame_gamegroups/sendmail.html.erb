@@ -1,0 +1,146 @@
+<%= include_gon %>
+<div class="col-md-12">
+  <h3 align=center> 寄發通知信函-<%= @holdgame.gamename %></h3>
+  <br>
+   <font size='5' color='blue'><strong>
+  主旨：<%= text_field_tag :subject, params[:subject], :id=> 'subject', :size=> '60' %><%= link_to "寄送", '#',:class=> "button radius" %>
+   </strong></font>
+  <br>
+  <%= text_area_tag 'emailbody', '', class: 'form-control', rows:20, placeholder: "請輸入郵件內容"  %>
+</div>  
+
+
+<div class="col-xs-12 col-md-12 col-lg-12">
+  <div class="form_row">
+    <font size='7' color='blue'><strong>
+    <label for="send_group">選擇傳送對象:</label>
+    <%= check_box_tag 'all resgistrations', 0,false,:onclick=> "checkall(this)" %>所有報名球友
+    <%= check_box_tag 'all official', 0,false,:onclick=> "checkallofficial(this)" %>所有正選球友
+    <%= check_box_tag 'all backup' , 0,false,:onclick=> "checkallbackup(this)" %>所有候補球友
+  
+    
+  </strong></font>
+  </div>
+ 
+   <% for gamegroup in @gamegroups %>
+   <% playerlists=gamegroup.allgroupattendee.in_groups_of(gamegroup.noofplayers,false) %>
+  <div class="table-responsive datagrid">
+   
+    <table class="table-striped table-condensed" border=0 name="<%="group_"+gamegroup.id.to_s%>"  id="<%="group_"+gamegroup.id.to_s%>" >
+      <tbody>
+         
+        <% playerlists.each_with_index do |playerlist, listindex| %>
+          <tr>
+            <td><font size='7' color='red'><strong>
+              <% if listindex==0 %>  
+                <%= check_box_tag gamegroup.id.to_s+'_official', 0,false,:onclick=> "checkgroupofficial(this,#{gamegroup.id})" %><%=gamegroup.groupname+'-正選'%>
+              <%else%>
+                <%= check_box_tag gamegroup.id.to_s+'_backup', 0,false,:onclick=> "checkgroupbackup(this,#{gamegroup.id})" %><%=gamegroup.groupname+'-候補'%>
+              <%end%>
+            </strong></font></td>
+          </tr>
+          <% playerlist.each_with_index do |player,groupindex| %> 
+            <tr>
+             
+                <%if  listindex==0%>
+                 <td><%= check_box_tag gamegroup.id.to_s+'_official'+'[player_id][]', player.player_id %><%= player.name %>
+                  (正選)
+                <%else%>
+                 <td><%= check_box_tag gamegroup.id.to_s+'_backup'+'[player_id][]', player.player_id %><%= player.name %>
+                  <font color='red'>(候補)</font>
+                <%end%>  
+              </td>      
+            </tr>
+          <%end%>  
+        <%end%> 
+         
+      	 	 
+      </tbody>	
+    </table>
+    
+   </div>
+   <%end%>
+</div>   
+<script type="text/javascript">
+
+    function checkall(bx){    
+        document.getElementById("all_official").checked=bx.checked; 
+        document.getElementById("all_backup").checked=bx.checked;   
+        for(var groupindex=0; groupindex<gon.gamegroups.length;groupindex++) 
+        {           
+          var tempgroup="group_"+gon.gamegroups[groupindex].id;
+          var  tbls = document.getElementById(tempgroup);
+            for (var bxs=tbls.getElementsByTagName("input"),j=bxs.length; j--; )
+               if (bxs[j].type=="checkbox")
+                   bxs[j].checked = bx.checked;
+        }         
+    }
+    function checkallofficial(bx){        
+        for(var groupindex=0; groupindex<gon.gamegroups.length;groupindex++) 
+        {           
+          var tempgroup="group_"+gon.gamegroups[groupindex].id;
+          var  tbls = document.getElementById(tempgroup);
+            for (var bxs=tbls.getElementsByTagName("input"),j=bxs.length; j--; )
+              {
+                 
+                 if ((bxs[j].type=="checkbox") && (bxs[j].name.indexOf('official')>-1))
+                 {
+                   
+                   bxs[j].checked = bx.checked;
+                  
+                 }  
+              }
+        }         
+    } 
+    function checkallbackup(bx){        
+        for(var groupindex=0; groupindex<gon.gamegroups.length;groupindex++) 
+        {           
+          var tempgroup="group_"+gon.gamegroups[groupindex].id;
+          var  tbls = document.getElementById(tempgroup);
+            for (var bxs=tbls.getElementsByTagName("input"),j=bxs.length; j--; )
+              {
+                
+                 if ((bxs[j].type=="checkbox") && (bxs[j].name.indexOf('backup')>-1))
+                 {
+                   
+                   bxs[j].checked = bx.checked;
+                  
+                 }  
+              }
+        }         
+    }    
+        function checkgroupofficial(bx,groupid){        
+        for(var groupindex=0; groupindex<gon.gamegroups.length;groupindex++) 
+        {           
+          var tempgroup="group_"+gon.gamegroups[groupindex].id;
+          var  tbls = document.getElementById(tempgroup);
+            for (var bxs=tbls.getElementsByTagName("input"),j=bxs.length; j--; )
+              {
+                
+                 if ((bxs[j].type=="checkbox") && (bxs[j].name.indexOf(groupid+'_official')>-1))
+                 {
+                   
+                   bxs[j].checked = bx.checked;
+                  
+                 }  
+              }
+        }         
+    } 
+    function checkgroupbackup(bx,groupid){        
+        for(var groupindex=0; groupindex<gon.gamegroups.length;groupindex++) 
+        {           
+          var tempgroup="group_"+gon.gamegroups[groupindex].id;
+          var  tbls = document.getElementById(tempgroup);
+            for (var bxs=tbls.getElementsByTagName("input"),j=bxs.length; j--; )
+              {
+                
+                 if ((bxs[j].type=="checkbox") && (bxs[j].name.indexOf(groupid+'_backup')>-1))
+                 {
+                   
+                   bxs[j].checked = bx.checked;
+                  
+                 }  
+              }
+        }         
+    }   
+</script>

@@ -1,0 +1,13 @@
+Options -Multiviews
+PassengerResolveSymlinksInDocumentRoot on
+RailsEnv development
+SetEnv GEM_HOME /home6/twlttfor/ruby/gems
+<IfModule mod_passenger.c>
+Options -MultiViews
+PassengerResolveSymlinksInDocumentRoot on
+#Set this to whatever environment you'll be running in
+RailsEnv development
+RackBaseURI /lttfproject
+SetEnv GEM_HOME /home6/twlttfor/ruby/gems
+</ifModule>
+ 

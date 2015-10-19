@@ -1,0 +1,117 @@
+    <p align=center><%= link_to '返回前頁', :back %>|<%= link_to @game.gamename, game_path(@game) %><br>
+  
+ </p>
+  <div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1 link=blue>
+      <caption class="text-center" >
+        <strong>
+          <%= @targetplayername %>-<%= @game.gamename %> 
+        </strong>
+      </caption> 
+      <thead>
+        <tr>
+        <th>會員編號</th>
+        <th>姓名</th>
+        <th>賽前積分</th>
+        <th>勝場數</th>
+        <th>敗場數</th>
+        <th>賽後積分</th>
+        <th>積分增減</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <%  @playerssummery.each do |player| %> 
+          <tr>
+          <td><%= player["id"] %></td>
+          <td style="white-space: nowrap;">
+            <%= link_to  show_player_games_games_path(@game,:player_name=>player["name"]) do %>
+            <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= player["name"] %></font>
+          <% end %>
+          </td>
+         
+          
+          <td><%= player["bgamescore"] %></td>
+          <td><%= player["wongames"] %></td>
+          <td><%= player["losegames"] %></td>
+          <td><%= player["agamescore"] %></td>
+          <td><%= player["scorechanged"] %></td>
+  
+          </tr>
+        <% end %>
+      </tbody>    
+      <tfoot>
+       
+      </tfoot> 
+    </table>  
+  </div>
+
+  <div class="table-responsive datagrid">
+    <table class="datatable " border=2 link=blue>
+      <caption class="text-center" ><strong><%= @targetplayername %>-詳細比賽紀錄表</strong></caption> 
+      <thead>
+        <tr> 
+        <th>比賽組別</th>
+        <th>勝方姓名</th>
+        <th>大比數</th>
+        <th>敗方姓名</th>
+        <th>小比數</th>
+        </tr>
+      </thead>
+      <tbody>  
+        <%  @gamesrecords.each do |game| %>
+          <tr>
+          <td align=left><font color=blue><%= game["group"] %></font></td>
+            <% if game["Aplayer"]==@targetplayername %>
+              <td align=center bgcolor=yellow>
+                    <%= link_to show_player_games_games_path(@game,:player_name=>game["Aplayer"]) do %>
+                       <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
+                   <% end %>
+           
+            <%else%>
+              <td align=center>
+                <%= link_to show_player_games_games_path(@game,:player_name=>game["Aplayer"]) do %>
+                       <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
+                <% end %>
+            <%end%>    
+              <% if game["Aplayer bgamescore"] %>
+                   <br>
+                   <font color='red'><%= game["Aplayer bgamescore"] %></font>
+              <% end %> 
+              <%if game["Players_scorechanged"] %>
+                  <font color='red'>:(+<%= game["Players_scorechanged"].to_s %>) </font>
+              <%end%>
+              </td>
+ 
+
+
+          <td align=center><font color=blue><%= game["gameresult"] %></font></td>
+          <% if game["Bplayer"]==@targetplayername %>
+            <td align=center bgcolor=yellow>
+              <%= link_to show_player_games_games_path(@game,:player_name=>game["Bplayer"]) do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
+              <% end %>
+          <%else%>
+            <td align=center>
+              <%= link_to show_player_games_games_path(@game,:player_name=>game["Bplayer"]) do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
+              <% end %>
+          <%end%> 
+              <% if game["Bplayer bgamescore"] %>
+                   <br>
+                   <font color='red'><%= game["Bplayer bgamescore"] %></font>
+              <% end %>
+              <%if game["Players_scorechanged"] %>
+                 <font color='red'>:(-<%= game["Players_scorechanged"].to_s %>) </font>
+             <%end%>
+          </td>
+          <td align=left><font color=blue><%= game["detailrecords"] %></font></td>
+          </tr>
+        <% end %>
+      </tbody> 
+    </table>
+  </div>
+        
+
+     
+          
+ <p align=center><%= link_to '返回前頁', :back %></p>

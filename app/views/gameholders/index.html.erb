@@ -1,0 +1,58 @@
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+ <% set_meta_tags :title => '比賽主辦者資料表'%>
+ <% if (!(@currentUser_inGameHolder) && (current_user)) %>
+   <%= button_to '申請主辦比賽', new_gameholder_path , method:  :get,  :disabled => (@currentUser_inGameHolder)  || !(current_user), :form_class=> "btn btn-primary"  %>
+ <%end%>
+ <% if (current_user.has_role? :admin) ||(current_user.has_role? :superuser)  %>
+   <%= button_to '審核新申請資料', approveprocess_gameholders_path , method:  :get,  :disabled => !((current_user.has_role? :admin) || (current_user.has_role? :superuser)), :form_class=> "btn btn-primary"  %>
+ <% end %>
+<div class="table-responsive datagrid">
+  <table class="datatable  table-striped table-condensed" border=1 link=blue>
+    <caption class="text-center" ><strong>比賽主辦者資料表</strong></caption> 
+
+    <thead>
+      <tr>
+        <th>會員照片</th>
+        <th>會員編號</th>
+        <th>姓名</th>
+        <th>主辦場地</th>
+        <th>聯絡電話</th>
+        <% if  ((current_user.has_role? :admin) || (current_user.has_role? :superuser))  %>
+          <th>刪除</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @gameholders.each do |gameholder| %>
+    <tr>  
+ 
+    <td><%= image_tag(gameholder.user.playerphoto_url(:tiny),:class => "dp img-circle img-responsive") %></td>
+    <td><%= gameholder.user_id %></td>
+    <td nowrap="nowrap">
+          <%= link_to(gameholder) do %>
+            <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= gameholder.name %></font>
+          <% end %>
+        </td>
+    <td><%= gameholder.courtname %></td>
+    <td><%= gameholder.phone %></td>
+    <% if  (current_user.has_role? :admin) || (current_user.has_role? :superuser)  %>
+       <td><%= button_to '刪除此筆', gameholder, method: :delete, data: { confirm: '確定移除此筆主辦人資料?' } , :disabled => !( (current_user.has_role? :admin) || (current_user.has_role? :superuser) ) %></td>
+    <% end %>
+
+    </tr>
+   <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+      <td colspan="12">
+      <div class="text-center">
+        <%= paginate @gameholders, :theme => 'twitter-bootstrap-3' %>
+      </div>
+      </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+
+ 

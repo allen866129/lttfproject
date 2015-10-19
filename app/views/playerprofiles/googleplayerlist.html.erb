@@ -1,0 +1,54 @@
+
+ <div class="row">
+  <div class="col-xs-10 col-md-10 col-lg-10">
+    <% if current_user && ((current_user.has_role? :gameholder) || (current_user.has_role? :superuser)|| (current_user.has_role? :admin)) %>
+      <%= form_tag googleplayerlist_playerprofiles_path, :method => :get do %>
+    
+        <p align =center>   
+          <input id="playerlistfileurl" name="playerlistfileurl" type="text"  size=80 />
+          <%= submit_tag "輸入參賽名單檔案" %> 
+        </p> 
+      <%end%>
+    <%end%>
+ 
+    <div class="table-responsive datagrid">
+      <table class="datatable table-striped" border=1 link=blue>
+        <thead>
+          <tr>
+          <th>序號</th>
+          <th>會員編號</th>
+          <th>會員姓名</th>
+          <th>目前積分</th>
+          <th>FB帳號</th>
+          </tr>
+        </thead>
+        <tbody>  
+          <%if @playerlist %>
+          <%  @playerlist.each do |player| %>
+  
+            <tr>  
+            <td> <%= player["serial"] %></td>
+            <td> <%= player["id"] %></td>
+            <td><%= player["name"] %></td>
+            <td><%= player["curscore"] %></td>
+            <td><%= player["fbaccount"] %></td>
+            </tr>
+          <% end %>
+         <%end%> 
+        </tbody>  
+        <tfoot>
+          <td colspan= 9>
+          <div class="text-center">
+          
+          </div>  
+         </td>
+        </tfoot> 
+  
+      </table>  
+    </div>
+  </div>  
+</div>
+  
+
+    
+  

@@ -1,0 +1,212 @@
+#encoding: utf-8
+<%= content_for :head do %>
+  <meta charset="utf-8">
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+  <script src='https://www.google.com/jsapi'></script>
+  <style>
+    article,aside,figure,figcaption,footer,header,hgroup,menu,nav,section {display:block;}
+    body {font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+  </style>
+<% end %>
+<!script src='https://www.google.com/jsapi'><!/script>
+
+<p align=center><%= link_to '返回前頁', :back %>  </p>
+
+<div class="table-responsive datagrid">
+  <table class="table-striped table-condensed" border=1 >
+    <caption class="text-center" >
+      <strong>會員基本資料</strong>
+
+    </caption>  
+    <td rowspan=4 ><%= image_tag(@playerprofile.user.playerphoto_url(:thumb)) %></td>
+
+    <td><font color="black">編號:</font></td>
+    <td><font color="black">姓名:</td>
+    <td><i class="fa fa-facebook-square"><font color="black"></i>FB帳號:</font></td>
+    <td><font color="black">性別:</font></td>
+    <tr>
+    <td><strong><%= @playerprofile.user_id %></strong></td>
+    <td><strong><%= @playerprofile.user.username %></strong></td>
+    <td><strong><%= @playerprofile.user.fbaccount %></strong></td>
+    <td><strong><%= @playerprofile.bio %></strong></td>  
+    <tr>  
+    <td><font color="black">初始積分:</font></td>      
+    <td><font color="black">目前積分:</font></td>  
+    <td><font color="black">總勝場數:</font></td> 
+    <td><font color="black">總敗場數:</font></td> 
+    <tr>
+    <td><strong><%= @playerprofile.initscore %></strong></td>
+    <td><strong><font color="red"><%= @playerprofile.curscore %></font></strong></td>   
+    <td><strong><%= @playerprofile.totalwongames %></strong></td> 
+    <td><strong><%= @playerprofile.totallosegames %></strong></td>
+    <tr>
+    <td><font color="black">持拍方式:</td>      
+    <td colspan=2><font color="black">球拍型號:</td>  
+    <td><font color="black">正手膠皮:</td> 
+    <td><font color="black">反手膠皮:</td> 
+    <tr>
+    <td><strong><%= @playerprofile.paddleholdtype %></strong></td>
+    <td colspan=2><strong><%= @playerprofile.paddlemodel %></strong></td>   
+    <td ><strong><%= @playerprofile.forwardrubber %></strong></td> 
+    <td><strong><%= @playerprofile.backrubber %></strong></td>
+    <tr> 
+    <td ><font color="black">最後出賽日期:</font></td>      
+    <td colspan=3><font color="black">最後出賽:</font></td>  
+    <td><font color="black">積分更新日期:</font></td> 
+    <tr>
+    <td><strong><%= @playerprofile.lastgamedate %></strong></td>
+    <td colspan=3><strong><%= @playerprofile.lastgamename %></strong></td>   
+    <td><strong><%= @playerprofile.lastscoreupdatedate %></strong></td> 
+     
+    <% if current_user && ( @playerprofile.user_id==current_user.id || current_user.has_role?(:admin)||current_user.has_role?(:superuser))   %>
+      <tr>
+         <td colspan=3 ><font color="black">E-mail:</font></td>
+         <td colspan=2 ><font color="black">電話:</font></td> 
+      <tr>
+         <td colspan=3 ><strong><%= @playerprofile.user.email %></strong></td>
+         <td colspan=2 ><strong><%= @playerprofile.user.phone %></strong></td>  
+    <%end%>
+
+    <% if current_user &&  (@playerprofile.user_id!=current_user.id) && (current_user.has_role?(:gameholder))  %>        
+    <% title_for = @already_in_user_blacklists  ? "從黑名單移除" : "列入黑名單" %>
+      <tr> 
+        <td colspan=5> 
+
+            <%if @already_in_user_blacklists %>
+              <%= form_tag toggleblacklist_blacklists_path, multipart: true do %>
+                <%= hidden_field_tag 'player_id', @playerprofile.user_id  %>
+                <%= submit_tag title_for ,:name=>"removeblacklist" ,:class => "btn btn-warning"  ,data: { confirm:"從黑名單移除？" } %> 
+              <% end %>          
+            <%else%>
+               <a href="#" class="btn btn-lg btn-info" data-toggle="modal" data-target="#myBlacklist"><%= title_for %></a>
+            <%end%>
+
+
+      </td> 
+    <%end%>  
+      
+    <tr> 
+    <td colspan=5>  
+      <div id='chart' align="left"></div>
+        <%= render_chart @chart, 'chart' %>
+    </td>
+  </table>
+</div>
+<br></br>
+
+   <div class="table-responsive datagrid">
+      <table class="datatable table-striped" border=1>
+        <caption class="text-center" ><font color='red'><strong>已報名之比賽(列為正選球友者,請記得要出席)</strong></font></caption>  
+        <thead>
+          <tr>
+          <th>比賽日期</th>
+          <th>比賽名稱</th>
+          <th>比賽場地</th>
+          <th>參賽組別</th>
+          <th>備註</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%  @showgames.each do |showgame| %>
+            <tr>
+            
+              <td rowspan ='<%= showgame['groups_type'].count %>'><%= showgame['holdgame'].startdate %> </td>
+              <td rowspan ='<%= showgame['groups_type'].count %>'><%= link_to holdgame_gamegroups_path(showgame['holdgame']) do %>
+                      <i class="fa fa-hand-o-up"></i>&nbsp;<font color="#3A01DF"><%= showgame['holdgame'].gamename %></font>
+                   <% end %>     
+              </td>
+              <td rowspan ='<%= showgame['groups_type'].count %>' > <%= showgame['holdgame'].courtname %> </td> 
+                <% showgame['groups_type'].each do |group| %>
+
+                  <td> <%=group['group'].groupname %> </td> 
+
+                  <td> <%=group['type']%> </td> 
+                  <tr>
+                <% end %>
+             </tr>
+          <% end %>
+        </tbody>
+        
+      </table>
+    </div>
+<br></br>
+
+   <div class="table-responsive datagrid">
+      <table class="datatable table-striped" border=1>
+        <caption class="text-center" ><strong>會員參賽紀錄表</strong></caption>  
+        <thead>
+          <tr>
+          <th>比賽名稱</th>
+          <th>賽前積分</th>
+          <th>勝場數</th>
+          <th>敗場數</th>
+          <th>賽後積分</th>
+          <th>積分增減</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%  @GameTable.each do |game| %>
+            <tr>
+              
+              <td> <%= link_to game_path(:id=>game[6]) do %>
+                      <i class="fa fa-hand-o-up"></i>&nbsp;<font color="#3A01DF"><%= game[0] %></font>
+                   <% end %>     
+              </td>
+              <td><%= game[1] %></td>
+              <td><%= game[2] %></td>
+              <td><%= game[3] %></td>
+              <td><%= game[4] %></td>
+              <td><%= game[5] %></td>
+             </tr>
+          <% end %>
+        </tbody>
+        <%if @GameTable.length>0 %>
+
+          <tfoot>
+            <tr>
+            <td colspan="6">
+            <div class="text-center">
+                <%= paginate @GameTable , :theme => 'twitter-bootstrap-3' %>
+            </div>
+            </td>
+            </tr>
+          </tfoot>
+        <%end%> 
+      </table>
+    </div>
+
+              <div class="modal fade" id="myBlacklist">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title"><%=title_for%></h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container">
+                      <div class="row">
+                       <div class="text-center"> 
+                        <% capinfo =  @playerprofile.user.username  + '列入黑名單?' %>  
+                        <h4>編號：<%=@playerprofile.user.id%>  姓名：<%= @playerprofile.user.username %></h4><br>
+
+                        <%= form_tag toggleblacklist_blacklists_path, multipart: true do %>
+                          <%= hidden_field_tag 'player_id', @playerprofile.user_id  %>
+                          <%= hidden_field_tag 'player_name', @playerprofile.user.username  %>
+                          <h4><%= text_area_tag :note , params[:note] ,id:'reason' ,cols: "30", rows: "10", placeholder: '請輸入列為黑名單原因'%><br></h4>
+                       
+                          <%= submit_tag "完成黑名單登錄" ,:name=>"addblacklist", :class => "btn btn-warning"   %> 
+                        </div>  
+                        <% end %> 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">放棄離開</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+  
+

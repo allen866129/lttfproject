@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+	<p><%= @player.name %>球友您好,</p>
+	<p>這是您報名參加的桌球愛好者聯盟<%=@holdgame.gamename%> 賽務通知郵件。</p>
+	<p style="white-space: pre-line ;width:auto; text-align:justify ">
+  	  <%= @message %>	
+	</p>
+	<p>桌球愛好者聯盟敬上</p>
+ 	<%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', holdgame_gamegroups_url(@holdgame) %>
+  </body>
+</html>

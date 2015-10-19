@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-md-12">
+    <div style="margin-top:50px" class="mainbox col-md-8 col-md-offset-2">
+      <div class="panel panel-info" >
+        <div class="panel-heading">
+          <div class="panel-title">桌盟會員登入</div>
+        </div>
+        <div style="padding-top:30px" class="panel-body" >
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :class =>"form-horizontal", :role => "form" }) do |f| %>
+            <% if resource.errors.any? %>
+              <div id="error_explanation" style="display:none" class="alert alert-danger">
+                <h3><%= pluralize(resource.count, "error") %>
+                  prohibited this authentication from being saved:</h3>
+                <ul>
+                  <% resource.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            <div style="margin-bottom: 25px" class="input-group">
+              <span class="input-group-addon add-on">
+                <i class="glyphicon glyphicon-user"></i>
+              </span>
+              <%= f.text_field :username, :required => true, autofocus: true, :placeholder => "姓名:李組長", :class =>"form-control" %>
+            </div>
+            <div style="margin-bottom: 25px" class="input-group">
+              <span class="input-group-addon add-on">
+                <i class="glyphicon glyphicon-envelope"></i>
+              </span>
+              <%= f.email_field :email, :required => true, :autofocus => true, :placeholder => "email: user@domain.com", :class => "form-control" %>
+            </div>
+            <div style="margin-bottom: 15px" class="input-group">
+              <span class="input-group-addon add-on">
+                <i class="glyphicon glyphicon-lock"></i>
+              </span>
+              <%= f.password_field :password, autocomplete: "off", :required => true, :placeholder =>"password", :class =>"form-control" %>
+            </div>
+            <% if devise_mapping.rememberable? -%>
+              <div style="margin-bottom: 25px" class="input-group">
+                <div>
+                  <%= f.check_box :remember_me %>
+                  <%= f.label "記住我的資料" %>
+                </div>
+              </div>
+            <% end -%>
+            <div>
+              <div style="margin-top:10px" class="form-group">
+                <!-- Button -->
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                  <%= f.submit "登入" , :class => "btn btn-block btn-primary btn-info" %>
+                </div>
+                <div class="col-md-4"></div>
+              </div>
+                <div class="form-group">
+                  <div class="col-md-12 control">
+                    <div style="border-bottom: 1px solid#888; padding-top:15px; font-size:85%"><!-- it's a border line -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

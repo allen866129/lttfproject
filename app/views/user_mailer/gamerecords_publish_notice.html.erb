@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <p><%= @user.username %>球友您好,</p>
+
+    <p>您參與的桌球愛好者聯盟 <%= @gamename %>比賽成績已開始公告查核作業。</p>
+    <p>您此次的參賽成績為 <%=@gameplayer["wongames"] %>勝, <%=@gameplayer["losegames"] %>負。 </p>
+    <p>如果您的此次比賽成績紀錄有誤，請儘速跟桌盟或主辦單位反應更正，以免影響正確的積分計算，謝謝配合。</p>
+    <p><%= link_to  @gamename+'成績查核網頁', uploadgame_url(@holdgame) %></p>
+    <table border=1 >
+      <caption> 此表為僅為查核時之預估積分變化,最終積分仍需以查核後公告為準!</caption>
+      <tr>
+        <th>序號</th>
+        <th>會員編號</th>
+        <th>姓名</th>
+        <th>賽前積分</th>
+        <th>前置調整積分</th>
+        <th>勝場數</th>
+        <th>敗場數</th>
+        <th>賽後積分</th>
+        <th>積分增減</th>
+        <th>建議積分</th>
+
+      </tr> 
+      <tbody>
+
+        <tr>
+          <td align=center><%= @gameplayer["serial"] %></td>
+          <td align=center><%= @gameplayer["id"] %></td>
+          <td align=center style="white-space: nowrap;">
+             <%= @gameplayer["name"] %>
+          </td>
+         
+          <td align=center><%= @gameplayer["original bscore"] %></td>
+          <% if @gameplayer["original bscore"]==@gameplayer["bgamescore"] %>
+            <td align=center>----</td>
+          <%else%>  
+            <td align=center><%= @gameplayer["bgamescore"] %></td>
+          <%end%>  
+          <td align=center><%= @gameplayer["wongames"] %></td>
+          <td align=center><%= @gameplayer["losegames"] %></td>
+          <td align=center><%= @gameplayer["agamescore"] %></td>
+          <td align=center><font color=red><%= @gameplayer["scorechanged"] %></font></td>
+          <% if @gameplayer["suggestscore"].to_i==0 %>
+            <td align=center>----</td>
+          <%else%>  
+            <td align=center><%= @gameplayer["suggestscore"] %></td>
+          <%end%>  
+        </tr>
+
+      </tbody>   
+    </table>
+
+    <table border=1 >
+      <tr>
+  	    <th align=center>比賽組別</th>
+        <th align=center>勝方姓名</th>
+        <th align=center>大比數</th>
+        <th align=center>敗方姓名</th>
+        <th align=center>小比數</th>
+       
+      </tr>
+      <%  @gamesrecords.each do |game| %>
+  
+      <tr>  
+   
+        <td align=left ><font color=blue><%= game["group"]%></td>
+        <% if game["Aplayer"]==@user.username %>
+            <td align=center bgcolor=yellow><font color=blue ><strong><%= game["Aplayer"] %></strong>
+          <%else%>
+            <td align=center><font color=blue><%= game["Aplayer"] %>
+        <%end%>  
+        <br>
+        <font color='red'>
+          <%= game["Aplayer bgamescore"] %> 
+          <%if game["Players_scorechanged"] %>
+            :(+<%= game["Players_scorechanged"].to_s %>) 
+          <%end%>
+        </font>
+        </td>
+        <td align=center><font color=blue><%= game["gameresult"] %></td>
+
+        <% if game["Bplayer"]==@user.username %>
+          <td align=center bgcolor=yellow><font color=blue><strong><%= game["Bplayer"] %></strong>
+        <%else%>
+       	  <td align=center><font color=blue><%= game["Bplayer"] %>
+        <%end%> 
+        <br> 
+        <font color='red'>
+          <%= game["Bplayer bgamescore"] %>
+          <%if game["Players_scorechanged"] %>
+            :(-<%= game["Players_scorechanged"].to_s %>) 
+          <%end%>
+        </font>
+        </td>
+        <td align=left><font color=blue><%= game["detailrecords"] %></td>
+      
+     
+   
+      </tr>
+    
+      <% end %>
+    </table> 
+    <p>桌球愛好者聯盟敬上  </p>
+  </body>
+</html>

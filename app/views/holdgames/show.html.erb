@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+  <p>
+    <b>比賽名稱:</b>
+    <%= @holdgame.gamename %>
+  </p>
+  <p>
+    <b>比賽類型:</b>
+    <%= @holdgame.gametype %>
+  </p>
+  <p>
+    <b>比賽日期：</b>
+    <% if @holdgame.gamedays==1 %>
+       <%= @holdgame.startdate %>
+    <%else%>
+       <%=@holdgame.startdate %>~<%=@holdgame.enddate %>
+    <%end%>   
+  </p>
+  <p>
+    <b>比賽場地：</b>
+    <%= @holdgame.courtname %>
+  </p>
+  <p>
+    <b>地址：</b>
+    <%= @holdgame.address %>
+  </p>
+  <p>
+    <b>主辦人：</b>
+    <%= @holdgame.contact_name %>
+  </p>
+  <p>
+    <b>連絡電話：</b>
+    <%= @holdgame.contact_phone %>
+  </p>
+  <p>
+    <b>連絡信箱：</b>
+    <%= @holdgame.contact_email %>
+  </p>
+  <p>
+    <b>相關網址：</b>
+    <%= @holdgame.url %>
+  </p>
+                
+  <p>
+    <b>賽事說明:</b>
+      <p style="white-space: pre-line ;width:auto; text-align:justify ">
+      <%= @holdgame.gamenote %>
+    </p>
+</p>
+
+
+
+
+<% if @holdgame.lttfgameflag %>
+  <%= link_to '重新輸入', edit_holdgame_path(@holdgame) %> |
+  <%= link_to '返回前頁', holdgames_path %>
+<% else%>
+  <%= link_to '重新輸入', edit_gamesmap_path(@holdgame) %> |
+  <%= link_to '返回桌球比賽地圖', gamesmaps_path %>
+<%end%> 

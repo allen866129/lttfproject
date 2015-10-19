@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+   
+      <%= stylesheet_link_tag    "application", media: "all" %>
+      <%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" %>
+
+      <%= csrf_meta_tag %>
+       <% if controller.controller_name=='gameholder' %>
+         <% if controller.action =='demos' %>
+          <%= display_meta_tags(default_holder_demo_meta_tags) %>
+         <%else %>
+            <%= display_meta_tags(default_holder_meta_tags) %>
+         <%end%>   
+       <% else %>
+          <%= display_meta_tags(default_meta_tags) %>
+       <%end%>                   
+     
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="shortcut icon" href="/images/lttficon.ico">
+      
+
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <!-- javascript & css from CDN-->
+      <%= yield :head %>
+    
+      <%= render :partial => "common/easy_menu" %>
+  </head>
+
+ 
+  <body>
+
+    <div id="wrap">
+
+      <div class="container">
+       
+        <div class="row">
+          <div class=" col-md-10 hidden-xs hidden-lg">
+            <div class="top-buffer"></div>
+          </div>
+          <div class="col-md-4">
+             <!-- devise notice -->
+            <%= render partial: "common/flash_messages", flash: flash %>
+          </div>
+          <div class="col-md-offset-10 col-md-2 hidden-xs">
+              <%= render partial: "common/side_bar"%>
+          </div>    
+                  
+          <div class="col-xs-12 col-md-10 col-lg-10">  
+            
+            <%= yield %>
+          
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9">
+         
+            </br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <%= render :partial => "common/bootstrap_modal" %>
+    <%= render :partial => "common/facebook_js" %>
+    <%= render :partial => "common/google_analytics" %>
+    <%= render :partial => "common/footer" %>
+    <%= javascript_include_tag "application" %>
+  </body>
+
+</html>

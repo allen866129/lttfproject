@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+   
+      <%= stylesheet_link_tag    "application", media: "all" %>
+
+      <%= csrf_meta_tag %>
+       
+      <%= display_meta_tags(default_home_meta_tags) %>                
+     
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="shortcut icon" href="/images/lttficon.ico">
+      
+
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <!-- javascript & css from CDN-->
+      <%= yield :head %>
+    
+      <%= render :partial => "common/easy_menu" %>
+  </head>
+
+ 
+  <body link="#C0C0C0" vlink="#808080" alink="#FF0000">
+
+
+            
+    <%= yield %>
+          
+ 
+
+
+    <%= render :partial => "common/bootstrap_modal" %>
+    <%= render :partial => "common/facebook_js" %>
+    <%= render :partial => "common/google_analytics" %>
+    <%= render :partial => "common/footer" %>
+    <%= javascript_include_tag "application" %>
+  </body>
+
+</html>

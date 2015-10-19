@@ -1,0 +1,170 @@
+
+
+<p align=center>
+  <%= link_to '返回前頁',  :back %>
+</p>
+<%= form_tag trycalculation_uploadgames_path, multipart: true do %>
+
+
+
+  <div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1 link=blue>
+      <caption class="text-center" ><strong><%= @uploadgame.gamename %></strong></caption>
+      <thead>
+        <tr>  
+        <th>序號</th>
+        <th>會員編號</th>
+        <th>會員姓名</th>
+        <th>賽前積分</th>
+        <th>前置調整積分</th>
+        <th>勝場數</th>
+        <th>敗場數</th>
+        <th>賽後積分</th>
+        <th>積分增減</th>
+        <th>主辦/系統建議積分</th>
+        </tr>
+      </thead> 
+      <tbody>
+        <!%  @adjustplayers.each do |player| %>
+        <%  @adjustplayers.zip(@autosuggest).each do |player,playersuggest| %>
+          <tr>
+            
+          <td> <%= player["serial"] %></font></td>
+          <td>  <%= player["id"] %></font></td>
+          <td style="white-space: nowrap;">
+             <%= link_to cal_show_player_games_uploadgames_path(@uploadgame,:player_name=>player["name"]) , :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+              <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= player["name"] %></font>
+          <% end %>
+          </td>
+   
+          <% if player["original bscore"]==0 && (!player["adjustscore"] || player["adjustscore"].to_i==0)  %>
+            <td class="zero" align="center"><%= player["original bscore"] %></td>
+            <td class="zero" align="right"> <%= number_field_tag  "adjustscores[]" , player["adjustscore"] %></td>
+          <%else%>
+            <td ><%= player["original bscore"] %></td>
+            <td> <%= number_field_tag  "adjustscores[]" , player["adjustscore"] %></td>
+
+          <%end%>  
+          <td><%= player["wongames"] %></td>
+          <td><%= player["losegames"] %></td>
+          <td><%= player["agamescore"] %></td>
+          <td> <%= player["scorechanged"] %></td>
+          <td> <%= player["suggestscore"] %>
+            <%if playersuggest['sys suggest score']%>
+              <font color=red><br>(<%=  playersuggest['sys suggest score'] %>)</font>
+            <%end%>
+          </td>
+           
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+        <td colspan=10>
+        <div class="text-center">
+          <%= submit_tag "積分試算" , :name => "save_option_a" %>
+       
+          <%= submit_tag "以試算結果更新積分" , :name => "save_option_b" ,  data: { confirm: '確定進行積分計算及更新積分檔案?' }, :disabled => @zeroscoreplayers!=[] %>
+        
+
+        </div>
+        </td> 
+        </tr> 
+      </tfoot>  
+    </table>
+   
+  </div>    
+  
+<% end %>     
+ 
+   
+    
+
+
+<div class="table-responsive datagrid">
+  <table class="datatable table-striped" border=1 link=blue>
+     <caption class="text-center" ><strong>比賽詳細紀錄</strong></caption>
+    <thead>
+      <tr>
+      <th align=center>比賽組別</th>
+      <th align=center>勝方姓名</th>
+      <th align=center>大比數</th>
+      <th align=center>敗方姓名</th>
+      <th align=center>小比數</th>
+      </tr>
+    </thead> 
+    <tboody>
+        <%  @gamesrecords.each do |game| %>
+          <tr>
+          <td align=left><font color=blue><%= game["group"] %></font></td>
+          <td align=center>
+            <%= link_to cal_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]),:remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+              <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
+            <% end %>
+                  
+            <br> 
+            <font color='red'>
+              <%= game["Aplayer bgamescore"] %>
+              <%if game["Players_scorechanged"] %>
+                :(+<%= game["Players_scorechanged"].to_s %>) </font>
+              <%end%>
+            </font>
+          </td>
+          <td align=center><font color=blue><%= game["gameresult"] %></font></td>
+          <td align=center>
+            <%= link_to cal_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Blayer"]),:remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+              <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
+            <% end %>
+                 
+            <br> 
+            <font color='red'>
+              <%= game["Bplayer bgamescore"] %>
+              <%if game["Players_scorechanged"] %>
+                :(-<%= game["Players_scorechanged"].to_s %>) 
+              <%end%>
+            </font>
+            
+          </td>
+          <td align=left><font color=blue><%= game["detailrecords"] %></font></td>
+          </tr>
+        <% end %>        
+    </tboody>  
+  </table> 
+</div>
+<!-- Modal -->  
+<div class="modal fade" id="player_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>                 
+      </div>
+    <div class="modal-body">
+      <div class="container">
+        <div class="row">   
+          <div id="modal_content">
+          </div>
+                
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+ 
+
+   
+    
+  
+
+
+
+
+

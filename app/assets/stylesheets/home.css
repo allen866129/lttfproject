@@ -1,0 +1,122 @@
+body {
+  font-size: 14px;
+}
+body, h1, h2, h3, h4, h5, h6 {
+  font-family: helvetica, arial, sans-serif;
+}
+
+.container {
+  max-width: 960px;
+ }
+.btn {
+  border-radius: 3em;
+}
+
+.feature-photo {
+  width: 100%;
+ 
+}
+.feature-text h3 {
+  margin: 0;
+  font-size: 2em;
+  font-weight: bold;
+  color:red;
+  font-family: "標楷體";
+}
+.feature-text h4 {
+  margin: 0;
+  font-size: 1.5em;
+  font-weight: bold;
+  color:red;
+  font-family: "標楷體";
+}
+.feature-text p {
+  line-height: 1.5em;
+  margin: 1em 0;
+  font-size: 1.25em;
+  color:midnightBlue;
+ font-weight: bold;
+  font-family:  "標楷體";
+}
+.spacer {
+  margin: 3em 0;
+}
+.jumbotron {
+  background: #f0f0f0;
+  background-image: url(../images/lttfgroup.jpg);
+  background-size: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  color: #333;
+  padding-top: 2em;
+  height: 500px;
+  text-align: left;
+  margin: 0;
+}
+.jumbotron h1 {
+  background: #0f0f0f;
+  display: inline-block;
+  font-size: 1.5em;
+  margin-bottom: 0;
+  padding: 0.5em;
+  text-transform: uppercase;
+}
+.jumbotron h2 {
+  background-color:transparent;
+  color: yellow;
+  display: inline-block;
+  font-size: 2.5em;
+  font-weight: bold;
+  padding: 0.75em 1.1em;
+  line-height: 1.4em;
+  max-width: 66%;
+  font-family: "標楷體";
+  background-position: center center;
+}
+footer {
+  background: #111;
+  color: #fff;
+  padding: 1.2em 0 0.6em;
+  margin-top: 3em;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .jumbotron {
+    height: 350px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .jumbotron {
+    height: 300px;
+    padding-top: 1em;
+  }
+  .feature-photo {
+    margin: 0.1em 0;
+  }
+  .jumbotron h2 {
+    max-width: 100%;
+  }
+  .navbar ul.nav li {
+    text-align: center;
+  }
+  .navbar ul.nav li button {
+    margin: 1em 0;
+  }
+  .media-benefit {
+    margin-bottom: 2em;
+  }
+}
+@media screen and (max-width: 480px) {
+  body {
+    font-size: 12px;
+  }
+  .jumbotron {
+    font-size: 12px;
+    height: 150px;
+    padding-top: 0.1em;
+  }
+  footer .pull-right {
+    display: none;
+  }
+}

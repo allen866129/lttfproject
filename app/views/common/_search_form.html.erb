@@ -1,0 +1,6 @@
+<%= form_tag search_playerprofiles_path, :class => "navbar-form navbar-left", :role => "search", :method => :get do %>
+  <div class="form-group">
+    <input type="text" id="keyword" name="keyword" class="form-control" value="<%= @query_string %>" placeholder="<%= @query_string ||   "姓名或編號皆可" %>">
+  </div>
+  <button type="submit" class="btn btn-success"><i class="fa fa-search"></i>會員查詢</button>
+<% end %>

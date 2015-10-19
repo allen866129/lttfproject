@@ -1,0 +1,177 @@
+ <p align=center><%= link_to '返回前頁',  :back %> </p>
+  
+<%if !@Playerlisterr %>
+
+  <%= form_tag savetoupload_uploadgames_path, multipart: true do %>
+   
+  <%= hidden_field_tag 'holdgame_id', @holdgame.id  %>
+
+  <div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1 link=blue>
+      <caption class="text-center" ><strong><%= @uploadgame.gamename %></strong></caption>
+      <thead>
+        <tr>
+        <th>序號</th>
+        <th>會員編號</th>
+        <th>會員姓名</th>
+        <th>賽前積分</th>
+        <th>勝場數</th>
+        <th>敗場數</th>
+        <th>賽後積分</th>
+        <th>積分增減</th>
+        <th>建議積分<br>系統建議積分</th>
+        </tr>
+      </thead>
+      <tbody>  
+        <%  @playerssummery.zip(@autosuggest).each do |player, playersuggest| %>
+  
+          <tr>  
+          <td> <%= player["serial"] %></td>
+          <td>  <%= player["id"] %></td>
+          <td style="white-space: nowrap;">
+             <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>player["name"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+             <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF">  <%= player["name"] %> </font>
+            <% end %>
+           
+          </td>
+   
+          <td><%= player["bgamescore"] %></td>
+          <td><%= player["wongames"] %></td>
+          <td><%= player["losegames"] %></td>
+          <td><%= player["agamescore"] %></td>
+          <td> <%= player["scorechanged"] %></td>
+          
+          <td> <%= number_field_tag  "suggestscore[]" , player["suggestscore"] %>
+          <%if playersuggest['sys suggest score']%>
+            <font color=red><br>(<%=  playersuggest['sys suggest score'] %>)</font>
+          <%end%>
+          </td>
+           
+          </tr>
+        <% end %>
+      </tbody>  
+      <tfoot>
+        <td colspan= 9>
+          <div class="text-center">
+            <%= submit_tag "上傳此賽事成績" %>
+          </div>  
+        </td>
+      </tfoot> 
+  
+    </table>  
+  </div>
+
+
+
+  <div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1 link=blue>
+       <caption class="text-center" ><strong>詳細比賽紀錄</strong></caption>
+      <thead>
+        <tr>
+        <th align=center>比賽組別</th>
+        <th align=center>勝方姓名</th>
+        <th align=center>大比數</th>
+        <th align=center>敗方姓名</th>
+        <th align=center>小比數</th>
+        </tr>
+      </thead>
+      <tbody>   
+         
+        <%  @gamesrecords.each do |game| %>
+          <tr>
+          <td align=left><font color=blue><%= game["group"] %></font></td>
+          <td align=center>
+            <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+                       <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
+            <% end %> 
+                             
+            <br> 
+            <font color='red'>
+              <%= game["Aplayer bgamescore"] %>
+              <%if game["Players_scorechanged"] %>
+                :(+<%= game["Players_scorechanged"].to_s %>) </font>
+              <%end%>
+            </font>
+          </td>
+          <td align=center><font color=blue><%= game["gameresult"] %></font></td>
+          <td align=center>
+            <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Bplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+                       <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
+            <% end %>
+                            
+            <br> 
+            <font color='red'>
+              <%= game["Bplayer bgamescore"] %>
+              <%if game["Players_scorechanged"] %>
+                :(-<%= game["Players_scorechanged"].to_s %>) 
+              <%end%>
+            </font>
+            
+          </td>
+          <td align=left><font color=blue><%= game["detailrecords"] %></font></td>
+          </tr>
+        <% end %>
+          
+      </tbody>
+         
+    </table>  
+  </div>
+  <% end %>
+  <p align=center><%= link_to '返回前頁',  :back %> </p>   
+<%else%>
+<div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1 link=blue>
+      <caption class="text-center" ><strong><font color='red'>查無註冊資料球友列表，請再檢查名字是否輸錯?</font></strong></caption>
+      <thead>
+        <tr>
+        <th>序號</th>
+        <th>姓名</th>
+        </tr>
+      </thead>
+      <tbody>  
+        <%  @Erroplayerlist.each do |player| %>
+  
+          <tr>  
+          <td> <%= player["serial"] %></td>
+          <td>  <%= player["name"] %></td>
+      
+          </tr>
+        <% end %>
+      </tbody>  
+       
+    </table> 
+
+  </div>
+    <p align=center> 
+      <%= link_to "重新輸入成績",  @holdgame.inputfileurl ,:target=> '_blank' , :class=> "button radius" %>
+      <%= link_to '返回前頁',  :back, :class=> "button radius" %> 
+    </p>
+<%end%>    
+<!-- Modal -->  
+<div class="modal fade" id="player_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>                 
+      </div>
+    <div class="modal-body">
+      <div class="container">
+        <div class="row">   
+          <div id="modal_content">
+          </div>
+                
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+
+
+ 

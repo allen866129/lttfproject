@@ -1,0 +1,89 @@
+<form class="form-inline">
+<%= form_tag teamplayersadd_holdgame_gamegroups_path, multipart: true do %>
+<%= hidden_field_tag 'groupattendantid', @groupattendant_id  %>
+  <p align =center>  
+    <%= text_field_tag   "teamname", @teamname,:placeholder=>"請輸入隊名", :size=>"50" %>
+    
+    <input type="text" id="keyword" name="keyword" class="form-control" value="<%= @query_string %>" placeholder="<%= @query_string ||   "參賽球友姓名或編號皆可" %>">
+   
+    <%= submit_tag "輸入" ,:name=>"getplayerfromuser"  %> 
+      
+  </p> 
+
+<br>
+<div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1 link=blue>
+      <caption class="text-center" ><strong>隊員清單</strong></caption> 
+      <thead>
+        <tr>
+        <th>報名序號</th>
+        <th>會員編號</th>
+        <th>會員姓名</th>
+        <th>目前積分</th>
+        </tr>
+      </thead>  
+      <tbody>
+                                  
+            
+          <tr>
+                          
+               <% @playerlist.each_with_index do |player,playerindex| %> 
+             
+                <td><%= playerindex+1 %></td>
+             
+                <td> <%= number_field_tag  "playerid[]", player.id  %></td>
+                <td> <%= text_field_tag   "playername[]", player.username  %></td>
+                <td> <%= text_field_tag   "playercurscore[]", player.playerprofile.curscore %></td>
+                
+                </tr>
+    
+              <% end %>
+      
+       
+      </tbody>    
+      <tfoot>
+     </tfoot>  
+    </table>  
+  </div>
+
+
+
+<table width="100">
+<tr>
+  
+                            
+
+<td>
+ 
+  <%= submit_tag '確認輸入參賽名單', :name => "registration" , data: { confirm:'確認輸入參賽名單?' }  %>
+</td>
+<td>     
+  <%= submit_tag '放棄輸入參賽名單', :name => "quit", data: { confirm:'確認放棄輸入?' }  %>
+
+</td>    
+                      
+</tr>
+</table>
+<%end%>   
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

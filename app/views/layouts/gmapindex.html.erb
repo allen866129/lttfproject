@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  
+      <%= stylesheet_link_tag    "application", media: "all" %>
+
+      <%= csrf_meta_tag %>
+               
+      <%= display_meta_tags(default_ttourts_meta_tags) %> 
+       <link rel="canonical" href= 'http://twlttf.org/lttfproject/ttcourts' />             
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="shortcut icon" href="/images/lttficon.ico">
+  
+  
+      <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+      <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+      <!-- javascript & css from CDN-->
+      <%= yield :head %>
+    
+      <%= render :partial => "common/easy_menu" %>
+  </head>
+
+ 
+  <body>
+
+    <div id="wrap">
+
+      <div class="container">
+        
+        <div class="row">
+          <div class=" col-md-10 hidden-xs hidden-lg">
+            <div class="top-buffer"></div>
+          </div>
+          <div class="col-md-4">
+           <!-- devise notice -->
+            <%= render partial: "common/flash_messages", flash: flash %>
+          </div>
+         
+          <div class="col-md-offset-10 col-md-2 hidden-xs">
+              <%= render partial: "common/side_bar"%>
+          </div>    
+                  
+
+           <div class="col-xs-12 col-md-10 col-lg-10"> 
+            <%= yield %>
+          
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9">
+         
+            </br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%= render :partial => "common/bootstrap_modal" %>
+    <%= render :partial => "common/facebook_js" %>
+    <%= render :partial => "common/google_analytics" %>
+    <%= render :partial => "common/footer" %>
+    <%= javascript_include_tag "application" %>
+
+  </body>
+<script type="text/javascript">
+function createSidebarLi(json){
+  return ("<li><a>" + json.name + "</a></li>");
+};
+function createCollpasingSidebarLi(cur_court,json){
+  
+ return ("<li><font color=\'red\'>" + json.name +"</font><ul><li>"+ 
+           "所在地址:"+cur_court['address']+"</li><li>"+
+           "開放時間:"+cur_court['opentime']+"</li><li>"+
+           "場地設施:"+cur_court['facilities']+"</li><li>"+
+           "收費標準:"+cur_court['playfee']+"</li>"+
+       "</ul></li>");
+};
+function bindLiToMarker($li, marker){
+  $li.on('click', function(){
+    handler.getMap().setZoom(16);
+    marker.setMap(handler.getMap()); //because clusterer removes map property from marker
+    marker.panTo();
+    google.maps.event.trigger(marker.getServiceObject(), 'click');
+  })
+};
+
+function createCollpasingSidebar(courts_array,json_array,index){
+ 
+  _.each(json_array, function(json){
+    var cur_court=_.findWhere(courts_array, {id: json.id});
+    var $li = $( createCollpasingSidebarLi(cur_court,json) );
+    var ul='city'+index;
+    $("#city"+index).append($li);
+    bindLiToMarker($li, json.marker);
+   
+  });
+ 
+};
+function createSidebar(json_array){
+  _.each(json_array, function(json){
+    var $li = $( createSidebarLi(json) );
+    $li.appendTo('#sidebar_container');
+    bindLiToMarker($li, json.marker);
+
+  });
+};
+
+  handler = Gmaps.build('Google');
+  handler.buildMap({ provider: {auto_adjust:false}, internal: {id: 'map'}}, function(){
+  var json_array= <%=raw @hash.to_json %>;
+  var cities_arr= <%= raw @citiesarray %>
+  var courts_array =<%= raw @ttcourts_hash.to_json %>      
+  markers = handler.addMarkers(json_array);
+  handler.bounds.extendWith(markers);
+
+  _.each(json_array, function(json, index){
+  json.marker = markers[index];
+    
+  });
+  
+  handler.fitMapToBounds();
+  handler.getMap().setZoom(7);
+  handler.map.centerOn({ lat: 24, lng: 120.5 }); 
+  var gamecount=0
+  _.each(cities_arr, function(city, index){
+    var city_courts=_.where(json_array, {city: city});
+    if(city_courts.length>0)
+    {  
+      $('.collapsibleList').append("<li><strong><font color=\'blue\'>"+city+"("+city_courts.length+")"+"</font></strong><ul id=city"+ (gamecount+1)+">");
+      createCollpasingSidebar(courts_array,city_courts,(gamecount+1));
+      gamecount++;
+    } 
+  });
+    
+    CollapsibleLists.applyTo(document.getElementById('ttcourtslist'));
+
+
+    });
+
+
+</script>
+</html>

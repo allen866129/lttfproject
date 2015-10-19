@@ -1,0 +1,14 @@
+.collapsibleList li{
+  list-style-image:default;
+    cursor:auto;
+}
+
+li.collapsibleListOpen{
+  list-style-image:url('/images/oclose.png');
+  cursor:pointer;
+}
+
+li.collapsibleListClosed{
+  list-style-image:url('/images/oopen.png');
+  cursor:pointer;
+}

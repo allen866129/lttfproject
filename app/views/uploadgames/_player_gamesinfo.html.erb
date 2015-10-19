@@ -1,0 +1,114 @@
+  
+  <div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1 link=blue>
+      <caption class="text-center" >
+        <strong>
+          <%= @targetplayername %>-<%= @uploadgame.gamename %> 
+        </strong>
+      </caption> 
+      <thead>
+        <tr>
+        <th>序號</th>
+        <th>會員編號</th>
+        <th>姓名</th>
+        <th>賽前積分</th>
+        <th>前置調整積分</th>
+        <th>勝場數</th>
+        <th>敗場數</th>
+        <th>賽後積分</th>
+        <th>積分增減</th>
+        <th>建議積分</th>
+        </tr>
+      </thead>  
+      <tbody>
+        <%  @playerssummery.each do |player| %> 
+          <tr>
+          <td><%= player["serial"] %></td>
+          <td><%= player["id"] %></td>
+          <td style="white-space: nowrap;">
+             <%= player["name"] %>
+          </td>
+         
+          <td><%= player["original bscore"] %></td>
+          <% if player["original bscore"]==player["bgamescore"] %>
+            <td>----</td>
+          <%else%>  
+            <td><%= player["bgamescore"] %></td>
+          <%end%>  
+          <td><%= player["wongames"] %></td>
+          <td><%= player["losegames"] %></td>
+          <td><%= player["agamescore"] %></td>
+          <td><%= player["scorechanged"] %></td>
+          <% if player["suggestscore"].to_i==0 %>
+            <td>----</td>
+          <%else%>  
+            <td><%= player["suggestscore"] %></td>
+          <%end%>  
+          </tr>
+        <% end %>
+      </tbody>    
+      <tfoot>
+       
+      </tfoot> 
+    </table>  
+  </div>
+
+  <div class="table-responsive datagrid">
+    <table class="datatable " border=2 link=blue>
+      <caption class="text-center" ><strong><%= @targetplayername %>-詳細比賽紀錄表</strong></caption> 
+      <thead>
+        <tr> 
+        <th>比賽組別</th>
+        <th>勝方姓名</th>
+        <th>大比數</th>
+        <th>敗方姓名</th>
+        <th>小比數</th>
+        </tr>
+      </thead>
+      <tbody>  
+        <%  @gamesrecords.each do |game| %>
+          <tr>
+          <td align=left><font color=blue><%= game["group"] %></font></td>
+            <% if game["Aplayer"]==@targetplayername %>
+              <td align=center bgcolor=yellow  style="white-space: nowrap;">
+                <%= game["Aplayer"] %> 
+   
+            <%else%>
+              <td align=center  style="white-space: nowrap;">
+                <%= game["Aplayer"] %> 
+            <%end%>       
+            <br>
+            <font color='red'>
+              <%= game["Aplayer bgamescore"] %> 
+              <%if game["Players_scorechanged"] %>
+                :(+<%= game["Players_scorechanged"].to_s %>) 
+              <%end%>
+            </font>
+            </td>
+            
+
+          <td align=center><font color=blue><%= game["gameresult"] %></font></td>
+            <% if game["Bplayer"]==@targetplayername %>
+              <td align=center bgcolor=yellow  style="white-space: nowrap;">
+                <%= game["Bplayer"] %> 
+            <%else%>
+              <td align=center  style="white-space: nowrap;">
+                <%= game["Bplayer"] %> 
+            <%end%> 
+
+            <br> 
+            <font color='red'>
+              <%= game["Bplayer bgamescore"] %>
+              <%if game["Players_scorechanged"] %>
+                  :(-<%= game["Players_scorechanged"].to_s %>) 
+              <%end%>
+            </font>
+          </td>
+
+          <td align=left><font color=blue><%= game["detailrecords"] %></font></td>
+          </tr>
+        <% end %>
+      </tbody> 
+    </table>
+  </div>
+        

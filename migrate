@@ -1,0 +1,2 @@
+==  ChangePlayreridToPlayerid: migrating ======================================
+-- rename_column(:blacklist, :playrer_id, :player_id)

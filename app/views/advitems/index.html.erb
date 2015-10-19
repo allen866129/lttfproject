@@ -1,0 +1,29 @@
+<%= link_to '新增廣告項目', new_advitem_path %>
+<div class="table-responsive datagrid">
+  <table class="table-striped table-condensed" border=1 >
+    <caption class="text-center" ><strong>廣告列表</strong></caption>
+    <%  @advitems.each do |advitem|  %>
+    <tr>
+    <td rowspan=6 ><%= image_tag(advitem.adv_photo.url) %><br><br>
+      <%= link_to '修改', edit_advitem_path(advitem) %>
+      <%= link_to '刪除', advitem, method: :delete, data: { confirm: '確定要刪除此筆資料?' } %>
+    </td>
+
+    <td>業主姓名:</td>
+    <td><%= advitem.provider_name %></td>
+    <tr>
+    <td> 業主電話:</td>    
+    <td><%= advitem.provider_tel %></td>
+    <tr>
+    <td>廣告連結網址:</td>
+    <td><%= h auto_link(simple_format(advitem.adv_link)) %></td>
+    <tr>
+    <td>登錄者:</td>
+    <td> <%= advitem.creator.username %></td>
+    <tr>
+    <td> 廣告有效日期:</td>
+    <td><%= advitem.end_date  %></td>
+    <tr>
+    <% end %>
+  </table>
+</div>    

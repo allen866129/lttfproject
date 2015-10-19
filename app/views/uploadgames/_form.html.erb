@@ -1,0 +1,45 @@
+<%= form_for(@uploadgame) do |f| %>
+  <% if @uploadgame.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@uploadgame.errors.count, "error") %> prohibited this uploadgame from being saved:</h2>
+
+      <ul>
+      <% @uploadgame.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :gamename %><br />
+    <%= f.text_field :gamename %>
+  </div>
+  <div class="field">
+    <%= f.label :gamedate %><br />
+    <%= f.date_select :gamedate %>
+  </div>
+  <div class="field">
+    <%= f.label :players_result %><br />
+    <%= f.text_area :players_result %>
+  </div>
+  <div class="field">
+    <%= f.label :uploader %><br />
+    <%= f.text_field :uploader %>
+  </div>
+  <div class="field">
+    <%= f.label :detailgameinfo %><br />
+    <%= f.text_area :detailgameinfo %>
+  </div>
+  <div class="field">
+    <%= f.label :originalfileurl %><br />
+    <%= f.text_field :originalfileurl %>
+  </div>
+  <div class="field">
+    <%= f.label :publishedforchecking %><br />
+    <%= f.check_box :publishedforchecking %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
