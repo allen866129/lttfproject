@@ -1,9 +1,12 @@
+<%=form_tag blacklists_path ,multipart:true , :method => :get do %>
+  主辦人：<%= select_tag 'gameholder' , options_for_select(@gameholder_lists, @current_gameholder_id) %> 
+  <%= submit_tag   "篩選" ,:name=>"gameholderfilter"  %>
+<%end%>
+<%=form_tag blacklistsearch_blacklists_path ,multipart:true , :method => :post do %>
+    <%= text_field_tag :keyword, params[:keyword] , :placeholder=>'本人欲新增之黑名單資料搜尋(編號或姓名)'%>
+    <%= submit_tag   "名單搜尋" ,:name=>"blacklist_add"  %><br>
+<%end%>
 
-   <%=form_tag blacklists_path ,multipart: 
-   true , :method => :get do %>
-    <%= select_tag 'gameholder' , options_for_select(@gameholder_lists, @current_gameholder_id) %> 
-    <%= submit_tag   "篩選" ,:name=>"gameholderfilter"  %>
-  <%end%>
 <% table_title = (@current_gameholder_id==0) ? "全部主辦人之黑名單列表" : "（主辦人：" +@current_gameholder_name+"）之黑名單列表" %>
 
 
@@ -30,7 +33,7 @@
             <td><%= i+1 %></td>
             <td><%= blacklist.playerprofile_id %></td>
             <td style="white-space: nowrap;">
-              <%= link_to (playerprofile_path(blacklist.playerprofile_id)) do %>
+              <%= link_to blacklistsearch_blacklists_path(:keyword=>blacklist.playerprofile_id)  , :method=> :post do %>
                 <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= blacklist.player_name %></font>
               <% end %>
             </td>

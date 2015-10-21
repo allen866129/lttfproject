@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   validate :username_without_
   validate :fbaccount_without_email
   validates_format_of :email,:with => Devise.email_regexp
+  scope :find_by_name, ->(playername) { where username: playername }
+  scope :find_by_id,->(id){where id: id}
   rolify
 
     
@@ -90,16 +92,34 @@ end
   order_by << "end"
   order(order_by.join(" "))
 end
-  def find_reg_unplay_games
-      attendants=Attendant.where(:player_id=>self.id)
-      attendants=Attendant.where(:player_id=>self.id).find_all{|v| ( v.groupattendant.gamegroup.holdgame) && (v.groupattendant.gamegroup.holdgame.startdate>= Time.zone.now.to_date) }
-      return [] if attendants.empty?
-      @games=Array.new
-      attendants.each do |attendant|
-        @games.push(attendant.groupattendant.gamegroup.holdgame)
-      end
-      return @games.sort_by { |hsh| hsh[:startdate] }.uniq
-  end  
+def find_reg_unplay_games
+  attendants=Attendant.where(:player_id=>self.id)
+  attendants=Attendant.where(:player_id=>self.id).find_all{|v| ( v.groupattendant.gamegroup.holdgame) && (v.groupattendant.gamegroup.holdgame.startdate>= Time.zone.now.to_date) }
+  return [] if attendants.empty?
+    @games=Array.new
+    attendants.each do |attendant|
+      @games.push(attendant.groupattendant.gamegroup.holdgame)
+    end
+    return @games.sort_by { |hsh| hsh[:startdate] }.uniq
+end 
+def set_future_games_showdata
+  @futuregames=self.find_reg_unplay_games
+
+  @showgames=Array.new
+   
+  @futuregames.each do |futuregame|
+      group_type=futuregame.find_player_ingroups_type(self.id)
+
+      if !group_type.empty?
+        gamegroups=Hash.new
+        gamegroups['groups_type']=group_type
+        gamegroups['holdgame']=futuregame
+        @showgames.push(gamegroups)
+
+      end  
+  end     
+  @showgames
+end 
  private
     def username_without_
      

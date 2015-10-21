@@ -1,9 +1,17 @@
-                             toggleblacklist_blacklists POST     /blacklists/toggleblacklist(.:format)                                            blacklists#toggleblacklist
                                              blacklists GET      /blacklists(.:format)                                                            blacklists#index
                                                         POST     /blacklists(.:format)                                                            blacklists#create
                                           new_blacklist GET      /blacklists/new(.:format)                                                        blacklists#new
                                          edit_blacklist GET      /blacklists/:id/edit(.:format)                                                   blacklists#edit
                                               blacklist GET      /blacklists/:id(.:format)                                                        blacklists#show
+                                                        PUT      /blacklists/:id(.:format)                                                        blacklists#update
+                                                        DELETE   /blacklists/:id(.:format)                                                        blacklists#destroy
+                             toggleblacklist_blacklists POST     /blacklists/toggleblacklist(.:format)                                            blacklists#toggleblacklist
+                             blacklistsearch_blacklists POST     /blacklists/blacklistsearch(.:format)                                            blacklists#blacklistsearch
+                                                        GET      /blacklists(.:format)                                                            blacklists#index
+                                                        POST     /blacklists(.:format)                                                            blacklists#create
+                                                        GET      /blacklists/new(.:format)                                                        blacklists#new
+                                                        GET      /blacklists/:id/edit(.:format)                                                   blacklists#edit
+                                                        GET      /blacklists/:id(.:format)                                                        blacklists#show
                                                         PUT      /blacklists/:id(.:format)                                                        blacklists#update
                                                         DELETE   /blacklists/:id(.:format)                                                        blacklists#destroy
                                                advitems GET      /advitems(.:format)                                                              advitems#index

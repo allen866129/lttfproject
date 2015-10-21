@@ -4,25 +4,75 @@ class BlacklistsController < ApplicationController
   # GET /blacklists
   # GET /blacklists.json
   def index
-    if !params[:gameholder] || params[:gameholder].to_i==0
+
+    if !params[:gameholder]
+      @viewgameholder_user=User.find(current_user.id)
+      @blacklists= @viewgameholder_user.gameholder.blacklists.order('playerprofile_id').page(params[:page]).per(50)
+      @current_gameholder_id=@viewgameholder_user.id
+      @current_gameholder_name=  @viewgameholder_user.username      
+    elsif params[:gameholder].to_i==0
       @blacklists = Blacklist.order('gameholder_id').order('playerprofile_id').page(params[:page]).per(50)
       @current_gameholder_name=""
+      @current_gameholder_id=0
      # @current_gameholder=0
     else
       @viewgameholder_user=User.find(params[:gameholder].to_i)
       @blacklists= @viewgameholder_user.gameholder.blacklists.order('playerprofile_id').page(params[:page]).per(50)
       @current_gameholder_name=  @viewgameholder_user.username 
-
+      @current_gameholder_id=@viewgameholder_user.id
       #@current_gameholder=params[:gameholder].to_i
     end
-    @current_gameholder_id= params[:gameholder] ? params[:gameholder].to_i : 0
+
+
     @membercount=@blacklists.size
     @gameholders=Gameholder.all
     @gameholder_lists=@gameholders.collect{|g| [g.user.username, g.user.id]}
     @gameholder_lists.unshift(['全部主辦人',0])   
   
   end
+ def blacklistsearch
 
+    reg = /^\d+$/
+    if params[:keyword]
+      if ! reg.match(params[:keyword].strip)
+            user= User.find_by_name(params[:keyword].strip).first
+
+      else
+            user=User.find_by_id(params[:keyword].to_i).first
+          
+      end 
+      @playerprofile= user.playerprofile if user
+      if @playerprofile
+        @viewer_gameholder_flag=false
+        if (current_user) && (current_user.has_role? :gameholder)
+          @viewer_gameholder_flag=true
+
+        if current_user.gameholder.blacklists.find{|p| p.playerprofile_id==user.id}
+          @already_in_user_blacklists=true
+        else
+          @already_in_user_blacklists=false
+        end  
+       
+      end        
+        @showgames=@playerprofile.user.set_future_games_showdata  
+
+        opts   = { :width => 700, :height => 400, :title =>  '積分走勢圖', :legend => 'bottom' }
+        @chart = GoogleVisualr::Interactive::LineChart.new(@playerprofile.get_score_data_table, opts)
+    #binding.pry
+    #@chart=@playerprofile.get_score_data_table
+
+        @GameTable=@playerprofile.get_played_games_table(params[:page])
+  
+        render "playerprofiles/show" and return
+      
+      end
+      
+        
+    end  
+     redirect_to( blacklists_path, :gamholder=>current_user.id, :notice => "找不到該球員資料請重新輸入！") and return
+#                      ^^^^^ This calls the index method
+
+  end 
  
   # GET /blacklists/1
   # GET /blacklists/1.json
@@ -110,6 +160,6 @@ class BlacklistsController < ApplicationController
       @blacklist.note=params[:note]
       @blacklist.save
     end
-    redirect_to playerprofile_path(@id) 
+    redirect_to blacklists_path 
   end   
 end

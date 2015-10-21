@@ -68,8 +68,9 @@
          <td colspan=3 ><strong><%= @playerprofile.user.email %></strong></td>
          <td colspan=2 ><strong><%= @playerprofile.user.phone %></strong></td>  
     <%end%>
-
-    <% if current_user &&  (@playerprofile.user_id!=current_user.id) && (current_user.has_role?(:gameholder))  %>        
+    
+    <% if   controller_name == "blacklists" && action_name=="blacklistsearch" && current_user &&  (@playerprofile.user_id!=current_user.id) && (current_user.has_role?(:gameholder))  %>  
+    
     <% title_for = @already_in_user_blacklists  ? "從黑名單移除" : "列入黑名單" %>
       <tr> 
         <td colspan=5> 
@@ -88,7 +89,7 @@
     <%end%>  
       
     <tr> 
-    <td colspan=5>  
+    <td colspan=5>
       <div id='chart' align="left"></div>
         <%= render_chart @chart, 'chart' %>
     </td>

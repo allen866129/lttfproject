@@ -57,82 +57,22 @@ class PlayerprofilesController < ApplicationController
           @already_in_user_blacklists=false
       end  
        
-    end     
-    @futuregames=@playerprofile.user.find_reg_unplay_games
+    end
+    @showgames=@playerprofile.user.set_future_games_showdata  
 
-    @showgames=Array.new
-   
-    @futuregames.each do |futuregame|
-      group_type=futuregame.find_player_ingroups_type(@playerprofile.user.id)
-
-      if !group_type.empty?
-        gamegroups=Hash.new
-        gamegroups['groups_type']=group_type
-        gamegroups['holdgame']=futuregame
-        @showgames.push(gamegroups)
-
-      end  
-    end  
-
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('date', '日期')
-    data_table.new_column('number', '積分走勢')
-    if  @playerprofile.gamehistory
-      @scorechangearray = @playerprofile.gamehistory.split(/\n/)
-    
-      data_table.add_rows(@scorechangearray.count)
-      (1..@scorechangearray.count).each do |i|
-        @record =@scorechangearray.shift
-        @gamedate= @record.split("(").first
-        @gamescore= @record.split("(").last.split(")").first
-    # @rest= @scorechangearray[i].split('(').last
-    # @gamescore =@rest.split(')').first
-        data_table.set_cell(i-1, 0, @gamedate.to_date)
-        data_table.set_cell(i-1, 1, @gamescore.to_i)
-    
-        end
-    else
-      data_table.add_rows(1)
-      data_table.set_cell(0, 0, @playerprofile.created_at.to_date)
-      data_table.set_cell(0, 1, @playerprofile.initscore)
-
-    end 
     opts   = { :width => 700, :height => 400, :title =>  '積分走勢圖', :legend => 'bottom' }
-    @chart = GoogleVisualr::Interactive::LineChart.new(data_table, opts)
+    @chart = GoogleVisualr::Interactive::LineChart.new(@playerprofile.get_score_data_table, opts)
+    #binding.pry
+    #@chart=@playerprofile.get_score_data_table
 
-
-    @gamekeytofind="_"+@playerprofile.user_id.to_s+"_"+@playerprofile.name+"_"
-    @Gamelist=Game.where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
-    @GameTable=Array.new()
-
-      #@GameTable=mda(6,@Gamelist.length)
-     
-      @Gamelist.each do |gamearray|
-        @tempGameTable=Array.new() 
-        @tempGameTable.push(gamearray.gamename)
-        @currentgamesummery=gamearray.players_result.split(/\n/)
-        @playertofind="_"+@playerprofile.user_id.to_s+"_"
-        #@destionsummery=@currentgamesummery.select { |v| v =~ /^#{ @gamekeytofind}/ }
-        @destionsummery=@currentgamesummery.select { |v| v =~ /^#{ @playertofind}/ }
-        @playergameinfo= @destionsummery[0].split("_")
-        (3..7).each do |i|
-          @tempGameTable.push(@playergameinfo[i])
-        end
-        @tempGameTable.push(gamearray.id)
-        @tempGameTable.push(@playerprofile.user_id)
-        @GameTable.push(@tempGameTable)
-    
-      end
-     
-      if @GameTable.present?
-        unless @GameTable.kind_of?(Array)
-          @GameTable = @GameTable.page(params[:page]).per(20)
-        else
-          @GameTable = Kaminari.paginate_array(@GameTable).page(params[:page]).per(20)
-        end
-      end 
-
-
+    @GameTable=@playerprofile.get_played_games_table(params[:page])
+    #if @GameTable.present?
+    #  unless @GameTable.kind_of?(Array)
+    #   @GameTable = @GameTable.page(params[:page]).per(20)
+    #  else
+    #   @GameTable = Kaminari.paginate_array(@GameTable).page(params[:page]).per(20)
+    #  end
+    #end 
 
     respond_to do |format|
       format.html # show.html.erb

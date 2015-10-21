@@ -9,6 +9,7 @@ Lttfproject::Application.routes.draw do
   resources :blacklists do 
     collection do
        post :toggleblacklist
+       post :blacklistsearch
     end
   end    
 
