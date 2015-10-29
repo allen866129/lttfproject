@@ -189,12 +189,11 @@ def copy_players_list
      :approval_prompt=>'force',
      :signing_key => key)
      client.authorization.fetch_access_token!
- 
     connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
     #@newgame=Uploadgame.new
     spreadsheet = connection.spreadsheet_by_url(holdgame.inputfileurl)
     playerlistws=spreadsheet.worksheets[0]
-
+  
     players_count=playerlistws.num_rows
     keepplayerlist=Array.new
     (1..players_count).each do |row|
@@ -220,7 +219,6 @@ def copy_players_list
       end
     end
     playerlistws.save
-
     redirect_to holdgame.inputfileurl
   
 end
