@@ -8,9 +8,9 @@ def default_meta_tags
     :og =>
     {
       :title       => '桌球愛好者聯盟積分賽系統',
-      :description => '一個非以營利為目的之台灣地區桌球愛好者積分系統',
-      :image => 'http://twlttf.org/lttfgroupphoto.jpg',
-      :url => 'http://twlttf.org/'
+      :description => '一個非以營利為目的之桌球愛好者積分系統',
+      :image => 'http://www.twlttf.org/LTTF_logo.jpg',
+      :url => 'http://www.twlttf.org/'
     }
 
  }

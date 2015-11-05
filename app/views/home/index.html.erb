@@ -1,76 +1,148 @@
 
 
-    <div class="hidden-lg">
-      <!div class="top-buffer"><!/div>
-      <br><br>
-    </div>
-    <div class="jumbotron">
-      <div class="container" >
 
-        <h2 class="hidden-xs hidden-md hidden-sm hidden-phone hidden-tablet visible-desktop" ><img src="images/lttftitle.jpg" height='80' >快樂打球、健康運動、以球會友</h2>
+<!-- Carousel
+================================================== -->
+<div id="myCarousel" class="carousel slide">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1" ></li>
+    <li data-target="#myCarousel" data-slide-to="2" ></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="images/2015.jpg"  style="width:100%;height:100%" class="img-responsive">
+      <div class="container">
+        <div class="carousel-caption">
           
-        <!h2 class="hidden-phone hidden-xs visible-tablet" align ="center"><!/h2>
          
-      </div> <!-- /.container -->
-    </div> <!-- /.jumbotron -->
-   
+        </p>
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <img src="images/2014.jpg" style="width:100%;height:100%" class="img-responsive">
+      <div class="container">
+        <div class="carousel-caption">
+     
+        </div>
+      </div>
+    </div>
+    <div class="item">
+      <img src="images/2013.jpg" style="width:100%;height:100%" class="img-responsive">
+      <div class="container">
+        <div class="carousel-caption">
+     
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="icon-prev"></span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="icon-next"></span>
+  </a>  
+</div>
+<!-- /.carousel -->
 
-   
-    <div class="container">
 
-      <div class="row">
-         <div class="col-md-12 col-sm-12 visible-xs visible-phone visible-md visible-tablet hidden-desktop hidden-lg feature-text">
-          <img src="images/lttftitle.jpg"  height="150" width="100%"><br>
-           <h4 align ="center" >快樂打球、健康運動、以球會友<h4>
-          <div class="spacer"></div>
-         </div> 
-        <div class="col-md-4 col-sm-6 feature-text">
-          <h3>桌球愛好者聯盟積分賽</h3>
-          <p>
-            使用桌盟自行開發的桌球積分賽系統，用來提供桌盟會員衡量自身球技是否進步的一項工具。
-            但是期望大家不要把輸贏及積分高低起伏看的太重，秉持快樂打球的意念，平常心來看待即可。
-          </p>
-          <p>
-            想要參與桌盟積分賽及各項桌盟球聚比賽等活動，請先註冊成為桌盟會員才可參加。桌盟積分賽系統是完全免費
+<!-- Marketing messaging and featurettes
+================================================== -->
+<!-- Wrap the rest of the page in another container to center all the content. -->
+
+<div class="container marketing">
+
+  <!-- Three columns of text below the carousel -->
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <img class="img-circle" src="images/gamesphoto.jpg">
+      <h2><font color='blue'>桌盟積分賽專區</font></h2>
+      <p>查詢及報名近期桌盟各項賽事</p>
+      <p><a> <%= link_to "賽事查詢",lttfgamesindex_gamesmaps_path,:class=> "button radius"%></a></p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img class="img-circle" src="images/ttcourts.jpg">
+      <h2><font color='blue'>台灣打桌球地圖</font></h2>
+      <p>全台灣各地桌球場地相關資料</p>
+      <p><a> <%= link_to "查看地圖",ttcourts_path,:class=> "button radius"%></a></p>
+    </div>
+    <div class="col-md-4 text-center">
+      <img class="img-circle" src="images/LTTF_logo140x140.jpg">
+      <h2><font color='blue'>桌球愛好者聯盟</font></h2>
+      <p>超過萬名台灣桌球愛好者的FB交流園地</p>
+       <p><a> <%= link_to "前往桌盟","https://www.facebook.com/groups/LTTF.TW/",:class=> "button radius"%></a></p>
+    </div>
+  </div><!-- /.row -->
+
+
+  <!-- START THE FEATURETTES -->
+
+  <hr class="featurette-divider">
+
+  <div class="featurette">
+    <img class="featurette-image img-circle pull-right" src="images/lttfscore_photo.jpg">
+    <h2 class="featurette-heading"><font color='red'>桌球愛好者聯盟積分賽</font><br></h2>
+    <h3><span class="text-muted"><font color='blue'>快樂打球、健康運動、以球會友</font></span></h3>
+    <p class="lead">
+      使用桌盟自行開發的桌球積分賽系統，用來提供桌盟會員衡量自身球技是否進步的一項工具。
+      但是期望大家不要把輸贏及積分高低起伏看的太重，秉持快樂打球的意念，平常心來看待即可。
+    </p>
+    <p class="lead">
+      想要參與桌盟積分賽及各項桌盟球聚比賽等活動，請先註冊成為桌盟會員才可參加。桌盟積分賽系統是完全免費
             的系統，除了歡迎大家註冊之外，更歡迎加入主辦人行列，主動使用桌盟積分系統來主辦比賽計算積分，桌盟完全不收任何費用，
-            目前使用新40+塑料球的比賽允許最高收費120元,有冷氣及使用新球的比賽最高收費150元。
-          </p>
-           <p>
-             <font color='red'><%= link_to '>>桌盟積分賽查詢及報名', lttfgamesindex_gamesmaps_path %></font>
-          </p>
-          <p>
-             <font color='red'><%= link_to '>>前往桌盟球友積分總表', playerprofiles_path %></font>
-          </p>  
-        </div> <!-- /.feature-text -->
-         <div class="col-md-8 col-sm-6">
-          <img src="images/lttfscoregame.jpg" class="feature-photo">
-           <img src="images/gamesphoto.jpg" class="feature-photo">
-        </div> <!-- /.col-md-8 -->
-      </div> <!-- /.row -->
-      <br>
-      <div class="row">
-        <div class="col-md-4 col-sm-6 feature-text">
-          <h3>台灣打桌球地圖</h3>
-          <p>
-            這是由桌球愛好者聯盟所有盟友搜集及回報全台各地打桌球場地的資訊，用來提供給球友找尋打球場地的重要參考資料。
-            場地資訊使用地圖方式呈現，並儘可能提供詳細的說明資料，而且持續更新及維護，期望可以提供所有球友最新最豐富的桌球場地資訊!也歡迎所有球友補充及提供更多的場地資訊。
-          </p>
-          <p>
-            如果想補充或更新場地打桌球地圖內場地資料的球友，歡迎前往臉書<%= link_to '桌球愛好者聯盟', "https://www.facebook.com/groups/LTTF.TW/" %>留言提供相關訊息。
-          </p>
-          <p>
-             <%= link_to '>>查看台灣打桌球地圖', ttcourts_path %> 
-          </p>
-        </div> <!-- /.feature-text -->
-        <div class="col-md-8 col-sm-6">
-          <img src="images/courtsmap.jpg" class="feature-photo">
-        </div> <!-- /.col-md-8 -->
-      </div> <!-- /.row -->
-  
+      目前使用新40+塑料球的比賽允許最高收費<font color='red'>120元</font>,有冷氣及使用新球的比賽最高收費<font color='red'>150元</font>。
+    </p>
+    <p class="lead">
+      <font color='red'><%= link_to '>>前往桌盟球友積分總表', playerprofiles_path %></font>
+    </p> 
 
-   
+    <p class="lead">
+      <% if !current_user %>
+        <font color='red'><%= link_to_unless current_user , '>>尚未註冊？立即註冊吧', new_user_registration_path %></font>
+      <%end%>   
+    </p>
+  </div>
 
-    <!--
-      <script src="js/jquery.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-    -->
+  <hr class="featurette-divider">
+
+  <div class="featurette">
+    <img class="featurette-image img-circle pull-left" src="images/ttcourts_photo.jpg">
+    <h2 class="featurette-heading"><font color='red'>台灣打桌球地圖 </font><br></h2>
+    <h3><span class="text-muted"><font color='blue'>尋找台灣地區打桌球場地的好幫手</font></span></h3>
+    <p class="lead">            
+      這是由桌球愛好者聯盟所有盟友搜集及回報全台各地打桌球場地的資訊，用來提供給球友找尋打球場地的重要參考資料。
+      場地資訊使用地圖方式呈現，並儘可能提供詳細的說明資料，而且持續更新及維護，期望可以提供所有球友最新最豐富的桌球場地資訊!也歡迎所有球友補充及提供更多的場地資訊。
+    </p>
+    <p class="lead">
+      <font color='red'> <%= link_to '>>查看台灣打桌球地圖', ttcourts_path %> </font>
+    </p> 
+
+  </div>
+  <br><br><br><br><br><br>
+  <hr class="featurette-divider">
+
+  <div class="featurette">
+    <img class="featurette-image img-circle pull-right" src="images/lttfinter.jpg">
+    <h2 class="featurette-heading"><font color='red'>桌球愛好者聯盟FB社團</font><br></h2>
+    <h3><span class="text-muted"><font color='blue'>桌球愛好者交流的園地,歡迎球友加入</font></span></h3>
+    <p class="lead">
+      桌球愛好者聯盟目前已經有超過萬名桌球愛好者加入,是一個完全屬於所有桌球愛好者一起分享及討論的好地方,社團內盟友互動熱絡,球友們可以一同觀賞比賽直播,進行桌球技術切磋,針對各種品牌球具互相分享使用心得及交易,更可以在社團內相約球友打球.所有桌球相關之事務都歡迎在社團內交流！
+    </p>
+    <p class="lead">
+      <font color='red'> <%= link_to '>>前往桌球愛好者聯盟', "https://www.facebook.com/groups/LTTF.TW/" %> </font>
+    </p>
+              
+  </div>
+
+  <hr class="featurette-divider">
+
+  <!-- /END THE FEATURETTES -->
+
+
+ 
+
+</div><!-- /.container -->
+	<!-- script references -->

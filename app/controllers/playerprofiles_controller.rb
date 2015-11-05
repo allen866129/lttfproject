@@ -47,17 +47,7 @@ class PlayerprofilesController < ApplicationController
    
     session[:player_id] = params[:id]
     @playerprofile = Playerprofile.find(params[:id])
-    @viewer_gameholder_flag=false
-    if (current_user) && (current_user.has_role? :gameholder)
-      @viewer_gameholder_flag=true
 
-      if current_user.gameholder.blacklists.find{|p| p.playerprofile_id==params[:id].to_i}
-          @already_in_user_blacklists=true
-      else
-          @already_in_user_blacklists=false
-      end  
-       
-    end
     @showgames=@playerprofile.user.set_future_games_showdata  
 
     opts   = { :width => 700, :height => 400, :title =>  '積分走勢圖', :legend => 'bottom' }
