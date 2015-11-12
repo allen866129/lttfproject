@@ -11,15 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-ActiveRecord::Schema.define(:version => 20151014014403) do
-=======
-ActiveRecord::Schema.define(:version => 20151014062049) do
->>>>>>> origin/master
-=======
-ActiveRecord::Schema.define(:version => 20151014062049) do
->>>>>>> fc66e7ff6b23d68a12f03f12c872295c5c1eb297
+ActiveRecord::Schema.define(:version => 20151110140716) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -167,6 +159,14 @@ ActiveRecord::Schema.define(:version => 20151014062049) do
     t.integer  "registor_id"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+  end
+
+  create_table "gsheet4games", :force => true do |t|
+    t.string   "fileulr"
+    t.integer  "holdgame_id"
+    t.boolean  "in_use",      :default => false, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "holdgames", :force => true do |t|

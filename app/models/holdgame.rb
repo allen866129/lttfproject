@@ -1,6 +1,6 @@
 #encoding: UTF-8”
 class Holdgame < ActiveRecord::Base
-  attr_accessible :enddate, :gameholder_id, :gamename, :gamenote, :gametype, :startdate , :contact_name
+  attr_accessible :enddate, :gameholder_id, :gamename, :gamenote, :gametype, :startdate , :contact_name, :id
   attr_accessible :city, :county, :address, :zipcode, :courtname, :lat, :lng, :url , :lttfgameflag, :contact_phone , :contact_email
   attr_accessible :gameinfofile, :gamedays, :sponsors
   belongs_to :gameholder

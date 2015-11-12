@@ -54,12 +54,16 @@ class HoldgamesController < InheritedResources::Base
   	@holdgame = Holdgame.new(params[:holdgame])
     @holdgame.gameholder_id=@cur_gameholder.id
     @holdgame.lttfgameflag =true
-    @holdgame.inputfileurl=create_gameinputfile(@holdgame.startdate.to_s+ @holdgame.gamename)
+    @gameinputfile=create_gameinputfile(@holdgame.startdate.to_s+ @holdgame.gamename)    
+    @holdgame.inputfileurl=@gameinputfile.fileulr
   	respond_to do |format|
       if @holdgame.save
+        @gameinputfile.holdgame_id=@holdgame.id
+        @gameinputfile.save
         format.html { redirect_to holdgame_gamegroups_path(@holdgame), notice: '比賽資料建檔完成!' }
         format.json { render json: @holdgame, status: :created, location: @holdgame }
       else
+
         flash[:notice] = "比賽資料建檔資料失敗!"
 
         format.html { render action: "new", notice: '比賽資料建檔資料失敗，請跟管理員連絡辦理!' }
@@ -87,9 +91,9 @@ class HoldgamesController < InheritedResources::Base
       group.allgroupattendee.flatten.each do |player|
       
         if APP_CONFIG['Mailer_delay']
-            UserMailer.delay.holdgame_cancel_notice(holdgame, player)
+            UserMailer.delay.holdgame_cancel_notice(holdgame, player) if APP_CONFIG['HOST_TYPE']=='server' 
         else
-           UserMailer.holdgame_cancel_notice(holdgame, player).deliver
+           UserMailer.holdgame_cancel_notice(holdgame, player).deliver if APP_CONFIG['HOST_TYPE']=='server'
         end  
       end
     end  
@@ -101,6 +105,7 @@ class HoldgamesController < InheritedResources::Base
     @holdgame.cancel_flag=true
     
       if @holdgame.save
+        Gsheet4game.recycle(@holdgame.id)
         flash[:success]='本賽事取消成功.'
         send_cancel_notice_to_players(@holdgame) 
       else
@@ -112,6 +117,7 @@ class HoldgamesController < InheritedResources::Base
   end
   def destroy
     @holdgame = Holdgame.find(params[:id])
+    Gsheet4game.recycle(@holdgame.id)
     @holdgame.destroy
 
     respond_to do |format|
@@ -133,6 +139,63 @@ def publish_all
     flash[:success]='已將賽事列表公告至桌盟!'
     redirect_to(:back)
 end 
+def insert_permission(client, file_id, value)
+
+  drive = client.discovered_api('drive', 'v2')
+  new_permission = drive.permissions.insert.request_schema.new({
+    'value' => value,
+    'type' => 'user',
+    'role' => 'owner'
+  })
+  result = client.execute(
+    :api_method => drive.permissions.insert,
+    :body_object => new_permission,
+    :parameters => { 'fileId' => file_id })
+  if result.status == 200
+    return result.data
+  else
+    puts "An error occurred: #{result.data['error']['message']}"
+  end
+end
+def clear_gsheet(client, fileurl)
+
+  connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
+  spreadsheet = connection.spreadsheet_by_url(fileurl)
+  (2..spreadsheet.worksheets.count).each do |wsno|
+    spreadsheet.worksheets[wsno-1].delete if (wsno-1)>0
+  end  
+  infows=spreadsheet.worksheets[0]
+  (7..infows.max_rows).each do |row|
+    infows[row,1]=''
+    infows[row,2]=''
+    infows[row,3]=''
+
+  end  
+  infows.save
+end  
+##
+# Rename a file
+#
+# @param [Google::APIClient] client
+#   Authorized client instance
+# @param [String] file_id
+#   ID of file to update
+# @param [String] title
+#   New title of file
+# @return [Google::APIClient::Schema::Drive::V2::File]
+#   File if update, nil otherwise
+def rename_file(client, file_id, title)
+  drive = client.discovered_api('drive', 'v2')
+  result = client.execute(
+    :api_method => drive.files.patch,
+    :body_object => { 'title' => title },
+    :parameters => { 'fileId' => file_id })
+  if result.status == 200
+    return result.data
+  end
+  puts "An error occurred: #{result.data['error']['message']}"
+  return nil
+end
  ##
 # Copy an existing file
 #
@@ -193,7 +256,6 @@ def copy_players_list
     #@newgame=Uploadgame.new
     spreadsheet = connection.spreadsheet_by_url(holdgame.inputfileurl)
     playerlistws=spreadsheet.worksheets[0]
-  
     players_count=playerlistws.num_rows
     keepplayerlist=Array.new
     (1..players_count).each do |row|
@@ -222,11 +284,16 @@ def copy_players_list
     redirect_to holdgame.inputfileurl
   
 end
+def get_gameinputfile_from_gsheet4game
+  @gmaeinputfile=Gsheet4game.avaliable.first
+  
+   
+end
 def create_gameinputfile(filename)
   client = Google::APIClient.new(
          :application_name => 'lttfprojecttest',
           :application_version => '1.0.0')
-  fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
+  #fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
   keypath = Rails.root.join('config','client.p12').to_s
   key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
   client.authorization = Signet::OAuth2::Client.new(
@@ -238,10 +305,18 @@ def create_gameinputfile(filename)
     :approval_prompt=>'force',
     :signing_key => key)
   client.authorization.fetch_access_token!
-  fileinfo=copy_file(client, fileid, filename)
 
-  fileinfo.alternateLink
-  
+  @gsheet=Gsheet4game.available.first
+  @gsheet.in_use=true
+  fileurl=@gsheet.fileulr
+  fileid=fileurl.to_s.match(/[-\w]{25,}/).to_s
+
+  rename_file(client, fileid, filename)
+  clear_gsheet(client, fileurl)
+  #fileinfo=copy_file(client, fileid, filename)
+
+  #fileinfo.alternateLink
+  @gsheet
 end
   private
   def find_gameholder

@@ -1,0 +1,2 @@
+module Gsheet4gamesHelper
+end

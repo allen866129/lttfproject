@@ -3,6 +3,9 @@ Lttfproject::Application.routes.draw do
   
 
 
+  resources :gsheet4games
+
+
   resources :blacklists
 
 

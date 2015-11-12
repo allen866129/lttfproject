@@ -347,6 +347,11 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
     end
      @newgame.players_result=curlines  
      @newgame.save
+     Gsheet4game.recycle(uploadgame.holdgame.id)
+     #tempid=uploadgame.holdgame.id
+     #@Gsheet=Gsheet4game.find_by_holdgameid(tempid).first
+     #@Gsheet.in_use=false if @Gsheet
+     #@Gsheet.save
      send_updatescore_notice_to_gameholders(@newgame,uploadgame)
      UserMailer.newscore_publish_notice_to_FB( @newgame).deliver if APP_CONFIG['HOST_TYPE']=='server' 
   end  
