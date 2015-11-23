@@ -4,7 +4,7 @@
       <caption class="text-center" ><strong>Google 試算表總表(共:<font color="red"><%= @gsheetcount %></font> 筆)</strong></caption>  
       <thead>
         <tr>
-          
+          <th width='5%'>序號</th>
           <th align=center style="white-space: nowrap;">比賽名稱</th>
           <th width="10%" align=center>使用狀態</th>
           <th align=center>連結網址</th>
@@ -14,17 +14,18 @@
         </tr>
       </thead>
       <tbody>
-        <% @gsheet4games.each do |gsheet4game| %>
+        <% @gsheet4games.each_with_index do |gsheet4game,index| %>
           <tr>
+            <td><%=index+1 %></td>
             <% holdgame= Holdgame.find_by_id(gsheet4game.holdgame_id) %>
             <td  style=" white-space: nowrap;">
-              <%= holdgame ? holdgame.gamename : '' %></td>
+              <%= holdgame ? holdgame.startdate.to_s+holdgame.gamename : '' %></td>
             <td><%= gsheet4game.in_use ? "使用中" : "未使用"%></td>
             <td  style=" overflow: hiddenn ; text-overflow: ellipsis;  white-space: nowrap;">
                 <%= h auto_link(gsheet4game.fileulr) %></td>
-            <td><%= link_to 'Show', gsheet4game %></td>
-            <td><%= link_to 'Edit', edit_gsheet4game_path(gsheet4game) %></td>
-            <td><%= link_to 'Destroy', gsheet4game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to '詳細', gsheet4game %></td>
+            <td><%= link_to '修改', edit_gsheet4game_path(gsheet4game) %></td>
+            <td><%= link_to '刪除', gsheet4game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
           </tr>
         <% end %>
       </tbody>
