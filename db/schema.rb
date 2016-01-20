@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151110140716) do
+ActiveRecord::Schema.define(:version => 20151126041454) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -230,6 +230,28 @@ ActiveRecord::Schema.define(:version => 20151110140716) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "shopcarts", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "address"
+    t.integer  "X5L",          :default => 0, :null => false
+    t.integer  "X4L",          :default => 0, :null => false
+    t.integer  "X3L",          :default => 0, :null => false
+    t.integer  "X2L",          :default => 0, :null => false
+    t.integer  "L",            :default => 0, :null => false
+    t.integer  "S",            :default => 0, :null => false
+    t.integer  "XS",           :default => 0, :null => false
+    t.text     "paymentinfo"
+    t.boolean  "pay_check"
+    t.boolean  "sent_flag"
+    t.date     "sent_date"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.string   "take_or_mail"
+    t.integer  "XL",           :default => 0, :null => false
+    t.integer  "M",            :default => 0, :null => false
+    t.integer  "XXS",          :default => 0, :null => false
+  end
 
   create_table "ttcourts", :force => true do |t|
     t.string   "placename"

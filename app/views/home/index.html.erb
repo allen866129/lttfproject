@@ -3,25 +3,32 @@
 
 <!-- Carousel
 ================================================== -->
-<div id="myCarousel" class="carousel slide">
+<div id="myCarousel" class="carousel slide"  data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
     <li data-target="#myCarousel" data-slide-to="1" ></li>
     <li data-target="#myCarousel" data-slide-to="2" ></li>
+    <li data-target="#myCarousel" data-slide-to="3" ></li> 
   </ol>
   <div class="carousel-inner">
     <div class="item active">
-      <img src="images/2015.jpg"  style="width:100%;height:100%" class="img-responsive">
+      <img src="images/2015-1.jpg"  style="width:100%;height:100%" class="img-responsive">
       <div class="container">
         <div class="carousel-caption">
-          
-         
-        </p>
+
         </div>
       </div>
     </div>
     <div class="item">
+      <img src="images/2015.jpg" style="width:100%;height:100%" class="img-responsive">
+      <div class="container">
+        <div class="carousel-caption">
+     
+        </div>
+      </div>
+    </div>
+     <div class="item">
       <img src="images/2014.jpg" style="width:100%;height:100%" class="img-responsive">
       <div class="container">
         <div class="carousel-caption">
@@ -29,6 +36,7 @@
         </div>
       </div>
     </div>
+ 
     <div class="item">
       <img src="images/2013.jpg" style="width:100%;height:100%" class="img-responsive">
       <div class="container">
@@ -48,7 +56,6 @@
 </div>
 <!-- /.carousel -->
 
-
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
@@ -57,22 +64,28 @@
 
   <!-- Three columns of text below the carousel -->
   <div class="row">
-    <div class="col-md-4 text-center">
+    <div class="col-md-3 text-center">
       <img class="img-circle" src="images/gamesphoto.jpg">
       <h2><font color='blue'>桌盟積分賽專區</font></h2>
       <p>查詢及報名近期桌盟各項賽事</p>
       <p><a> <%= link_to "賽事查詢",lttfgamesindex_gamesmaps_path,:class=> "button radius"%></a></p>
     </div>
-    <div class="col-md-4 text-center">
+     <div class="col-md-3 text-center">
+      <img class="img-rentengle" src="images/LTTF2016shirts140x140.jpg">
+      <h2><font color='blue'>桌盟球衣訂購</font></h2>
+      <p>桌盟專屬球衣訂購專頁(550元/件）</p>
+      <p><a> <%= link_to "前往訂購",shopcarts_path,:class=> "button radius"%></a></p>
+    </div>
+    <div class="col-md-3 text-center">
       <img class="img-circle" src="images/ttcourts.jpg">
       <h2><font color='blue'>台灣打桌球地圖</font></h2>
       <p>全台灣各地桌球場地相關資料</p>
       <p><a> <%= link_to "查看地圖",ttcourts_path,:class=> "button radius"%></a></p>
     </div>
-    <div class="col-md-4 text-center">
+    <div class="col-md-3 text-center">
       <img class="img-circle" src="images/LTTF_logo140x140.jpg">
       <h2><font color='blue'>桌球愛好者聯盟</font></h2>
-      <p>超過萬名台灣桌球愛好者的FB交流園地</p>
+      <p>台灣桌球愛好者的FB交流園地</p>
        <p><a> <%= link_to "前往桌盟","https://www.facebook.com/groups/LTTF.TW/",:class=> "button radius"%></a></p>
     </div>
   </div><!-- /.row -->
@@ -150,7 +163,7 @@
     <%= link_to_if current_user && (current_user.has_role? :admin), '會員管理面板', admin_root_path, :class=> "button radius" %>
     <%= link_to_if current_user && (current_user.has_role? :admin), '廣告版面管理', advitems_path, :class=> "button radius" %>
     <%= link_to_if current_user && (current_user.has_role? :admin), 'Google輸入檔管理', gsheet4games_path, :class=> "button radius" %>
- 
+
  </div> 
 <%end%> 
 	<!-- script references -->

@@ -1,0 +1,142 @@
+
+<div class="row">
+  <div class="col-xs-12 col-md-12 col-lg-12">
+    <div style="margin-top:10px;" class="mainbox col-xs-8 col-xs-offset-2">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <i class="fa fa-users"></i>&nbsp;桌盟球衣訂購
+          </div>
+        </div>
+        <div style="padding-top:5px" class="panel-body" >
+          <%= form_for(@shopcart, :html =>{:class =>"form-horizontal",:role =>"form" }) do |f| %>
+            <% if @shopcart.errors.any? %>
+              <div style="display:none" class="alert alert-danger"> 
+                <h2><%= pluralize(@shopcart.errors.count, "error") %> prohibited this shopcart from being saved:</h2>
+
+                <ul>
+                  <% @shopcart.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <%end%>  
+            <span></span>
+        
+  
+          <div class="col-xs-12 col-md-12 col-lg-12">
+            <div class="form-group">
+              <h3> <font color='red'>因為是桌盟訂製款,所以沒有庫存可以換貨,除非有重大瑕疵（尺寸不合無法更換,下單前請務必確認！）</font></h3>
+              <h3> <font color='red'>球衣每件單價550元,若需寄送運費80元（可合併寄送）,自取者不需加付運費.</font></h3>
+              <h3> <font color='red'>匯款資訊會擇時公布,訂購者請於匯款後自行到此網頁更新付款資料.</font></h3>
+              <h3> <font color='red'>建議儘量採用寄送方式,比較方便作業</font></h3>
+              <h3> <font color='red'>自取者請等通知後,再另行約定取貨時間及地點（原長城門市取貨方式取消）,台中可約定臺中乒乓運動館取貨(不收運費）</font></h3>
+              <h4> <font color='red'>臺中乒乓運動館地址：台中市大里區永大街77巷29號,連絡人孫教練（0919665628）,取貨時請先電話確定</font></h4>
+              <h4> 會員編號:<font color='blue'> <%=current_user.id %></font></h4>
+              <h4> 會員姓名:<font color='blue'> <%=current_user.username%></font></h4>
+              <h4> 聯絡電話:<font color='blue'><%=current_user.phone%></font></h4> 
+              <h4> 電信箱: <font color='blue'><%= current_user.email%></font></h4>
+
+           </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "5XL件數：" ,:class => "form-label"%>
+                <%= f.number_field :X5L ,:min=> 0, :size => "50" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "4XL件數：" ,:class => "form-label"%>
+                <%= f.number_field :X4L , :min=> 0, :size => "50" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "3XL件數：" ,:class => "form-label"%>
+                <%= f.number_field :X3L ,:min=> 0, :size => "50" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "XXL件數：" ,:class => "form-label"%>
+                <%= f.number_field :X2L ,:min=> 0, :size => "50" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "XL件數：" ,:class => "form-label"%>
+                <%= f.number_field :XL , :min=> 0, :size => "50" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "L件數：" ,:class => "form-label"%>
+                <%= f.number_field :L , :min=> 0, :size => "50"%>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "M件數：" ,:class => "form-label"%>
+                <%= f.number_field :M , :min=> 0, :size => "50" %>
+          </div>
+        </div>  
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "S件數：" ,:class => "form-label"%>
+                <%= f.number_field :S , :min=> 0, :size => "50" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "XS件數：" ,:class => "form-label"%>
+                <%= f.number_field :XS ,:min=> 0, :size => "50" %>
+          </div>
+        </div> 
+
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>                                                        
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+            <%= f.label "取貨方式:", :class => "form-label" %>
+            <%= f.select  :take_or_mail, ['台北永和自取','台北新莊聯合活動中心自取','台北找神龍自取(南港,松山,信義)','新莊樹林找杰哥自取(新樹路,後港)', '臺中乒乓運動館取貨','郵寄'] %>     
+          </div>
+        </div>   
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "寄送地址" ,:class => "form-label" , :id=>"mail-label"%>
+                <%= f.text_area :address,  :size => "50", :placeholder => "選擇郵寄者請務必輸入球衣寄送地址"  %>
+          </div>
+        </div>         
+        <div class="col-xs-12 col-md-12 col-lg-12"></br></div>                                                        
+        <div class="form-group">
+          <div class="col-xs-12 col-md-12 col-lg-12">
+            <%= f.label "已付款資料:", :class => "form-label" %>
+            <%= f.text_area   :paymentinfo, :placeholder => "匯款後請輸入匯款銀行/日期,匯款帳號末五碼,匯款金額,匯款人,桌盟編號訂訂購人姓名等資訊"  %>     
+          </div>
+        </div> 
+
+            <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <div class="col-md-offset-4 col-md-5">
+              <%= f.submit "提交訂單", :class => "btn btn-block btn-info", :id => "btn-signup" do %>
+                <i class="icon-hand-right"></i>
+              <% end %>
+            </div>
+            <div class="col-md-3"></div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

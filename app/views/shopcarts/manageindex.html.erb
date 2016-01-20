@@ -1,0 +1,93 @@
+#encoding: utf-8
+<%= content_for :head do %>
+  <meta charset="utf-8">
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+  <script src='https://www.google.com/jsapi'></script>
+  <style>
+    article,aside,figure,figcaption,footer,header,hgroup,menu,nav,section {display:block;}
+    body {font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+  </style>
+<% end %>
+
+    <div class="col-md-6 text-center">
+      <img src="images/LTTF2016shirts.jpg" class="img-responsive" alt="Responsive image">
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="images/sizetable.jpg" class="img-responsive" alt="Responsive image">
+    </div>
+    <br>
+
+      <div id='chart' class="col-md-12 " style="width:100%; height:300px"></div>
+        <%= render_chart @chart, 'chart' %>
+<br>
+<div class="col-md-12 text-center">    
+<div class="table-responsive datagrid">
+  <table class="datatable  table-striped table-condensed" border=1 link=blue>
+    <caption class="text-center" ><strong>全部訂購清單列表(有效訂單:共<font color="red"><%=Shopcart.all.size%></font>筆,<font color="red"><%=Shopcart.totalcarts%></font>件,<font color="red"><%=Shopcart.totalbilling%></font>元)</strong> </caption>
+
+  <thead>
+    <tr>
+      <th>編號</th>
+      <th>姓名</th>
+      <th>5XL</th>
+      <th>4XL</th>
+      <th>3XL</th>
+      <th>2XL</th>
+      <th>XL</th>
+      <th>L</th>
+      <th>M</th>      
+      <th>S</th>
+      <th>XS</th>
+      <th>總件數/應付金額</th>
+      <th>取貨方式</th>
+      <th>確認付款</th>
+      <th>寄送完成</th>
+      <th>寄送日期</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shopcarts.each do |shopcart| %>
+      <tr>
+        <td><%= shopcart.user_id %></td>
+        <td nowrap="nowrap"><%= shopcart.user.username %></td>
+        <td><%= shopcart.X5L %></td>
+        <td><%= shopcart.X4L %></td>
+        <td><%= shopcart.X3L %></td>
+        <td><%= shopcart.X2L %></td>
+        <td><%= shopcart.XL %></td>
+        <td><%= shopcart.L %></td>
+        <td><%= shopcart.M %></td>
+        <td><%= shopcart.S %></td>
+        <td><%= best_in_place shopcart, :XS %></td>
+        <td><%= shopcart.totalcarts%>/<%= shopcart.totalbilling %> </td>   
+        <td><%= shopcart.take_or_mail %> </td>
+        <td><%= check_box_tag 'paycheck', '1', shopcart.pay_check , :disabled => true %></td>
+        <td><%= check_box_tag 'sent_flag', '1', shopcart.sent_flag  , :disabled => true %></td>
+        <td><%= shopcart.sent_date %></td>
+        <td><%= link_to 'Show', shopcart %></td>
+        <td><%= link_to 'Edit', manageedit_shopcart_path(shopcart) %></td>
+      </tr>
+    <% end %>
+  </tbody>  
+      <tfoot>
+      <tr>
+      <td colspan="8">
+      <div class="text-center">
+        <% if @shopcarts %>
+           <%= paginate @shopcarts, :theme => 'twitter-bootstrap-3' %>
+        <%end%>   
+      </div>
+      </td>
+      </tr>
+    </tfoot>
+</table>
+</div>
+</div>
+<br />
+
+
+

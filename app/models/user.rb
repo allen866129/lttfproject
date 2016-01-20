@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   attr_accessible :role_ids
   accepts_nested_attributes_for :playerprofile   
   mount_uploader :playerphoto, PlayerPhotoUploader 
-  
+  has_one :shopcart
 def assign_default_role
     self.add_role(:member) if self.roles.blank?
 end
@@ -120,6 +120,14 @@ def set_future_games_showdata
   end     
   @showgames
 end 
+def totalcarts
+    @total_num=0 
+    if self.shopcart
+       @total_num=self.shopcart.X5L+self.shopcart.X4L+self.shopcart.X3L+self.shopcart.XL+self.shopcart.X2L+self.shopcart.L+
+                  self.shopcart.S+self.shopcart.XS
+    end 
+    @total_num
+end
  private
     def username_without_
      

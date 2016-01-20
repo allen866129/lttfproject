@@ -71,7 +71,7 @@
               <div class="form-group">
                 <div class="col-xs-12 col-md-12 col-lg-12">
                   <%= profile_form.label "初始積分",  :class => "form-label" %>:
-                  <%= profile_form.number_field :initscore,:required => true, :class =>"form-control", :size => "50"  %>
+                  <%= profile_form.number_field :initscore,:required => true, :min=> 0, :class =>"form-control", :size => "50"  %>
                 </div>
               </div>
               <div class="col-xs-12 col-md-12 col-lg-12"></br></div>

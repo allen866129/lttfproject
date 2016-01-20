@@ -29,7 +29,7 @@
             <ul class="dropdown-menu">
               <% if current_user &&((current_user.has_role? :admin)||(current_user.has_role? :superuser)||(current_user.has_role? :gameholder)) %>
                 <li><%= link_to '積分賽成績作業', uploadgames_path %></li>
-                <li><%= link_to '參賽名單整理', googleplayerlist_playerprofiles_path %></li>
+                <li><%= link_to '團體排名整理', googleplayerlist_playerprofiles_path %></li>
                 <li><%= link_to '比賽登錄及管理', holdgames_path %></li>
                 <li><%= link_to '黑名單管理', blacklists_path %></li>
               <%end%>

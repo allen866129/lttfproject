@@ -13,10 +13,14 @@ class HoldgamesController < InheritedResources::Base
    
    if !params[:user]
       @allgames=true  #show all reg games
-      @holdgames=Holdgame.includes(:gameholder).where(:lttfgameflag=>true).where("startdate >= ? ", Time.zone.now.to_date-14).page(params[:page]).per(50)
-   else
+      #@holdgames=Holdgame.includes(:gameholder).where(:lttfgameflag=>true).where("startdate >= ? ", Time.zone.now.to_date-14).page(params[:page]).per(50)
+  
+      @holdgames=Holdgame.includes(:gameholder).where(:lttfgameflag=>true).page(params[:page]).per(20).order('startdate DESC').reverse_order
+ else
       @allgames=false  #show all current_usr reg games
-    @holdgames=Holdgame.includes(:gameholder).where(:lttfgameflag=>true,:gameholder_id=>params[:user].to_i).where("startdate >= ? ", Time.zone.now.to_date-14).page(params[:page]).per(50)
+      #@holdgames=Holdgame.includes(:gameholder).where(:lttfgameflag=>true,:gameholder_id=>params[:user].to_i).where("startdate >= ? ", Time.zone.now.to_date-14).page(params[:page]).per(50)
+      @holdgames=Holdgame.includes(:gameholder).where(:lttfgameflag=>true,:gameholder_id=>params[:user].to_i).page(params[:page]).per(20).order('startdate DESC').reverse_order
+  
    end
     respond_to do |format|
       format.html # index.html.erb
@@ -224,6 +228,7 @@ def copy_file(client, origin_file_id, copy_title)
     flash[:error]="An error occurred: #{result.data['error']['message']}"
   end
 end
+
 def copy_players_list
 
   holdgame=Holdgame.find(params[:format])
