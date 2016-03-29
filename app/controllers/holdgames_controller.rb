@@ -162,20 +162,25 @@ def insert_permission(client, file_id, value)
   end
 end
 def clear_gsheet(client, fileurl)
+  begin
+    connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
+    spreadsheet = connection.spreadsheet_by_url(fileurl)
+    (2..spreadsheet.worksheets.count).each do |wsno|
+      spreadsheet.worksheets[wsno-1].delete if (wsno-1)>0
+    end  
+    infows=spreadsheet.worksheets[0]
+    (7..infows.max_rows).each do |row|
+      infows[row,1]=''
+      infows[row,2]=''
+      infows[row,3]=''
 
-  connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
-  spreadsheet = connection.spreadsheet_by_url(fileurl)
-  (2..spreadsheet.worksheets.count).each do |wsno|
-    spreadsheet.worksheets[wsno-1].delete if (wsno-1)>0
   end  
-  infows=spreadsheet.worksheets[0]
-  (7..infows.max_rows).each do |row|
-    infows[row,1]=''
-    infows[row,2]=''
-    infows[row,3]=''
+    infows.save
+  rescue
+    puts fileurl
+    flash[:notice] = "比賽資料建檔資料失敗(file clean)!請通知管理員處理！"
+  end
 
-  end  
-  infows.save
 end  
 ##
 # Rename a file

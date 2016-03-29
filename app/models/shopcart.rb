@@ -20,7 +20,7 @@ class Shopcart < ActiveRecord::Base
   end
   def self.totalcarts
   	@totalshopcarts=0
-    @totalshopcarts=self.sum(:X5L)+self.sum(:X4L)+self.sum(:X3L)+self.sum(:X2L)+self.sum(:L)+self.sum(:M)
+    @totalshopcarts=self.sum(:X5L)+self.sum(:X4L)+self.sum(:X3L)+self.sum(:X2L)+self.sum(:L)+self.sum(:M)+
     self.sum(:S)+self.sum(:XS)
     #shopcarts=self.all
   	#shopcarts.each do |shopcart|

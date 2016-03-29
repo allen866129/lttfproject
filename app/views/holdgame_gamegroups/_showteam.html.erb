@@ -76,9 +76,9 @@
          
         <tr>
         <th style="text-align:center" >序號</th>         
-        <th style="text-align:center" >會員編號</th>
+        <th style="text-align:center" >會員編號<br>隊名</th>
         <th style="text-align:center" >會員姓名</th>
-        <th style="text-align:center" >目前積分/報名積分</th>
+        <th style="text-align:center" >目前積分<br>(報名積分)</th>
         <th style="text-align:center"></th>
         <th style="text-align:center" >備註</th>
          </tr>
@@ -97,13 +97,14 @@
                
                 
                 <td >
-                <%= button_to '取消整隊報名', cancel_player_registration_holdgame_gamegroups_path(@holdgame, gamegroup, :user_in_groupattendant=>gamegroup.find_player_in_attendants(row_group[0].player_id) ) ,  {:onclick => "return confirm('確定取消報名?')", :method => :post}  %>
+                <%= button_to '取消報名', cancel_player_registration_holdgame_gamegroups_path(@holdgame, gamegroup, :user_in_groupattendant=>gamegroup.find_player_in_attendants(row_group[0].player_id) ) ,  {:onclick => "return confirm('確定整隊取消報名?')", :method => :post}  %>
                 </td>
                 <td> 
                
                 <%= link_to '新增隊員', teamplayersadd_holdgame_gamegroups_path(@holdgame,gamegroup,:teamarray=>row_group, :row_group=>row_group[0].groupattendant_id, :name => 'add'),:class=> "button radius"   %>
                    
                 </td> 
+                <%end%>
                 <td>
                   <%if (groupindex+1)>gamegroup.noofplayers%>
                     <font color='red'><strong/>候補<strong/></font>
@@ -112,12 +113,13 @@
                   <%end%> 
                 </td>  
                 </tr> 
-                <%end%>
+
+                
 
                 <% player_index=1 %>
               
                 <%for player in row_group%>
-                <td style="text-align:center"><font color='blue'><strong> <%=  player_index %></font></strong></td>         
+                <td style="text-align:center"><font color='blue'><strong> <%= groupindex+1 %>-<%=  player_index %></font></strong></td>         
                 <td style="text-align:center"><font color='blue'><strong> <%=  player.player_id  %></font></strong></td>
                 <td  style="text-align:center">
                   <%= link_to(playerprofile_path(player.player_id)) do %>
@@ -138,7 +140,7 @@
                 <td style="text-align:center">
                     <% if current_user && (player.player_id==current_user.id ||  player.registor_id==current_user.id ||@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser)|| @holdgame.find_gamecoholder(current_user.id) )  %>
                  
-                      <%= button_to '取消報名', cancel_player_registration_inteam_holdgame_gamegroups_path(@holdgame, gamegroup, :user_in_groupattendant=>gamegroup.find_player_in_attendants(player.player_id), :player_id=>player.player_id) ,  {:onclick => "return confirm('確定取消報名?')", :method => :post}  %>
+                      <%= button_to '取消報名', cancel_player_registration_inteam_holdgame_gamegroups_path(@holdgame, gamegroup, :user_in_groupattendant=>gamegroup.find_player_in_attendants(player.player_id), :player_id=>player.player_id) ,  {:onclick => "return confirm('確定取消此球友報名?')", :method => :post}  %>
                     <%end%>
                 </td> 
                 <td>

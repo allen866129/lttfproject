@@ -37,7 +37,15 @@ class ShopcartsController < InheritedResources::Base
   @chart = GoogleVisualr::Interactive::PieChart.new(data_table, opts)
 
   end	
- 
+  def shopcartstoxls
+    @shopcarts = Shopcart.all
+    filename="桌盟球衣訂購資料"
+    headers["Content-Disposition"] = "attachment; filename=\"#{filename}.xls\"" 
+    respond_to do |format|
+    format.xls 
+  end
+    
+  end
   def new
   	if !current_user.phone 
   		 flash[:warning] = "您的註冊資料並未輸入電話,請先輸入桌盟註冊資料內之電話,否則無法購買！"

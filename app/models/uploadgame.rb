@@ -487,14 +487,14 @@ class Uploadgame < ActiveRecord::Base
 
     @gamesrecords=self.getdetailgamesrecord
     
-    @playerneedadjust=@playersummery.find_all{|v|v["scorechanged"]>74||v["bgamescore"]==0}
+    #@playerneedadjust=@playersummery.find_all{|v|v["scorechanged"]>49||v["bgamescore"]==0}
 
     @playersummery.each do |player|
       suggestplayer=Hash.new
       suggestplayer=player
 
     
-      if player["scorechanged"]>74|| player["bgamescore"]==0
+      if player["scorechanged"]>49|| player["bgamescore"]==0
         @playerwongames=@gamesrecords.find_all{|v| v["Aplayer"]==player["name"]}
         @playerlosegames=@gamesrecords.find_all{|v| v["Bplayer"]==player["name"]}
         
@@ -502,39 +502,52 @@ class Uploadgame < ActiveRecord::Base
        
           @winlist=@playerwongames.map{|v| v["Bplayer"]}
           winlistplayersinfo=@playersummery.find_all{|v| @winlist.include?(v["name"])}
+          winlistplayersinfo=winlistplayersinfo.find_all{|v| v["bgamescore"].to_i>0}
           win_max_player = winlistplayersinfo.max_by{|v| v["bgamescore"].to_i}
-          win_max_score=win_max_player["bgamescore"].to_i
-  
+          win_max_score = win_max_player ? win_max_player["bgamescore"].to_i : 0
+          #win_max_score=0
+          #if win_max_player
+          #   win_max_score=win_max_player["bgamescore"].to_i
+          #end
           @lostlist=@playerlosegames.map{|v| v["Aplayer"]}
           lostlistplayersinfo=@playersummery.find_all{|v| @lostlist.include?(v["name"])}
+          lostlistplayersinfo=lostlistplayersinfo.find_all{|v| v["bgamescore"].to_i>0}
           lose_min_player = lostlistplayersinfo.min_by{|v| v["bgamescore"].to_i}
-          lose_min_score=lose_min_player["bgamescore"].to_i
-
+          lose_min_score = lose_min_player ? lose_min_player["bgamescore"].to_i : 0
+          #lose_min_score=0
+          #if lose_min_player
+          #  lose_min_score=lose_min_player["bgamescore"].to_i
+          #end
+          if (player["scorechanged"]>49 && player["scorechanged"]<75 && player["bgamescore"]>0)
+       
+             system_suggest_score=player["agamescore"]
+          else   
           system_suggest_score= player["bgamescore"]==0 ?  max((win_max_score+lose_min_score)/2,75) :  
-                                                         max((win_max_score+lose_min_score+ player["bgamescore"].to_i)/3,player["bgamescore"])
+                                                           max((win_max_score+lose_min_score+ player["bgamescore"].to_i)/3,player["bgamescore"])
+          end
+          #system_suggest_score= player["bgamescore"]==0 ?  max((win_max_score+lose_min_score)/2,75) :  
+          #                                               max((win_max_score+lose_min_score+ player["bgamescore"].to_i)/3,player["bgamescore"])
 
         elsif ( @playerwongames.count==0 && @playerlosegames.count>0)
          
           @lostlist=@playerlosegames.map{|v| v["Aplayer"]}
           lostlistplayersinfo=@playersummery.find_all{|v| @lostlist.include?(v["name"])}
-          openscorelist=lostlistplayersinfo.map{|v| v["bgamescore"].to_i}
+          openscorelist=lostlistplayersinfo.map{|v| v["bgamescore"].to_i}       
+          openscorelist=openscorelist.find_all{|v| v>0}
           #average_opp_score=openscorelist.inject{ |sum, el| sum + el } /openscorelist.size
           #system_suggest_score=max(average_opp_score,75)
-         
-          if(openscorelist.count>0)
-            system_suggest_score=max(openscorelist.min,75)
-          end  
+          system_suggest_score = openscorelist ? max(openscorelist.min,75) : 0 
+          
         elsif ( @playerwongames.count>0 && @playerlosegames.count==0)
 
           @winlist=@playerwongames.map{|v| v["Bplayer"]}
           winlistplayersinfo=@playersummery.find_all{|v| @winlist.include?(v["name"])}
           openscorelist=winlistplayersinfo.map{|v| v["bgamescore"].to_i}
+          openscorelist=openscorelist.find_all{|v| v>0}
           #average_opp_score=openscorelist.inject{ |sum, el| sum + el } /openscorelist.size
           #system_suggest_score=max(average_opp_score,player["bgamescore"])
-          
-          if(openscorelist.count>0)
-             system_suggest_score=max(openscorelist.max,player["bgamescore"])
-          end   
+          system_suggest_score = openscorelist ? max(openscorelist.max,player["bgamescore"]) : 0 
+            
         end 
         suggestplayer["sys suggest score"]=system_suggest_score
        

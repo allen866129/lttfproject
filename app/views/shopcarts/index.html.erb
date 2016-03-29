@@ -11,6 +11,11 @@
   </style>
 <% end %>
 <br>
+<%if current_user.has_role?(:admin) || current_user.has_role?(:superuser) %>
+ <%= link_to "輸出到excel", shopcartstoxls_shopcarts_path(format: "xls"),:class=> "button radius" %>
+<br><br>
+<%end%>
+
 <% if current_user %>
   <% if !current_user.shopcart %>
     <H1><strong><font color="red">您尚未登記訂購桌盟球衣！已經停止訂購<!%= link_to '立即前往訂購', new_shopcart_path %></font></strong>

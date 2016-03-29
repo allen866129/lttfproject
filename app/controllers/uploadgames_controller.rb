@@ -501,9 +501,11 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
       adjustplayer["id"]=player["id"]
       adjustplayer["name"]=player["name"]
       adjustplayer["original bscore"]=player["original bscore"]
+
       if (player["adjustscore"]!="" && player["adjustscore"]!=nil && player["adjustscore"].to_i!=0 )
          adjustplayer["bgamescore"]=player["adjustscore"].to_i 
       else
+
          adjustplayer["bgamescore"]=player["bgamescore"].to_i 
       end   
       adjustplayer["wongames"]=0

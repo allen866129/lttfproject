@@ -3,8 +3,11 @@ Lttfproject::Application.routes.draw do
   
 
 
-  resources :shopcarts 
-
+  resources :shopcarts do
+    collection do
+      get :shopcartstoxls
+    end
+  end 
   resources :gsheet4games
 
 

@@ -64,25 +64,27 @@
 
   <!-- Three columns of text below the carousel -->
   <div class="row">
-    <div class="col-md-3 text-center">
+    <div class="col-md-4 text-center">
       <img class="img-circle" src="images/gamesphoto.jpg">
       <h2><font color='blue'>桌盟積分賽專區</font></h2>
       <p>查詢及報名近期桌盟各項賽事</p>
       <p><a> <%= link_to "賽事查詢",lttfgamesindex_gamesmaps_path,:class=> "button radius"%></a></p>
     </div>
+    <%if false %>
      <div class="col-md-3 text-center">
       <img class="img-rentengle" src="images/LTTF2016shirts140x140.jpg">
       <h2><font color='blue'>桌盟球衣訂購</font></h2>
       <p>桌盟專屬球衣訂購專頁(550元/件）</p>
       <p><a> <%= link_to "前往訂購",shopcarts_path,:class=> "button radius"%></a></p>
     </div>
-    <div class="col-md-3 text-center">
+    <%end%>
+    <div class="col-md-4 text-center">
       <img class="img-circle" src="images/ttcourts.jpg">
       <h2><font color='blue'>台灣打桌球地圖</font></h2>
       <p>全台灣各地桌球場地相關資料</p>
       <p><a> <%= link_to "查看地圖",ttcourts_path,:class=> "button radius"%></a></p>
     </div>
-    <div class="col-md-3 text-center">
+    <div class="col-md-4 text-center">
       <img class="img-circle" src="images/LTTF_logo140x140.jpg">
       <h2><font color='blue'>桌球愛好者聯盟</font></h2>
       <p>台灣桌球愛好者的FB交流園地</p>
@@ -105,8 +107,8 @@
     </p>
     <p class="lead">
       想要參與桌盟積分賽及各項桌盟球聚比賽等活動，請先註冊成為桌盟會員才可參加。桌盟積分賽系統是完全免費
-            的系統，除了歡迎大家註冊之外，更歡迎加入主辦人行列，主動使用桌盟積分系統來主辦比賽計算積分，桌盟完全不收任何費用，
-      目前使用新40+塑料球的比賽允許最高收費<font color='red'>120元</font>,有冷氣及使用新球的比賽最高收費<font color='red'>150元</font>。
+      的系統，除了歡迎大家註冊之外，更歡迎加入主辦人行列，主動使用桌盟積分系統來主辦比賽計算積分，桌盟完全不收任何費用，
+      但限制比賽個人最高收費不得超過<font color='red'>200元</font>。
     </p>
     <p class="lead">
       <font color='red'><%= link_to '>>前往桌盟球友積分總表', playerprofiles_path %></font>
