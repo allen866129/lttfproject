@@ -71,19 +71,18 @@
 
   <!div class="table-responsive datagrid" >
     <!table class="datatable " border=1 link=blue width="100%">
+     
      <div class="table-responsive datagrid">
-      <table class="table table-striped table-condensed" border=1 >  
+      <table class="table-striped table-condensed " border=1 >
+        
          <thead >
           <tr >
           <th style="text-align:center" >報名序號</th>
           <th style="text-align:center">會員編號</th>
-          <th style="text-align:center">會員姓名</th>
+          <th style="text-align:center" width="20%">會員姓名</th>
           <th style="text-align:center">目前積分</th>
           <th style="text-align:center">備註/報名積分</th>
-          <th style="text-align:center"></th>
-           <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser)|| @holdgame.find_gamecoholder(current_user.id) )  %>
-          <th style="text-align:center">電話</th>
-          <% end %>
+          <th>
           </tr>
         </thead>  
 
@@ -98,11 +97,13 @@
                  <td style="text-align:center"><font  color='blue'><strong><%= serial+1 %><strong/></font></td>
                
                 <td style="text-align:center"><font color='blue'><strong><%= player.player_id %><strong/></font></td>
-                <td style="text-align:center">
+                <td style="text-align:center; white-space: nowrap;">
                   <%= link_to(playerprofile_path(player.player_id)) do %>
                     <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%=  player.name %></font>
                   <% end %>                   
-
+                    <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) ) &&(player.phone)  %>
+                       <br><%= player.phone %>
+                  <%end%>
                 </td>
                 <td style="text-align:center">
                   <font color='blue'><strong><%= @player_current_score[player.player_id] %><strong/></font></td>
@@ -121,17 +122,14 @@
                 <%end%>
                 </td>
                
-                <% if current_user && (player.player_id==current_user.id ||  player.registor_id==current_user.id ||@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) || 
-                  @holdgame.find_gamecoholder(current_user.id)  )  %>
+                <% if current_user && (player.player_id==current_user.id ||  player.registor_id==current_user.id ||@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) || @holdgame.find_gamecoholder(current_user.id)  )  %>
+                  
                  <td style="text-align:center">    
-                      <%= button_to '取消報名', cancel_player_registration_holdgame_gamegroups_path(@holdgame, gamegroup, :user_in_groupattendant=>gamegroup.find_player_in_attendants(player.player_id)) ,  {:onclick => "return confirm('確定取消報名?')", :method => :post}  %>
+                      <%= button_to '取消報名', cancel_singleplayer_registration_holdgame_gamegroups_path(@holdgame, gamegroup, :user_in_groupattendant=>gamegroup.find_player_in_attendants(player.player_id)) ,  {:onclick => "return confirm('確定取消報名?')", :method => :post}  %>
                     
                 </td>  
                 <%end%>
-                <td>
-                 <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) ) &&(player.phone)  %>
-                  <%= player.phone %>
-                  <%end%>
+
                 </td>  
                 </tr> 
     

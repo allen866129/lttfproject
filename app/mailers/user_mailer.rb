@@ -11,6 +11,13 @@
     @message=message
     mail(:to => "#{player.name} <#{player.email}>", :subject =>subject)
   end
+  def autogamenotice(holdgame,player)
+
+    @player=player
+    @gamename=holdgame.startdate.to_s+holdgame.gamename
+    @holdgame=holdgame
+    mail(:to => "#{player.name} <#{player.email}>", :subject =>"桌球愛好者聯盟#{@gamename}出賽提醒通知")
+  end
 
   def send_game_waiting_publish_notice(emails,uploadgame)
    
@@ -75,15 +82,94 @@
       mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
     end
   end 
+  def send_playerschanged_double_gameholder(gamegroup, attendrecord, cancelledplayerlist,changetype)
+
+    @gamegroup=gamegroup
+    @holdgame=@gamegroup.holdgame
+    @gameholder=@holdgame.gameholder.user
+    @changetype = changetype
+  
+    @totalcount=@gamegroup.groupattendants.count #already delete cancelled player
+    if @totalcount>@gamegroup.noofplayers
+      @officialcount=@gamegroup.noofplayers
+      @backupcount=@totalcount-@officialcount
+    else
+      @officialcount=@totalcount
+      @backupcount=0
+    end 
+
+    if changetype=='cancel'
+      @cancelledplayerlist=cancelledplayerlist #playerlist is group
+      subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名隊伍取消報名通知"
+      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject) 
+    end
+    if changetype=='register'
+      @newplayerlist=attendrecord.attendants #playerlist is group
+      subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"新增報名隊伍通知"
+      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
+    end
+
+  end 
+  def send_playerschanged_team_gameholder(gamegroup,cancelled_team_name,cancelled_palyerlist,newofficial,changetype)
+    @gamegroup=gamegroup
+    @holdgame=@gamegroup.holdgame
+    @gameholder=@holdgame.gameholder.user
+    @changetype = changetype
+
+    @totalcount=@gamegroup.groupattendants.count #already delete cancelled player
+    if @totalcount>@gamegroup.noofplayers
+      @officialcount=@gamegroup.noofplayers
+      @backupcount=@totalcount-@officialcount
+    else
+      @officialcount=@totalcount
+      @backupcount=0
+    end
+    #@cancelplayer=cancelplayer 
+    @newattendrecord=newofficial
+
+    if changetype=='cancel'
+      @cancelled_teamname=cancelled_team_name
+      @cancelledplayerlist=cancelled_palyerlist #playerlist is group=cancelled_palyerlist
+      subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名隊伍取消報名通知"
+      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject) 
+    end
+    if changetype=='register'
+
+      subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"新增報名隊伍通知"
+      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
+    end
+    if changetype=='playerschanged'
+       #playerlist is group
+      subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名隊伍隊員異動通知"
+      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
+    end    
+  end 
 
   def send_backup_to_official_single(gamegroup,newofficial)
 
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
+
     @newofficial=newofficial
     subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"列為正選參賽球員通知"
     mail(:to => "#{newofficial.name} <#{newofficial.email}>", :subject =>subject)
   end 
+  def send_backup_to_official_double(gamegroup,newofficial)
+    @gamegroup=gamegroup
+    @holdgame=@gamegroup.holdgame
+    @playerlist=newofficial.attendants
+    emails = @playerlist.collect(&:email).join(",")
+    subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"列為正選參賽隊伍通知"
+    mail(:to => emails, :subject =>subject)
+  end  
+  def send_backup_to_official_team(gamegroup,newofficial)
+    @gamegroup=gamegroup
+    @holdgame=@gamegroup.holdgame
+    @playerlist=newofficial.attendants
+    emails = @playerlist.collect(&:email).join(",")
+    subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"列為正選參賽隊伍通知"
+    mail(:to => emails, :subject =>subject)
+  end  
   def post_to_LTTF (messagetofb , nameoflink,pathlink)
     
     #oauth_access_token = access_token
@@ -111,13 +197,14 @@
     #attachments["LTTF_logo.png"] = File.read("#{Rails.root}/public/LTTF_logo.png")
     mail(:to => "#{user.username} <#{user.email}>", :subject => "桌球愛好者聯盟註冊完成通知")
   end
-  def gamerecords_publish_notice ( user , gameplayer, gamesrecords ,holdgame)
+  def gamerecords_publish_notice ( user , gameplayer, gamesrecords ,uploadgame)
 
     @user = user
     @gameplayer=gameplayer
-    @gamename=holdgame.gamename
+    @gamename=uploadgame.gamename
     @gamesrecords=gamesrecords
-    @holdgame=holdgame
+    @uploadgame=uploadgame
+
     #attachments["LTTF_logo.png"] = File.read("#{Rails.root}/public/LTTF_logo.png")
     mail(:to => "#{user.username} <#{user.email}>", :subject => "桌球愛好者聯盟#{@gamename}比賽結果查核通知")
 

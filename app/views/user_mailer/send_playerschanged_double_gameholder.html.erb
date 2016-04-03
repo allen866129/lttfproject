@@ -6,13 +6,9 @@
   <body>
     <p><%= @gameholder.username %>球友您好,</p>
     <p>您所主辦的本賽事報名球友異動資料如下:</p>
-    <p style="white-space: pre-line ;width:auto; text-align:justify ">
-      <%if @changetype=='cancel' %>	
-        <% if	@newofficial%>
-          正選參賽取消球員: 桌盟會員編號:<%= @cancelled_player_id %>, 姓名:<%= @cancelled_palyer_name %>
-          遞補正選參賽球員: 桌盟會員編號:<%= @newofficial.player_id %>, 姓名:<%= @newofficial.name %>
-                  <table border=1 align=center link=blue>
-          <caption class="text-center" ><strong>正選參賽取消隊伍:</strong></caption>
+    <%if @changetype=='cancel' %>
+        <table border=1 link=blue>
+          <caption class="text-center" ><strong>取消報名隊伍:</strong></caption>
           <tr>
             <th align=center>會員編號</th>
             <th align=center>會員姓名</th>
@@ -22,39 +18,18 @@
             <th align=center>目前積分</th>
           </tr>
           <tr>
-          <td align=center><font color=blue><%=  @newplayerlist[0].id %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[0].username %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[0].playerprofile.curscore %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[1].id %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[1].username %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[1].playerprofile.curscore %></td>
+          <td align=center><font color=blue><%=  @cancelledplayerlist[0]["player_id"] %></td>
+          <td align=center><font color=blue><%=  @cancelledplayerlist[0]["name"] %></td>
+          <td align=center><font color=blue><%=  @cancelledplayerlist[0]["curscore"] %></td>
+          <td align=center><font color=blue><%=  @cancelledplayerlist[1]["player_id"] %></td>
+          <td align=center><font color=blue><%=  @cancelledplayerlist[1]["name"] %></td>
+          <td align=center><font color=blue><%=  @cancelledplayerlist[1]["curscore"] %></td>
           </tr>
         </table> 
-        <table border=1 align=center link=blue>
-          <caption class="text-center" ><strong>遞補正選參賽隊伍:</strong></caption>
-          <tr>
-            <th align=center>會員編號</th>
-            <th align=center>會員姓名</th>
-            <th align=center>目前積分</th>
-            <th align=center>會員編號</th>
-            <th align=center>會員姓名</th>
-            <th align=center>目前積分</th>
-          </tr>
-          <tr>
-          <td align=center><font color=blue><%=  @newplayerlist[0].id %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[0].username %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[0].playerprofile.curscore %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[1].id %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[1].username %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[1].playerprofile.curscore %></td>
-          </tr>
-        </table> 
-        <%else%>
-          取消報名球員: 桌盟會員編號:<%= @cancelled_player_id  %>, 姓名:<%=  @cancelled_palyer_name  %>
-        <%end%>
-      <%end%>
+        
+      <%end%>  
       <%if @changetype=='register' %>
-        <table border=1 align=center link=blue>
+        <table border=1 link=blue>
           <caption class="text-center" ><strong>新增報名隊伍:</strong></caption>
           <tr>
             <th align=center>會員編號</th>
@@ -65,17 +40,18 @@
             <th align=center>目前積分</th>
           </tr>
           <tr>
-          <td align=center><font color=blue><%=  @newplayerlist[0].id %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[0].username %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[0].playerprofile.curscore %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[1].id %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[1].username %></td>
-          <td align=center><font color=blue><%=  @newplayerlist[1].playerprofile.curscore %></td>
+          <td align=center><font color=blue><%=  @newplayerlist[0].player_id %></td>
+          <td align=center><font color=blue><%=  @newplayerlist[0].name %></td>
+          <td align=center><font color=blue><%=  @newplayerlist[0].curscore %></td>
+          <td align=center><font color=blue><%=  @newplayerlist[1].player_id %></td>
+          <td align=center><font color=blue><%=  @newplayerlist[1].name %></td>
+          <td align=center><font color=blue><%=  @newplayerlist[1].curscore %></td>
           </tr>
         </table> 
         
       <%end%>  
-     本組別原設定參賽人數為<%= @gamegroup.noofplayers %>人, 目前報名人數共<%=@totalcount%>人, 其中正選<%= @officialcount %>人, 候補<%=@backupcount%>人
+     本組別原設定參賽隊伍為<%= @gamegroup.noofplayers %>隊, 目前報名隊伍共<%=@totalcount%>隊, 其中正選<%= @officialcount %>隊, 候補<%=@backupcount%>隊<br><br>
+
       <%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', holdgame_gamegroups_url(@holdgame) %>
 
     </p>

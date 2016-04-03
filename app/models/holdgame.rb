@@ -2,7 +2,7 @@
 class Holdgame < ActiveRecord::Base
   attr_accessible :enddate, :gameholder_id, :gamename, :gamenote, :gametype, :startdate , :contact_name, :id
   attr_accessible :city, :county, :address, :zipcode, :courtname, :lat, :lng, :url , :lttfgameflag, :contact_phone , :contact_email
-  attr_accessible :gameinfofile, :gamedays, :sponsors
+  attr_accessible :gameinfofile, :gamedays, :sponsors, :cancel_flag
   belongs_to :gameholder
   has_many :gamecoholders ,dependent: :destroy
   has_many :gamegroups , dependent: :destroy
@@ -68,4 +68,33 @@ class Holdgame < ActiveRecord::Base
         return true
       end 
   end  
+
+def self.auto_notice
+  puts "cron start"
+  puts ("Time Now")
+  puts Time.now
+  puts ("Time current")
+  puts Time.current
+  @holdgames=Holdgame.includes(:gameholder).where(:lttfgameflag=>true).where(:cancel_flag=>false).where(:startdate => (Time.current.to_date))
+  @holdgames.each do |holdgame|
+        holdgame.gamegroups.each do |group|
+
+          if(group.noofplayers!=0)
+            @groupattendants=group.groupattendants.in_groups_of(group.noofplayers,false)[0]    
+            @groupattendants.each do |groupattend| 
+              groupattend.attendants.each  do |player| 
+                if APP_CONFIG['Mailer_delay']
+                  UserMailer.delay.autogamenotice(holdgame, player) 
+                else
+                  UserMailer.autogamenotice(holdgame, player).deliver 
+                end  #if
+              end  #player
+            end # groupattend
+          end  #if 
+     
+     
+        end  #group
+
+  end  #holdgame
+end
 end

@@ -1,5 +1,5 @@
 <% set_meta_tags :title => '積分賽成績作業'%>
-<div class=top-buffer> </div>
+
 
 <% if current_user && ((current_user.has_role? :gameholder) || (current_user.has_role? :superuser)|| (current_user.has_role? :admin)) %>
   <%= form_tag displayuploadfile_uploadgames_path, :method => :get do %>

@@ -95,14 +95,14 @@ class HoldgamesController < InheritedResources::Base
       group.allgroupattendee.flatten.each do |player|
       
         if APP_CONFIG['Mailer_delay']
-            UserMailer.delay.holdgame_cancel_notice(holdgame, player) if APP_CONFIG['HOST_TYPE']=='server' 
+            UserMailer.delay.holdgame_cancel_notice(holdgame, player) 
         else
-           UserMailer.holdgame_cancel_notice(holdgame, player).deliver if APP_CONFIG['HOST_TYPE']=='server'
+           UserMailer.holdgame_cancel_notice(holdgame, player).deliver 
         end  
       end
     end  
      
-     UserMailer.holdgame_cancel_notice_to_FB(holdgame).deliver 
+     UserMailer.holdgame_cancel_notice_to_FB(holdgame).deliver f APP_CONFIG['HOST_TYPE']=='server'
   end
   def cancel
     @holdgame = Holdgame.find(params[:format])

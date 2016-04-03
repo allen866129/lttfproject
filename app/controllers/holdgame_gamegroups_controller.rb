@@ -224,30 +224,29 @@ def doubleregistration(group_id, playerids)
   
   @curgroup=Gamegroup.find(group_id)
 
-  @playerlist=Array.new
+  #@playerlist=Array.new
   @playerlist=User.where(:id=> playerids).order_by_ids(playerids).in_groups_of(2)
   Groupattendant.transaction do
-     
-   
     #attendantrecord.phone=current_user.phone
     #attendantrecord.registor_id=current_user.id
     
       @playerlist.each do |players|
-        attendantrecord=@curgroup.groupattendants.build 
-        attendantrecord.registor_id=current_user.id
-        attendantrecord.regtype= @curgroup.regtype
+        @attendantrecord=@curgroup.groupattendants.build 
+        @attendantrecord.registor_id=current_user.id
+        @attendantrecord.regtype= @curgroup.regtype
         for player in players
-          attendant=attendantrecord.attendants.build
-          attendant.regtype=attendantrecord.regtype
+          attendant=@attendantrecord.attendants.build
+          attendant.regtype=@attendantrecord.regtype
           attendant.phone=player.phone
-          attendant.registor_id=attendantrecord.registor_id
+          attendant.registor_id=@attendantrecord.registor_id
           attendant.player_id=player.id
           attendant.name=player.username
           attendant.email=player.email
           attendant.curscore=player.playerprofile.curscore
           attendant.save
         end
-        attendantrecord.save
+        @attendantrecord.save
+        send_register_notice_double(@curgroup,@attendantrecord, @playerlist,'register')
       end 
    
    
@@ -257,27 +256,29 @@ def teamregistration(group_id, playerlist,teamname,old_attendantrecord)
   
   @curgroup=Gamegroup.find(group_id)
   if !old_attendantrecord
-     attendantrecord=@curgroup.groupattendants.build 
+     @type='register'
+     @attendantrecord=@curgroup.groupattendants.build 
   else
-    attendantrecord=Groupattendant.find(old_attendantrecord) 
-    attendantrecord.attendants.delete_all
+    @type='playerschanged'
+    @attendantrecord=Groupattendant.find(old_attendantrecord) 
+    @attendantrecord.attendants.delete_all
   end  
   
   @playerlist=playerlist.in_groups_of(20,false) 
   Groupattendant.transaction do
      
-    attendantrecord.regtype= @curgroup.regtype
-    attendantrecord.phone=current_user.phone
-    attendantrecord.registor_id=current_user.id
-    attendantrecord.teamname=teamname
-    if attendantrecord.save
+    @attendantrecord.regtype= @curgroup.regtype
+    @attendantrecord.phone=current_user.phone
+    @attendantrecord.registor_id=current_user.id
+    @attendantrecord.teamname=teamname
+    if @attendantrecord.save
       @playerlist.each do |players|
         for player in players
-          attendant=attendantrecord.attendants.build
-          attendant.regtype=attendantrecord.regtype
+          attendant=@attendantrecord.attendants.build
+          attendant.regtype=@attendantrecord.regtype
           attendant.phone=player.phone
-          attendant.registor_id=attendantrecord.registor_id
-          attendant.teamname=attendantrecord.teamname
+          attendant.registor_id=@attendantrecord.registor_id
+          attendant.teamname=@attendantrecord.teamname
           attendant.player_id=player.id
           attendant.name=player.username
           attendant.email=player.email
@@ -286,6 +287,7 @@ def teamregistration(group_id, playerlist,teamname,old_attendantrecord)
 
         end
       end 
+      send_register_notice_team(@curgroup,@attendantrecord,@type)
     end
    
   end 
@@ -298,11 +300,27 @@ def  send_register_notice_single(curgroup,newofficialattend,type)
    UserMailer.send_playerschanged_single_gameholder(curgroup, nil, nil,newofficialattend,type).deliver 
  end 
 end
+def  send_register_notice_double(curgroup,newattendantrecord,playerlist,type)
+ if APP_CONFIG['Mailer_delay']
+     UserMailer.send_playerschanged_double_gameholder(curgroup, newattendantrecord,playerlist,type).deliver 
 
-def  send_cancel_notice_single(curgroup,cancelled_player_id,cancelled_palyer_name,newofficialattend,type)
+    #UserMailer.delay.send_playerschanged_double_gameholder(curgroup, newattendantrecord,playerlist,type)
+ else
+   UserMailer.send_playerschanged_double_gameholder(curgroup, newattendantrecord,playerlist,type).deliver 
+ end 
+end
+def  send_register_notice_team(curgroup,newattendantrecord,type)
+ if APP_CONFIG['Mailer_delay']
+   UserMailer.send_playerschanged_team_gameholder(curgroup, nil, nil,newattendantrecord,type).deliver 
+ else
+   UserMailer.send_playerschanged_team_gameholder(curgroup, nil, nil,newattendantrecord,type).deliver 
+ end 
+end
+
+def  send_cancel_notice_single(curgroup, cancelled_player_id,cancelled_palyer_name,newofficialattend,type)
 
 if APP_CONFIG['Mailer_delay']
-  UserMailer.delay.send_playerschanged_single_gameholder(curgroup, cancelled_player_id,cancelled_palyer_name, newofficialattend,type)
+  UserMailer.delay.send_playerschanged_single_gameholder(curgroup,cancelled_player_id,cancelled_palyer_name, newofficialattend,type)
 else
   UserMailer.send_playerschanged_single_gameholder(curgroup, cancelled_player_id,cancelled_palyer_name, newofficialattend,type).deliver
 end  
@@ -317,7 +335,43 @@ end
   end
      
 end
-def cancel_player_registration
+def  send_cancel_notice_double(curgroup,newofficialattend, cancelledplayerlist, type)
+
+if APP_CONFIG['Mailer_delay']
+  #UserMailer.delay.send_playerschanged_double_gameholder(curgroup, newofficialattend, playerlist,type)
+  UserMailer.delay.send_playerschanged_double_gameholder(curgroup, newofficialattend,cancelledplayerlist,type)
+else
+  UserMailer.send_playerschanged_double_gameholder(curgroup, newofficialattend,cancelledplayerlist,type).deliver
+end  
+       
+  if newofficialattend
+     if APP_CONFIG['Mailer_delay']
+       UserMailer.delay.send_backup_to_official_double(curgroup, newofficialattend)
+     else
+
+       UserMailer.send_backup_to_official_double(curgroup, newofficialattend).deliver
+     end
+  end
+     
+end
+def  send_cancel_notice_team(curgroup,cancelled_teamname,  cancelledplayerlist, newofficialattend,type)
+
+if APP_CONFIG['Mailer_delay']
+    UserMailer.delay.send_playerschanged_team_gameholder(curgroup,cancelled_teamname, cancelledplayerlist, newofficialattend,type)
+else
+  UserMailer.send_playerschanged_team_gameholder(curgroup,cancelled_teamname,  cancelledplayerlist, newofficialattend,type).deliver
+end  
+       
+  if newofficialattend
+     if APP_CONFIG['Mailer_delay']
+      UserMailer.delay.send_backup_to_official_team(curgroup, newofficialattend)
+     else
+       UserMailer.send_backup_to_official_team(curgroup, newofficialattend).deliver
+     end
+  end
+     
+end
+def cancel_singleplayer_registration
     @attendantrecord=Groupattendant.find(params[:user_in_groupattendant])
     @curgroup=@attendantrecord.gamegroup
     @attendants=@curgroup.groupattendants
@@ -334,23 +388,62 @@ def cancel_player_registration
     send_cancel_notice_single(@curgroup, cancelled_player_id,cancelled_palyer_name,newofficialattend,'cancel')
     redirect_to  holdgame_gamegroups_path(@holdgame, {:targroupid=>@curgroup.id})
 end 
-def cancel_player_registration_indouble
-    
+def cancel_double_registration
+
     @attendantrecord=Groupattendant.find(params[:user_in_groupattendant])
     @curgroup=@attendantrecord.gamegroup
+    @groupattendants=@curgroup.groupattendants
+    if (@groupattendants.index(@attendantrecord)<@curgroup.noofplayers) && (@groupattendants.count>=@curgroup.noofplayers+1)
+      @newofficialattend=@groupattendants.at(@curgroup.noofplayers)
+     
+    end
+     @cancelledplayerlist=Array.new
+    for attendant in @attendantrecord.attendants   
+      tempplayer=Hash.new   
+      tempplayer['name']=attendant.name
+      tempplayer['player_id']=attendant.player_id
+      tempplayer['curscore']=attendant.curscore
+      @cancelledplayerlist.push(tempplayer)   
+    end
     @attendantrecord.destroy
+
+    send_cancel_notice_double(@curgroup,@newofficialattend, @cancelledplayerlist,'cancel')
+   
     #Attendant.where(:groupattendant_id=>params[:user_in_groupattendant],:player_id=>params[:player_id]).first.destroy
     #@attendantrecord.destroy
     redirect_to  holdgame_gamegroups_path(@holdgame, {:targroupid=>@curgroup.id})
 end
-
-
-def cancel_player_registration_inteam
+def cancel_singleplayer_registration_inteam
    
     @attendantrecord=Groupattendant.find(params[:user_in_groupattendant])
     @curgroup=@attendantrecord.gamegroup
     @tempattendant=Attendant.where(:groupattendant_id=>params[:user_in_groupattendant],:player_id=>params[:player_id]).first.destroy
     #@attendantrecord.destroy
+    send_register_notice_team(@curgroup,@attendantrecord,'playerschanged')
+    redirect_to  holdgame_gamegroups_path(@holdgame, {:targroupid=>@curgroup.id})
+end
+def cancel_team_registration
+     
+    @attendantrecord=Groupattendant.find(params[:user_in_groupattendant])
+    @curgroup=@attendantrecord.gamegroup
+    @groupattendants=@curgroup.groupattendants
+    @cancelled_teamname=@attendantrecord.teamname
+    if (@groupattendants.index(@attendantrecord)<@curgroup.noofplayers) && (@groupattendants.count>=@curgroup.noofplayers+1)
+      @newofficialattend=@groupattendants.at(@curgroup.noofplayers)
+     
+    end
+    @cancelledplayerlist=Array.new
+    for attendant in @attendantrecord.attendants  
+      tempplayer=Hash.new   
+      tempplayer['name']=attendant.name
+      tempplayer['player_id']=attendant.player_id
+      tempplayer['curscore']=attendant.curscore
+      @cancelledplayerlist.push(tempplayer) 
+    end
+    #@tempattendant=Attendant.where(:groupattendant_id=>params[:user_in_groupattendant],:player_id=>params[:player_id]).first.destroy
+    @attendantrecord.destroy
+    send_cancel_notice_team(@curgroup, @cancelled_teamname, @cancelledplayerlist, @newofficialattend, 'cancel') 
+       
     redirect_to  holdgame_gamegroups_path(@holdgame, {:targroupid=>@curgroup.id})
 end
 

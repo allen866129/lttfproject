@@ -21,7 +21,7 @@
             <td  style=" white-space: nowrap;">
               <%= holdgame ? holdgame.startdate.to_s+holdgame.gamename : '' %></td>
             <td><%= gsheet4game.in_use ? "使用中" : "未使用"%></td>
-            <td  style=" overflow: hiddenn ; text-overflow: ellipsis;  white-space: nowrap;">
+            <td  style=" overflow: hidden ; text-overflow: ellipsis;  white-space: nowrap;">
                 <%= h auto_link(gsheet4game.fileulr) %></td>
             <td><%= link_to '詳細', gsheet4game %></td>
             <td><%= link_to '修改', edit_gsheet4game_path(gsheet4game) %></td>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+	<p><%= @playerlist[0].name %>,<%= @playerlist[1].name%> 球友你們好,</p>
+	<p style="white-space: pre-line ;width:auto; text-align:justify ">
+	  很高興通知你們,你們已經遞補為<%=@holdgame.startdate.to_s+@holdgame.gamename%>賽事正選參賽隊伍,請準時出席參賽。<br>
+	  如果你們無法出席此場比賽，請儘速取消報名，以利主辦單位安排後續賽程! <br>
+	  謝謝合作! <br>
+
+	 本賽事資訊請參考	<%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', holdgame_gamegroups_url(@holdgame) %>
+	</p>
+	<p>桌球愛好者聯盟敬上</p>
+    
+
+    <p>請勿直接回覆本郵件！</p>
+     <p>如果有任何問題請跟本賽事主辦人：<%=@holdgame.gameholder.name%> 連絡. <br>
+     連絡電話：<%=@holdgame.gameholder.phone %> <br>
+     email: <%= mail_to @holdgame.gameholder.email, @holdgame.gameholder.email %><br>
+   </p>   
+
+	
+  </body>
+</html>

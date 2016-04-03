@@ -198,6 +198,7 @@ class UploadgamesController < ApplicationController
       if APP_CONFIG['Mailer_delay']
         #UserMailer.gamerecords_publish_notice(@user, @player, @playergames, uploadgame).deliver
         UserMailer.delay.gamerecords_publish_notice(@user, @player, @playergames, uploadgame)
+        #UserMailer.gamerecords_publish_notice(@user, @player, @playergames, uploadgame).deliver
       else  
         UserMailer.gamerecords_publish_notice(@user, @player, @playergames, uploadgame).deliver
       end

@@ -9,7 +9,7 @@
     <p>您參與的桌球愛好者聯盟 <%= @gamename %>比賽成績已開始公告查核作業。</p>
     <p>您此次的參賽成績為 <%=@gameplayer["wongames"] %>勝, <%=@gameplayer["losegames"] %>負。 </p>
     <p>如果您的此次比賽成績紀錄有誤，請儘速跟桌盟或主辦單位反應更正，以免影響正確的積分計算，謝謝配合。</p>
-    <p><%= link_to  @gamename+'成績查核網頁', uploadgame_url(@holdgame) %></p>
+    <p><%= link_to  @gamename+'成績查核網頁', uploadgame_url(@uploadgame) %></p>
     <table border=1 >
       <caption> 此表為僅為查核時之預估積分變化,最終積分仍需以查核後公告為準!</caption>
       <tr>
@@ -104,6 +104,13 @@
     
       <% end %>
     </table> 
+  
     <p>桌球愛好者聯盟敬上  </p>
+  <p>請勿直接回覆本郵件！</p>
+  <p>如果有任何問題請跟本賽事主辦人：<%=@uploadgame.holdgame.gameholder.name%> 連絡. <br>
+     連絡電話：<%=@uploadgame.holdgame.gameholder.phone %> <br>
+     email: <%= mail_to @uploadgame.holdgame.gameholder.email, @uploadgame.holdgame.gameholder.email %><br>
+   </p>   
+
   </body>
 </html>

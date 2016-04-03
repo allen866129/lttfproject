@@ -30,10 +30,10 @@ Lttfproject::Application.routes.draw do
       resources :gamegroups, :controller => 'holdgame_gamegroups' do
         collection do
           post :registration
-          post :cancel_current_user_registration
-          post :cancel_player_registration
-          post :cancel_player_registration_indouble
-          post :cancel_player_registration_inteam
+          post :cancel_team_registration
+          post :cancel_singleplayer_registration
+          post :cancel_double_registration
+          post :cancel_singleplayer_registration_inteam
           get :playerinput
           get :singleplayerinput
           get :doubleplayersinput
@@ -84,6 +84,7 @@ Lttfproject::Application.routes.draw do
   resources :games do
     collection do 
       get  :show_player_games
+      get   :lttfratinginfo
     end  
   end
 

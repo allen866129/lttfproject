@@ -78,3 +78,4 @@ gem 'omniauth-google-oauth2'
 gem "rails_autolink", "~> 1.0.9"
 gem 'google-api-client'
 gem 'delayed_job_active_record' , '0.3.3'
+gem 'rufus-scheduler'

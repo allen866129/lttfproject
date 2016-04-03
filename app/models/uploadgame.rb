@@ -634,5 +634,5 @@ class Uploadgame < ActiveRecord::Base
     #@newgame.find_system_adjust_score
     @newgame 
   end	
- 
+
 end
