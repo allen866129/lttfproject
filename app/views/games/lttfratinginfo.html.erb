@@ -1,5 +1,6 @@
 <head>
- <%= display_meta_tags(default_lttfratinginfo_meta_tags) %> 
+<% set_meta_tags :title => '桌球愛好者聯盟積分賽規則說明'%>
+ 
 
 <style>
 body {
@@ -248,6 +249,10 @@ h1, h2, h3, h4, h5, h6 {
 <li>
   比賽完成, 主辦人完成上傳賽事成績後, 系統會發出賽事紀錄查核通知郵件, 參賽者請務必核對本人該場賽事之比賽成績, 如有錯誤請馬上跟主辦人或桌盟反應更正, 若24小時內無人反應紀錄有誤, 則系統會進行積分更新作業, 並會寄發電子郵件通知所有參賽者更新後的最新積分.<br><br>
 </li>  
+<li>
+  分組循環賽時,若有三人或多人以上互咬(勝場數相同)時, 先採用「勝局總和/負局總和」商數大者勝出，如果前項數值還有相同時再以「得分總和/失分總和」商數大者勝出.<br>
+  可參考以下詳細說明 <a href="https://docs.google.com/gview?url=http://www.twlttf.org/files/三人互咬判定規則.pdf&embedded=true"> 分組循環賽三人(多人)互咬狀況下之勝負判定規則說明</a> 
+</li>
 </ol>
 
 <p align=center><%= link_to '返回前頁', :back %>  </p>

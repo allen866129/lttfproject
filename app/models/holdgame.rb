@@ -71,18 +71,21 @@ class Holdgame < ActiveRecord::Base
 
 def self.auto_notice
   puts "cron start"
+  Rails.logger.info("auto_notice start ")
   puts ("Time Now")
   puts Time.now
   puts ("Time current")
   puts Time.current
-  @holdgames=Holdgame.includes(:gameholder).where(:lttfgameflag=>true).where(:cancel_flag=>false).where(:startdate => (Time.current.to_date))
+  @holdgames=Holdgame.includes(:gameholder).where(:lttfgameflag=>true).where(:cancel_flag=>false).where(:startdate => Time.current.to_date+1)
   @holdgames.each do |holdgame|
         holdgame.gamegroups.each do |group|
-
           if(group.noofplayers!=0)
+            puts (holdgame.startdate.to_s+holdgame.gamename+'==>'+group.groupname)
             @groupattendants=group.groupattendants.in_groups_of(group.noofplayers,false)[0]    
             @groupattendants.each do |groupattend| 
               groupattend.attendants.each  do |player| 
+              puts(player.name)
+ 
                 if APP_CONFIG['Mailer_delay']
                   UserMailer.delay.autogamenotice(holdgame, player) 
                 else

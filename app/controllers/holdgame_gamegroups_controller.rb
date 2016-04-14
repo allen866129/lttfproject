@@ -161,6 +161,8 @@ end
 def registration
 
      @curgroup=Gamegroup.find(params[:format])
+     if !@curgroup.allgroupattendee.find{|a| a.name==current_user.username}
+
      attendantrecord=@curgroup.groupattendants.build
     
      Groupattendant.transaction do
@@ -182,7 +184,7 @@ def registration
         send_register_notice_single(@curgroup,player,'register')
      end 
    end 
-
+  end
     #@gamegroups = @holdgame.gamegroups
     #@attendee=create_attendee_array(@gamegroups)
     #@targettabindex=@gamegroups.index(@curgroup)+1
@@ -197,7 +199,7 @@ def singleregistration(group_id, playerids)
   @playerlist=User.find(playerids) if playerids
 
   Groupattendant.transaction do
-    @playerlist.each do |player| 
+    @playerlist.each do |player|  
       attendantrecord=@curgroup.groupattendants.build 
       attendantrecord.regtype= @curgroup.regtype
       attendantrecord.phone=player.phone
@@ -213,11 +215,10 @@ def singleregistration(group_id, playerids)
         attendant.curscore=player.playerprofile.curscore
         attendant.save
         send_register_notice_single(@curgroup,attendant,'register')
-      end 
-    end
+      end
    
-  end 
-
+    end 
+  end
 end 
 
 def doubleregistration(group_id, playerids)
@@ -714,6 +715,7 @@ def destroy
 
   redirect_to holdgame_gamegroups_url( @holdgame )
 end
+
 def groupdumptoxls
 
   @player_current_score=Hash.new
@@ -732,6 +734,7 @@ def groupdumptoxls
   headers["Content-Disposition"] = "attachment; filename=\"#{filename}.xls\"" 
   respond_to do |format|
     format.xls 
+    #format.csv
   end
 end  
 protected

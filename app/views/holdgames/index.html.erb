@@ -5,10 +5,10 @@
   <%= link_to_if( current_user && (current_user.has_role? :gameholder) , '查詢本人登錄之比賽', holdgames_path(:user=>current_user.gameholder), :class=> "button radius") %>
   <%= link_to_if(current_user && ((current_user.has_role? :admin) || (current_user.has_role? :superuser) || (current_user.has_role? :gameholder)), '查詢所有登錄之比賽', holdgames_path(:all=>'all'), :class=> "button radius") %>
  <%= link_to_if(current_user && ((current_user.has_role? :admin) || (current_user.has_role? :superuser) ), '公告比賽列表', publish_all_holdgames_path, :class=> "button radius") %>
-  <div class="col-md-12 col-sm-12 col-md-12 col-lg-12">
+  <!div class="col-md-12 col-sm-12 col-md-12 col-lg-12">
 
     <div class="table-responsive datagrid">
-      <table class="datatable  table-striped table-condensed" border=1 link=blue>
+      <table class="datatable  table-striped table-condensed" border=1 link=blue >
         <% if @allgames %>
           <caption class="text-center" ><strong>比賽登錄及報名系統(所有賽事)</strong></caption> 
       
@@ -21,7 +21,7 @@
             <th>比賽日期</th>
             <th>比賽地點</th>
             <th>主辦人員</th>
-            <th>詳細比賽資訊</th>
+            <th>比賽資訊</th>
             <th>功能操作</th>
           </tr>
         </thead>
@@ -41,8 +41,8 @@
                    、<%= coholder.name %>
                    <% end %>
                 </td>
-                <td>
-                  <p style="white-space: pre-line ;width:auto; text-align:justify ">
+                <td width="auto">
+                  <p style="white-space: pre-line ;width:auto; text-align:justify; ">
                     <%= holdgame.gamenote %>
                   </p>
                 </td>
@@ -81,7 +81,7 @@
       </table>
     </div>
   </div>
-</div>
+
 
  
 

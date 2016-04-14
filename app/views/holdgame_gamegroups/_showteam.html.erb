@@ -86,22 +86,23 @@
         <tbody>
 
          
-              <%  attendeearray.each_with_index do |row_group,groupindex| %> 
+              <!%  attendeearray.each_with_index do |row_group,groupindex| %> 
+              <% gamegroup.groupattendants.each_with_index do |row_group, groupindex| %>
                 <tr>
-                <td  style="text-align:center" colspan= 3 ><font color='red'><strong>(<%= groupindex+1 %>). 隊名:<%= row_group[0].teamname %></font></strong><br>
-                   <font color='blue'>報名球友:<%=  @groupaddtndant_registor_name[row_group[0].groupattendant_id.to_i] %>
+                <td  style="text-align:center" colspan= 3 ><font color='red'><strong>(<%= groupindex+1 %>). 隊名:<%= row_group.teamname %></font></strong><br>
+                   <font color='blue'>報名球友:<%=  User.find(row_group.registor_id).username %>
                   </font>
                 </td>
                 
-                <% if current_user && (row_group[0].registor_id==current_user.id ||@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser))   %>
+                <% if current_user && (row_group.registor_id==current_user.id ||@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser))   %>
                
                 
                 <td >
-                <%= button_to '取消報名', cancel_team_registration_holdgame_gamegroups_path(@holdgame, gamegroup, :user_in_groupattendant=>gamegroup.find_player_in_attendants(row_group[0].player_id) ) ,  {:onclick => "return confirm('確定整隊取消報名?')", :method => :post}  %>
+                <%= button_to '取消報名', cancel_team_registration_holdgame_gamegroups_path(@holdgame, gamegroup, :user_in_groupattendant=>row_group.id) ,  {:onclick => "return confirm('確定整隊取消報名?')", :method => :post}  %>
                 </td>
                 <td> 
                
-                <%= link_to '新增隊員', teamplayersadd_holdgame_gamegroups_path(@holdgame,gamegroup,:teamarray=>row_group, :row_group=>row_group[0].groupattendant_id, :name => 'add'),:class=> "button radius"   %>
+                <%= link_to '新增隊員', teamplayersadd_holdgame_gamegroups_path(@holdgame,gamegroup,:teamarray=>row_group.attendants, :row_group=>row_group.id, :name => 'add'),:class=> "button radius"   %>
                    
                 </td> 
                 <%end%>
@@ -118,7 +119,7 @@
 
                 <% player_index=1 %>
               
-                <%for player in row_group%>
+                <%for player in row_group.attendants%>
                 <td style="text-align:center"><font color='blue'><strong> <%= groupindex+1 %>-<%=  player_index %></font></strong></td>         
                 <td style="text-align:center"><font color='blue'><strong> <%=  player.player_id  %></font></strong></td>
                 <td  style="text-align:center;white-space: nowrap;">

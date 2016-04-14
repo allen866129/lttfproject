@@ -5,10 +5,10 @@
 </p>
 <%= form_tag trycalculation_uploadgames_path, multipart: true do %>
 
-
-
-  <div class="table-responsive datagrid">
-    <table class="datatable table-striped" border=1 link=blue>
+  <!div class="table-responsive datagrid">
+    <!table class="datatable table-striped" border=1 link=blue >
+  <div class='TableFormat_1'>
+  <table cellpadding='0' cellspacing='0' align='center' width='100%' border="1"  >
       <caption class="text-center" ><strong><%= @uploadgame.gamename %></strong></caption>
       <thead>
         <tr>  
@@ -21,28 +21,30 @@
         <th>敗場數</th>
         <th>賽後積分</th>
         <th>積分增減</th>
-        <th>主辦/系統建議積分</th>
+        <th>建議積分</th>
         </tr>
       </thead> 
       <tbody>
-        <!%  @adjustplayers.each do |player| %>
+        <%index=0%>
         <%  @adjustplayers.zip(@autosuggest).each do |player,playersuggest| %>
-          <tr>
-            
-          <td> <%= player["serial"] %></font></td>
-          <td>  <%= player["id"] %></font></td>
+          <tr class=<%= "row"+(index%2).to_s %> >
+          <%index=index+1%>   
+          <td> <%= player["serial"] %></td>
+          <td>  <%= player["id"] %></td>
+
           <td style="white-space: nowrap;">
-             <%= link_to cal_show_player_games_uploadgames_path(@uploadgame,:player_name=>player["name"]) , :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+            <%= link_to publish_show_player_games_uploadgames_path(@uploadgame,:player_name=>player["name"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
               <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= player["name"] %></font>
           <% end %>
+         
           </td>
-   
+
           <% if player["original bscore"]==0 && (!player["adjustscore"] || player["adjustscore"].to_i==0)  %>
             <td class="zero" align="center"><%= player["original bscore"] %></td>
-            <td class="zero" align="right"> <%= number_field_tag  "adjustscores[]" , player["adjustscore"] %></td>
+            <td class='adjustscore' >  <%= number_field_tag  "adjustscores[]" , player["adjustscore"] ,max:99999%>
           <%else%>
             <td ><%= player["original bscore"] %></td>
-            <td> <%= number_field_tag  "adjustscores[]" , player["adjustscore"] %></td>
+            <td class='adjustscore'> <%= number_field_tag  "adjustscores[]" , player["adjustscore"], max:99999  %></td>
 
           <%end%>  
           <td><%= player["wongames"] %></td>
@@ -50,14 +52,15 @@
           <td><%= player["agamescore"] %></td>
           <td> <%= player["scorechanged"] %></td>
           <td> <%= player["suggestscore"] %>
-            <%if playersuggest['sys suggest score']%>
+             <%if playersuggest['sys suggest score']%>
               <font color=red><br>(<%=  playersuggest['sys suggest score'] %>)</font>
-            <%end%>
+             <%end%>
           </td>
            
           </tr>
         <% end %>
       </tbody>
+ 
       <tfoot>
         <tr>
         <td colspan=10>
@@ -70,7 +73,8 @@
         </div>
         </td> 
         </tr> 
-      </tfoot>  
+      </tfoot>          
+ 
     </table>
    
   </div>    
@@ -78,59 +82,99 @@
 <% end %>     
  
    
-    
+  <br><br>
 
-
-<div class="table-responsive datagrid">
-  <table class="datatable table-striped" border=1 link=blue>
-     <caption class="text-center" ><strong>比賽詳細紀錄</strong></caption>
-    <thead>
+<div style='text-align:center; padding-bottom:10px;'>
+  <div class='TableFormat_1'>
+    <table cellpadding='0' cellspacing='0' align='center' width='100%'  >
+      <caption>詳細比賽紀錄</caption>
+      <thead>
       <tr>
-      <th align=center>比賽組別</th>
-      <th align=center>勝方姓名</th>
-      <th align=center>大比數</th>
-      <th align=center>敗方姓名</th>
-      <th align=center>小比數</th>
+      <th>比賽組別</th>
+      <th>對戰結果</th>
+      <th>勝方</th>
       </tr>
-    </thead> 
-    <tboody>
-        <%  @gamesrecords.each do |game| %>
-          <tr>
-          <td align=left><font color=blue><%= game["group"] %></font></td>
-          <td align=center>
-            <%= link_to cal_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]),:remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
-              <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
-            <% end %>
-                  
-            <br> 
-            <font color='red'>
-              <%= game["Aplayer bgamescore"] %>
-              <%if game["Players_scorechanged"] %>
-                :(+<%= game["Players_scorechanged"].to_s %>) </font>
-              <%end%>
-            </font>
-          </td>
-          <td align=center><font color=blue><%= game["gameresult"] %></font></td>
-          <td align=center>
-            <%= link_to cal_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Blayer"]),:remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
-              <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
-            <% end %>
-                 
-            <br> 
-            <font color='red'>
-              <%= game["Bplayer bgamescore"] %>
-              <%if game["Players_scorechanged"] %>
-                :(-<%= game["Players_scorechanged"].to_s %>) 
-              <%end%>
-            </font>
-            
-          </td>
-          <td align=left><font color=blue><%= game["detailrecords"] %></font></td>
-          </tr>
-        <% end %>        
-    </tboody>  
-  </table> 
-</div>
+     </thead>
+      <tbody>
+        <%  @gamesrecords.each_with_index do |game, index| %>
+          <% @game_individual=Game.game_breakdown(game) %>
+          <tr class=<%= "row"+(index%2).to_s%> >
+          <% showname=game["group"].split('大亂鬥(決賽模式)成績')%>
+          <!td class='Match_Num'><!%= game["group"] %><!/td>
+          <td class='Match_Num'><%= showname[0] %></td>
+          <td class='Match_Result' >
+          <div class='MatchResult' >
+          <table cellpadding='0' cellspacing='0' align='center' width='100%' border="1"  >
+              <tbody>
+              <tr>
+                <td class="<%= @game_individual[0][5].to_i>@game_individual[1][5].to_i ? 'TeamName_winEntity' : 'TeamName' %>">
+                  <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+                       <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
+                  <% end %>
+                  <% if game["Aplayer bgamescore"] %>
+                  <br>
+                   <font color='red'><%= game["Aplayer bgamescore"] %></font>
+                  <% end %> 
+                  <%if game["Players_scorechanged"] %>
+                    <font color='red'>:(<%= @game_individual[0][5].to_i>@game_individual[1][5].to_i ? '+' : '-' %><%= game["Players_scorechanged"].to_s %>) </font>
+                  <%end%>     
+
+                </td>
+                <td class="<%= @game_individual[0][5].to_i>@game_individual[1][5].to_i ? 'Final_Win' : 'Final_Loss' %>"><%= @game_individual[0][5] %></td>
+                <td class="<%= @game_individual[0][0].to_i>@game_individual[1][0].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[0][0] %></td>
+                <td class="<%= @game_individual[0][1].to_i>@game_individual[1][1].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[0][1] %></td>
+                <td class="<%= @game_individual[0][2].to_i>@game_individual[1][2].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[0][2] %></td>
+                <td class="<%= @game_individual[0][3].to_i>@game_individual[1][3].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[0][3] %></td>
+                <td class="<%= @game_individual[0][4].to_i>@game_individual[1][4].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[0][4] %></td>
+              </tr>
+              <tr>
+                <td class="<%= @game_individual[1][5].to_i>@game_individual[0][5].to_i ? 'TeamName_winEntity' : 'TeamName' %>">
+                 <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Bplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %> 
+                    <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
+                  <% end %>
+                  <% if game["Bplayer bgamescore"] %>
+                   <br>
+                    <font color='red'><%= game["Bplayer bgamescore"] %></font>
+                  <% end %> 
+                  <%if game["Players_scorechanged"] %>
+                   <font color='red'>:(<%= @game_individual[1][5].to_i>@game_individual[0][5].to_i ? '+' : '-' %><%= game["Players_scorechanged"].to_s %>) </font>
+                  <%end%>
+                </td>
+
+                <td class="<%= @game_individual[1][5].to_i>@game_individual[0][5].to_i ? 'Final_Win' : 'Final_Loss' %>"><%= @game_individual[1][5] %></td>
+                <td class="<%= @game_individual[1][0].to_i>@game_individual[0][0].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[1][0] %></td>
+                <td class="<%= @game_individual[1][1].to_i>@game_individual[0][1].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[1][1] %></td>
+                <td class="<%= @game_individual[1][2].to_i>@game_individual[0][2].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[1][2] %></td>
+                <td class="<%= @game_individual[1][3].to_i>@game_individual[0][3].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[1][3] %></td>
+                <td class="<%= @game_individual[1][4].to_i>@game_individual[0][4].to_i ? 'Score_Win' : 'Score_Loss' %>"><%= @game_individual[1][4] %></td>
+
+              </tr>
+            </tbody>
+            </table>
+          </div>
+        </td>
+        <td class='Match_WinEntity'>
+          <% if  @game_individual[0][5].to_i>@game_individual[1][5].to_i %>
+            <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+                       <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
+            <% end %>          
+  
+          <%else%>
+            <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Bplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+                       <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
+            <% end %>                       
+          <%end%>
+        </td>
+        </tr>
+        <%end%>
+
+
+      </tbody>
+    </table>  
+   </div>  
+ </div> 
+
+
 <!-- Modal -->  
 <div class="modal fade" id="player_modal">
   <div class="modal-dialog">

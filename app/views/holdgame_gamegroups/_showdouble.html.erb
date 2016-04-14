@@ -89,11 +89,11 @@
         <tbody>
 
           <tr>
-              <%  attendeearray.each_with_index do |row_group,groupindex| %> 
+              <%  gamegroup.groupattendants.each_with_index do |row_group,groupindex| %> 
               
                <td style="text-align:center"><font color='blue'><strong> <%= groupindex+1 %></strong></font></td>
               
-                <%for player in row_group%>
+                <%for player in row_group.attendants%>
                          
                 <td style="text-align:center"><font color='blue'><strong> <%=  player.player_id  %></strong></font></td>
                 <td style="text-align:center;white-space: nowrap;">

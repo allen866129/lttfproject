@@ -23,6 +23,23 @@ class Game < ActiveRecord::Base
 
     @playerssummery  
   end 
+  def self.game_breakdown (game)
+    game_records=Array.new
+    games_record_A=Array.new
+    games_record_B=Array.new
+    temparr=game["detailrecords"].split(';')
+    for record in temparr
+        rr=record.split(":")
+        games_record_A.push(rr[0]) 
+        games_record_B.push(rr[1]) 
+    end  
+    gameresult=game["gameresult"].split(':')
+    games_record_A.push(gameresult[0]) 
+    games_record_B.push(gameresult[1])
+    game_records.push(games_record_A)
+    game_records.push(games_record_B)
+    game_records
+  end
   def getdetailgamesrecord
 
     gamesrecords=Array.new
