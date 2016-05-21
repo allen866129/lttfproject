@@ -1,4 +1,4 @@
-#encoding: UTF-8”
+#encoding: UTF-8;”
 class Authorization < ActiveRecord::Base
   # attr_accessible :title, :body
   	belongs_to :user

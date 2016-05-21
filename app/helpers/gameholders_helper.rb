@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 module GameholdersHelper
 def default_holder_meta_tags
   {

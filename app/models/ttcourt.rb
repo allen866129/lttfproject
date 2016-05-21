@@ -2,7 +2,7 @@ class Ttcourt < ActiveRecord::Base
 
  attr_accessible :placename, :lng, :lat, :city, :county , :zipcode, :address, :opentime, :facilities, :playfee,:contactinfo
  attr_accessible :supplyinfo, :infosource,:infoURL ,:courtphotos
- after_commit :assign_zipcode 
+ before_save :assign_zipcode 
  has_many :courtphotos, dependent: :destroy
  accepts_nested_attributes_for :courtphotos
 
@@ -15,7 +15,7 @@ class Ttcourt < ActiveRecord::Base
   end
   def assign_zipcode
   	self.zipcode=TWZipCode_hash[self.city][self.county]
-  	self.save
+  	#self.save
   end	
-   default_scope order('zipcode ASC')
+   default_scope {order('zipcode ASC')}
 end

@@ -1,11 +1,11 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 class Gamegroup < ActiveRecord::Base
   attr_accessible :gamefee, :groupname, :grouptype, :holdgame_id, :noofbackupplayers, :noofplayers, :scorehigh
   attr_accessible :scorelimitation, :scorelow, :starttime , :regtype
   attr_accessible :double_score_sum_limitation, :double_scorehigh, :double_scorelow
   belongs_to :holdgame
   has_many :groupattendants, dependent: :destroy
-  default_scope order('id ASC')
+  default_scope {order('id ASC')}
   def self.regtypes
    {'single'=>'個人', 'double'=>'雙人', 'team'=>'團體'}
   end

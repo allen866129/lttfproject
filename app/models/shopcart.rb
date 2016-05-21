@@ -1,9 +1,9 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 class Shopcart < ActiveRecord::Base
   attr_accessible :L, :S, :XXS,:M, :XL, :X2L, :X3L, :X4L, :X5L, :XS, :address, :pay_check, :paymentinfo, :sent_date, :sent_flag, :user_id
   attr_accessible :take_or_mail
   belongs_to :user
-  default_scope order('user_id')
+  default_scope {order('user_id')}
   def totalcarts
     
     @total_num=self.X5L+self.X4L+self.X3L+self.XL+self.X2L+self.L+self.M+

@@ -83,7 +83,7 @@
 
 <div style='text-align:center; padding-bottom:10px;'>
   <div class='TableFormat_1'>
-    <table cellpadding='0' cellspacing='0' align='center' width='100%'  >
+    <table cellpadding='0' cellspacing='0' align='center' width='100%' border="1"  >
       <caption>詳細比賽紀錄</caption>
       <thead>
       <tr>
@@ -96,10 +96,13 @@
         <%  @gamesrecords.each_with_index do |game, index| %>
         <% @game_individual=Game.game_breakdown(game) %>
         <tr class=<%= "row"+(index%2).to_s%> >
-        <td class='Match_Num'><%= game["group"] %></td>
+        <% showname=game["group"].split('大亂鬥(決賽模式)成績')%>
+        <!td class='Match_Num'><!%= game["group"] %><!/td>
+      
+        <td class='Match_Num'><%= showname[0] %></td>
           <td class='Match_Result' >
           <div class='MatchResult' >
-              <table cellpadding='0' cellspacing='0' align='center' width='100%'  >
+              <table cellpadding='0' cellspacing='0' align='center' width='100%' border="1"  >
               <tbody>
               <tr>
                 <td class="<%= @game_individual[0][5].to_i>@game_individual[1][5].to_i ? 'TeamName_winEntity' : 'TeamName' %>">

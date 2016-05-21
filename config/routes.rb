@@ -25,7 +25,8 @@ Lttfproject::Application.routes.draw do
   resources :advitems
 
 
- match '/home' => 'home#index'
+ #match '/home' => 'home#index'
+ match '/home' => 'home#index', :via => [:get], :as => 'home_index'
  resources :holdgames do
       resources :gamegroups, :controller => 'holdgame_gamegroups' do
         collection do

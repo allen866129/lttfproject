@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 class HoldgameGamegroupsController < ApplicationController
  before_filter :authenticate_user!, :except=>[:index,:teamplayersinput, :singleplayerinput, :doubleplayersinput, :cancel_player_registration, :update, :find_holdgame]
  layout :resolve_layout 
@@ -466,7 +466,7 @@ def teamplayersinput
       end 
       
       if(!@curgroup.check_double_team_meet_group_qualify(scoresum))
-        flash[:notice]='該組積分總和不符合本分組資格，無法接受報名!' 
+        flash[:alert]='該組積分總和不符合本分組資格，無法接受報名!' 
       else
         successflag=true
         teamregistration(params[:format], @playerlist, params[:teamname],nil)
@@ -474,7 +474,7 @@ def teamplayersinput
     else
         @playerlist=User.where(:id=> params[:playerid].uniq).order_by_ids(params[:playerid].uniq) if params[:playerid]
        #@curgroup=Gamegroup.find(params[:format])
-       flash[:notice]='隊名不得為空白!請重新輸入'
+       flash[:alert]='隊名不得為空白!請重新輸入'
     end 
                         
     elsif params[:quit]
@@ -492,12 +492,12 @@ def teamplayersinput
             @playerlist.push(@newplayer)
           end  
         else
-          flash[:notice]='球友資料皆不為空白!請重新輸入'
+          flash[:alert]='球友資料皆不為空白!請重新輸入'
         end 
       else
          @playerlist=User.where(:id=> params[:playerid].uniq).order_by_ids(params[:playerid].uniq) if params[:playerid]
          @curgroup=Gamegroup.find(params[:format])
-         flash[:notice]='團隊球員不得超過20位!'
+         flash[:alert]='團隊球員不得超過20位!'
       end  
     end 
     
@@ -530,7 +530,7 @@ def teamplayersadd
        end  
    
        if(!@curgroup.check_double_team_meet_group_qualify(scoresum))
-           flash[:notice]='該組積分總和不符合本分組資格，無法接受更改或新增!' 
+           flash[:alert]='該組積分總和不符合本分組資格，無法接受更改或新增!' 
          else
           successflag=true
           teamregistration(params[:format], @playerlist, params[:teamname],params[:groupattendantid])
@@ -538,7 +538,7 @@ def teamplayersadd
     else
        @playerlist=User.where(:id=> params[:playerid].uniq).order_by_ids(params[:playerid].uniq) if params[:playerid]
      
-       flash[:notice]='隊名不得為空白!請重新輸入'
+       flash[:alert]='隊名不得為空白!請重新輸入'
     end 
                         
     elsif params[:quit]
@@ -555,11 +555,11 @@ def teamplayersadd
             @playerlist.push(@newplayer)
           end  
         else
-          flash[:notice]='球友資料皆不為空白!請重新輸入'
+          flash[:alert]='球友資料皆不為空白!請重新輸入'
         end 
       else
          @playerlist=User.find(params[:playerid].uniq) if params[:playerid]
-         flash[:notice]='團隊球員不得超過20位!'
+         flash[:alert]='團隊球員不得超過20位!'
       end  
     end 
     
@@ -587,7 +587,7 @@ def singleplayerinput
            @playerlist.push(@newplayer)
         end  
       else
-        flash[:notice]='球友資料皆不為空白!請重新輸入'
+        flash[:alert]='球友資料皆不為空白!請重新輸入'
       end 
    
     end 
@@ -597,7 +597,7 @@ end
 def get_inputplayer(playerlist,keyword)
 
   if !keyword
-     flash[:notice]='球友資料不得有空白!請重新輸入!'
+     flash[:alert]='球友資料不得有空白!請重新輸入!'
      return nil
   end
   reg = /^\d+$/
@@ -607,16 +607,16 @@ def get_inputplayer(playerlist,keyword)
     @newplayer=User.find_by_id(keyword.to_i).first 
   end  
   if !@newplayer 
-          flash[:notice] = "無此球友資料，請查明後再輸入!" 
+          flash[:alert] = "無此球友資料，請查明後再輸入!" 
   elsif check_in_blacklist(@newplayer.id)
-          flash[:notice] = @newplayer.username+"已被本賽事主辦人列為黑名單,無法報名本賽事！"         
+          flash[:alert] = @newplayer.username+"已被本賽事主辦人列為黑名單,無法報名本賽事！"         
   elsif(@curgroup.findplayer(@newplayer.id))
-          flash[:notice] = "此球友已經完成報名，請勿重覆報名!"
+          flash[:alert] = "此球友已經完成報名，請勿重覆報名!"
 
   elsif playerlist && playerlist.include?(@newplayer.id.to_s)
-          flash[:notice]="此球友("+@newplayer.id.to_s+","+@newplayer.username+")已經輸入，請勿重覆輸入!"
+          flash[:alert]="此球友("+@newplayer.id.to_s+","+@newplayer.username+")已經輸入，請勿重覆輸入!"
   elsif !@curgroup.check_single_meet_group_qualify(@newplayer.playerprofile.curscore) 
-          flash[:notice] = "此球友("+@newplayer.id.to_s+","+@newplayer.username+","+@newplayer.playerprofile.curscore.to_s+ ")不符合此分組參賽資格，無法報名此分組比賽!"  
+          flash[:alert] = "此球友("+@newplayer.id.to_s+","+@newplayer.username+","+@newplayer.playerprofile.curscore.to_s+ ")不符合此分組參賽資格，無法報名此分組比賽!"  
   else
     return @newplayer    
   end
@@ -655,7 +655,7 @@ def doubleplayersinput
         
       else
  
-         flash[:notice]='因為是雙打賽,輸入兩位球友資料皆不得有空白!請重新輸入' 
+         flash[:alert]='因為是雙打賽,輸入兩位球友資料皆不得有空白!請重新輸入' 
       end  
       
     end 

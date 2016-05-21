@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 module ApplicationHelper
 def default_meta_tags
   {
@@ -16,15 +16,23 @@ def default_meta_tags
  }
 end
   def bootstrap_class_for(flash_type)
+    #case flash_type
+    #when :success
+     # "alert-success" # Green
+    #when :error
+     # "alert-error" # Red
+    #when :alert
+     #v"alert-warning" # Yellow
+    # when :notice
+     # "alert-info" # Blue
+    #end
     case flash_type
-    when :success
-      "alert-success" # Green
-    when :error
-      "alert-error" # Red
-    when :alert
-      "alert-warning" # Yellow
-    when :notice
-      "alert-info" # Blue
+    when 'success' then "alert-success" 
+    when 'notice' then "alert-info"
+    when 'alert'  then "alert-warning"
+    when 'error'  then "alert-error" 
+    else flash_type
+      "alert-info"
     end
   end
   def sortable(column, title = nil)

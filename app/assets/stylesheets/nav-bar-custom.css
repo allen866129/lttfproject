@@ -3,11 +3,11 @@ $bgDefault      : #006699;
 $bgHighlight    : #ac44ad;
 $colDefault     : #ecf0f1;
 $colHover       : #ba44ad;
-/* Green 
+/* Green*
 $bgDefault      : #2ecc71;
 $bgHighlight    : #27ae60;
 $colDefault     : #ecf0f1;
-$colHover       : #d1ffed; /
+$colHover       : #d1ffed; */
 /* Purple
 $bgDefault      : #9b59b6;
 $bgHighlight    : #8e44ad;
@@ -17,7 +17,9 @@ $colHover       : #ecdbff; */
 $bgDefault      : #e67e22;
 $bgHighlight    : #d35400;
 $colDefault     : #ecf0f1;
-$colHover       : #ffe6d1; /
+$colHover       : #ffe6d1; */
+
+
 
 
 /* --- Style --- */
@@ -26,10 +28,14 @@ $colHover       : #ffe6d1; /
     border-color: $bgHighlight;
     .navbar-brand {
         padding-top: 5px;
-        color: $colDefault;
+        color: $colDefault; 
         &:hover, &:focus {
             color: $colHover; }}
-    .navbar-nav {
+ .navbar-default-custom .navbar-nav .open .dropdown-menu>li>a, .navbar-default-custom .navbar-nav .open .dropdown-menu {
+    background-color: #3344ff;
+    color:#ffffff;
+  }
+ .navbar-nav {
         > li {
             > a {
                 color: $colDefault;
@@ -61,9 +67,10 @@ $colHover       : #ffe6d1; /
         &:hover, &:focus {
             background-color: $bgHighlight; }
         .icon-bar {
-            background-color: $colDefault; }}}
+            background-color: $colDefault; }}} 
+
 @media (max-width: 767px) {
-    .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+ .navbar-default-custom   .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: $colDefault;
         &:hover, &:focus {
             color: $colHover;

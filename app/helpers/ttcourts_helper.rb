@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 module TtcourtsHelper
 def default_ttourts_meta_tags
   {

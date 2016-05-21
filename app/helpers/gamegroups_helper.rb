@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 module GamegroupsHelper
 def default_gamegroups_meta_tags
   {

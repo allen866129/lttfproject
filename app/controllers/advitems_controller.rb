@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 class AdvitemsController < ApplicationController
 before_filter :authenticate_admin_user!
 def index

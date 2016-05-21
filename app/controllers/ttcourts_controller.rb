@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 class TtcourtsController < ApplicationController
   # GET /ttcourts
   # GET /ttcourts.json

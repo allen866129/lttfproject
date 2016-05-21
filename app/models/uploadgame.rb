@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 require 'google_drive'
 require 'google/api_client'
 require 'google/api_client/client_secrets'
@@ -6,9 +6,9 @@ require 'google/api_client/auth/installed_app'
 
 class Uploadgame < ActiveRecord::Base
   attr_accessible :detailgameinfo, :gamedate, :gamename, :originalfileurl, :players_result, :publishedforchecking, :uploader ,:id ,:scorecaculated ,:recorder ,:adjustplayersinfo
-  scope :waitingforprocess, where( :scorecaculated => false )
-  scope :finsihedprocess, where( :scorecaculated =>true )
-  scope :waitingchecking, where( :scorecaculated => false ,:publishedforchecking=>true)
+  scope :waitingforprocess, -> {where( :scorecaculated => false )}
+  scope :finsihedprocess, -> {where( :scorecaculated =>true )}
+  scope :waitingchecking, -> {where( :scorecaculated => false ,:publishedforchecking=>true)}
   belongs_to :holdgame
   def self.findlastrow(worksheet, targetcol)
     @ws_row=worksheet.num_rows
@@ -236,6 +236,7 @@ class Uploadgame < ActiveRecord::Base
               @SingleGame['detailrecords']=currecord  
 
             end 
+            puts @SingleGame
             aplayer=playersinfo.find{|v| v['name']==@SingleGame['Aplayer']}
             bplayer=playersinfo.find{|v| v['name']==@SingleGame['Bplayer']}
             @SingleGame['Aplayer bgamescore']=(aplayer["adjustscore"]==nil || aplayer["adjustscore"].to_i==0 ) ? aplayer["bgamescore"].to_i : aplayer["adjustscore"].to_i
@@ -473,9 +474,12 @@ class Uploadgame < ActiveRecord::Base
   end  
   def max(*values)
     values.max
+ 
   end
+
   def min(*values)
     values.min
+
   end
   def find_system_adjust_score(adjustplayer)
     system_suggest_players =Array.new
@@ -493,11 +497,10 @@ class Uploadgame < ActiveRecord::Base
       suggestplayer=Hash.new
       suggestplayer=player
 
-    
       if player["scorechanged"]>49|| player["bgamescore"]==0
         @playerwongames=@gamesrecords.find_all{|v| v["Aplayer"]==player["name"]}
         @playerlosegames=@gamesrecords.find_all{|v| v["Bplayer"]==player["name"]}
-        
+
         if( @playerwongames.count>0 && @playerlosegames.count>0)
        
           @winlist=@playerwongames.map{|v| v["Bplayer"]}
@@ -505,6 +508,7 @@ class Uploadgame < ActiveRecord::Base
           winlistplayersinfo=winlistplayersinfo.find_all{|v| v["bgamescore"].to_i>0}
           win_max_player = winlistplayersinfo.max_by{|v| v["bgamescore"].to_i}
           win_max_score = win_max_player ? win_max_player["bgamescore"].to_i : 0
+
           #win_max_score=0
           #if win_max_player
           #   win_max_score=win_max_player["bgamescore"].to_i
@@ -518,6 +522,8 @@ class Uploadgame < ActiveRecord::Base
           #if lose_min_player
           #  lose_min_score=lose_min_player["bgamescore"].to_i
           #end
+
+
           if (player["scorechanged"]>49 && player["scorechanged"]<75 && player["bgamescore"]>0)
        
              system_suggest_score=player["agamescore"]
@@ -529,14 +535,20 @@ class Uploadgame < ActiveRecord::Base
           #                                               max((win_max_score+lose_min_score+ player["bgamescore"].to_i)/3,player["bgamescore"])
 
         elsif ( @playerwongames.count==0 && @playerlosegames.count>0)
-         
+ 
           @lostlist=@playerlosegames.map{|v| v["Aplayer"]}
+
+   
           lostlistplayersinfo=@playersummery.find_all{|v| @lostlist.include?(v["name"])}
-          openscorelist=lostlistplayersinfo.map{|v| v["bgamescore"].to_i}       
+           
+          openscorelist=lostlistplayersinfo.map{|v| v["bgamescore"].to_i}   
+             
           openscorelist=openscorelist.find_all{|v| v>0}
+         
           #average_opp_score=openscorelist.inject{ |sum, el| sum + el } /openscorelist.size
           #system_suggest_score=max(average_opp_score,75)
-          system_suggest_score = openscorelist ? max(openscorelist.min,75) : 0 
+
+          system_suggest_score = openscorelist ? max(openscorelist.min,75) : 0  if !openscorelist.empty?
           
         elsif ( @playerwongames.count>0 && @playerlosegames.count==0)
 

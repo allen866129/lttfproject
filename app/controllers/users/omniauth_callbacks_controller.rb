@@ -1,4 +1,4 @@
-#encoding: UTF-8”
+#encoding: UTF-8;”
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 		skip_before_filter :authenticate_user!
 	def redirect_to_back(default = root_url)

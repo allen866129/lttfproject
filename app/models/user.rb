@@ -1,4 +1,4 @@
-#encoding: UTF-8”
+#encoding: UTF-8;”
 class User < ActiveRecord::Base
   after_create  :assign_default_photo ,:create_profile 
   after_commit :assign_default_role
@@ -41,6 +41,7 @@ end
 
 def create_profile
   self.build_playerprofile if !self.playerprofile
+
 end  
 def assign_default_photo
     if !self.playerphoto

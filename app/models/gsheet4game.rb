@@ -1,4 +1,4 @@
-#encoding: UTF-8”
+#encoding: UTF-8;”
 class Gsheet4game < ActiveRecord::Base
   attr_accessible :fileulr, :holdgame_id, :in_use
   scope :find_by_holdgameid,->(gameid){where holdgame_id: gameid}

@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 require 'google_drive'
 class Playerprofile < ActiveRecord::Base
   before_create :add_name
@@ -7,13 +7,13 @@ class Playerprofile < ActiveRecord::Base
   attr_accessible :name, :initscore, :curscore, :totalwongames,  :totallosegames, :lastgamedate, :lastgamename, :lastscoreupdatedate, :gamehistory, :profileurl
   attr_accessible :imageurl, :bio, :paddleholdtype, :paddlemodel, :forwardrubber, :backrubber  , :created_at , :updated_at 
 def get_score_data_table
-
   data_table = GoogleVisualr::DataTable.new
   data_table.new_column('date', '日期')
   data_table.new_column('number', '積分走勢')
   if  self.gamehistory
-    @scorechangearray = self.gamehistory.split(/\n/)
+    @scorechangearray = self.gamehistory.split(/\n/).reject(&:blank?)
     data_table.add_rows(@scorechangearray.count)
+
     (1..@scorechangearray.count).each do |i|
       @record =@scorechangearray.shift
       @gamedate= @record.split("(").first

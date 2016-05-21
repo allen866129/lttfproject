@@ -46,14 +46,15 @@ class GameInfofileUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
-    include Sprockets::Helpers::RailsHelper
-    include Sprockets::Helpers::IsolatedHelper
+    #include Sprockets::Helpers::RailsHelper
+    #include Sprockets::Helpers::IsolatedHelper
+    include Sprockets::Rails::Helper
   # Provide a default URL as a default if there hasn't been a file uploaded:
    def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
 #ActionController::Base.helpers.asset_path("fallback/" + [thumb, "LTTF_logo.png"].compact.join('_'))
   #
- ActionController::Base.helpers.asset_path("fallback/tiny_lttf_logo.png")
+ ActionController::Base.helpers.asset_path("fallback/tiny_lttf_logo.jpg")
   #
    end
 

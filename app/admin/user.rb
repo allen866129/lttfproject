@@ -1,5 +1,6 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 ActiveAdmin.register User do
+  #permit_params :email, :username, :fbaccount #role_ids: []
   config.sort_order = "id_asc"
   index do
   	column :id
@@ -7,7 +8,7 @@ ActiveAdmin.register User do
     column :email
     column :fbaccount 
     column :roles do |user|
-      user.roles.collect {|c| c.name.capitalize }.to_sentence    
+     user.roles.collect {|c| c.name.capitalize }.to_sentence    
     end
     actions
   end
@@ -20,7 +21,7 @@ ActiveAdmin.register User do
       row :fbaccount
       row :playerphoto 
       row :roles do |user|
-      	user.roles.collect {|r| r.name.capitalize }.to_sentence
+      user.roles.collect {|r| r.name.capitalize }.to_sentence
       end
     end      
   end
@@ -32,7 +33,7 @@ ActiveAdmin.register User do
       f.input :email
       f.input :fbaccount
       f.input :roles, :collection => Role.global,
-        :label_method => lambda { |el| t "simple_form.options.user.roles.#{el.name}" }
+       :label_method => lambda { |el| t "simple_form.options.user.roles.#{el.name}" }
 
       #f.input :playerphoto, :as => :file, :label => "舊有照片", :hint => f.template.image_tag(f.object.playerphoto.url(:thumb)), input_html: { disabled: true }
       #f.input :playerphoto, :as => :file, :label => "更新照片"

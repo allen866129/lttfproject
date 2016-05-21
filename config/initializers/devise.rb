@@ -230,10 +230,8 @@ Devise.setup do |config|
   require "omniauth-facebook" 
 
   #config.omniauth :facebook, ENV["FACEBOOK_KEY"], ENV["FACEBOOK_SECRET"], { :scope => 'email, offline_access, manage_pages,publish_stream,user_groups,publish_actions', :locale =>'zh_TW', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
-  config.omniauth :facebook, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_ID'].to_s, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_SECRET'], { :scope => 'email, offline_access,user_groups,publish_actions', :locale =>'zh_TW', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
-  #config.omniauth :google_oauth2, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_KEY'].to_s, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_SECRET'].to_s,
-  # {   :scope => 'userinfo.email,userinfo.profile,https://spreadsheets.google.com/feeds/,https://docs.google.com/feeds/,https://www.googleapis.com/auth/drive', :access_type => 'offline' ,:approval_prompt=>'force' }
-  
+  config.omniauth :facebook, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_ID'].to_s, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_SECRET'], { :scope => 'email, user_groups,publish_actions', :locale =>'zh_TW', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.

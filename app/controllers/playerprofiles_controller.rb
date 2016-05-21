@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 
 require 'google/api_client'
 require 'google/api_client/client_secrets'

@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 
 require 'google_drive'
 require 'google/api_client'
@@ -283,13 +283,13 @@ def copy_players_list
     playerlistws[4,1]='主辦人員:'
     playerlistws[4,2]=holdgame.gameholder.name
     playerlistws[6,1]='已報名球員名單'
-   
     if !playerlist.empty? 
       playerlist.each_with_index do |player,row|
         playerlistws[row+7,1]=row+1
         playerlistws[row+7,2]=player.name
       end
     end
+
     playerlistws.save
     redirect_to holdgame.inputfileurl
   

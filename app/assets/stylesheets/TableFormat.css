@@ -31,12 +31,12 @@ div.TableFormat_1 tfoot th {
     color: white;
     font-weight: bold;
 }
-div.TableFormat_1 td, th {
+div.TableFormat_1 td {
     padding: 0px;
     text-align:center;
     white-space:nowrap; 
     vertical-align:middle;
-    /*font-size:16px;*/
+    font-size:16px;
     color:blue;
 }
 div.TableFormat_1 th {
@@ -45,7 +45,10 @@ div.TableFormat_1 th {
     color: white;
     font-weight: bold;
     text-align:center;
-    font-size:12px;
+    font-size:16px;
+    padding: 0px;
+    vertical-align:middle;
+
 }
 
 div.TableFormat_1 td.summery {
@@ -160,7 +163,7 @@ div.TableFormat_1 td.DivEntity_Player a:hover {
 div.TableFormat_1 td.Match_WinEntity a, a:hover {
     /*font-size:large;*/
     text-align:center;
-
+    font-size:12px;
 
 }
 div.TableFormat_1 td.sameEntity {
@@ -173,32 +176,37 @@ div.MatchResult table {
     border: 1px solid #D4E0EE;
     padding:4px;
     vertical-align:center;
+    font-size:12px;
+    overflow: auto;
 }
 div.MatchResult td {
     padding:4px;
 }
+
 div.MatchResult th {
-    margin:0px;
+    margin:0px auto;
     background: #4F76A3;
     color: white;
     font-weight: bold;
-    text-align:left;
-    width: 100%;
+    text-align:center;
     font-size:12px;
-    margin: 0 auto;
+    /*width:20%;*
+    /*font-size:16px;*/
 }
+
 div.MatchResult td.TeamName {
     text-align:left;
     padding-right:1px;
-    font-size:14px;
-     width:20%;
+    font-size:12px;
+    width:20%;
 
 }
 div.MatchResult td.TeamName_winEntity {
     text-align:left;
     padding-right:1px;
-    font-size:14px;
+    font-size:12px;
     background-color:#deecfb;
+
 }
 div.MatchResult td.Score {
     width:10%;
@@ -208,9 +216,11 @@ div.MatchResult td.Score {
 div.MatchResult td.Score_Win {
     color:red;
     width:10%;
+    font-size:12px;
 }
 div.MatchResult td.Score_Loss {
     width:10%;
+    font-size:12px;
 }
 div.MatchResult td.Final {
     width:10%;
@@ -222,10 +232,12 @@ div.MatchResult td.Final_Win {
     background-color:#FEFFCD;
     font-size:large;
     color:red;
+    font-size:12px;
 }div.MatchResult td.Final_Loss {
     width:10%;
     background-color:#FEFFCD;
     font-size:large;
+    font-size:12px;
 }
 div.MatchResult td.sameEntity {
     background-color:#deecfb;
@@ -260,7 +272,6 @@ div.TableFormat_1 td span.girl {
 div.TableFormat_1 td.lightForeColor{
     color:lightblue;
 }
-
 
 
 

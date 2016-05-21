@@ -18,6 +18,7 @@ Lttfproject::Application.configure do
   config.assets.compile = true
 
   # Generate digests for assets URLs
+  config.eager_load=true
   config.assets.digest = true
   config.serve_static_assets = true # very import to solve assets path issue at production mode Allen Lee
   # Defaults to nil and saved in location specified by config.assets.prefix

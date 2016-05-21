@@ -1,4 +1,4 @@
-  # encoding: UTF-8”
+  # encoding: UTF-8;”
   class UserMailer < ActionMailer::Base
   default :from => "lttfadmin@twlttf.org"
   default :content_type => 'text/html'

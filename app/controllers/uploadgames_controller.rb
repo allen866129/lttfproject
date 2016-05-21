@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 class UploadgamesController < ApplicationController
   respond_to :js, :html
   before_filter :authenticate_user! ,:except=>[:gamescorechecking, :show, :show_player_games ]

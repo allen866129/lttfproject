@@ -1,5 +1,5 @@
 # Additional translations at https://github.com/plataformatec/devise/wiki/I18n
-# encoding: UTF-8”
+# encoding: UTF-8;”
 en:
   devise:
     confirmations:

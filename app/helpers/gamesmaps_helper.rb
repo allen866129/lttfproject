@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 module GamesmapsHelper
 def default_gamesmap_meta_tags
   {

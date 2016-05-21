@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 module HomeHelper
 def default_home_meta_tags
   {

@@ -1,22 +1,22 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.16'
+gem 'rails' 
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-
+gem 'protected_attributes'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.6'
-  gem 'coffee-rails', '~> 3.2.2'
+  gem 'sass-rails'
+  gem 'coffee-rails', '~> 4.0.0'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier'
   gem 'font-awesome-rails'
 end
 
@@ -24,7 +24,7 @@ gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
-
+gem 'bcrypt'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 
@@ -37,7 +37,7 @@ gem 'pry', :group => :development
 gem "pry-nav" ,:group => :development
 # To use debugger
 # gem 'debugger'
-gem "devise", :git => "git://github.com/plataformatec/devise.git"
+gem "devise", '3.4.1'
 gem 'database_cleaner'
 gem 'cancan'
 gem 'rolify'
@@ -53,7 +53,7 @@ gem 'sass', '3.2.13'
 #gem 'therubyracer'
 gem 'faraday'
 gem 'koala'
-
+#gem 'ransack', github: 'activerecord-hackery/ransack'
 # the following section is added by Josh
 # section for seo
 #gem 'seo_helper', '~> 1.0.2'
@@ -62,19 +62,20 @@ gem 'open_graph_helper'
 # Fetch settings
 gem 'settingslogic'
 # for bootstrap
-gem 'bootstrap_helper', '3.2.2.0'
+gem 'bootstrap_helper'
 gem "bootstrap-kaminari-views"
-gem 'activeadmin',:git => 'https://github.com/gregbell/active_admin.git'
+gem 'activeadmin',  '~> 1.0.0.pre1'
 gem 'nokogiri'
 gem 'geocoder'
 gem 'gmaps4rails'
 gem 'gon'
+gem "mime-types", '2.6.2'
 #gem 'signet', '>= 0.5.0'
 #gem 'google-api-client'
 gem 'omniauth'
 gem 'omniauth-oauth2'
 gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
-gem "rails_autolink", "~> 1.0.9"
+gem 'omniauth-google-oauth2','0.2.8'
+gem "rails_autolink"
 gem 'google-api-client'
-gem 'delayed_job_active_record' , '0.3.3'
+gem 'delayed_job_active_record' 

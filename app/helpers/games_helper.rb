@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 module GamesHelper
 def default_lttfratinginfo_meta_tags
  {

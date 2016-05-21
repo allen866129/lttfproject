@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 class GamecoholdersController < ApplicationController
   # GET /gamecoholders
   # GET /gamecoholders.json
@@ -106,7 +106,7 @@ end
 def get_inputplayer(playerlist,keyword,holdgame)
   flash.clear
   if !keyword
-     flash[:notice]='球友資料不得有空白!請重新輸入!'
+     flash[:error]='球友資料不得有空白!請重新輸入!'
      return nil
   end
   reg = /^\d+$/
@@ -116,15 +116,15 @@ def get_inputplayer(playerlist,keyword,holdgame)
     @newplayer=User.find_by_id(keyword.to_i)  
   end  
   if !@newplayer 
-          flash[:notice] = "無此球友資料，請查明後再輸入!" 
+          flash[:error] = "無此球友資料，請查明後再輸入!" 
   elsif @newplayer==current_user
-    flash[:notice] = "本人已是主辦人!"       
+    flash[:alert] = "本人已是主辦人!"       
     
   elsif(holdgame.find_gamecoholder(@newplayer.id))
-          flash[:notice] = "此球友已經是共同主辦人,請勿重覆輸入!"
+          flash[:alert] = "此球友已經是共同主辦人,請勿重覆輸入!"
 
   elsif playerlist && playerlist.include?(@newplayer.id.to_s)
-          flash[:notice]="此球友("+@newplayer.id.to_s+","+@newplayer.username+")已經輸入，請勿重覆輸入!"
+          flash[:alert]="此球友("+@newplayer.id.to_s+","+@newplayer.username+")已經輸入，請勿重覆輸入!"
   else
     return @newplayer    
   end

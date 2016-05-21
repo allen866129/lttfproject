@@ -13,6 +13,7 @@
         <th>會員編號</th>
         <th>會員姓名</th>
         <th>賽前積分</th>
+        <th>前置調整積分</th>
         <th>勝場數</th>
         <th>敗場數</th>
         <th>賽後積分</th>
@@ -31,8 +32,13 @@
           <% end %>
 
         </td>
-          
-          <td class='summery'><%= player["bgamescore"] %></td>
+          <td class='summery'><%= player["original bscore"] %></td>
+          <% if player["original bscore"]==player["bgamescore"] %>
+           <td class='summery'>----</td>
+          <%else%>  
+            <td class='summery'><%= player["bgamescore"] %></td>
+          <%end%> 
+          <!td class='summery'><!%= player["bgamescore"] %><!/td>
           <td class='summery'><%= player["wongames"] %></td>
           <td class='summery'><%= player["losegames"] %></td>
           <td class='summery'><%= player["agamescore"] %></td>
@@ -61,7 +67,7 @@
         <tr class=<%= "row"+(index%2).to_s%> >
         <% showname=game["group"].split('大亂鬥(決賽模式)成績')%>
         <!td class='Match_Num'><!%= game["group"] %><!/td>
-        <td class='Match_Num'><%= showname %></td>
+        <td class='Match_Num'><%= showname[0] %></td>
           <td class='Match_Result' >
           <div class='MatchResult' >
             <table cellpadding='0' cellspacing='0' align='center' width='100%' border="1"   >            

@@ -1,4 +1,4 @@
-#encoding: UTF-8”
+#encoding: UTF-8;”
 class Holdgame < ActiveRecord::Base
   attr_accessible :enddate, :gameholder_id, :gamename, :gamenote, :gametype, :startdate , :contact_name, :id
   attr_accessible :city, :county, :address, :zipcode, :courtname, :lat, :lng, :url , :lttfgameflag, :contact_phone , :contact_email
@@ -7,9 +7,10 @@ class Holdgame < ActiveRecord::Base
   has_many :gamecoholders ,dependent: :destroy
   has_many :gamegroups , dependent: :destroy
   has_one :uploadgame
-  after_commit :assign_informs_from_holder
-  scope :forgamesmaps, order(' zipcode ASC , startdate ASC ')
-  default_scope  order('startdate ASC , zipcode ASC ')
+  #after_commit :assign_informs_from_holder
+  before_save :assign_informs_from_holder
+  scope :forgamesmaps, ->{order(' zipcode ASC , startdate ASC ')}
+  default_scope  {order('startdate ASC , zipcode ASC ')}
   mount_uploader :gameinfofile,  GameInfofileUploader
   before_save :assign_enddate
   accepts_nested_attributes_for :gamecoholders, :allow_destroy => true
@@ -34,10 +35,10 @@ class Holdgame < ActiveRecord::Base
       self.contact_phone=self.gameholder.phone
       self.contact_email=self.gameholder.email
 
-   	  self.save
+   	  #self.save
     else
       self.zipcode=TWZipCode_hash[self.city][self.county]
-      self.save
+     # self.save
     end  
   
   end	

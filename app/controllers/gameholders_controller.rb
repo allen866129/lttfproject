@@ -1,4 +1,4 @@
-# encoding: UTF-8”
+# encoding: UTF-8;”
 class GameholdersController < InheritedResources::Base
 	layout :resolve_layout
 	before_filter :authenticate_user! , :except=>[:demos]
@@ -129,7 +129,7 @@ class GameholdersController < InheritedResources::Base
         format.html { redirect_to @gameholder, notice: '申請主辦人資料建檔成功!請待審核~' }
         format.json { render json: @gameholder, status: :created, location: @gameholder }
       else
-        flash[:notice] = "create failure"
+        flash[:error] = "create failure"
 
         format.html { render action: "new", notice: '建檔資料失敗，請跟管理員連絡辦理!' }
         format.json { render json: @gameholder.errors, status: :unprocessable_entity }

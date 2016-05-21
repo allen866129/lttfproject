@@ -113,7 +113,7 @@
               <div class="form-group">
                 <div class="col-xs-12 col-md-12 col-lg-12">
                   <%= f.label "會員照片上傳 : (請使用600x400或300x200比例)" %>
-                  <%= f.file_field :playerphoto, :class => "file", :id => "member_photo"  %>
+                  <%= f.file_field :playerphoto, :class => "file", :id => "member_photo" ,:onchange => "readURL(this)" %>
                 </div>
               </div>
               <div class="col-xs-12 col-md-12 col-lg-12"></br></div>

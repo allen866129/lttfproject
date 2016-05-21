@@ -4,9 +4,9 @@ require 'rails/all'
 require 'csv'
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-  # Bundler.require(*Rails.groups(:assets => %w(development test)))
+  Bundler.require(*Rails.groups(:assets => %w(development test)))
   # If you want your assets lazily compiled in production, use this line
-  Bundler.require(:default, :assets, Rails.env)
+  #Bundler.require(:default, :assets, Rails.env)
 end
 
 module Lttfproject
@@ -52,7 +52,7 @@ module Lttfproject
     # This will create an empty whitelist of attributes available for mass-assignment for all models
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
-    config.active_record.whitelist_attributes = false
+    #config.active_record.whitelist_attributes = false
 
     # Enable the asset pipeline
     config.assets.enabled = true
@@ -66,6 +66,6 @@ module Lttfproject
     #CONFIG.each do |k,v|
     #  ENV[k.upcase] ||= v
     #end
-
+    config.autoload_paths << Rails.root.join('lib')
   end
 end
