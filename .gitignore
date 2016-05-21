@@ -40,5 +40,6 @@ coverage/*
 *.rbc
 capybara-*.html
 .rspec
-gemfile.lock
+Gemfile.lock
+Gemfile
 /config/client.p12
