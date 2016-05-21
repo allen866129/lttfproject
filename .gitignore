@@ -42,4 +42,5 @@ capybara-*.html
 .rspec
 Gemfile.lock
 Gemfile
+database*.yml
 /config/client.p12
