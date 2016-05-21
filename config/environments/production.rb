@@ -20,7 +20,9 @@ Lttfproject::Application.configure do
   # Generate digests for assets URLs
   config.eager_load=true
   config.assets.digest = true
-  config.serve_static_assets = true # very import to solve assets path issue at production mode Allen Lee
+  #config.serve_static_assets = true # very import to solve assets path issue at production mode Allen Lee
+  config.serve_static_files =true #change from config.serve_static_assets
+  config.log_level = :info
   # Defaults to nil and saved in location specified by config.assets.prefix
   # config.assets.manifest = YOUR_PATH
 
