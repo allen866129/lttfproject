@@ -49,8 +49,8 @@ gem "google_visualr", ">= 2.1"
 gem 'thin'
 gem "mail"
 gem 'sass', '3.2.13'
-#gem 'execjs'
-#gem 'therubyracer'
+gem 'execjs'
+gem 'therubyracer'
 gem 'faraday'
 gem 'koala'
 #gem 'ransack', github: 'activerecord-hackery/ransack'
