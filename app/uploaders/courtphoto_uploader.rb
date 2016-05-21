@@ -15,9 +15,16 @@ class CourtphotoUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
+  if Rails::VERSION::MAJOR >= 4
+     include Sprockets::Rails::Helper
+  else
+    include Sprockets::Helpers::RailsHelper
+    include Sprockets::Helpers::IsolatedHelper
+  # Do it the old way
+end
     #include Sprockets::Helpers::RailsHelper
     #include Sprockets::Helpers::IsolatedHelper
-    include Sprockets::Rails::Helper
+ 
   # Provide a default URL as a default if there hasn't been a file uploaded:
    def default_url
   #   # For Rails 3.1+ asset pipeline compatibility:
