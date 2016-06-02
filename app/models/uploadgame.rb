@@ -474,7 +474,7 @@ class Uploadgame < ActiveRecord::Base
   end  
   def max(*values)
     values.max
- 
+
   end
 
   def min(*values)
@@ -535,7 +535,7 @@ class Uploadgame < ActiveRecord::Base
           #                                               max((win_max_score+lose_min_score+ player["bgamescore"].to_i)/3,player["bgamescore"])
 
         elsif ( @playerwongames.count==0 && @playerlosegames.count>0)
- 
+
           @lostlist=@playerlosegames.map{|v| v["Aplayer"]}
 
    
@@ -548,18 +548,20 @@ class Uploadgame < ActiveRecord::Base
           #average_opp_score=openscorelist.inject{ |sum, el| sum + el } /openscorelist.size
           #system_suggest_score=max(average_opp_score,75)
 
-          system_suggest_score = openscorelist ? max(openscorelist.min,75) : 0  if !openscorelist.empty?
+          system_suggest_score = openscorelist.empty? ? 75 : max(openscorelist.min,75) 
           
         elsif ( @playerwongames.count>0 && @playerlosegames.count==0)
+
 
           @winlist=@playerwongames.map{|v| v["Bplayer"]}
           winlistplayersinfo=@playersummery.find_all{|v| @winlist.include?(v["name"])}
           openscorelist=winlistplayersinfo.map{|v| v["bgamescore"].to_i}
           openscorelist=openscorelist.find_all{|v| v>0}
+
           #average_opp_score=openscorelist.inject{ |sum, el| sum + el } /openscorelist.size
           #system_suggest_score=max(average_opp_score,player["bgamescore"])
-          system_suggest_score = openscorelist ? max(openscorelist.max,player["bgamescore"]) : 0 
-            
+          system_suggest_score = openscorelist.empty? ? 0 : max(openscorelist.max,player["bgamescore"])  
+
         end 
         suggestplayer["sys suggest score"]=system_suggest_score
        

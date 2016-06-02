@@ -66,7 +66,7 @@ gem 'bootstrap_helper', '3.2.2.0'
 gem "bootstrap-kaminari-views"
 gem 'activeadmin',  :git => 'https://github.com/gregbell/active_admin.git'
 gem 'nokogiri'
-gem 'geocoder'
+gem 'geocoder', '1.3.4'
 gem 'gmaps4rails'
 gem 'gon'
 #gem "mime-types", '2.6.2'  #for rails 4.2.6
@@ -77,5 +77,5 @@ gem 'omniauth-oauth2'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2', '0.2.8'
 gem "rails_autolink"
-gem 'google-api-client'
+gem 'google-api-client' ,'0.8.6'
 gem 'delayed_job_active_record' , '0.3.0'
