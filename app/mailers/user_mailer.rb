@@ -187,7 +187,7 @@
     "link" => "http://www.twlttf.org/lttfproject/uploadgames/gamescorechecking",
     "description" =>"桌盟積分賽成績查核網頁" ,
     "name" =>"桌盟積分賽成績查核網頁",
-    "picture" => "httP://www.twlttf.org/lttfproject/public/LTTF_logo.png"  },
+    "picture" => "http://www.twlttf.org/lttfproject/public/LTTF_logo.png"  },
     APP_CONFIG['LTTF_GROUP_ID']
      )
     
@@ -232,7 +232,7 @@
      "link" =>uploadgame_url(uploadgame),
       "description" =>uploadgame.gamename+"成績查核網頁" ,
       "name" =>uploadgame.gamename+"成績查核網頁" ,
-      "picture" => "httP://www.twlttf.org/lttfproject/public/LTTF_logo.png"  },
+      "picture" => "http://www.twlttf.org/lttfproject/public/LTTF_logo.png"  },
       APP_CONFIG['LTTF_GROUP_ID']
      )
    
@@ -291,7 +291,7 @@
      "link" =>holdgame_gamegroups_url(holdgame),
       "description" =>@tempdategame+"報名網頁" ,
       "name" =>@tempdategame+"報名網頁" ,
-      "picture" => "httP://www.twlttf.org/lttfproject/public/LTTF_logo.png"  },
+      "picture" => "http://www.twlttf.org/lttfproject/public/LTTF_logo.png"  },
       APP_CONFIG['LTTF_GROUP_ID']
      )
    

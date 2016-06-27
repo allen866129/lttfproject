@@ -103,6 +103,18 @@ def find_reg_unplay_games
     end
     return @games.sort_by { |hsh| hsh[:startdate] }.uniq
 end 
+def mask_email
+  temp=self.email.gsub(/.{3}@/, '###@')
+  temp=temp.gsub(/^.{3}/, '###')
+  return temp
+end
+def mask_phone
+  if self.phone
+
+   return self.phone.gsub(/.{5}$/, 'xxxxx')
+  end 
+   
+end  
 def set_future_games_showdata
   @futuregames=self.find_reg_unplay_games
 

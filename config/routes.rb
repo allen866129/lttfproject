@@ -26,7 +26,7 @@ Lttfproject::Application.routes.draw do
 
 
  #match '/home' => 'home#index'
- match '/home' => 'home#index', :via => [:get], :as => 'home_index'
+ #match '/home' => 'home#index', :via => [:get], :as => 'home_index'
  resources :holdgames do
       resources :gamegroups, :controller => 'holdgame_gamegroups' do
         collection do
