@@ -10,6 +10,24 @@
   	提醒您,您報名的本項賽事將於 <strong><font color='red'><%= @holdgame.startdate.to_s %></font></strong>舉行,請準時出席.<br>若您不克參賽,請儘速前往報名網頁取消報名,以利賽事安排！<br>
     <strong><font color='red'>如果無故缺賽,將可能被主辦人列入黑名單,爾後無法再報名該主辦人所舉辦的桌盟賽事,敬請配合！</font></strong>  
 	</p>
+  <p>分組開賽時間提醒</p>
+
+    <table border=1 align=center>
+      <tr>
+        <th align=center>組別</th>
+        <th align=center>開賽時間</th>
+      </tr>
+      <% @holdgame.gamegroups.each_with_index do |gamegroup| %>
+      <tr>
+
+         <td align=left><font color=blue>  <%= gamegroup.groupname %></font></td>  
+         <td align=left><font color=red>  <strong><%= gamegroup.starttime.strftime("%F %H:%M")  %></strong></font></td>  
+      </tr> 
+      <%end%> 
+    </table>
+ 
+
+  </p>  
 	<p>桌球愛好者聯盟敬上</p>
   <p>請勿直接回覆本郵件！</p>
   <p>如果有任何問題請跟本賽事主辦人：<%=@holdgame.gameholder.name%> 連絡. <br>
