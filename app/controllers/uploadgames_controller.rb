@@ -451,6 +451,11 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
         end
         @uploadgames = Uploadgame.waitingforprocess.page(params[:page]).per(10)
         flash[:success]="積分更新作業完成!"
+        Rails.cache.delete(current_user.id.to_s+"curgame")
+        Rails.cache.delete(current_user.id.to_s+"playersummery")
+        Rails.cache.delete(current_user.id.to_s+"gamesrecords")
+        Rails.cache.delete(current_user.id.to_s+"adjustplayers")
+        Rails.cache.delete(current_user.id.to_s+"autosuggest")      
         redirect_to :action => "index"
     end
    
