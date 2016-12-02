@@ -44,7 +44,7 @@ class Gamegroup < ActiveRecord::Base
   end
   def check_single_meet_group_qualify(player_curscore)
     return true if player_curscore==0
-      
+
   	case self.scorelimitation
       when '無積分限制'
          return true

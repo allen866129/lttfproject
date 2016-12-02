@@ -5,7 +5,9 @@ class User < ActiveRecord::Base
   validates :username, presence: true
   validates :username, uniqueness: true, if: -> { self.username.present? }
   validate :username_without_
+  validate :username_without_space
   validate :fbaccount_without_email
+  validate :my_email_validation
   validates_format_of :email,:with => Devise.email_regexp
   scope :find_by_name, ->(playername) { where username: playername }
   scope :find_by_id,->(id){where id: id}
@@ -147,7 +149,21 @@ end
        errors.add(:username, "姓名不得含有\"_\"字元請重新輸入，請用\"-\"字元取代\"_\"字元 ") unless read_attribute(:username).to_s.exclude? "_"  
       
     end
+    def username_without_space
+     
+       errors.add(:username, "姓名不得含有空白字元請重新輸入") unless read_attribute(:username).to_s.exclude? " "  
+      
+    end
     def fbaccount_without_email
       errors.add(:fbaccount, "FB帳號不可使用email，請使用FB上的名字") unless read_attribute(:fbaccount).to_s.exclude? "@"  
     end  
+    def my_email_validation
+        if email  =~ /hinet.net/
+             errors[:email] << "can not be foo"
+         elsif email=~ /msa.net/
+            errors[:email] << "can not be bar"
+        elsif email=~ /xuit.net/
+            errors[:email] << "can not be xxx"
+        end
+    end 
 end

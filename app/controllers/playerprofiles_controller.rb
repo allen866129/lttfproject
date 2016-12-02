@@ -83,6 +83,7 @@ class PlayerprofilesController < ApplicationController
   # GET /playerprofiles/new.json
   def new
     @playerprofile  = current_user.build_playerprofile
+
      format.html { redirect_to @playerprofile, notice: 'Playerprofile was successfully new.' }
       respond_to do |format|
       format.html # new.html.erb
@@ -104,17 +105,20 @@ class PlayerprofilesController < ApplicationController
   #@playerprofile = Playerprofile.where( :user_id => current_user.id).first
   #@playerprofile.name=current_user.username
   
-  
-
-    respond_to do |format|
+  #respond_with(@project, @task)
+  respond_with(current_user, @playerprofile )
+   if nil
+    respond_with(current_user, @playerprofile ) do |format|
       if @playerprofile.save
         format.html { redirect_to @playerprofile, notice: 'Playerprofile was successfully created.' }
         format.json { render json: @playerprofile, status: :created, location: @playerprofile }
       else
+        binding.pry
         format.html { render action: "new" }
         format.json { render json: @playerprofile.errors, status: :unprocessable_entity }
       end
     end
+   end 
    end
 
   # PUT /playerprofiles/1

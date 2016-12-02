@@ -236,9 +236,9 @@ class Uploadgame < ActiveRecord::Base
               @SingleGame['detailrecords']=currecord  
 
             end 
-            puts @SingleGame
             aplayer=playersinfo.find{|v| v['name']==@SingleGame['Aplayer']}
             bplayer=playersinfo.find{|v| v['name']==@SingleGame['Bplayer']}
+
             @SingleGame['Aplayer bgamescore']=(aplayer["adjustscore"]==nil || aplayer["adjustscore"].to_i==0 ) ? aplayer["bgamescore"].to_i : aplayer["adjustscore"].to_i
             @SingleGame['Bplayer bgamescore']=(bplayer["adjustscore"]==nil || bplayer["adjustscore"].to_i==0 ) ? bplayer["bgamescore"].to_i : bplayer["adjustscore"].to_i
             @SingleGame['Players_scorechanged']=calculate_score_change( aplayer["bgamescore"].to_i, bplayer["bgamescore"].to_i)
