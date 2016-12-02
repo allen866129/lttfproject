@@ -75,7 +75,7 @@ class GamesmapsController < ApplicationController
       @tempgame['gamenote']=holdgame.gamenote
       @holdgames_hash.push( @tempgame)
     end
-
+   
     render :index
  end  
   # GET /ttcourts/1

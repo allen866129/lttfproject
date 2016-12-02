@@ -75,6 +75,8 @@ class UploadgamesController < ApplicationController
 
       @uploadgame.save! 
     end  
+    Rails.cache.delete(current_user.id.to_s+"curgame")
+    Rails.cache.delete(current_user.id.to_s+"playersummery")
     send_game_waiting_publish_notice(@uploadgame)
     flash[:success] = "檔案上傳成功"
     @uploadgames =  Uploadgame.waitingforprocess.page(params[:page]).per(10)
@@ -397,7 +399,10 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
         send_publish_notice_to_gameholders(@uploadgame)
         @uploadgames = Uploadgame.waitingforprocess.page(params[:page]).per(10)
         flash[:success]="本賽事公告作業完成!"
-    
+        Rails.cache.delete(current_user.id.to_s+"curgame")
+        Rails.cache.delete(current_user.id.to_s+"playersummery")
+        Rails.cache.delete(current_user.id.to_s+"gamesrecords")
+        Rails.cache.delete(current_user.id.to_s+"adjustplayers")    
       redirect_to :action => "index"
     end
    
@@ -446,6 +451,11 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
         end
         @uploadgames = Uploadgame.waitingforprocess.page(params[:page]).per(10)
         flash[:success]="積分更新作業完成!"
+        Rails.cache.delete(current_user.id.to_s+"curgame")
+        Rails.cache.delete(current_user.id.to_s+"playersummery")
+        Rails.cache.delete(current_user.id.to_s+"gamesrecords")
+        Rails.cache.delete(current_user.id.to_s+"adjustplayers")
+        Rails.cache.delete(current_user.id.to_s+"autosuggest")      
         redirect_to :action => "index"
     end
    
