@@ -5,7 +5,7 @@ gem 'rails', '3.2.16'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'pg'
+gem 'pg','~> 0.18.4'
 #gem 'protected_attributes' #for rails 4.2.6
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,13 +21,13 @@ group :assets do
 end
 
 gem 'jquery-rails'
-
+gem  'eventmachine' ,'1.2.0.1'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
-gem 'bcrypt', '~> 3.1.7'
+gem 'bcrypt'
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
-
+gem 'public_suffix', '~> 1.4.6'
 # Use unicorn as the app server
 # gem 'unicorn'
 
@@ -50,7 +50,7 @@ gem 'thin'
 gem "mail"
 gem 'sass', '3.2.13'
 gem 'execjs'
-gem 'therubyracer'
+#gem 'therubyracer'
 gem 'faraday'
 gem 'koala'
 #gem "mime-types", '2.6.2'
@@ -65,7 +65,7 @@ gem 'settingslogic'
 gem 'bootstrap_helper', '3.2.2.0'
 gem "bootstrap-kaminari-views"
 gem 'activeadmin',  :git => 'https://github.com/gregbell/active_admin.git'
-gem 'nokogiri'
+gem 'nokogiri', '1.6.8'
 gem 'geocoder', '1.3.4'
 gem 'gmaps4rails'
 gem 'gon'
