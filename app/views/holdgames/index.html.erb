@@ -56,7 +56,7 @@
             <td><%= link_to '分組報名', holdgame_gamegroups_path(holdgame),:class=> "button radius" %>
             <% if (current_user && ((current_user.has_role? :admin) || (current_user.has_role? :superuser)  ||
              (current_user.id==holdgame.gameholder.user_id)|| (holdgame.find_gamecoholder(current_user.id)) )) %>
-
+              <%= link_to '新增分組', new_holdgame_gamegroup_path(holdgame), :class=> "button radius"  %>
               <%= link_to "修改資料",  edit_holdgame_path(holdgame),:class=> "button radius" %>
               <%= link_to "輸入成績", copy_players_list_holdgames_path(holdgame) ,:target=> '_blank' ,data: { confirm: 
                  '要進行輸入成績作業前請確定已登入google'}, :class=> "button radius" %>
