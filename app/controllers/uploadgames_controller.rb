@@ -259,7 +259,6 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
     date = DateTime.now
     User.transaction do
       adjustplayers.each  do |player|
-       
         @player=User.find(player["id"].to_i)
         if player["bgamescore"]!= player["original bscore"]  #賽前積分不等候原來績分,表示需前作調整
           if @player.playerprofile.initscore ==0        #初始積分為0,前置調整當作賦予初始積分不是前置調整
@@ -278,8 +277,12 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
             curlines=curlines+"_"+scorechange.to_s
             @player.playerprofile.curscore=player["agamescore"].to_i
             @player.playerprofile.lastscoreupdatedate =date.to_date.to_s
-            @player.playerprofile.gamehistory=@player.playerprofile.gamehistory+"\n"+date.to_date.to_s+"("+player["agamescore"].to_s+")" 
-         
+            newgamehistory=date.to_date.to_s+"("+player["agamescore"].to_s+")" 
+            if @player.playerprofile.gamehistory==nil
+               @player.playerprofile.gamehistory=newgamehistory
+            else
+               @player.playerprofile.gamehistory=@player.playerprofile.gamehistory+"\n"+newgamehistory 
+            end  
           end
           @player.save 
           @playerscore=player 
@@ -408,13 +411,14 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
    
   end
   def trycalculation
+
    # @uploadgame = Uploadgame.find(params[:game_id])
     @uploadgame=Rails.cache.read(current_user.id.to_s+"curgame")
     @playerssummery=Rails.cache.read(current_user.id.to_s+"playersummery")
     @gamesrecords=Rails.cache.read(current_user.id.to_s+"gamesrecords")
     @adjustplayers=Rails.cache.read(current_user.id.to_s+"adjustplayers")
     @autosuggest=Rails.cache.read(current_user.id.to_s+"autosuggest")
-   
+
     #params[:adjustscores].each do |adjustscore|
     @adjustplayers.each_with_index do |adjustplayer,i|  
       adjustplayer["adjustscore"]=params[:adjustscores][i]
