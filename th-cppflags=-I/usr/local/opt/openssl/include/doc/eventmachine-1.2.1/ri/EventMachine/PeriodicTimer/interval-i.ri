@@ -1,2 +1,0 @@
-U:RDoc::Attr[iI"interval:EFI")EventMachine::PeriodicTimer#interval;FI"RW;F:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"*Fire the timer every interval seconds;T:
-@file0FI"lib/em/timers.rb;T

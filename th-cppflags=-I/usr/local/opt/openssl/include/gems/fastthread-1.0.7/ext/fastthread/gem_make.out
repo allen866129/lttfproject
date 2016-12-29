@@ -1,5 +1,0 @@
-/Users/AllenLee/.rbenv/versions/1.9.3-p551/bin/ruby extconf.rb
-extconf.rb:13: Use RbConfig instead of obsolete and deprecated Config.
-
-make
-Makefile:81: *** missing separator.  Stop.

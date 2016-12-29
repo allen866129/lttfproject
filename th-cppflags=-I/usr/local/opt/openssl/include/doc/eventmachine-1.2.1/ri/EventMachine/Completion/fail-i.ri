@@ -1,3 +1,0 @@
-U:RDoc::AnyMethod[iI"	fail:EFI""EventMachine::Completion#fail;FF:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"@Enter the :failed state, setting the result value if given.;T:
-@file000[[I"set_deferred_failure;Fo;;	[o;
-;	[I"The old EM method:;T;0I"(*args);TI"lib/em/completion.rb;T
