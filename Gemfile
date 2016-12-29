@@ -65,7 +65,7 @@ gem 'settingslogic'
 gem 'bootstrap_helper', '3.2.2.0'
 gem "bootstrap-kaminari-views"
 gem 'activeadmin',  :git => 'https://github.com/gregbell/active_admin.git'
-gem 'nokogiri', '1.6.7.2'
+gem 'nokogiri', '1.6.8.1'
 gem 'geocoder', '1.3.4'
 gem 'gmaps4rails'
 gem 'gon'
