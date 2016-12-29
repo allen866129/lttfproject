@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"command:EFI"4EventMachine::Protocols::Stomp::Message#command;FI"RW;F:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"NThe command associated with the message, usually 'CONNECTED' or 'MESSAGE';T:
+@file0FI"lib/em/protocols/stomp.rb;T

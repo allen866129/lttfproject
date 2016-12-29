@@ -1,0 +1,889 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Module: EventMachine::Protocols::Memcache</title>
+
+  <link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+  <script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="module">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../../lib/em/protocols/memcache_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/em/protocols/memcache.rb">lib/em/protocols/memcache.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+
+      
+
+      
+      <!-- Namespace Contents -->
+      <div id="namespace-list-section" class="section">
+        <h3 class="section-header">Namespace</h3>
+        <ul class="link-list">
+          
+          <li><span class="type">CLASS</span> <a href="Memcache/ParserError.html">EventMachine::Protocols::Memcache::ParserError</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-connect">::connect</a></li>
+          
+          <li><a href="#method-c-new">::new</a></li>
+          
+          <li><a href="#method-i-connection_completed">#connection_completed</a></li>
+          
+          <li><a href="#method-i-del">#del</a></li>
+          
+          <li><a href="#method-i-delete">#delete</a></li>
+          
+          <li><a href="#method-i-get">#get</a></li>
+          
+          <li><a href="#method-i-get_hash">#get_hash</a></li>
+          
+          <li><a href="#method-i-process_cmd">#process_cmd</a></li>
+          
+          <li><a href="#method-i-receive_data">#receive_data</a></li>
+          
+          <li><a href="#method-i-set">#set</a></li>
+          
+          <li><a href="#method-i-unbind">#unbind</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <!-- Included Modules -->
+      <div id="includes-section" class="section">
+        <h3 class="section-header">Included Modules</h3>
+        <ul class="link-list">
+        
+        
+          <li><span class="include">EM::Deferrable</span></li>
+        
+        
+        </ul>
+      </div>
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../../docs/old/ChangeLog.html">ChangeLog</a></li>
+        
+          <li class="file"><a href="../../docs/old/DEFERRABLES.html">DEFERRABLES</a></li>
+        
+          <li class="file"><a href="../../docs/old/EPOLL.html">EPOLL</a></li>
+        
+          <li class="file"><a href="../../docs/old/INSTALL.html">INSTALL</a></li>
+        
+          <li class="file"><a href="../../docs/old/KEYBOARD.html">KEYBOARD</a></li>
+        
+          <li class="file"><a href="../../docs/old/LEGAL.html">LEGAL</a></li>
+        
+          <li class="file"><a href="../../docs/old/LIGHTWEIGHT_CONCURRENCY.html">LIGHTWEIGHT_CONCURRENCY</a></li>
+        
+          <li class="file"><a href="../../docs/old/PURE_RUBY.html">PURE_RUBY</a></li>
+        
+          <li class="file"><a href="../../docs/old/RELEASE_NOTES.html">RELEASE_NOTES</a></li>
+        
+          <li class="file"><a href="../../docs/old/SMTP.html">SMTP</a></li>
+        
+          <li class="file"><a href="../../docs/old/SPAWNED_PROCESSES.html">SPAWNED_PROCESSES</a></li>
+        
+          <li class="file"><a href="../../docs/old/TODO.html">TODO</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine/CertificateCreator.html">EventMachine::CertificateCreator</a></li>
+        
+          <li><a href="../../EventMachine/Channel.html">EventMachine::Channel</a></li>
+        
+          <li><a href="../../EventMachine/Completion.html">EventMachine::Completion</a></li>
+        
+          <li><a href="../../EventMachine/Connection.html">EventMachine::Connection</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionError.html">EventMachine::ConnectionError</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionNotBound.html">EventMachine::ConnectionNotBound</a></li>
+        
+          <li><a href="../../EventMachine/DNS.html">EventMachine::DNS</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Request.html">EventMachine::DNS::Request</a></li>
+        
+          <li><a href="../../EventMachine/DNS/RequestIdAlreadyUsed.html">EventMachine::DNS::RequestIdAlreadyUsed</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Resolver.html">EventMachine::DNS::Resolver</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Socket.html">EventMachine::DNS::Socket</a></li>
+        
+          <li><a href="../../EventMachine/DatagramObject.html">EventMachine::DatagramObject</a></li>
+        
+          <li><a href="../../EventMachine/DefaultDeferrable.html">EventMachine::DefaultDeferrable</a></li>
+        
+          <li><a href="../../EventMachine/Deferrable.html">EventMachine::Deferrable</a></li>
+        
+          <li><a href="../../EventMachine/DeferrableChildProcess.html">EventMachine::DeferrableChildProcess</a></li>
+        
+          <li><a href="../../EventMachine/Error.html">EventMachine::Error</a></li>
+        
+          <li><a href="../../EventMachine/EvmaKeyboard.html">EventMachine::EvmaKeyboard</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPClient.html">EventMachine::EvmaTCPClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPServer.html">EventMachine::EvmaTCPServer</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUDPSocket.html">EventMachine::EvmaUDPSocket</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXClient.html">EventMachine::EvmaUNIXClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXServer.html">EventMachine::EvmaUNIXServer</a></li>
+        
+          <li><a href="../../EventMachine/FileNotFoundException.html">EventMachine::FileNotFoundException</a></li>
+        
+          <li><a href="../../EventMachine/FileStreamer.html">EventMachine::FileStreamer</a></li>
+        
+          <li><a href="../../EventMachine/FileWatch.html">EventMachine::FileWatch</a></li>
+        
+          <li><a href="../../EventMachine/Iterator.html">EventMachine::Iterator</a></li>
+        
+          <li><a href="../../EventMachine/LoopbreakReader.html">EventMachine::LoopbreakReader</a></li>
+        
+          <li><a href="../../EventMachine/PeriodicTimer.html">EventMachine::PeriodicTimer</a></li>
+        
+          <li><a href="../../EventMachine/Pool.html">EventMachine::Pool</a></li>
+        
+          <li><a href="../../EventMachine/ProcessWatch.html">EventMachine::ProcessWatch</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HeaderAndContentProtocol.html">EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient.html">EventMachine::Protocols::HttpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2.html">EventMachine::Protocols::HttpClient2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2/Request.html">EventMachine::Protocols::HttpClient2::Request</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineAndTextProtocol.html">EventMachine::Protocols::LineAndTextProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineProtocol.html">EventMachine::Protocols::LineProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineText2.html">EventMachine::Protocols::LineText2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache.html">EventMachine::Protocols::Memcache</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache/ParserError.html">EventMachine::Protocols::Memcache::ParserError</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/ObjectProtocol.html">EventMachine::Protocols::ObjectProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Postgres3.html">EventMachine::Protocols::Postgres3</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauth.html">EventMachine::Protocols::SASLauth</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauthclient.html">EventMachine::Protocols::SASLauthclient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpClient.html">EventMachine::Protocols::SmtpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpServer.html">EventMachine::Protocols::SmtpServer</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Socks4.html">EventMachine::Protocols::Socks4</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp.html">EventMachine::Protocols::Stomp</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp/Message.html">EventMachine::Protocols::Stomp::Message</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/TcpConnectTester.html">EventMachine::Protocols::TcpConnectTester</a></li>
+        
+          <li><a href="../../EventMachine/Queue.html">EventMachine::Queue</a></li>
+        
+          <li><a href="../../EventMachine/Reactor.html">EventMachine::Reactor</a></li>
+        
+          <li><a href="../../EventMachine/Selectable.html">EventMachine::Selectable</a></li>
+        
+          <li><a href="../../EventMachine/SpawnedProcess.html">EventMachine::SpawnedProcess</a></li>
+        
+          <li><a href="../../EventMachine/StreamObject.html">EventMachine::StreamObject</a></li>
+        
+          <li><a href="../../EventMachine/SystemCmd.html">EventMachine::SystemCmd</a></li>
+        
+          <li><a href="../../EventMachine/ThreadedResource.html">EventMachine::ThreadedResource</a></li>
+        
+          <li><a href="../../EventMachine/TickLoop.html">EventMachine::TickLoop</a></li>
+        
+          <li><a href="../../EventMachine/Timer.html">EventMachine::Timer</a></li>
+        
+          <li><a href="../../EventMachine/UnknownTimerFired.html">EventMachine::UnknownTimerFired</a></li>
+        
+          <li><a href="../../EventMachine/Unsupported.html">EventMachine::Unsupported</a></li>
+        
+          <li><a href="../../EventMachine/UuidGenerator.html">EventMachine::UuidGenerator</a></li>
+        
+          <li><a href="../../EventMachine/YieldBlockFromSpawnedProcess.html">EventMachine::YieldBlockFromSpawnedProcess</a></li>
+        
+          <li><a href="../../Object.html">Object</a></li>
+        
+          <li><a href="../../EventMachine.html">Object::EM</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">Object::P</a></li>
+        
+          <li><a href="../../BufferedTokenizer.html">BufferedTokenizer</a></li>
+        
+          <li><a href="../../IO.html">IO</a></li>
+        
+          <li><a href="../../StringIO.html">StringIO</a></li>
+        
+          <li><a href="../../TestConnection.html">TestConnection</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="module">EventMachine::Protocols::Memcache</h1>
+
+    <div id="description" class="description">
+      
+<p>Implements the <a href="Memcache.html">Memcache</a> protocol (<a
+href="http://code.sixapart.com/svn/memcached/trunk/server/doc/protocol.txt">code.sixapart.com/svn/memcached/trunk/server/doc/protocol.txt</a>).
+Requires memcached &gt;= 1.2.4 w/ noreply support</p>
+
+<h2>Usage example</h2>
+
+<pre>EM.run{
+  cache = EM::P::Memcache.connect 'localhost', 11211
+
+  cache.set :a, 'hello'
+  cache.set :b, 'hi'
+  cache.set :c, 'how are you?'
+  cache.set :d, ''
+
+  cache.get(:a){ |v| p v }
+  cache.get_hash(:a, :b, :c, :d){ |v| p v }
+  cache.get(:a,:b,:c,:d){ |a,b,c,d| p [a,b,c,d] }
+
+  cache.get(:a,:z,:b,:y,:d){ |a,z,b,y,d| p [a,z,b,y,d] }
+
+  cache.get(:missing){ |m| p [:missing=, m] }
+  cache.set(:missing, 'abc'){ p :stored }
+  cache.get(:missing){ |m| p [:missing=, m] }
+  cache.del(:missing){ p :deleted }
+  cache.get(:missing){ |m| p [:missing=, m] }
+}</pre>
+
+    </div><!-- description -->
+
+    
+    
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+      <!-- Constants -->
+      <div id="constants-list" class="section">
+        <h3 class="section-header">Constants</h3>
+        <dl>
+        
+          <dt><a name="Cdeleted">Cdeleted</a></dt>
+          
+          <dd class="description"><p>@private</p></dd>
+          
+        
+          <dt><a name="Cdelimiter">Cdelimiter</a></dt>
+          
+          <dd class="description"><p>@private</p></dd>
+          
+        
+          <dt><a name="Cempty">Cempty</a></dt>
+          
+          <dd class="description"><p>@private</p></dd>
+          
+        
+          <dt><a name="Cend">Cend</a></dt>
+          
+          <dd class="description"><p>@private</p></dd>
+          
+        
+          <dt><a name="Cerror">Cerror</a></dt>
+          
+          <dd class="description"><p>@private</p></dd>
+          
+        
+          <dt><a name="Cstored">Cstored</a></dt>
+          
+          <dd class="description"><p>@private</p></dd>
+          
+        
+          <dt><a name="Cunknown">Cunknown</a></dt>
+          
+          <dd class="description"><p>@private</p></dd>
+          
+        
+        </dl>
+      </div>
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
+
+      
+        <div id="connect-method" class="method-detail ">
+          <a name="method-c-connect"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">connect</span><span
+              class="method-args">(host = 'localhost', port = 11211)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Connect to a memcached server (must support NOREPLY, memcached &gt;= 1.2.4)</p>
+            
+
+            
+            <div class="method-source-code" id="connect-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 114</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">connect</span> <span class="ruby-identifier">host</span> = <span class="ruby-string">'localhost'</span>, <span class="ruby-identifier">port</span> = <span class="ruby-value">11211</span>
+  <span class="ruby-constant">EM</span>.<span class="ruby-identifier">connect</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- connect-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- connect-method -->
+
+      
+        <div id="new-method" class="method-detail ">
+          <a name="method-c-new"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">new</span><span
+              class="method-args">(host, port = 11211)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>@private</p>
+            
+
+            
+            <div class="method-source-code" id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 134</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span> = <span class="ruby-value">11211</span>
+  <span class="ruby-ivar">@host</span>, <span class="ruby-ivar">@port</span> = <span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- new-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- new-method -->
+
+      
+      </div><!-- public-class-method-details -->
+    
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="connection_completed-method" class="method-detail ">
+          <a name="method-i-connection_completed"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">connection_completed</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>@private</p>
+            
+
+            
+            <div class="method-source-code" id="connection_completed-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">connection_completed</span>
+  <span class="ruby-ivar">@get_cbs</span> = []
+  <span class="ruby-ivar">@set_cbs</span> = []
+  <span class="ruby-ivar">@del_cbs</span> = []
+
+  <span class="ruby-ivar">@values</span> = {}
+
+  <span class="ruby-ivar">@reconnecting</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-ivar">@connected</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-identifier">succeed</span>
+  <span class="ruby-comment"># set_delimiter &quot;\r\n&quot;</span>
+  <span class="ruby-comment"># set_line_mode</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- connection_completed-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- connection_completed-method -->
+
+      
+        <div id="del-method" class="method-detail method-alias">
+          <a name="method-i-del"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">del</span><span
+              class="method-args">(key, expires = 0, &cb)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+          </div>
+
+          
+
+          
+          <div class="aliases">
+            Alias for: <a href="Memcache.html#method-i-delete">delete</a>
+          </div>
+          
+        </div><!-- del-method -->
+
+      
+        <div id="delete-method" class="method-detail ">
+          <a name="method-i-delete"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">delete</span><span
+              class="method-args">(key, expires = 0, &cb)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Delete the value associated with a key</p>
+
+<pre>cache.del :a
+cache.del(:b){ puts &quot;deleted the value!&quot; }</pre>
+            
+
+            
+            <div class="method-source-code" id="delete-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">delete</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">expires</span> = <span class="ruby-value">0</span>, &amp;<span class="ruby-identifier">cb</span>
+  <span class="ruby-identifier">callback</span>{
+    <span class="ruby-identifier">send_data</span> <span class="ruby-node">&quot;delete #{key} #{expires}#{cb ? '' : ' noreply'}\r\n&quot;</span>
+    <span class="ruby-ivar">@del_cbs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cb</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cb</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- delete-source -->
+            
+          </div>
+
+          
+          <div class="aliases">
+            Also aliased as: <a href="Memcache.html#method-i-del">del</a>
+          </div>
+          
+
+          
+        </div><!-- delete-method -->
+
+      
+        <div id="get-method" class="method-detail ">
+          <a name="method-i-get"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">get</span><span
+              class="method-args">(*keys)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Get the value associated with one or multiple keys</p>
+
+<pre>cache.get(:a){ |v| p v }
+cache.get(:a,:b,:c,:d){ |a,b,c,d| p [a,b,c,d] }</pre>
+            
+
+            
+            <div class="method-source-code" id="get-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get</span> *<span class="ruby-identifier">keys</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+
+  <span class="ruby-identifier">callback</span>{
+    <span class="ruby-identifier">keys</span> = <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/\s/</span>,<span class="ruby-string">'_'</span>) }
+    <span class="ruby-identifier">send_data</span> <span class="ruby-node">&quot;get #{keys.join(' ')}\r\n&quot;</span>
+    <span class="ruby-ivar">@get_cbs</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">keys</span>, <span class="ruby-identifier">proc</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">values</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">yield</span> *<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">map</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">values</span>[<span class="ruby-identifier">k</span>] }
+    }]
+  }
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- get-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- get-method -->
+
+      
+        <div id="get_hash-method" class="method-detail ">
+          <a name="method-i-get_hash"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">get_hash</span><span
+              class="method-args">(*keys)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Gets multiple values as a hash</p>
+
+<pre>cache.get_hash(:a, :b, :c, :d){ |h| puts h[:a] }</pre>
+            
+
+            
+            <div class="method-source-code" id="get_hash-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 92</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_hash</span> *<span class="ruby-identifier">keys</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+
+  <span class="ruby-identifier">get</span> *<span class="ruby-identifier">keys</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span>*<span class="ruby-identifier">values</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">yield</span> <span class="ruby-identifier">keys</span>.<span class="ruby-identifier">inject</span>({}){ <span class="ruby-operator">|</span><span class="ruby-identifier">hash</span>, <span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">update</span> <span class="ruby-identifier">k</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">values</span>[<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">k</span>)] }
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- get_hash-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- get_hash-method -->
+
+      
+        <div id="process_cmd-method" class="method-detail ">
+          <a name="method-i-process_cmd"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_cmd</span><span
+              class="method-args">(line)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_cmd-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_cmd</span> <span class="ruby-identifier">line</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">strip</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-regexp">/^VALUE\s+(.+?)\s+(\d+)\s+(\d+)/</span> <span class="ruby-comment"># VALUE &lt;key&gt; &lt;flags&gt; &lt;bytes&gt;</span>
+    <span class="ruby-identifier">bytes</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-node">$3</span>)
+    <span class="ruby-comment"># set_binary_mode bytes+2</span>
+    <span class="ruby-comment"># @cur_key = $1</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">bytes</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>
+      <span class="ruby-ivar">@values</span>[<span class="ruby-node">$1</span>] = <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>,<span class="ruby-identifier">bytes</span>)
+      <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>,<span class="ruby-value">2</span>) <span class="ruby-comment"># \r\n</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ParserError</span>
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Cend</span> <span class="ruby-comment"># END</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">entry</span> = <span class="ruby-ivar">@get_cbs</span>.<span class="ruby-identifier">shift</span>
+      <span class="ruby-identifier">keys</span>, <span class="ruby-identifier">cb</span> = <span class="ruby-identifier">entry</span>
+      <span class="ruby-identifier">cb</span>.<span class="ruby-identifier">call</span>(<span class="ruby-ivar">@values</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-ivar">@values</span> = {}
+
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Cstored</span> <span class="ruby-comment"># STORED</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">cb</span> = <span class="ruby-ivar">@set_cbs</span>.<span class="ruby-identifier">shift</span>
+      <span class="ruby-identifier">cb</span>.<span class="ruby-identifier">call</span>(<span class="ruby-keyword">true</span>)
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Cdeleted</span> <span class="ruby-comment"># DELETED</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">cb</span> = <span class="ruby-ivar">@del_cbs</span>.<span class="ruby-identifier">shift</span>
+      <span class="ruby-identifier">cb</span>.<span class="ruby-identifier">call</span>(<span class="ruby-keyword">true</span>)
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">Cunknown</span> <span class="ruby-comment"># NOT_FOUND</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">cb</span> = <span class="ruby-ivar">@del_cbs</span>.<span class="ruby-identifier">shift</span>
+      <span class="ruby-identifier">cb</span>.<span class="ruby-identifier">call</span>(<span class="ruby-keyword">false</span>)
+    <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">p</span> [<span class="ruby-value">:MEMCACHE_UNKNOWN</span>, <span class="ruby-identifier">line</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_cmd-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_cmd-method -->
+
+      
+        <div id="receive_data-method" class="method-detail ">
+          <a name="method-i-receive_data"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_data</span><span
+              class="method-args">(data)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="receive_data-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 158</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_data</span> <span class="ruby-identifier">data</span>
+  (<span class="ruby-ivar">@buffer</span><span class="ruby-operator">||=</span><span class="ruby-string">''</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>
+
+  <span class="ruby-keyword">while</span> <span class="ruby-identifier">index</span> = <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">index</span>(<span class="ruby-constant">Cdelimiter</span>)
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">line</span> = <span class="ruby-ivar">@buffer</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>,<span class="ruby-identifier">index</span><span class="ruby-operator">+</span><span class="ruby-value">2</span>)
+      <span class="ruby-identifier">process_cmd</span> <span class="ruby-identifier">line</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ParserError</span>
+      <span class="ruby-ivar">@buffer</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-value">0</span>] = <span class="ruby-identifier">line</span>
+      <span class="ruby-keyword">break</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_data-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_data-method -->
+
+      
+        <div id="set-method" class="method-detail ">
+          <a name="method-i-set"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">set</span><span
+              class="method-args">(key, val, exptime = 0, &cb)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Set the value for a given key</p>
+
+<pre>cache.set :a, 'hello'
+cache.set(:missing, 'abc'){ puts &quot;stored the value!&quot; }</pre>
+            
+
+            
+            <div class="method-source-code" id="set-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>, <span class="ruby-identifier">exptime</span> = <span class="ruby-value">0</span>, &amp;<span class="ruby-identifier">cb</span>
+  <span class="ruby-identifier">callback</span>{
+    <span class="ruby-identifier">val</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-identifier">send_cmd</span> <span class="ruby-value">:set</span>, <span class="ruby-identifier">key</span>, <span class="ruby-value">0</span>, <span class="ruby-identifier">exptime</span>, <span class="ruby-identifier">val</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:bytesize</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">bytesize</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">size</span>, <span class="ruby-operator">!</span><span class="ruby-identifier">block_given?</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-identifier">val</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-constant">Cdelimiter</span>
+    <span class="ruby-ivar">@set_cbs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cb</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cb</span>
+  }
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- set-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- set-method -->
+
+      
+        <div id="unbind-method" class="method-detail ">
+          <a name="method-i-unbind"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">unbind</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>@private</p>
+            
+
+            
+            <div class="method-source-code" id="unbind-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/memcache.rb, line 221</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unbind</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@connected</span> <span class="ruby-keyword">or</span> <span class="ruby-ivar">@reconnecting</span>
+    <span class="ruby-constant">EM</span>.<span class="ruby-identifier">add_timer</span>(<span class="ruby-value">1</span>){ <span class="ruby-identifier">reconnect</span> <span class="ruby-ivar">@host</span>, <span class="ruby-ivar">@port</span> }
+    <span class="ruby-ivar">@connected</span> = <span class="ruby-keyword">false</span>
+    <span class="ruby-ivar">@reconnecting</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-ivar">@deferred_status</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">'Unable to connect to memcached server'</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- unbind-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- unbind-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

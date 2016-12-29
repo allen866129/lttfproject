@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"threadpool_size:EFI""EventMachine::threadpool_size;FI"RW;F:privateo:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"?Size of the EventMachine.defer threadpool (defaults to 20);TI"@return [Number];T:
+@file0TI"lib/eventmachine.rb;T

@@ -1,0 +1,2050 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Class: EventMachine::Protocols::SmtpServer</title>
+
+  <link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+  <script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="class">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../../lib/em/protocols/smtpserver_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/em/protocols/smtpserver.rb">lib/em/protocols/smtpserver.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link"><a href="../Connection.html">EventMachine::Connection</a></p>
+        
+      </div>
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-new">::new</a></li>
+          
+          <li><a href="#method-c-parms-3D">::parms=</a></li>
+          
+          <li><a href="#method-i-connection_ended">#connection_ended</a></li>
+          
+          <li><a href="#method-i-get_server_domain">#get_server_domain</a></li>
+          
+          <li><a href="#method-i-get_server_greeting">#get_server_greeting</a></li>
+          
+          <li><a href="#method-i-init_protocol_state">#init_protocol_state</a></li>
+          
+          <li><a href="#method-i-parms-3D">#parms=</a></li>
+          
+          <li><a href="#method-i-post_init">#post_init</a></li>
+          
+          <li><a href="#method-i-process_auth">#process_auth</a></li>
+          
+          <li><a href="#method-i-process_auth_line">#process_auth_line</a></li>
+          
+          <li><a href="#method-i-process_data">#process_data</a></li>
+          
+          <li><a href="#method-i-process_data_line">#process_data_line</a></li>
+          
+          <li><a href="#method-i-process_ehlo">#process_ehlo</a></li>
+          
+          <li><a href="#method-i-process_expn">#process_expn</a></li>
+          
+          <li><a href="#method-i-process_helo">#process_helo</a></li>
+          
+          <li><a href="#method-i-process_help">#process_help</a></li>
+          
+          <li><a href="#method-i-process_mail_from">#process_mail_from</a></li>
+          
+          <li><a href="#method-i-process_noop">#process_noop</a></li>
+          
+          <li><a href="#method-i-process_quit">#process_quit</a></li>
+          
+          <li><a href="#method-i-process_rcpt_to">#process_rcpt_to</a></li>
+          
+          <li><a href="#method-i-process_rset">#process_rset</a></li>
+          
+          <li><a href="#method-i-process_starttls">#process_starttls</a></li>
+          
+          <li><a href="#method-i-process_unknown">#process_unknown</a></li>
+          
+          <li><a href="#method-i-process_vrfy">#process_vrfy</a></li>
+          
+          <li><a href="#method-i-receive_data_chunk">#receive_data_chunk</a></li>
+          
+          <li><a href="#method-i-receive_data_command">#receive_data_command</a></li>
+          
+          <li><a href="#method-i-receive_ehlo_domain">#receive_ehlo_domain</a></li>
+          
+          <li><a href="#method-i-receive_line">#receive_line</a></li>
+          
+          <li><a href="#method-i-receive_message">#receive_message</a></li>
+          
+          <li><a href="#method-i-receive_plain_auth">#receive_plain_auth</a></li>
+          
+          <li><a href="#method-i-receive_recipient">#receive_recipient</a></li>
+          
+          <li><a href="#method-i-receive_reset">#receive_reset</a></li>
+          
+          <li><a href="#method-i-receive_sender">#receive_sender</a></li>
+          
+          <li><a href="#method-i-receive_transaction">#receive_transaction</a></li>
+          
+          <li><a href="#method-i-reset_protocol_state">#reset_protocol_state</a></li>
+          
+          <li><a href="#method-i-send_server_greeting">#send_server_greeting</a></li>
+          
+          <li><a href="#method-i-unbind">#unbind</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+      <!-- Included Modules -->
+      <div id="includes-section" class="section">
+        <h3 class="section-header">Included Modules</h3>
+        <ul class="link-list">
+        
+        
+          <li><a class="include" href="LineText2.html">EventMachine::Protocols::LineText2</a></li>
+        
+        
+        </ul>
+      </div>
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../../docs/old/ChangeLog.html">ChangeLog</a></li>
+        
+          <li class="file"><a href="../../docs/old/DEFERRABLES.html">DEFERRABLES</a></li>
+        
+          <li class="file"><a href="../../docs/old/EPOLL.html">EPOLL</a></li>
+        
+          <li class="file"><a href="../../docs/old/INSTALL.html">INSTALL</a></li>
+        
+          <li class="file"><a href="../../docs/old/KEYBOARD.html">KEYBOARD</a></li>
+        
+          <li class="file"><a href="../../docs/old/LEGAL.html">LEGAL</a></li>
+        
+          <li class="file"><a href="../../docs/old/LIGHTWEIGHT_CONCURRENCY.html">LIGHTWEIGHT_CONCURRENCY</a></li>
+        
+          <li class="file"><a href="../../docs/old/PURE_RUBY.html">PURE_RUBY</a></li>
+        
+          <li class="file"><a href="../../docs/old/RELEASE_NOTES.html">RELEASE_NOTES</a></li>
+        
+          <li class="file"><a href="../../docs/old/SMTP.html">SMTP</a></li>
+        
+          <li class="file"><a href="../../docs/old/SPAWNED_PROCESSES.html">SPAWNED_PROCESSES</a></li>
+        
+          <li class="file"><a href="../../docs/old/TODO.html">TODO</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine/CertificateCreator.html">EventMachine::CertificateCreator</a></li>
+        
+          <li><a href="../../EventMachine/Channel.html">EventMachine::Channel</a></li>
+        
+          <li><a href="../../EventMachine/Completion.html">EventMachine::Completion</a></li>
+        
+          <li><a href="../../EventMachine/Connection.html">EventMachine::Connection</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionError.html">EventMachine::ConnectionError</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionNotBound.html">EventMachine::ConnectionNotBound</a></li>
+        
+          <li><a href="../../EventMachine/DNS.html">EventMachine::DNS</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Request.html">EventMachine::DNS::Request</a></li>
+        
+          <li><a href="../../EventMachine/DNS/RequestIdAlreadyUsed.html">EventMachine::DNS::RequestIdAlreadyUsed</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Resolver.html">EventMachine::DNS::Resolver</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Socket.html">EventMachine::DNS::Socket</a></li>
+        
+          <li><a href="../../EventMachine/DatagramObject.html">EventMachine::DatagramObject</a></li>
+        
+          <li><a href="../../EventMachine/DefaultDeferrable.html">EventMachine::DefaultDeferrable</a></li>
+        
+          <li><a href="../../EventMachine/Deferrable.html">EventMachine::Deferrable</a></li>
+        
+          <li><a href="../../EventMachine/DeferrableChildProcess.html">EventMachine::DeferrableChildProcess</a></li>
+        
+          <li><a href="../../EventMachine/Error.html">EventMachine::Error</a></li>
+        
+          <li><a href="../../EventMachine/EvmaKeyboard.html">EventMachine::EvmaKeyboard</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPClient.html">EventMachine::EvmaTCPClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPServer.html">EventMachine::EvmaTCPServer</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUDPSocket.html">EventMachine::EvmaUDPSocket</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXClient.html">EventMachine::EvmaUNIXClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXServer.html">EventMachine::EvmaUNIXServer</a></li>
+        
+          <li><a href="../../EventMachine/FileNotFoundException.html">EventMachine::FileNotFoundException</a></li>
+        
+          <li><a href="../../EventMachine/FileStreamer.html">EventMachine::FileStreamer</a></li>
+        
+          <li><a href="../../EventMachine/FileWatch.html">EventMachine::FileWatch</a></li>
+        
+          <li><a href="../../EventMachine/Iterator.html">EventMachine::Iterator</a></li>
+        
+          <li><a href="../../EventMachine/LoopbreakReader.html">EventMachine::LoopbreakReader</a></li>
+        
+          <li><a href="../../EventMachine/PeriodicTimer.html">EventMachine::PeriodicTimer</a></li>
+        
+          <li><a href="../../EventMachine/Pool.html">EventMachine::Pool</a></li>
+        
+          <li><a href="../../EventMachine/ProcessWatch.html">EventMachine::ProcessWatch</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HeaderAndContentProtocol.html">EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient.html">EventMachine::Protocols::HttpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2.html">EventMachine::Protocols::HttpClient2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2/Request.html">EventMachine::Protocols::HttpClient2::Request</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineAndTextProtocol.html">EventMachine::Protocols::LineAndTextProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineProtocol.html">EventMachine::Protocols::LineProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineText2.html">EventMachine::Protocols::LineText2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache.html">EventMachine::Protocols::Memcache</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache/ParserError.html">EventMachine::Protocols::Memcache::ParserError</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/ObjectProtocol.html">EventMachine::Protocols::ObjectProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Postgres3.html">EventMachine::Protocols::Postgres3</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauth.html">EventMachine::Protocols::SASLauth</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauthclient.html">EventMachine::Protocols::SASLauthclient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpClient.html">EventMachine::Protocols::SmtpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpServer.html">EventMachine::Protocols::SmtpServer</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Socks4.html">EventMachine::Protocols::Socks4</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp.html">EventMachine::Protocols::Stomp</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp/Message.html">EventMachine::Protocols::Stomp::Message</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/TcpConnectTester.html">EventMachine::Protocols::TcpConnectTester</a></li>
+        
+          <li><a href="../../EventMachine/Queue.html">EventMachine::Queue</a></li>
+        
+          <li><a href="../../EventMachine/Reactor.html">EventMachine::Reactor</a></li>
+        
+          <li><a href="../../EventMachine/Selectable.html">EventMachine::Selectable</a></li>
+        
+          <li><a href="../../EventMachine/SpawnedProcess.html">EventMachine::SpawnedProcess</a></li>
+        
+          <li><a href="../../EventMachine/StreamObject.html">EventMachine::StreamObject</a></li>
+        
+          <li><a href="../../EventMachine/SystemCmd.html">EventMachine::SystemCmd</a></li>
+        
+          <li><a href="../../EventMachine/ThreadedResource.html">EventMachine::ThreadedResource</a></li>
+        
+          <li><a href="../../EventMachine/TickLoop.html">EventMachine::TickLoop</a></li>
+        
+          <li><a href="../../EventMachine/Timer.html">EventMachine::Timer</a></li>
+        
+          <li><a href="../../EventMachine/UnknownTimerFired.html">EventMachine::UnknownTimerFired</a></li>
+        
+          <li><a href="../../EventMachine/Unsupported.html">EventMachine::Unsupported</a></li>
+        
+          <li><a href="../../EventMachine/UuidGenerator.html">EventMachine::UuidGenerator</a></li>
+        
+          <li><a href="../../EventMachine/YieldBlockFromSpawnedProcess.html">EventMachine::YieldBlockFromSpawnedProcess</a></li>
+        
+          <li><a href="../../Object.html">Object</a></li>
+        
+          <li><a href="../../EventMachine.html">Object::EM</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">Object::P</a></li>
+        
+          <li><a href="../../BufferedTokenizer.html">BufferedTokenizer</a></li>
+        
+          <li><a href="../../IO.html">IO</a></li>
+        
+          <li><a href="../../StringIO.html">StringIO</a></li>
+        
+          <li><a href="../../TestConnection.html">TestConnection</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="class">EventMachine::Protocols::SmtpServer</h1>
+
+    <div id="description" class="description">
+      
+<p>This is a protocol handler for the server side of SMTP. It’s NOT a complete
+SMTP server obeying all the semantics of servers conforming to RFC2821.
+Rather, it uses overridable method stubs to communicate protocol states and
+data to user code. User code is responsible for doing the right things with
+the data in order to get complete and correct SMTP server behavior.</p>
+
+<p>Simple SMTP server example:</p>
+
+<pre>class EmailServer &lt; EM::P::SmtpServer
+  def receive_plain_auth(user, pass)
+    true
+  end
+
+  def get_server_domain
+    &quot;mock.smtp.server.local&quot;
+  end
+
+  def get_server_greeting
+    &quot;mock smtp server greets you with impunity&quot;
+  end
+
+  def receive_sender(sender)
+    current.sender = sender
+    true
+  end
+
+  def receive_recipient(recipient)
+    current.recipient = recipient
+    true
+  end
+
+  def receive_message
+    current.received = true
+    current.completed_at = Time.now
+
+    p [:received_email, current]
+    @current = OpenStruct.new
+    true
+  end
+
+  def receive_ehlo_domain(domain)
+    @ehlo_domain = domain
+    true
+  end
+
+  def receive_data_command
+    current.data = &quot;&quot;
+    true
+  end
+
+  def receive_data_chunk(data)
+    current.data &lt;&lt; data.join(&quot;\n&quot;)
+    true
+  end
+
+  def receive_transaction
+    if @ehlo_domain
+      current.ehlo_domain = @ehlo_domain
+      @ehlo_domain = nil
+    end
+    true
+  end
+
+  def current
+    @current ||= OpenStruct.new
+  end
+
+  def self.start(host = 'localhost', port = 1025)
+    require 'ostruct'
+    @server = EM.start_server host, port, self
+  end
+
+  def self.stop
+    if @server
+      EM.stop_server @server
+      @server = nil
+    end
+  end
+
+  def self.running?
+    !!@server
+  end
+end
+
+EM.run{ EmailServer.start }</pre>
+
+    </div><!-- description -->
+
+    
+    
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+      <!-- Constants -->
+      <div id="constants-list" class="section">
+        <h3 class="section-header">Constants</h3>
+        <dl>
+        
+          <dt><a name="AuthRegex">AuthRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="DataRegex">DataRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="EhloRegex">EhloRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="ExpnRegex">ExpnRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="HeloRegex">HeloRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="HelpRegex">HelpRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="MailFromRegex">MailFromRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="NoopRegex">NoopRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="QuitRegex">QuitRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="RcptToRegex">RcptToRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="RsetRegex">RsetRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="StarttlsRegex">StarttlsRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+          <dt><a name="VrfyRegex">VrfyRegex</a></dt>
+          
+          <dd class="description"></dd>
+          
+        
+        </dl>
+      </div>
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
+
+      
+        <div id="new-method" class="method-detail ">
+          <a name="method-c-new"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">new</span><span
+              class="method-args">(*args)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 162</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span> *<span class="ruby-identifier">args</span>
+  <span class="ruby-keyword">super</span>
+  <span class="ruby-ivar">@parms</span> = <span class="ruby-identifier">@@parms</span>
+  <span class="ruby-identifier">init_protocol_state</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- new-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- new-method -->
+
+      
+        <div id="parms-3D-method" class="method-detail ">
+          <a name="method-c-parms-3D"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">parms=</span><span
+              class="method-args">(parms={})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="parms-3D-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 156</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">parms=</span> <span class="ruby-identifier">parms</span>={}
+  <span class="ruby-identifier">@@parms</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">parms</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- parms-3D-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- parms-3D-method -->
+
+      
+      </div><!-- public-class-method-details -->
+    
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="connection_ended-method" class="method-detail ">
+          <a name="method-i-connection_ended"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">connection_ended</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sent when the remote peer has ended the connection.</p>
+            
+
+            
+            <div class="method-source-code" id="connection_ended-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 629</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">connection_ended</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- connection_ended-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- connection_ended-method -->
+
+      
+        <div id="get_server_domain-method" class="method-detail ">
+          <a name="method-i-get_server_domain"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">get_server_domain</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>The domain name returned in the first line of the response to a successful
+EHLO or HELO command.</p>
+            
+
+            
+            <div class="method-source-code" id="get_server_domain-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 589</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_server_domain</span>
+  <span class="ruby-string">&quot;Ok EventMachine SMTP Server&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- get_server_domain-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- get_server_domain-method -->
+
+      
+        <div id="get_server_greeting-method" class="method-detail ">
+          <a name="method-i-get_server_greeting"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">get_server_greeting</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>The greeting returned in the initial connection message to the client.</p>
+            
+
+            
+            <div class="method-source-code" id="get_server_greeting-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 584</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_server_greeting</span>
+  <span class="ruby-string">&quot;EventMachine SMTP Server&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- get_server_greeting-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- get_server_greeting-method -->
+
+      
+        <div id="init_protocol_state-method" class="method-detail ">
+          <a name="method-i-init_protocol_state"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">init_protocol_state</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="init_protocol_state-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 278</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">init_protocol_state</span>
+  <span class="ruby-ivar">@state</span> <span class="ruby-operator">||=</span> []
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- init_protocol_state-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- init_protocol_state-method -->
+
+      
+        <div id="parms-3D-method" class="method-detail ">
+          <a name="method-i-parms-3D"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">parms=</span><span
+              class="method-args">(parms={})</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="parms-3D-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 168</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parms=</span> <span class="ruby-identifier">parms</span>={}
+  <span class="ruby-ivar">@parms</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">parms</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- parms-3D-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- parms-3D-method -->
+
+      
+        <div id="post_init-method" class="method-detail ">
+          <a name="method-i-post_init"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">post_init</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>In SMTP, the server talks first. But by a (perhaps flawed) axiom in <a
+href="../../EventMachine.html">EM</a>, <a
+href="SmtpServer.html#method-i-post_init">post_init</a> will execute BEFORE
+the block passed to start_server, for any given accepted connection. Since
+in this class we’ll probably be getting a lot of initialization parameters,
+we want the guts of <a
+href="SmtpServer.html#method-i-post_init">post_init</a> to run AFTER the
+application has initialized the connection object. So we use a spawn to
+schedule the <a href="SmtpServer.html#method-i-post_init">post_init</a> to
+run later. It’s a little weird, I admit. A reasonable alternative would be
+to set parameters as a class variable and to do that before accepting any
+connections.</p>
+
+<p>OBSOLETE, now we have @@parms. But the spawn is nice to keep as an
+illustration.</p>
+            
+
+            
+            <div class="method-source-code" id="post_init-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 183</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">post_init</span>
+  <span class="ruby-comment">#send_data &quot;220 #{get_server_greeting}\r\n&quot; (ORIGINAL)</span>
+  <span class="ruby-comment">#(EM.spawn {|x| x.send_data &quot;220 #{x.get_server_greeting}\r\n&quot;}).notify(self)</span>
+  (<span class="ruby-constant">EM</span>.<span class="ruby-identifier">spawn</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">send_server_greeting</span>}).<span class="ruby-identifier">notify</span>(<span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- post_init-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- post_init-method -->
+
+      
+        <div id="process_auth-method" class="method-detail ">
+          <a name="method-i-process_auth"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_auth</span><span
+              class="method-args">(str)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_auth-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 348</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_auth</span> <span class="ruby-identifier">str</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:auth</span>)
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;503 auth already issued\r\n&quot;</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">str</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/\APLAIN\s?/</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-node">$'</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+      <span class="ruby-comment"># we got a partial response, so let the client know to send the rest</span>
+      <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:auth_incomplete</span>
+      <span class="ruby-identifier">send_data</span>(<span class="ruby-string">&quot;334 \r\n&quot;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-comment"># we got the initial response, so go ahead &amp; process it</span>
+      <span class="ruby-identifier">process_auth_line</span>(<span class="ruby-node">$'</span>)
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment">#elsif str =~ /\ALOGIN\s+/i</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;504 auth mechanism not available\r\n&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_auth-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_auth-method -->
+
+      
+        <div id="process_auth_line-method" class="method-detail ">
+          <a name="method-i-process_auth_line"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_auth_line</span><span
+              class="method-args">(line)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_auth_line-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 366</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_auth_line</span>(<span class="ruby-identifier">line</span>)
+  <span class="ruby-identifier">plain</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">unpack</span>(<span class="ruby-string">&quot;m&quot;</span>).<span class="ruby-identifier">first</span>
+  <span class="ruby-identifier">_</span>,<span class="ruby-identifier">user</span>,<span class="ruby-identifier">psw</span> = <span class="ruby-identifier">plain</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\0000&quot;</span>)
+  
+  <span class="ruby-identifier">succeeded</span> = <span class="ruby-identifier">proc</span> {
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;235 authentication ok\r\n&quot;</span>
+    <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:auth</span>
+  }
+  <span class="ruby-identifier">failed</span> = <span class="ruby-identifier">proc</span> {
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;535 invalid authentication\r\n&quot;</span>
+  }
+  <span class="ruby-identifier">auth</span> = <span class="ruby-identifier">receive_plain_auth</span> <span class="ruby-identifier">user</span>,<span class="ruby-identifier">psw</span>
+  
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:callback</span>)
+    <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">callback</span>(&amp;<span class="ruby-identifier">succeeded</span>)
+    <span class="ruby-identifier">auth</span>.<span class="ruby-identifier">errback</span>(&amp;<span class="ruby-identifier">failed</span>)
+  <span class="ruby-keyword">else</span>
+    (<span class="ruby-identifier">auth</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">succeeded</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">failed</span>).<span class="ruby-identifier">call</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">delete</span> <span class="ruby-value">:auth_incomplete</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_auth_line-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_auth_line-method -->
+
+      
+        <div id="process_data-method" class="method-detail ">
+          <a name="method-i-process_data"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_data</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_data-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 394</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_data</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:rcpt</span>)
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;503 Operation sequence error\r\n&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">succeeded</span> = <span class="ruby-identifier">proc</span> {
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;354 Send it\r\n&quot;</span>
+      <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:data</span>
+      <span class="ruby-ivar">@databuffer</span> = []
+    }
+    <span class="ruby-identifier">failed</span> = <span class="ruby-identifier">proc</span> {
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;550 Operation failed\r\n&quot;</span>
+    }
+
+    <span class="ruby-identifier">d</span> = <span class="ruby-identifier">receive_data_command</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:callback</span>)
+      <span class="ruby-identifier">d</span>.<span class="ruby-identifier">callback</span>(&amp;<span class="ruby-identifier">succeeded</span>)
+      <span class="ruby-identifier">d</span>.<span class="ruby-identifier">errback</span>(&amp;<span class="ruby-identifier">failed</span>)
+    <span class="ruby-keyword">else</span>
+      (<span class="ruby-identifier">d</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">succeeded</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">failed</span>).<span class="ruby-identifier">call</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_data-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_data-method -->
+
+      
+        <div id="process_data_line-method" class="method-detail ">
+          <a name="method-i-process_data_line"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_data_line</span><span
+              class="method-args">(ln)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Send the incoming data to the application one chunk at a time, rather than
+one line at a time. That lets the application be a little more flexible
+about storing to disk, etc. Since we clear the chunk array every time we
+submit it, the caller needs to be aware to do things like dup it if he
+wants to keep it around across calls.</p>
+
+<p>Resets the transaction upon disposition of the incoming message. RFC5321
+says this about the MAIL FROM command:</p>
+
+<pre>&quot;This command tells the SMTP-receiver that a new mail transaction is
+ starting and to reset all its state tables and buffers, including any
+ recipients or mail data.&quot;</pre>
+
+<p>Equivalent behaviour is implemented by resetting after a completed
+transaction.</p>
+
+<p>User-written code can return a <a href="../Deferrable.html">Deferrable</a>
+as a response from receive_message.</p>
+            
+
+            
+            <div class="method-source-code" id="process_data_line-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 542</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_data_line</span> <span class="ruby-identifier">ln</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ln</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;.&quot;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@databuffer</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">receive_data_chunk</span> <span class="ruby-ivar">@databuffer</span>
+      <span class="ruby-ivar">@databuffer</span>.<span class="ruby-identifier">clear</span>
+    <span class="ruby-keyword">end</span>
+
+
+    <span class="ruby-identifier">succeeded</span> = <span class="ruby-identifier">proc</span> {
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250 Message accepted\r\n&quot;</span>
+      <span class="ruby-identifier">reset_protocol_state</span>
+    }
+    <span class="ruby-identifier">failed</span> = <span class="ruby-identifier">proc</span> {
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;550 Message rejected\r\n&quot;</span>
+      <span class="ruby-identifier">reset_protocol_state</span>
+    }
+    <span class="ruby-identifier">d</span> = <span class="ruby-identifier">receive_message</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:set_deferred_status</span>)
+      <span class="ruby-identifier">d</span>.<span class="ruby-identifier">callback</span>(&amp;<span class="ruby-identifier">succeeded</span>)
+      <span class="ruby-identifier">d</span>.<span class="ruby-identifier">errback</span>(&amp;<span class="ruby-identifier">failed</span>)
+    <span class="ruby-keyword">else</span>
+      (<span class="ruby-identifier">d</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">succeeded</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">failed</span>).<span class="ruby-identifier">call</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">delete</span> <span class="ruby-value">:data</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># slice off leading . if any</span>
+    <span class="ruby-identifier">ln</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-value">1</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">ln</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-value">..</span>
+    <span class="ruby-ivar">@databuffer</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">ln</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@databuffer</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">@@parms</span>[<span class="ruby-value">:chunksize</span>]
+      <span class="ruby-identifier">receive_data_chunk</span> <span class="ruby-ivar">@databuffer</span>
+      <span class="ruby-ivar">@databuffer</span>.<span class="ruby-identifier">clear</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_data_line-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_data_line-method -->
+
+      
+        <div id="process_ehlo-method" class="method-detail ">
+          <a name="method-i-process_ehlo"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_ehlo</span><span
+              class="method-args">(domain)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_ehlo-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 301</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_ehlo</span> <span class="ruby-identifier">domain</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">receive_ehlo_domain</span> <span class="ruby-identifier">domain</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-node">&quot;250-#{get_server_domain}\r\n&quot;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@parms</span>[<span class="ruby-value">:starttls</span>]
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250-STARTTLS\r\n&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@parms</span>[<span class="ruby-value">:auth</span>]
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250-AUTH PLAIN\r\n&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250-NO-SOLICITING\r\n&quot;</span>
+    <span class="ruby-comment"># TODO, size needs to be configurable.</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250 SIZE 20000000\r\n&quot;</span>
+    <span class="ruby-identifier">reset_protocol_state</span>
+    <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:ehlo</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;550 Requested action not taken\r\n&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_ehlo-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_ehlo-method -->
+
+      
+        <div id="process_expn-method" class="method-detail ">
+          <a name="method-i-process_expn"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_expn</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>TODO - implement this properly, the implementation is a stub!</p>
+            
+
+            
+            <div class="method-source-code" id="process_expn-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 248</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_expn</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;502 Command not implemented\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_expn-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_expn-method -->
+
+      
+        <div id="process_helo-method" class="method-detail ">
+          <a name="method-i-process_helo"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_helo</span><span
+              class="method-args">(domain)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_helo-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 320</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_helo</span> <span class="ruby-identifier">domain</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">receive_ehlo_domain</span> <span class="ruby-identifier">domain</span>.<span class="ruby-identifier">dup</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-node">&quot;250 #{get_server_domain}\r\n&quot;</span>
+    <span class="ruby-identifier">reset_protocol_state</span>
+    <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:ehlo</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;550 Requested action not taken\r\n&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_helo-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_helo-method -->
+
+      
+        <div id="process_help-method" class="method-detail ">
+          <a name="method-i-process_help"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_help</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>TODO - implement this properly, the implementation is a stub!</p>
+            
+
+            
+            <div class="method-source-code" id="process_help-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 232</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_help</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250 Ok, but unimplemented\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_help-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_help-method -->
+
+      
+        <div id="process_mail_from-method" class="method-detail ">
+          <a name="method-i-process_mail_from"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_mail_from</span><span
+              class="method-args">(sender)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_mail_from-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 464</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_mail_from</span> <span class="ruby-identifier">sender</span>
+  <span class="ruby-keyword">if</span> (<span class="ruby-identifier">@@parms</span>[<span class="ruby-value">:starttls</span>]<span class="ruby-operator">==</span><span class="ruby-value">:required</span> <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:starttls</span>))
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;550 This server requires STARTTLS before MAIL FROM\r\n&quot;</span>
+  <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">@@parms</span>[<span class="ruby-value">:auth</span>]<span class="ruby-operator">==</span><span class="ruby-value">:required</span> <span class="ruby-keyword">and</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:auth</span>))
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;550 This server requires authentication before MAIL FROM\r\n&quot;</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:mail_from</span>)
+    <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;503 MAIL already given\r\n&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">receive_sender</span> <span class="ruby-identifier">sender</span>
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;550 sender is unacceptable\r\n&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250 Ok\r\n&quot;</span>
+      <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:mail_from</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_mail_from-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_mail_from-method -->
+
+      
+        <div id="process_noop-method" class="method-detail ">
+          <a name="method-i-process_noop"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_noop</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_noop-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 335</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_noop</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250 Ok\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_noop-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_noop-method -->
+
+      
+        <div id="process_quit-method" class="method-detail ">
+          <a name="method-i-process_quit"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_quit</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_quit-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 330</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_quit</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;221 Ok\r\n&quot;</span>
+  <span class="ruby-identifier">close_connection_after_writing</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_quit-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_quit-method -->
+
+      
+        <div id="process_rcpt_to-method" class="method-detail ">
+          <a name="method-i-process_rcpt_to"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_rcpt_to</span><span
+              class="method-args">(rcpt)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_rcpt_to-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 493</span>
+      <span class="ruby-keyword">def</span> <span class="ruby-identifier">process_rcpt_to</span> <span class="ruby-identifier">rcpt</span>
+        <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:mail_from</span>)
+          <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;503 MAIL is required before RCPT\r\n&quot;</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-identifier">succeeded</span> = <span class="ruby-identifier">proc</span> {
+            <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250 Ok\r\n&quot;</span>
+            <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:rcpt</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:rcpt</span>)
+          }
+          <span class="ruby-identifier">failed</span> = <span class="ruby-identifier">proc</span> {
+            <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;550 recipient is unacceptable\r\n&quot;</span>
+          }
+
+          <span class="ruby-identifier">d</span> = <span class="ruby-identifier">receive_recipient</span> <span class="ruby-identifier">rcpt</span>
+
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:set_deferred_status</span>)
+            <span class="ruby-identifier">d</span>.<span class="ruby-identifier">callback</span>(&amp;<span class="ruby-identifier">succeeded</span>)
+            <span class="ruby-identifier">d</span>.<span class="ruby-identifier">errback</span>(&amp;<span class="ruby-identifier">failed</span>)
+          <span class="ruby-keyword">else</span>
+            (<span class="ruby-identifier">d</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">succeeded</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">failed</span>).<span class="ruby-identifier">call</span>
+          <span class="ruby-keyword">end</span>
+
+<span class="ruby-comment">        unless receive_recipient rcpt
+          send_data &quot;550 recipient is unacceptable\r\n&quot;
+        else
+          send_data &quot;250 Ok\r\n&quot;
+          @state &lt;&lt; :rcpt unless @state.include?(:rcpt)
+        end
+</span>        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span></pre>
+            </div><!-- process_rcpt_to-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_rcpt_to-method -->
+
+      
+        <div id="process_rset-method" class="method-detail ">
+          <a name="method-i-process_rset"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_rset</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_rset-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 418</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_rset</span>
+  <span class="ruby-identifier">reset_protocol_state</span>
+  <span class="ruby-identifier">receive_reset</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;250 Ok\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_rset-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_rset-method -->
+
+      
+        <div id="process_starttls-method" class="method-detail ">
+          <a name="method-i-process_starttls"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_starttls</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_starttls-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 437</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_starttls</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@parms</span>[<span class="ruby-value">:starttls</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:starttls</span>)
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;503 TLS Already negotiated\r\n&quot;</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span> <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:ehlo</span>)
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;503 EHLO required before STARTTLS\r\n&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;220 Start TLS negotiation\r\n&quot;</span>
+      <span class="ruby-identifier">start_tls</span>(<span class="ruby-identifier">@@parms</span>[<span class="ruby-value">:starttls_options</span>] <span class="ruby-operator">||</span> {})
+      <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:starttls</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">process_unknown</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_starttls-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_starttls-method -->
+
+      
+        <div id="process_unknown-method" class="method-detail ">
+          <a name="method-i-process_unknown"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_unknown</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="process_unknown-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 339</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_unknown</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;500 Unknown command\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_unknown-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_unknown-method -->
+
+      
+        <div id="process_vrfy-method" class="method-detail ">
+          <a name="method-i-process_vrfy"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">process_vrfy</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>RFC2821, 3.5.3 Meaning of VRFY or EXPN Success Response:</p>
+
+<pre>A server MUST NOT return a 250 code in response to a VRFY or EXPN
+command unless it has actually verified the address.  In particular,
+a server MUST NOT return 250 if all it has done is to verify that the
+syntax given is valid.  In that case, 502 (Command not implemented)
+or 500 (Syntax error, command unrecognized) SHOULD be returned.</pre>
+
+<p>TODO - implement this properly, the implementation is a stub!</p>
+            
+
+            
+            <div class="method-source-code" id="process_vrfy-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 244</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">process_vrfy</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-string">&quot;502 Command not implemented\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- process_vrfy-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- process_vrfy-method -->
+
+      
+        <div id="receive_data_chunk-method" class="method-detail ">
+          <a name="method-i-receive_data_chunk"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_data_chunk</span><span
+              class="method-args">(data)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sent when data from the remote peer is available. The size can be
+controlled by setting the :chunksize parameter. This call can be made
+multiple times. The goal is to strike a balance between sending the data to
+the application one line at a time, and holding all of a very large message
+in memory.</p>
+            
+
+            
+            <div class="method-source-code" id="receive_data_chunk-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 646</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_data_chunk</span> <span class="ruby-identifier">data</span>
+  <span class="ruby-ivar">@smtps_msg_size</span> <span class="ruby-operator">||=</span> <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@smtps_msg_size</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">join</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">write</span> <span class="ruby-node">&quot;&lt;#{@smtps_msg_size}&gt;&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_data_chunk-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_data_chunk-method -->
+
+      
+        <div id="receive_data_command-method" class="method-detail ">
+          <a name="method-i-receive_data_command"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_data_command</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Called when the remote peer sends the DATA command. Returning false will
+cause us to send a 550 error to the peer. This can be useful for dealing
+with problems that arise from processing the whole set of sender and
+recipients.</p>
+            
+
+            
+            <div class="method-source-code" id="receive_data_command-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 637</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_data_command</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_data_command-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_data_command-method -->
+
+      
+        <div id="receive_ehlo_domain-method" class="method-detail ">
+          <a name="method-i-receive_ehlo_domain"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_ehlo_domain</span><span
+              class="method-args">(domain)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>A false response from this user-overridable method will cause a 550 error
+to be returned to the remote client.</p>
+            
+
+            
+            <div class="method-source-code" id="receive_ehlo_domain-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 596</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_ehlo_domain</span> <span class="ruby-identifier">domain</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_ehlo_domain-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_ehlo_domain-method -->
+
+      
+        <div id="receive_line-method" class="method-detail ">
+          <a name="method-i-receive_line"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_line</span><span
+              class="method-args">(ln)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="receive_line-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 193</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_line</span> <span class="ruby-identifier">ln</span>
+  <span class="ruby-identifier">@@parms</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-keyword">and</span> <span class="ruby-identifier">$&gt;</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;&gt;&gt;&gt; #{ln}&quot;</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">process_data_line</span>(<span class="ruby-identifier">ln</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:data</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">process_auth_line</span>(<span class="ruby-identifier">ln</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:auth_incomplete</span>)
+
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">ln</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">EhloRegex</span>
+    <span class="ruby-identifier">process_ehlo</span> <span class="ruby-node">$'</span>.<span class="ruby-identifier">dup</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">HeloRegex</span>
+    <span class="ruby-identifier">process_helo</span> <span class="ruby-node">$'</span>.<span class="ruby-identifier">dup</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">MailFromRegex</span>
+    <span class="ruby-identifier">process_mail_from</span> <span class="ruby-node">$'</span>.<span class="ruby-identifier">dup</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">RcptToRegex</span>
+    <span class="ruby-identifier">process_rcpt_to</span> <span class="ruby-node">$'</span>.<span class="ruby-identifier">dup</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">DataRegex</span>
+    <span class="ruby-identifier">process_data</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">RsetRegex</span>
+    <span class="ruby-identifier">process_rset</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">VrfyRegex</span>
+    <span class="ruby-identifier">process_vrfy</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">ExpnRegex</span>
+    <span class="ruby-identifier">process_expn</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">HelpRegex</span>
+    <span class="ruby-identifier">process_help</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">NoopRegex</span>
+    <span class="ruby-identifier">process_noop</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">QuitRegex</span>
+    <span class="ruby-identifier">process_quit</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">StarttlsRegex</span>
+    <span class="ruby-identifier">process_starttls</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-constant">AuthRegex</span>
+    <span class="ruby-identifier">process_auth</span> <span class="ruby-node">$'</span>.<span class="ruby-identifier">dup</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">process_unknown</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_line-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_line-method -->
+
+      
+        <div id="receive_message-method" class="method-detail ">
+          <a name="method-i-receive_message"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_message</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sent after a message has been completely received. User code must return
+true or false to indicate whether the message has been accepted for
+delivery.</p>
+            
+
+            
+            <div class="method-source-code" id="receive_message-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 655</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_message</span>
+  <span class="ruby-identifier">@@parms</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-keyword">and</span> <span class="ruby-identifier">$&gt;</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Received complete message&quot;</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_message-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_message-method -->
+
+      
+        <div id="receive_plain_auth-method" class="method-detail ">
+          <a name="method-i-receive_plain_auth"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_plain_auth</span><span
+              class="method-args">(user, password)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Return true or false to indicate that the authentication is acceptable.</p>
+            
+
+            
+            <div class="method-source-code" id="receive_plain_auth-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 601</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_plain_auth</span> <span class="ruby-identifier">user</span>, <span class="ruby-identifier">password</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_plain_auth-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_plain_auth-method -->
+
+      
+        <div id="receive_recipient-method" class="method-detail ">
+          <a name="method-i-receive_recipient"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_recipient</span><span
+              class="method-args">(rcpt)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Receives the argument of a RCPT TO command. Can be given multiple times per
+transaction. Return false to reject the recipient.</p>
+            
+
+            
+            <div class="method-source-code" id="receive_recipient-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 616</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_recipient</span> <span class="ruby-identifier">rcpt</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_recipient-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_recipient-method -->
+
+      
+        <div id="receive_reset-method" class="method-detail ">
+          <a name="method-i-receive_reset"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_reset</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Sent when the remote peer issues the RSET command. Since RSET is not
+allowed to fail (according to the protocol), we ignore any return value
+from user overrides of this method.</p>
+            
+
+            
+            <div class="method-source-code" id="receive_reset-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 624</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_reset</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_reset-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_reset-method -->
+
+      
+        <div id="receive_sender-method" class="method-detail ">
+          <a name="method-i-receive_sender"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_sender</span><span
+              class="method-args">(sender)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Receives the argument of the MAIL FROM command. Return false to indicate to
+the remote client that the sender is not accepted. This can only be
+successfully called once per transaction.</p>
+            
+
+            
+            <div class="method-source-code" id="receive_sender-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 609</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_sender</span> <span class="ruby-identifier">sender</span>
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_sender-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_sender-method -->
+
+      
+        <div id="receive_transaction-method" class="method-detail ">
+          <a name="method-i-receive_transaction"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_transaction</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>This is called when the protocol state is reset. It happens when the remote
+client calls EHLO/HELO or RSET.</p>
+            
+
+            
+            <div class="method-source-code" id="receive_transaction-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 662</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_transaction</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_transaction-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_transaction-method -->
+
+      
+        <div id="reset_protocol_state-method" class="method-detail ">
+          <a name="method-i-reset_protocol_state"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">reset_protocol_state</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="reset_protocol_state-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 271</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reset_protocol_state</span>
+  <span class="ruby-identifier">init_protocol_state</span>
+  <span class="ruby-identifier">s</span>,<span class="ruby-ivar">@state</span> = <span class="ruby-ivar">@state</span>,[]
+  <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:starttls</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:starttls</span>)
+  <span class="ruby-ivar">@state</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">:ehlo</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:ehlo</span>)
+  <span class="ruby-identifier">receive_transaction</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- reset_protocol_state-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- reset_protocol_state-method -->
+
+      
+        <div id="send_server_greeting-method" class="method-detail ">
+          <a name="method-i-send_server_greeting"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">send_server_greeting</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="send_server_greeting-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 189</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">send_server_greeting</span>
+  <span class="ruby-identifier">send_data</span> <span class="ruby-node">&quot;220 #{get_server_greeting}\r\n&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- send_server_greeting-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- send_server_greeting-method -->
+
+      
+        <div id="unbind-method" class="method-detail ">
+          <a name="method-i-unbind"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">unbind</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="unbind-source">
+<pre>
+<span class="ruby-comment"># File lib/em/protocols/smtpserver.rb, line 424</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unbind</span>
+  <span class="ruby-identifier">connection_ended</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- unbind-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- unbind-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

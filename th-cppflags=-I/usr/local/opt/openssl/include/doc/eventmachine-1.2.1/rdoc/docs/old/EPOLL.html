@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>File: EPOLL [eventmachine-1.2.1 Documentation]</title>
+
+  <link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet" />
+
+  <script src="../../js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../../js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../../js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../../js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+</head>
+
+<body class="file">
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../../docs/old/ChangeLog.html">ChangeLog</a></li>
+        
+          <li class="file"><a href="../../docs/old/DEFERRABLES.html">DEFERRABLES</a></li>
+        
+          <li class="file"><a href="../../docs/old/EPOLL.html">EPOLL</a></li>
+        
+          <li class="file"><a href="../../docs/old/INSTALL.html">INSTALL</a></li>
+        
+          <li class="file"><a href="../../docs/old/KEYBOARD.html">KEYBOARD</a></li>
+        
+          <li class="file"><a href="../../docs/old/LEGAL.html">LEGAL</a></li>
+        
+          <li class="file"><a href="../../docs/old/LIGHTWEIGHT_CONCURRENCY.html">LIGHTWEIGHT_CONCURRENCY</a></li>
+        
+          <li class="file"><a href="../../docs/old/PURE_RUBY.html">PURE_RUBY</a></li>
+        
+          <li class="file"><a href="../../docs/old/RELEASE_NOTES.html">RELEASE_NOTES</a></li>
+        
+          <li class="file"><a href="../../docs/old/SMTP.html">SMTP</a></li>
+        
+          <li class="file"><a href="../../docs/old/SPAWNED_PROCESSES.html">SPAWNED_PROCESSES</a></li>
+        
+          <li class="file"><a href="../../docs/old/TODO.html">TODO</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine/CertificateCreator.html">EventMachine::CertificateCreator</a></li>
+        
+          <li><a href="../../EventMachine/Channel.html">EventMachine::Channel</a></li>
+        
+          <li><a href="../../EventMachine/Completion.html">EventMachine::Completion</a></li>
+        
+          <li><a href="../../EventMachine/Connection.html">EventMachine::Connection</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionError.html">EventMachine::ConnectionError</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionNotBound.html">EventMachine::ConnectionNotBound</a></li>
+        
+          <li><a href="../../EventMachine/DNS.html">EventMachine::DNS</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Request.html">EventMachine::DNS::Request</a></li>
+        
+          <li><a href="../../EventMachine/DNS/RequestIdAlreadyUsed.html">EventMachine::DNS::RequestIdAlreadyUsed</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Resolver.html">EventMachine::DNS::Resolver</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Socket.html">EventMachine::DNS::Socket</a></li>
+        
+          <li><a href="../../EventMachine/DatagramObject.html">EventMachine::DatagramObject</a></li>
+        
+          <li><a href="../../EventMachine/DefaultDeferrable.html">EventMachine::DefaultDeferrable</a></li>
+        
+          <li><a href="../../EventMachine/Deferrable.html">EventMachine::Deferrable</a></li>
+        
+          <li><a href="../../EventMachine/DeferrableChildProcess.html">EventMachine::DeferrableChildProcess</a></li>
+        
+          <li><a href="../../EventMachine/Error.html">EventMachine::Error</a></li>
+        
+          <li><a href="../../EventMachine/EvmaKeyboard.html">EventMachine::EvmaKeyboard</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPClient.html">EventMachine::EvmaTCPClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPServer.html">EventMachine::EvmaTCPServer</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUDPSocket.html">EventMachine::EvmaUDPSocket</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXClient.html">EventMachine::EvmaUNIXClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXServer.html">EventMachine::EvmaUNIXServer</a></li>
+        
+          <li><a href="../../EventMachine/FileNotFoundException.html">EventMachine::FileNotFoundException</a></li>
+        
+          <li><a href="../../EventMachine/FileStreamer.html">EventMachine::FileStreamer</a></li>
+        
+          <li><a href="../../EventMachine/FileWatch.html">EventMachine::FileWatch</a></li>
+        
+          <li><a href="../../EventMachine/Iterator.html">EventMachine::Iterator</a></li>
+        
+          <li><a href="../../EventMachine/LoopbreakReader.html">EventMachine::LoopbreakReader</a></li>
+        
+          <li><a href="../../EventMachine/PeriodicTimer.html">EventMachine::PeriodicTimer</a></li>
+        
+          <li><a href="../../EventMachine/Pool.html">EventMachine::Pool</a></li>
+        
+          <li><a href="../../EventMachine/ProcessWatch.html">EventMachine::ProcessWatch</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HeaderAndContentProtocol.html">EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient.html">EventMachine::Protocols::HttpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2.html">EventMachine::Protocols::HttpClient2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2/Request.html">EventMachine::Protocols::HttpClient2::Request</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineAndTextProtocol.html">EventMachine::Protocols::LineAndTextProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineProtocol.html">EventMachine::Protocols::LineProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineText2.html">EventMachine::Protocols::LineText2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache.html">EventMachine::Protocols::Memcache</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache/ParserError.html">EventMachine::Protocols::Memcache::ParserError</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/ObjectProtocol.html">EventMachine::Protocols::ObjectProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Postgres3.html">EventMachine::Protocols::Postgres3</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauth.html">EventMachine::Protocols::SASLauth</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauthclient.html">EventMachine::Protocols::SASLauthclient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpClient.html">EventMachine::Protocols::SmtpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpServer.html">EventMachine::Protocols::SmtpServer</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Socks4.html">EventMachine::Protocols::Socks4</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp.html">EventMachine::Protocols::Stomp</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp/Message.html">EventMachine::Protocols::Stomp::Message</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/TcpConnectTester.html">EventMachine::Protocols::TcpConnectTester</a></li>
+        
+          <li><a href="../../EventMachine/Queue.html">EventMachine::Queue</a></li>
+        
+          <li><a href="../../EventMachine/Reactor.html">EventMachine::Reactor</a></li>
+        
+          <li><a href="../../EventMachine/Selectable.html">EventMachine::Selectable</a></li>
+        
+          <li><a href="../../EventMachine/SpawnedProcess.html">EventMachine::SpawnedProcess</a></li>
+        
+          <li><a href="../../EventMachine/StreamObject.html">EventMachine::StreamObject</a></li>
+        
+          <li><a href="../../EventMachine/SystemCmd.html">EventMachine::SystemCmd</a></li>
+        
+          <li><a href="../../EventMachine/ThreadedResource.html">EventMachine::ThreadedResource</a></li>
+        
+          <li><a href="../../EventMachine/TickLoop.html">EventMachine::TickLoop</a></li>
+        
+          <li><a href="../../EventMachine/Timer.html">EventMachine::Timer</a></li>
+        
+          <li><a href="../../EventMachine/UnknownTimerFired.html">EventMachine::UnknownTimerFired</a></li>
+        
+          <li><a href="../../EventMachine/Unsupported.html">EventMachine::Unsupported</a></li>
+        
+          <li><a href="../../EventMachine/UuidGenerator.html">EventMachine::UuidGenerator</a></li>
+        
+          <li><a href="../../EventMachine/YieldBlockFromSpawnedProcess.html">EventMachine::YieldBlockFromSpawnedProcess</a></li>
+        
+          <li><a href="../../Object.html">Object</a></li>
+        
+          <li><a href="../../EventMachine.html">Object::EM</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">Object::P</a></li>
+        
+          <li><a href="../../BufferedTokenizer.html">BufferedTokenizer</a></li>
+        
+          <li><a href="../../IO.html">IO</a></li>
+        
+          <li><a href="../../StringIO.html">StringIO</a></li>
+        
+          <li><a href="../../TestConnection.html">TestConnection</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    
+<p><a href="../../EventMachine.html">EventMachine</a> now supports epoll,
+bringing large increases in performance and scalability to Ruby programs.</p>
+
+<p>Epoll(7) is a alternative mechanism for multiplexed I/O that is available
+in Linux 2.6 kernels. It features significantly greater performance than
+the standard select(2) mechanism, when used in applications that require
+very large numbers of open I/O descriptors.</p>
+
+<p><a href="../../EventMachine.html">EventMachine</a> has always used
+select(2) because its behavior is well standardized and broadly supported.
+But select becomes unreasonably slow when a program has a very large number
+of file descriptors or sockets. Ruby's version of select hardcodes a limit
+of 1024 descriptors per process, but heavily loaded processes will start to
+show performance degradation even after only a few hundred descriptors are
+in use.</p>
+
+<p>Epoll is an extended version of the poll(2) call, and it solves the
+problems with select. Programs based on epoll can easily scale past Ruby’s
+1024-descriptor limit, potentially to tens of thousands of connectors, with
+no significant impact on performance.</p>
+
+<p>(Another alternative which is very similar to epoll in principle is kqueue,
+supplied on BSD and its variants.)</p>
+
+<p>This note shows you how to use epoll in your programs.</p>
+
+<h3>Compiling <a href="../../EventMachine.html">EventMachine</a> to use epoll.</h3>
+
+<p>You don’t have to do anything to get epoll support in <a
+href="../../EventMachine.html">EventMachine</a>. When you compile <a
+href="../../EventMachine.html">EventMachine</a> on a platform that supports
+epoll, <a href="../../EventMachine.html">EM</a> will automatically generate
+a Makefile that includes epoll. (At this writing, this will only work on
+Linux 2.6 kernels.) If you compile <a href="../../EventMachine.html">EM</a>
+on a platform without epoll, then epoll support will be omitted from the
+Makefile, and <a href="../../EventMachine.html">EM</a> will work just as it
+always has.</p>
+
+<h3>Using epoll in your programs.</h3>
+
+<p>First, you need to tell <a href="../../EventMachine.html">EventMachine</a>
+to use epoll instead of select (but see below, as this requirement will be
+removed in a future <a href="../../EventMachine.html">EventMachine</a>
+version). Second, you need to prepare your program to use more than 1024
+descriptors, an operation that generally requires superuser privileges.
+Third, you will probably want your process to drop the superuser privileges
+after you increase your process’s descriptor limit.</p>
+
+<h3>Using EventMachine#epoll</h3>
+
+<p>Call the method EventMachine#epoll anytime before you call
+EventMachine#run, and your program will automatically use epoll, if
+available. It’s safe to call EventMachine#epoll on any platform because it
+compiles to a no-op on platforms that don’t support epoll.</p>
+
+<pre>require 'rubygems'
+require 'eventmachine'
+
+EM.epoll
+EM.run {
+  ...
+}</pre>
+
+<p>EventMachine#epoll was included in this initial release only to avoid
+changing the behavior of existing programs. However, it’s expected that a
+future release of <a href="../../EventMachine.html">EM</a> will convert
+EventMachine#epoll to a no-op, and run epoll by default on platforms that
+support it.</p>
+
+<h3>Using EventMachine#set_descriptor_table_size</h3>
+
+<p>In Linux (as in every Unix-like platform), every process has a internal
+table that determines the maximum number of file and socket descriptors you
+may have open at any given time. The size of this table is generally fixed
+at 1024, although it may be increased within certain system-defined hard
+and soft limits.</p>
+
+<p>If you want your <a href="../../EventMachine.html">EventMachine</a> program
+to support more than 1024 total descriptors, you must use 
+EventMachine#set_descriptor_table_size, as follows:</p>
+
+<pre>require 'rubygems'
+require 'eventmachine'
+
+new_size = EM.set_descriptor_table_size( 60000 )
+$&gt;.puts &quot;New descriptor-table size is #{new_size}&quot;
+
+EM.run {
+  ...
+}</pre>
+
+<p>If successful, this example will increase the maximum number of descriptors
+that epoll can use to 60,000. Call EventMachine#set_descriptor_table_size
+without an argument at any time to find out the current size of the
+descriptor table.</p>
+
+<p>Using EventMachine#set_descriptor_table_size ONLY affects the number of
+descriptors that can be used by epoll. It has no useful effect on platforms
+that don’t support epoll, and it does NOT increase the number of
+descriptors that Ruby’s own I/O functions can use.</p>
+
+<p>set_descriptor_table_size can fail if your process is not running as
+superuser, or if you try to set a table size that exceeds the hard limits
+imposed by your system. In the latter case, try a smaller number.</p>
+
+<h3>Using EventMachine#set_effective_user</h3>
+
+<p>In general, you must run your program with elevated or superuser privileges
+if you want to increase your descriptor-table size beyond 1024 descriptors.
+This is easy enough to verify. Try running the sample program given above,
+that increases the descriptor limit to 60,000. You will probably find that
+the table size will not be increased if you don’t run your program as root
+or with elevated privileges.</p>
+
+<p>But of course network servers, especially long-running ones, should not run
+with elevated privileges. You will want to drop superuser privileges as
+soon as possible after initialization. To do this, use
+EventMachine#set_effective_user:</p>
+
+<pre>require 'rubygems'
+require 'eventmachine'
+
+# (Here, program is running as superuser)
+
+EM.set_descriptor_table_size( 60000 )
+EM.set_effective_user( &quot;nobody&quot; )
+# (Here, program is running as nobody)
+
+EM.run {
+  ...
+}</pre>
+
+<p>Of course, you will need to replace “nobody” in the example with the name
+of an unprivileged user that is valid on your system. What if you want to
+drop privileges after opening a server socket on a privileged
+(low-numbered) port? Easy, just call set_effective_user after opening your
+sockets:</p>
+
+<pre>require 'rubygems'
+require 'eventmachine'
+
+# (Here, program is running as superuser)
+
+EM.set_descriptor_table_size( 60000 )
+
+EM.run {
+  EM.start_server( &quot;0.0.0.0&quot;, 80, MyHttpServer )
+  EM.start_server( &quot;0.0.0.0&quot;, 443, MyEncryptedHttpServer )
+
+  EM.set_effective_user( &quot;nobody&quot; )
+  # (Here, program is running as nobody)
+
+  ...
+}</pre>
+
+<p>Because EventMachine#set_effective_user is used to enforce security
+requirements, it has no nonfatal errors. If you try to set a nonexistent or
+invalid effective user, set_effective_user will abort your program, rather
+than continue to run with elevated privileges.</p>
+
+<p>EventMachine#set_effective_user is a silent no-op on platforms that don’t
+support it, such as Windows.</p>
+
+  </div>
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+</body>
+</html>
+

@@ -1,0 +1,2 @@
+U:RDoc::Attr[iI"headers:EFI"4EventMachine::Protocols::Stomp::Message#headers;FI"RW;F:publico:RDoc::Markup::Document:@parts[o:RDoc::Markup::Paragraph;	[I"?Hash containing headers such as destination and message-id;T:
+@file0FI"lib/em/protocols/stomp.rb;T

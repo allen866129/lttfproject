@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>File: RELEASE_NOTES [eventmachine-1.2.1 Documentation]</title>
+
+  <link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet" />
+
+  <script src="../../js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../../js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../../js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../../js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+</head>
+
+<body class="file">
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../../docs/old/ChangeLog.html">ChangeLog</a></li>
+        
+          <li class="file"><a href="../../docs/old/DEFERRABLES.html">DEFERRABLES</a></li>
+        
+          <li class="file"><a href="../../docs/old/EPOLL.html">EPOLL</a></li>
+        
+          <li class="file"><a href="../../docs/old/INSTALL.html">INSTALL</a></li>
+        
+          <li class="file"><a href="../../docs/old/KEYBOARD.html">KEYBOARD</a></li>
+        
+          <li class="file"><a href="../../docs/old/LEGAL.html">LEGAL</a></li>
+        
+          <li class="file"><a href="../../docs/old/LIGHTWEIGHT_CONCURRENCY.html">LIGHTWEIGHT_CONCURRENCY</a></li>
+        
+          <li class="file"><a href="../../docs/old/PURE_RUBY.html">PURE_RUBY</a></li>
+        
+          <li class="file"><a href="../../docs/old/RELEASE_NOTES.html">RELEASE_NOTES</a></li>
+        
+          <li class="file"><a href="../../docs/old/SMTP.html">SMTP</a></li>
+        
+          <li class="file"><a href="../../docs/old/SPAWNED_PROCESSES.html">SPAWNED_PROCESSES</a></li>
+        
+          <li class="file"><a href="../../docs/old/TODO.html">TODO</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine/CertificateCreator.html">EventMachine::CertificateCreator</a></li>
+        
+          <li><a href="../../EventMachine/Channel.html">EventMachine::Channel</a></li>
+        
+          <li><a href="../../EventMachine/Completion.html">EventMachine::Completion</a></li>
+        
+          <li><a href="../../EventMachine/Connection.html">EventMachine::Connection</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionError.html">EventMachine::ConnectionError</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionNotBound.html">EventMachine::ConnectionNotBound</a></li>
+        
+          <li><a href="../../EventMachine/DNS.html">EventMachine::DNS</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Request.html">EventMachine::DNS::Request</a></li>
+        
+          <li><a href="../../EventMachine/DNS/RequestIdAlreadyUsed.html">EventMachine::DNS::RequestIdAlreadyUsed</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Resolver.html">EventMachine::DNS::Resolver</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Socket.html">EventMachine::DNS::Socket</a></li>
+        
+          <li><a href="../../EventMachine/DatagramObject.html">EventMachine::DatagramObject</a></li>
+        
+          <li><a href="../../EventMachine/DefaultDeferrable.html">EventMachine::DefaultDeferrable</a></li>
+        
+          <li><a href="../../EventMachine/Deferrable.html">EventMachine::Deferrable</a></li>
+        
+          <li><a href="../../EventMachine/DeferrableChildProcess.html">EventMachine::DeferrableChildProcess</a></li>
+        
+          <li><a href="../../EventMachine/Error.html">EventMachine::Error</a></li>
+        
+          <li><a href="../../EventMachine/EvmaKeyboard.html">EventMachine::EvmaKeyboard</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPClient.html">EventMachine::EvmaTCPClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPServer.html">EventMachine::EvmaTCPServer</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUDPSocket.html">EventMachine::EvmaUDPSocket</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXClient.html">EventMachine::EvmaUNIXClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXServer.html">EventMachine::EvmaUNIXServer</a></li>
+        
+          <li><a href="../../EventMachine/FileNotFoundException.html">EventMachine::FileNotFoundException</a></li>
+        
+          <li><a href="../../EventMachine/FileStreamer.html">EventMachine::FileStreamer</a></li>
+        
+          <li><a href="../../EventMachine/FileWatch.html">EventMachine::FileWatch</a></li>
+        
+          <li><a href="../../EventMachine/Iterator.html">EventMachine::Iterator</a></li>
+        
+          <li><a href="../../EventMachine/LoopbreakReader.html">EventMachine::LoopbreakReader</a></li>
+        
+          <li><a href="../../EventMachine/PeriodicTimer.html">EventMachine::PeriodicTimer</a></li>
+        
+          <li><a href="../../EventMachine/Pool.html">EventMachine::Pool</a></li>
+        
+          <li><a href="../../EventMachine/ProcessWatch.html">EventMachine::ProcessWatch</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HeaderAndContentProtocol.html">EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient.html">EventMachine::Protocols::HttpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2.html">EventMachine::Protocols::HttpClient2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2/Request.html">EventMachine::Protocols::HttpClient2::Request</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineAndTextProtocol.html">EventMachine::Protocols::LineAndTextProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineProtocol.html">EventMachine::Protocols::LineProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineText2.html">EventMachine::Protocols::LineText2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache.html">EventMachine::Protocols::Memcache</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache/ParserError.html">EventMachine::Protocols::Memcache::ParserError</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/ObjectProtocol.html">EventMachine::Protocols::ObjectProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Postgres3.html">EventMachine::Protocols::Postgres3</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauth.html">EventMachine::Protocols::SASLauth</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauthclient.html">EventMachine::Protocols::SASLauthclient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpClient.html">EventMachine::Protocols::SmtpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpServer.html">EventMachine::Protocols::SmtpServer</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Socks4.html">EventMachine::Protocols::Socks4</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp.html">EventMachine::Protocols::Stomp</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp/Message.html">EventMachine::Protocols::Stomp::Message</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/TcpConnectTester.html">EventMachine::Protocols::TcpConnectTester</a></li>
+        
+          <li><a href="../../EventMachine/Queue.html">EventMachine::Queue</a></li>
+        
+          <li><a href="../../EventMachine/Reactor.html">EventMachine::Reactor</a></li>
+        
+          <li><a href="../../EventMachine/Selectable.html">EventMachine::Selectable</a></li>
+        
+          <li><a href="../../EventMachine/SpawnedProcess.html">EventMachine::SpawnedProcess</a></li>
+        
+          <li><a href="../../EventMachine/StreamObject.html">EventMachine::StreamObject</a></li>
+        
+          <li><a href="../../EventMachine/SystemCmd.html">EventMachine::SystemCmd</a></li>
+        
+          <li><a href="../../EventMachine/ThreadedResource.html">EventMachine::ThreadedResource</a></li>
+        
+          <li><a href="../../EventMachine/TickLoop.html">EventMachine::TickLoop</a></li>
+        
+          <li><a href="../../EventMachine/Timer.html">EventMachine::Timer</a></li>
+        
+          <li><a href="../../EventMachine/UnknownTimerFired.html">EventMachine::UnknownTimerFired</a></li>
+        
+          <li><a href="../../EventMachine/Unsupported.html">EventMachine::Unsupported</a></li>
+        
+          <li><a href="../../EventMachine/UuidGenerator.html">EventMachine::UuidGenerator</a></li>
+        
+          <li><a href="../../EventMachine/YieldBlockFromSpawnedProcess.html">EventMachine::YieldBlockFromSpawnedProcess</a></li>
+        
+          <li><a href="../../Object.html">Object</a></li>
+        
+          <li><a href="../../EventMachine.html">Object::EM</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">Object::P</a></li>
+        
+          <li><a href="../../BufferedTokenizer.html">BufferedTokenizer</a></li>
+        
+          <li><a href="../../IO.html">IO</a></li>
+        
+          <li><a href="../../StringIO.html">StringIO</a></li>
+        
+          <li><a href="../../TestConnection.html">TestConnection</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    
+<p>RUBY/EventMachine RELEASE NOTES</p>
+<hr style="height: 10px">
+
+<p>Version: 0.9.0, released xxXXX07 Added Erlang-like distributed-computing
+features</p>
+<hr style="height: 10px">
+
+<p>Version: 0.8.0, released 23Jun07 Added an epoll implementation for Linux
+2.6 kernels. Added evented popen.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.7.3, released 22May07 Added a large variety of small features.
+See the ChangeLog.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.7.1, released xxNov06 Added protocol handlers for line-oriented
+protocols. Various bug fixes.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.7.0, released 20Nov06 Added a fix in em.cpp/ConnectToServer to
+fix a fatal exception that occurred in FreeBSD when connecting successfully
+to a remote server.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.6.0, released xxJul06 Added deferred operations, suggested by
+Don Stocks, amillionhitpoints@yahoo.com.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.5.4, released xxJun06 Added get_peername support for streams and
+datagrams.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.5.3, released 17May06 Fixed bugs in extconf.rb, thanks to Daniel
+Harple, dharple@generalconsumption.org. Added proper setup.rb and rake
+tasks, thanks to Austin Ziegler. Fixed a handful of reported problems with
+builds on various platforms.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.5.2, released 05May06 Made several nonvisible improvements to
+the Windows implementation. Added an exception-handling patch contributed
+by Jeff Rose, jeff@rosejn.net. Added a dir-config patch contributed
+anonymously. Supported builds on Solaris.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.5.1, released 05May06 Made it possible to pass a Class rather
+than a Module to a protocol handler. Added Windows port.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.5.0, released 30Apr06 Added a preliminary SSL/TLS extension.
+This will probably change over the next few releases.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.4.5, released 29Apr06 Changed ext files so the ruby.h is
+installed after unistd.h otherwise it doesn’t compile on gcc 4.1</p>
+<hr style="height: 10px">
+
+<p>Version: 0.4.2, released 19Apr06 Changed the Ruby-glue so the extension
+will play nicer in the sandbox with Ruby threads. Added an
+EventMachine::run_without_threads API to switch off the thread-awareness
+for better performance in programs that do not spin any Ruby threads.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.4.1, released 15Apr06 Reworked the shared-object interface to
+make it easier to use <a href="../../EventMachine.html">EventMachine</a>
+from languages other than Ruby.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.3.2, released 12Apr06 Added support for a user-supplied block in
+EventMachine#connect.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.3.1, released 11Apr06 Fixed bug that prevented <a
+href="../../EventMachine.html">EventMachine</a> from being run multiple
+times in a single process.</p>
+<hr style="height: 10px">
+
+<p>Version: 0.3.0, released 10Apr06 Added method
+EventHandler::Connection::post_init</p>
+<hr style="height: 10px">
+
+<p>Version: 0.2.0, released 10Apr06 Added method EventHandler::stop</p>
+
+  </div>
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+</body>
+</html>
+

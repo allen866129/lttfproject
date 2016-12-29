@@ -1,0 +1,1560 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>eventmachine-1.2.1 Documentation</title>
+
+  <link type="text/css" media="screen" href="rdoc.css" rel="stylesheet" />
+
+  <script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body class="indexpage">
+
+  
+  <h1>eventmachine-1.2.1 Documentation</h1>
+
+  
+  <p>This is the API documentation for 'eventmachine-1.2.1 Documentation'.</p>
+  
+
+  
+  
+  <h2>Files</h2>
+  <ul>
+    
+      <li class="file"><a href="docs/old/ChangeLog.html">ChangeLog</a></li>
+    
+      <li class="file"><a href="docs/old/DEFERRABLES.html">DEFERRABLES</a></li>
+    
+      <li class="file"><a href="docs/old/EPOLL.html">EPOLL</a></li>
+    
+      <li class="file"><a href="docs/old/INSTALL.html">INSTALL</a></li>
+    
+      <li class="file"><a href="docs/old/KEYBOARD.html">KEYBOARD</a></li>
+    
+      <li class="file"><a href="docs/old/LEGAL.html">LEGAL</a></li>
+    
+      <li class="file"><a href="docs/old/LIGHTWEIGHT_CONCURRENCY.html">LIGHTWEIGHT_CONCURRENCY</a></li>
+    
+      <li class="file"><a href="docs/old/PURE_RUBY.html">PURE_RUBY</a></li>
+    
+      <li class="file"><a href="docs/old/RELEASE_NOTES.html">RELEASE_NOTES</a></li>
+    
+      <li class="file"><a href="docs/old/SMTP.html">SMTP</a></li>
+    
+      <li class="file"><a href="docs/old/SPAWNED_PROCESSES.html">SPAWNED_PROCESSES</a></li>
+    
+      <li class="file"><a href="docs/old/TODO.html">TODO</a></li>
+    
+  </ul>
+  
+
+  <h2 id="classes">Classes/Modules</h2>
+  <ul>
+    
+    <li class="module"><a href="EventMachine.html">EventMachine</a></li>
+    
+    <li class="module"><a href="EventMachine.html">EventMachine</a></li>
+    
+    <li class="class"><a href="EventMachine/CertificateCreator.html">EventMachine::CertificateCreator</a></li>
+    
+    <li class="class"><a href="EventMachine/Channel.html">EventMachine::Channel</a></li>
+    
+    <li class="class"><a href="EventMachine/Completion.html">EventMachine::Completion</a></li>
+    
+    <li class="class"><a href="EventMachine/Connection.html">EventMachine::Connection</a></li>
+    
+    <li class="class"><a href="EventMachine/ConnectionError.html">EventMachine::ConnectionError</a></li>
+    
+    <li class="class"><a href="EventMachine/ConnectionNotBound.html">EventMachine::ConnectionNotBound</a></li>
+    
+    <li class="module"><a href="EventMachine/DNS.html">EventMachine::DNS</a></li>
+    
+    <li class="class"><a href="EventMachine/DNS/Request.html">EventMachine::DNS::Request</a></li>
+    
+    <li class="class"><a href="EventMachine/DNS/RequestIdAlreadyUsed.html">EventMachine::DNS::RequestIdAlreadyUsed</a></li>
+    
+    <li class="class"><a href="EventMachine/DNS/Resolver.html">EventMachine::DNS::Resolver</a></li>
+    
+    <li class="class"><a href="EventMachine/DNS/Socket.html">EventMachine::DNS::Socket</a></li>
+    
+    <li class="class"><a href="EventMachine/DatagramObject.html">EventMachine::DatagramObject</a></li>
+    
+    <li class="class"><a href="EventMachine/DefaultDeferrable.html">EventMachine::DefaultDeferrable</a></li>
+    
+    <li class="module"><a href="EventMachine/Deferrable.html">EventMachine::Deferrable</a></li>
+    
+    <li class="class"><a href="EventMachine/DeferrableChildProcess.html">EventMachine::DeferrableChildProcess</a></li>
+    
+    <li class="class"><a href="EventMachine/Error.html">EventMachine::Error</a></li>
+    
+    <li class="class"><a href="EventMachine/EvmaKeyboard.html">EventMachine::EvmaKeyboard</a></li>
+    
+    <li class="class"><a href="EventMachine/EvmaTCPClient.html">EventMachine::EvmaTCPClient</a></li>
+    
+    <li class="class"><a href="EventMachine/EvmaTCPServer.html">EventMachine::EvmaTCPServer</a></li>
+    
+    <li class="class"><a href="EventMachine/EvmaUDPSocket.html">EventMachine::EvmaUDPSocket</a></li>
+    
+    <li class="class"><a href="EventMachine/EvmaUNIXClient.html">EventMachine::EvmaUNIXClient</a></li>
+    
+    <li class="class"><a href="EventMachine/EvmaUNIXServer.html">EventMachine::EvmaUNIXServer</a></li>
+    
+    <li class="class"><a href="EventMachine/FileNotFoundException.html">EventMachine::FileNotFoundException</a></li>
+    
+    <li class="class"><a href="EventMachine/FileStreamer.html">EventMachine::FileStreamer</a></li>
+    
+    <li class="class"><a href="EventMachine/FileWatch.html">EventMachine::FileWatch</a></li>
+    
+    <li class="class"><a href="EventMachine/Iterator.html">EventMachine::Iterator</a></li>
+    
+    <li class="class"><a href="EventMachine/LoopbreakReader.html">EventMachine::LoopbreakReader</a></li>
+    
+    <li class="class"><a href="EventMachine/PeriodicTimer.html">EventMachine::PeriodicTimer</a></li>
+    
+    <li class="class"><a href="EventMachine/Pool.html">EventMachine::Pool</a></li>
+    
+    <li class="class"><a href="EventMachine/ProcessWatch.html">EventMachine::ProcessWatch</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/HeaderAndContentProtocol.html">EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/HttpClient.html">EventMachine::Protocols::HttpClient</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/HttpClient2.html">EventMachine::Protocols::HttpClient2</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/HttpClient2/Request.html">EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/LineAndTextProtocol.html">EventMachine::Protocols::LineAndTextProtocol</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols/LineProtocol.html">EventMachine::Protocols::LineProtocol</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols/LineText2.html">EventMachine::Protocols::LineText2</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols/Memcache.html">EventMachine::Protocols::Memcache</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/Memcache/ParserError.html">EventMachine::Protocols::Memcache::ParserError</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols/ObjectProtocol.html">EventMachine::Protocols::ObjectProtocol</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/Postgres3.html">EventMachine::Protocols::Postgres3</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols/SASLauth.html">EventMachine::Protocols::SASLauth</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols/SASLauthclient.html">EventMachine::Protocols::SASLauthclient</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/SmtpClient.html">EventMachine::Protocols::SmtpClient</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/SmtpServer.html">EventMachine::Protocols::SmtpServer</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/Socks4.html">EventMachine::Protocols::Socks4</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols/Stomp.html">EventMachine::Protocols::Stomp</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/Stomp/Message.html">EventMachine::Protocols::Stomp::Message</a></li>
+    
+    <li class="class"><a href="EventMachine/Protocols/TcpConnectTester.html">EventMachine::Protocols::TcpConnectTester</a></li>
+    
+    <li class="class"><a href="EventMachine/Queue.html">EventMachine::Queue</a></li>
+    
+    <li class="class"><a href="EventMachine/Reactor.html">EventMachine::Reactor</a></li>
+    
+    <li class="class"><a href="EventMachine/Selectable.html">EventMachine::Selectable</a></li>
+    
+    <li class="class"><a href="EventMachine/SpawnedProcess.html">EventMachine::SpawnedProcess</a></li>
+    
+    <li class="class"><a href="EventMachine/StreamObject.html">EventMachine::StreamObject</a></li>
+    
+    <li class="class"><a href="EventMachine/SystemCmd.html">EventMachine::SystemCmd</a></li>
+    
+    <li class="class"><a href="EventMachine/ThreadedResource.html">EventMachine::ThreadedResource</a></li>
+    
+    <li class="class"><a href="EventMachine/TickLoop.html">EventMachine::TickLoop</a></li>
+    
+    <li class="class"><a href="EventMachine/Timer.html">EventMachine::Timer</a></li>
+    
+    <li class="class"><a href="EventMachine/UnknownTimerFired.html">EventMachine::UnknownTimerFired</a></li>
+    
+    <li class="class"><a href="EventMachine/Unsupported.html">EventMachine::Unsupported</a></li>
+    
+    <li class="module"><a href="EventMachine/UuidGenerator.html">EventMachine::UuidGenerator</a></li>
+    
+    <li class="class"><a href="EventMachine/YieldBlockFromSpawnedProcess.html">EventMachine::YieldBlockFromSpawnedProcess</a></li>
+    
+    <li class="class"><a href="Object.html">Object</a></li>
+    
+    <li class="module"><a href="EventMachine.html">Object::EM</a></li>
+    
+    <li class="module"><a href="EventMachine/Protocols.html">Object::P</a></li>
+    
+    <li class="class"><a href="BufferedTokenizer.html">BufferedTokenizer</a></li>
+    
+    <li class="class"><a href="IO.html">IO</a></li>
+    
+    <li class="class"><a href="StringIO.html">StringIO</a></li>
+    
+    <li class="class"><a href="TestConnection.html">TestConnection</a></li>
+    
+  </ul>
+
+  <h2 id="methods">Methods</h2>
+  <ul>
+    
+      <li><a href="EventMachine.html#method-c-Callback">::Callback &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-Callback">::Callback &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-Callback">::Callback &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-_open_file_for_writing">::_open_file_for_writing &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-_open_file_for_writing">::_open_file_for_writing &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-_open_file_for_writing">::_open_file_for_writing &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_oneshot_timer">::add_oneshot_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_oneshot_timer">::add_oneshot_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_oneshot_timer">::add_oneshot_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_periodic_timer">::add_periodic_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_periodic_timer">::add_periodic_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_periodic_timer">::add_periodic_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_shutdown_hook">::add_shutdown_hook &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_shutdown_hook">::add_shutdown_hook &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_shutdown_hook">::add_shutdown_hook &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_timer">::add_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_timer">::add_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-add_timer">::add_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-attach">::attach &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-attach">::attach &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-attach">::attach &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-attach_io">::attach_io &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-attach_io">::attach_io &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-attach_io">::attach_io &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-attach_server">::attach_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-attach_server">::attach_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-attach_server">::attach_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-bind_connect">::bind_connect &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-bind_connect">::bind_connect &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-bind_connect">::bind_connect &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-bind_connect_server">::bind_connect_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-bind_connect_server">::bind_connect_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-bind_connect_server">::bind_connect_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-cancel_timer">::cancel_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-cancel_timer">::cancel_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-cancel_timer">::cancel_timer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-cleanup_machine">::cleanup_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-cleanup_machine">::cleanup_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-cleanup_machine">::cleanup_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-close_connection">::close_connection &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-close_connection">::close_connection &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-close_connection">::close_connection &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect">::connect &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect">::connect &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect">::connect &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-c-connect">::connect &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXClient.html#method-c-connect">::connect &mdash; EventMachine::EvmaUNIXClient</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPClient.html#method-c-connect">::connect &mdash; EventMachine::EvmaTCPClient</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-c-connect">::connect &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect_server">::connect_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect_server">::connect_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect_server">::connect_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect_unix_domain">::connect_unix_domain &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect_unix_domain">::connect_unix_domain &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect_unix_domain">::connect_unix_domain &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect_unix_server">::connect_unix_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect_unix_server">::connect_unix_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connect_unix_server">::connect_unix_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connection_count">::connection_count &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connection_count">::connection_count &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-connection_count">::connection_count &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/EvmaUDPSocket.html#method-c-create">::create &mdash; EventMachine::EvmaUDPSocket</a></li>
+    
+      <li><a href="EventMachine.html#method-c-defer">::defer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-defer">::defer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-defer">::defer &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-defers_finished-3F">::defers_finished? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-defers_finished-3F">::defers_finished? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-defers_finished-3F">::defers_finished? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-disable_proxy">::disable_proxy &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-disable_proxy">::disable_proxy &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-disable_proxy">::disable_proxy &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-enable_proxy">::enable_proxy &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-enable_proxy">::enable_proxy &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-enable_proxy">::enable_proxy &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-epoll">::epoll &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-epoll">::epoll &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-epoll">::epoll &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-error_handler">::error_handler &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-error_handler">::error_handler &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-error_handler">::error_handler &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-event_callback">::event_callback &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-event_callback">::event_callback &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-event_callback">::event_callback &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-fork_reactor">::fork_reactor &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-fork_reactor">::fork_reactor &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-fork_reactor">::fork_reactor &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-c-future">::future &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/UuidGenerator.html#method-c-generate">::generate &mdash; EventMachine::UuidGenerator</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_cipher_bits">::get_cipher_bits &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_cipher_bits">::get_cipher_bits &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_cipher_bits">::get_cipher_bits &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_cipher_name">::get_cipher_name &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_cipher_name">::get_cipher_name &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_cipher_name">::get_cipher_name &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_cipher_protocol">::get_cipher_protocol &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_cipher_protocol">::get_cipher_protocol &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_cipher_protocol">::get_cipher_protocol &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_max_timers">::get_max_timers &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_max_timers">::get_max_timers &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_max_timers">::get_max_timers &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_outbound_data_size">::get_outbound_data_size &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_outbound_data_size">::get_outbound_data_size &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_outbound_data_size">::get_outbound_data_size &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_peer_cert">::get_peer_cert &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_peer_cert">::get_peer_cert &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_peer_cert">::get_peer_cert &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_peername">::get_peername &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_peername">::get_peername &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_peername">::get_peername &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_sni_hostname">::get_sni_hostname &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_sni_hostname">::get_sni_hostname &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_sni_hostname">::get_sni_hostname &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_sock_opt">::get_sock_opt &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_sock_opt">::get_sock_opt &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-get_sock_opt">::get_sock_opt &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Protocols/HeaderAndContentProtocol.html#method-c-headers_2_hash">::headers_2_hash &mdash; EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+    
+      <li><a href="EventMachine.html#method-c-heartbeat_interval">::heartbeat_interval &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-heartbeat_interval">::heartbeat_interval &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-heartbeat_interval">::heartbeat_interval &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-heartbeat_interval-3D">::heartbeat_interval= &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-heartbeat_interval-3D">::heartbeat_interval= &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-heartbeat_interval-3D">::heartbeat_interval= &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/DNS/Resolver.html#method-c-hosts">::hosts &mdash; EventMachine::DNS::Resolver</a></li>
+    
+      <li><a href="EventMachine.html#method-c-initialize_event_machine">::initialize_event_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-initialize_event_machine">::initialize_event_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-initialize_event_machine">::initialize_event_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-klass_from_handler">::klass_from_handler &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-klass_from_handler">::klass_from_handler &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-klass_from_handler">::klass_from_handler &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-library_type">::library_type &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-library_type">::library_type &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-library_type">::library_type &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/DNS/Resolver.html#method-c-nameserver">::nameserver &mdash; EventMachine::DNS::Resolver</a></li>
+    
+      <li><a href="EventMachine/DNS/Resolver.html#method-c-nameservers">::nameservers &mdash; EventMachine::DNS::Resolver</a></li>
+    
+      <li><a href="EventMachine/DNS/Resolver.html#method-c-nameservers-3D">::nameservers= &mdash; EventMachine::DNS::Resolver</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-c-new">::new &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/DeferrableChildProcess.html#method-c-new">::new &mdash; EventMachine::DeferrableChildProcess</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2/Request.html#method-c-new">::new &mdash; EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-c-new">::new &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-c-new">::new &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Iterator.html#method-c-new">::new &mdash; EventMachine::Iterator</a></li>
+    
+      <li><a href="EventMachine/PeriodicTimer.html#method-c-new">::new &mdash; EventMachine::PeriodicTimer</a></li>
+    
+      <li><a href="EventMachine/Protocols/Socks4.html#method-c-new">::new &mdash; EventMachine::Protocols::Socks4</a></li>
+    
+      <li><a href="EventMachine/Timer.html#method-c-new">::new &mdash; EventMachine::Timer</a></li>
+    
+      <li><a href="EventMachine/TickLoop.html#method-c-new">::new &mdash; EventMachine::TickLoop</a></li>
+    
+      <li><a href="EventMachine/ThreadedResource.html#method-c-new">::new &mdash; EventMachine::ThreadedResource</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineAndTextProtocol.html#method-c-new">::new &mdash; EventMachine::Protocols::LineAndTextProtocol</a></li>
+    
+      <li><a href="EventMachine/FileStreamer.html#method-c-new">::new &mdash; EventMachine::FileStreamer</a></li>
+    
+      <li><a href="EventMachine/YieldBlockFromSpawnedProcess.html#method-c-new">::new &mdash; EventMachine::YieldBlockFromSpawnedProcess</a></li>
+    
+      <li><a href="EventMachine/DNS/Request.html#method-c-new">::new &mdash; EventMachine::DNS::Request</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-c-new">::new &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-c-new">::new &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="TestConnection.html#method-c-new">::new &mdash; TestConnection</a></li>
+    
+      <li><a href="EventMachine/SystemCmd.html#method-c-new">::new &mdash; EventMachine::SystemCmd</a></li>
+    
+      <li><a href="EventMachine/Protocols/HeaderAndContentProtocol.html#method-c-new">::new &mdash; EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+    
+      <li><a href="EventMachine/Protocols/Postgres3.html#method-c-new">::new &mdash; EventMachine::Protocols::Postgres3</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient.html#method-c-new">::new &mdash; EventMachine::Protocols::HttpClient</a></li>
+    
+      <li><a href="EventMachine/Queue.html#method-c-new">::new &mdash; EventMachine::Queue</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-c-new">::new &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/DatagramObject.html#method-c-new">::new &mdash; EventMachine::DatagramObject</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXServer.html#method-c-new">::new &mdash; EventMachine::EvmaUNIXServer</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPServer.html#method-c-new">::new &mdash; EventMachine::EvmaTCPServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpClient.html#method-c-new">::new &mdash; EventMachine::Protocols::SmtpClient</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXClient.html#method-c-new">::new &mdash; EventMachine::EvmaUNIXClient</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-c-new">::new &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/EvmaKeyboard.html#method-c-new">::new &mdash; EventMachine::EvmaKeyboard</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPClient.html#method-c-new">::new &mdash; EventMachine::EvmaTCPClient</a></li>
+    
+      <li><a href="EventMachine/Channel.html#method-c-new">::new &mdash; EventMachine::Channel</a></li>
+    
+      <li><a href="EventMachine/StreamObject.html#method-c-new">::new &mdash; EventMachine::StreamObject</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-c-new">::new &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Selectable.html#method-c-new">::new &mdash; EventMachine::Selectable</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-c-new">::new &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/CertificateCreator.html#method-c-new">::new &mdash; EventMachine::CertificateCreator</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp/Message.html#method-c-new">::new &mdash; EventMachine::Protocols::Stomp::Message</a></li>
+    
+      <li><a href="BufferedTokenizer.html#method-c-new">::new &mdash; BufferedTokenizer</a></li>
+    
+      <li><a href="EventMachine.html#method-c-next_tick">::next_tick &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-next_tick">::next_tick &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-next_tick">::next_tick &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/EvmaKeyboard.html#method-c-open">::open &mdash; EventMachine::EvmaKeyboard</a></li>
+    
+      <li><a href="EventMachine/DeferrableChildProcess.html#method-c-open">::open &mdash; EventMachine::DeferrableChildProcess</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-c-open">::open &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine.html#method-c-open_datagram_socket">::open_datagram_socket &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-open_datagram_socket">::open_datagram_socket &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-open_datagram_socket">::open_datagram_socket &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-open_keyboard">::open_keyboard &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-open_keyboard">::open_keyboard &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-open_keyboard">::open_keyboard &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-open_udp_socket">::open_udp_socket &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-open_udp_socket">::open_udp_socket &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-open_udp_socket">::open_udp_socket &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-c-parms-3D">::parms= &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine.html#method-c-popen">::popen &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-popen">::popen &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-popen">::popen &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Protocols/Socks4.html#method-c-post_init">::post_init &mdash; EventMachine::Protocols::Socks4</a></li>
+    
+      <li><a href="EventMachine.html#method-c-reactor_running-3F">::reactor_running? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-reactor_running-3F">::reactor_running? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-reactor_running-3F">::reactor_running? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-reactor_thread-3F">::reactor_thread? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-reactor_thread-3F">::reactor_thread? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-reactor_thread-3F">::reactor_thread? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-read_keyboard">::read_keyboard &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-read_keyboard">::read_keyboard &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-read_keyboard">::read_keyboard &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Protocols/Socks4.html#method-c-receive_data">::receive_data &mdash; EventMachine::Protocols::Socks4</a></li>
+    
+      <li><a href="EventMachine.html#method-c-reconnect">::reconnect &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-reconnect">::reconnect &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-reconnect">::reconnect &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-release_machine">::release_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-release_machine">::release_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-release_machine">::release_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient.html#method-c-request">::request &mdash; EventMachine::Protocols::HttpClient</a></li>
+    
+      <li><a href="EventMachine/DNS/Resolver.html#method-c-resolve">::resolve &mdash; EventMachine::DNS::Resolver</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run">::run &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run">::run &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run">::run &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run_block">::run_block &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run_block">::run_block &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run_block">::run_block &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run_deferred_callbacks">::run_deferred_callbacks &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run_deferred_callbacks">::run_deferred_callbacks &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run_deferred_callbacks">::run_deferred_callbacks &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run_machine">::run_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run_machine">::run_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-run_machine">::run_machine &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-schedule">::schedule &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-schedule">::schedule &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-schedule">::schedule &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpClient.html#method-c-send">::send &mdash; EventMachine::Protocols::SmtpClient</a></li>
+    
+      <li><a href="EventMachine.html#method-c-send_data">::send_data &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-send_data">::send_data &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-send_data">::send_data &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-send_datagram">::send_datagram &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-send_datagram">::send_datagram &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-send_datagram">::send_datagram &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-send_file_data">::send_file_data &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-send_file_data">::send_file_data &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-send_file_data">::send_file_data &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_comm_inactivity_timeout">::set_comm_inactivity_timeout &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_comm_inactivity_timeout">::set_comm_inactivity_timeout &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_comm_inactivity_timeout">::set_comm_inactivity_timeout &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_descriptor_table_size">::set_descriptor_table_size &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_descriptor_table_size">::set_descriptor_table_size &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_descriptor_table_size">::set_descriptor_table_size &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_effective_user">::set_effective_user &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_effective_user">::set_effective_user &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_effective_user">::set_effective_user &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_max_timer_count">::set_max_timer_count &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_max_timer_count">::set_max_timer_count &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_max_timer_count">::set_max_timer_count &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_max_timers">::set_max_timers &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_max_timers">::set_max_timers &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_max_timers">::set_max_timers &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_pending_connect_timeout">::set_pending_connect_timeout &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_pending_connect_timeout">::set_pending_connect_timeout &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_pending_connect_timeout">::set_pending_connect_timeout &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_quantum">::set_quantum &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_quantum">::set_quantum &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_quantum">::set_quantum &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_rlimit_nofile">::set_rlimit_nofile &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_rlimit_nofile">::set_rlimit_nofile &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_rlimit_nofile">::set_rlimit_nofile &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_sock_opt">::set_sock_opt &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_sock_opt">::set_sock_opt &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_sock_opt">::set_sock_opt &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_timer_quantum">::set_timer_quantum &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_timer_quantum">::set_timer_quantum &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_timer_quantum">::set_timer_quantum &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_tls_parms">::set_tls_parms &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_tls_parms">::set_tls_parms &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-set_tls_parms">::set_tls_parms &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-signal_loopbreak">::signal_loopbreak &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-signal_loopbreak">::signal_loopbreak &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-signal_loopbreak">::signal_loopbreak &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/DNS/Resolver.html#method-c-socket">::socket &mdash; EventMachine::DNS::Resolver</a></li>
+    
+      <li><a href="EventMachine.html#method-c-spawn">::spawn &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-spawn">::spawn &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-spawn">::spawn &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-spawn_threadpool">::spawn_threadpool &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-spawn_threadpool">::spawn_threadpool &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-spawn_threadpool">::spawn_threadpool &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-ssl-3F">::ssl? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-ssl-3F">::ssl? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-ssl-3F">::ssl? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_server">::start_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPServer.html#method-c-start_server">::start_server &mdash; EventMachine::EvmaTCPServer</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXServer.html#method-c-start_server">::start_server &mdash; EventMachine::EvmaUNIXServer</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_server">::start_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_server">::start_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_tcp_server">::start_tcp_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_tcp_server">::start_tcp_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_tcp_server">::start_tcp_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_tls">::start_tls &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_tls">::start_tls &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_tls">::start_tls &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_unix_domain_server">::start_unix_domain_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_unix_domain_server">::start_unix_domain_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_unix_domain_server">::start_unix_domain_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_unix_server">::start_unix_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_unix_server">::start_unix_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-start_unix_server">::start_unix_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop">::stop &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop">::stop &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop">::stop &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop_event_loop">::stop_event_loop &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop_event_loop">::stop_event_loop &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop_event_loop">::stop_event_loop &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop_server">::stop_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop_server">::stop_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop_server">::stop_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop_tcp_server">::stop_tcp_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop_tcp_server">::stop_tcp_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stop_tcp_server">::stop_tcp_server &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stopping-3F">::stopping? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stopping-3F">::stopping? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-stopping-3F">::stopping? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-system">::system &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-system">::system &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-system">::system &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Protocols/TcpConnectTester.html#method-c-test">::test &mdash; EventMachine::Protocols::TcpConnectTester</a></li>
+    
+      <li><a href="EventMachine.html#method-c-tick_loop">::tick_loop &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-tick_loop">::tick_loop &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-tick_loop">::tick_loop &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-tls_parm_set-3F">::tls_parm_set? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-tls_parm_set-3F">::tls_parm_set? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-tls_parm_set-3F">::tls_parm_set? &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-watch">::watch &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-watch">::watch &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-watch">::watch &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-watch_file">::watch_file &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-watch_file">::watch_file &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-watch_file">::watch_file &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-watch_process">::watch_process &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-watch_process">::watch_process &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-watch_process">::watch_process &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/DNS/Resolver.html#method-c-windows-3F">::windows? &mdash; EventMachine::DNS::Resolver</a></li>
+    
+      <li><a href="EventMachine.html#method-c-yield">::yield &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-yield">::yield &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-yield">::yield &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-yield_and_notify">::yield_and_notify &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-yield_and_notify">::yield_and_notify &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine.html#method-c-yield_and_notify">::yield_and_notify &mdash; EventMachine</a></li>
+    
+      <li><a href="EventMachine/Channel.html#method-i-3C-3C">#<< &mdash; EventMachine::Channel</a></li>
+    
+      <li><a href="EventMachine/Queue.html#method-i-3C-3C">#<< &mdash; EventMachine::Queue</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp.html#method-i-ack">#ack &mdash; EventMachine::Protocols::Stomp</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-add">#add &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-add_selectable">#add_selectable &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-callback">#callback &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-callback">#callback &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/PeriodicTimer.html#method-i-cancel">#cancel &mdash; EventMachine::PeriodicTimer</a></li>
+    
+      <li><a href="EventMachine/Timer.html#method-i-cancel">#cancel &mdash; EventMachine::Timer</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-cancel_callback">#cancel_callback &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-cancel_callback">#cancel_callback &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-cancel_errback">#cancel_errback &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-cancel_errback">#cancel_errback &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-cancel_timeout">#cancel_timeout &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-cancel_timeout">#cancel_timeout &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-change_state">#change_state &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-close_connection">#close_connection &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-close_connection_after_writing">#close_connection_after_writing &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-close_loopbreaker">#close_loopbreaker &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Selectable.html#method-i-close_scheduled-3F">#close_scheduled? &mdash; EventMachine::Selectable</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-comm_inactivity_timeout">#comm_inactivity_timeout &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-comm_inactivity_timeout-3D">#comm_inactivity_timeout= &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-completed-3F">#completed? &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-completion">#completion &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-completion">#completion &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-completion_states">#completion_states &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Iterator.html#method-i-concurrency-3D">#concurrency= &mdash; EventMachine::Iterator</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp.html#method-i-connect">#connect &mdash; EventMachine::Protocols::Stomp</a></li>
+    
+      <li><a href="EventMachine/Protocols/Postgres3.html#method-i-connect">#connect &mdash; EventMachine::Protocols::Postgres3</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-i-connection_completed">#connection_completed &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-connection_completed">#connection_completed &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-connection_completed">#connection_completed &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Protocols/TcpConnectTester.html#method-i-connection_completed">#connection_completed &mdash; EventMachine::Protocols::TcpConnectTester</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient.html#method-i-connection_completed">#connection_completed &mdash; EventMachine::Protocols::HttpClient</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpClient.html#method-i-connection_completed">#connection_completed &mdash; EventMachine::Protocols::SmtpClient</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-connection_ended">#connection_ended &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp/Message.html#method-i-consume_line">#consume_line &mdash; EventMachine::Protocols::Stomp::Message</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-contents">#contents &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-crank_selectables">#crank_selectables &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-i-del">#del &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-i-delete">#delete &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-deregister_request">#deregister_request &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-detach">#detach &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/ThreadedResource.html#method-i-dispatch">#dispatch &mdash; EventMachine::ThreadedResource</a></li>
+    
+      <li><a href="EventMachine/Protocols/Postgres3.html#method-i-dispatch_conn_message">#dispatch_conn_message &mdash; EventMachine::Protocols::Postgres3</a></li>
+    
+      <li><a href="EventMachine/Protocols/Postgres3.html#method-i-dispatch_query_message">#dispatch_query_message &mdash; EventMachine::Protocols::Postgres3</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient.html#method-i-dispatch_response">#dispatch_response &mdash; EventMachine::Protocols::HttpClient</a></li>
+    
+      <li><a href="EventMachine/Iterator.html#method-i-each">#each &mdash; EventMachine::Iterator</a></li>
+    
+      <li><a href="EventMachine/Queue.html#method-i-empty-3F">#empty? &mdash; EventMachine::Queue</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-errback">#errback &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-errback">#errback &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-error-3F">#error? &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/EvmaUDPSocket.html#method-i-eventable_read">#eventable_read &mdash; EventMachine::EvmaUDPSocket</a></li>
+    
+      <li><a href="EventMachine/LoopbreakReader.html#method-i-eventable_read">#eventable_read &mdash; EventMachine::LoopbreakReader</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPServer.html#method-i-eventable_read">#eventable_read &mdash; EventMachine::EvmaTCPServer</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXServer.html#method-i-eventable_read">#eventable_read &mdash; EventMachine::EvmaUNIXServer</a></li>
+    
+      <li><a href="EventMachine/StreamObject.html#method-i-eventable_read">#eventable_read &mdash; EventMachine::StreamObject</a></li>
+    
+      <li><a href="EventMachine/StreamObject.html#method-i-eventable_write">#eventable_write &mdash; EventMachine::StreamObject</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXClient.html#method-i-eventable_write">#eventable_write &mdash; EventMachine::EvmaUNIXClient</a></li>
+    
+      <li><a href="EventMachine/EvmaUDPSocket.html#method-i-eventable_write">#eventable_write &mdash; EventMachine::EvmaUDPSocket</a></li>
+    
+      <li><a href="BufferedTokenizer.html#method-i-extract">#extract &mdash; BufferedTokenizer</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-fail">#fail &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-fail">#fail &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-failure">#failure &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/FileWatch.html#method-i-file_deleted">#file_deleted &mdash; EventMachine::FileWatch</a></li>
+    
+      <li><a href="EventMachine/FileWatch.html#method-i-file_modified">#file_modified &mdash; EventMachine::FileWatch</a></li>
+    
+      <li><a href="EventMachine/FileWatch.html#method-i-file_moved">#file_moved &mdash; EventMachine::FileWatch</a></li>
+    
+      <li><a href="EventMachine/PeriodicTimer.html#method-i-fire">#fire &mdash; EventMachine::PeriodicTimer</a></li>
+    
+      <li><a href="BufferedTokenizer.html#method-i-flush">#flush &mdash; BufferedTokenizer</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-i-get">#get &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-get">#get &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_cipher_bits">#get_cipher_bits &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_cipher_name">#get_cipher_name &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_cipher_protocol">#get_cipher_protocol &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-i-get_hash">#get_hash &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_idle_time">#get_idle_time &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/DatagramObject.html#method-i-get_outbound_data_size">#get_outbound_data_size &mdash; EventMachine::DatagramObject</a></li>
+    
+      <li><a href="EventMachine/StreamObject.html#method-i-get_outbound_data_size">#get_outbound_data_size &mdash; EventMachine::StreamObject</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_outbound_data_size">#get_outbound_data_size &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_peer_cert">#get_peer_cert &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Selectable.html#method-i-get_peername">#get_peername &mdash; EventMachine::Selectable</a></li>
+    
+      <li><a href="EventMachine/StreamObject.html#method-i-get_peername">#get_peername &mdash; EventMachine::StreamObject</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_peername">#get_peername &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_pid">#get_pid &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_proxied_bytes">#get_proxied_bytes &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-get_selectable">#get_selectable &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-get_server_domain">#get_server_domain &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-get_server_greeting">#get_server_greeting &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_sni_hostname">#get_sni_hostname &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_sock_opt">#get_sock_opt &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_sockname">#get_sockname &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-get_status">#get_status &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPClient.html#method-i-handshake_complete-3F">#handshake_complete? &mdash; EventMachine::EvmaTCPClient</a></li>
+    
+      <li><a href="EventMachine/Protocols/HeaderAndContentProtocol.html#method-i-headers_2_hash">#headers_2_hash &mdash; EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+    
+      <li><a href="EventMachine/StreamObject.html#method-i-heartbeat">#heartbeat &mdash; EventMachine::StreamObject</a></li>
+    
+      <li><a href="EventMachine/Selectable.html#method-i-heartbeat">#heartbeat &mdash; EventMachine::Selectable</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp.html#method-i-init_message_reader">#init_message_reader &mdash; EventMachine::Protocols::Stomp</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-init_protocol_state">#init_protocol_state &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-initialize_for_run">#initialize_for_run &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Iterator.html#method-i-inject">#inject &mdash; EventMachine::Iterator</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-install_oneshot_timer">#install_oneshot_timer &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Iterator.html#method-i-map">#map &mdash; EventMachine::Iterator</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-nameserver">#nameserver &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-nameserver-3D">#nameserver= &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/SpawnedProcess.html#method-i-notify">#notify &mdash; EventMachine::SpawnedProcess</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-notify_readable-3D">#notify_readable= &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-notify_readable-3F">#notify_readable? &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-notify_writable-3D">#notify_writable= &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-notify_writable-3F">#notify_writable? &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Channel.html#method-i-num_subscribers">#num_subscribers &mdash; EventMachine::Channel</a></li>
+    
+      <li><a href="EventMachine/Queue.html#method-i-num_waiting">#num_waiting &mdash; EventMachine::Queue</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-num_waiting">#num_waiting &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-on_error">#on_error &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/TickLoop.html#method-i-on_stop">#on_stop &mdash; EventMachine::TickLoop</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-open_loopbreaker">#open_loopbreaker &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-parms-3D">#parms= &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/FileWatch.html#method-i-path">#path &mdash; EventMachine::FileWatch</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-pause">#pause &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-paused-3F">#paused? &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPClient.html#method-i-pending-3F">#pending? &mdash; EventMachine::EvmaTCPClient</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-pending_connect_timeout">#pending_connect_timeout &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-pending_connect_timeout-3D">#pending_connect_timeout= &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-perform">#perform &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/ProcessWatch.html#method-i-pid">#pid &mdash; EventMachine::ProcessWatch</a></li>
+    
+      <li><a href="EventMachine/Channel.html#method-i-pop">#pop &mdash; EventMachine::Channel</a></li>
+    
+      <li><a href="EventMachine/Queue.html#method-i-pop">#pop &mdash; EventMachine::Queue</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-pop_request">#pop_request &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-post">#post &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-post_init">#post_init &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Protocols/TcpConnectTester.html#method-i-post_init">#post_init &mdash; EventMachine::Protocols::TcpConnectTester</a></li>
+    
+      <li><a href="EventMachine/Protocols/SASLauth.html#method-i-post_init">#post_init &mdash; EventMachine::Protocols::SASLauth</a></li>
+    
+      <li><a href="EventMachine/Protocols/SASLauthclient.html#method-i-post_init">#post_init &mdash; EventMachine::Protocols::SASLauthclient</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-post_init">#post_init &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-post_init">#post_init &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-post_init">#post_init &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient.html#method-i-post_init">#post_init &mdash; EventMachine::Protocols::HttpClient</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpClient.html#method-i-post_init">#post_init &mdash; EventMachine::Protocols::SmtpClient</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-process">#process &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_auth">#process_auth &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_auth_line">#process_auth_line &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-i-process_cmd">#process_cmd &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_data">#process_data &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_data_line">#process_data_line &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_ehlo">#process_ehlo &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/ProcessWatch.html#method-i-process_exited">#process_exited &mdash; EventMachine::ProcessWatch</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_expn">#process_expn &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/ProcessWatch.html#method-i-process_forked">#process_forked &mdash; EventMachine::ProcessWatch</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_helo">#process_helo &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_help">#process_help &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_mail_from">#process_mail_from &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_noop">#process_noop &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_quit">#process_quit &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_rcpt_to">#process_rcpt_to &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_rset">#process_rset &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_starttls">#process_starttls &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_unknown">#process_unknown &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-process_vrfy">#process_vrfy &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-proxy_completed">#proxy_completed &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-proxy_incoming_to">#proxy_incoming_to &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-proxy_target_unbound">#proxy_target_unbound &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/YieldBlockFromSpawnedProcess.html#method-i-pull_out_yield_block">#pull_out_yield_block &mdash; EventMachine::YieldBlockFromSpawnedProcess</a></li>
+    
+      <li><a href="EventMachine/Queue.html#method-i-push">#push &mdash; EventMachine::Queue</a></li>
+    
+      <li><a href="EventMachine/Channel.html#method-i-push">#push &mdash; EventMachine::Channel</a></li>
+    
+      <li><a href="EventMachine/Protocols/Postgres3.html#method-i-query">#query &mdash; EventMachine::Protocols::Postgres3</a></li>
+    
+      <li><a href="StringIO.html#method-i-read_exactly_n_bytes">#read_exactly_n_bytes &mdash; StringIO</a></li>
+    
+      <li><a href="StringIO.html#method-i-readbytes">#readbytes &mdash; StringIO</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPClient.html#method-i-ready-3F">#ready? &mdash; EventMachine::EvmaTCPClient</a></li>
+    
+      <li><a href="EventMachine/DNS/Request.html#method-i-receive_answer">#receive_answer &mdash; EventMachine::DNS::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp.html#method-i-receive_binary_data">#receive_binary_data &mdash; EventMachine::Protocols::Stomp</a></li>
+    
+      <li><a href="EventMachine/Protocols/HeaderAndContentProtocol.html#method-i-receive_binary_data">#receive_binary_data &mdash; EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-receive_binary_data">#receive_binary_data &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineText2.html#method-i-receive_binary_data">#receive_binary_data &mdash; EventMachine::Protocols::LineText2</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2/Request.html#method-i-receive_chunk_header">#receive_chunk_header &mdash; EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2/Request.html#method-i-receive_chunk_trailer">#receive_chunk_trailer &mdash; EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2/Request.html#method-i-receive_chunked_text">#receive_chunked_text &mdash; EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-i-receive_data">#receive_data &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/Protocols/Postgres3.html#method-i-receive_data">#receive_data &mdash; EventMachine::Protocols::Postgres3</a></li>
+    
+      <li><a href="EventMachine/FileWatch.html#method-i-receive_data">#receive_data &mdash; EventMachine::FileWatch</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-receive_data">#receive_data &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Protocols/SASLauthclient.html#method-i-receive_data">#receive_data &mdash; EventMachine::Protocols::SASLauthclient</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient.html#method-i-receive_data">#receive_data &mdash; EventMachine::Protocols::HttpClient</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineAndTextProtocol.html#method-i-receive_data">#receive_data &mdash; EventMachine::Protocols::LineAndTextProtocol</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineText2.html#method-i-receive_data">#receive_data &mdash; EventMachine::Protocols::LineText2</a></li>
+    
+      <li><a href="EventMachine/Protocols/SASLauth.html#method-i-receive_data">#receive_data &mdash; EventMachine::Protocols::SASLauth</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineProtocol.html#method-i-receive_data">#receive_data &mdash; EventMachine::Protocols::LineProtocol</a></li>
+    
+      <li><a href="EventMachine/Protocols/ObjectProtocol.html#method-i-receive_data">#receive_data &mdash; EventMachine::Protocols::ObjectProtocol</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-receive_data">#receive_data &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/ProcessWatch.html#method-i-receive_data">#receive_data &mdash; EventMachine::ProcessWatch</a></li>
+    
+      <li><a href="EventMachine/DeferrableChildProcess.html#method-i-receive_data">#receive_data &mdash; EventMachine::DeferrableChildProcess</a></li>
+    
+      <li><a href="EventMachine/SystemCmd.html#method-i-receive_data">#receive_data &mdash; EventMachine::SystemCmd</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_data_chunk">#receive_data_chunk &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_data_command">#receive_data_command &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_ehlo_domain">#receive_ehlo_domain &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineText2.html#method-i-receive_end_of_binary_data">#receive_end_of_binary_data &mdash; EventMachine::Protocols::LineText2</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2/Request.html#method-i-receive_header_line">#receive_header_line &mdash; EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineText2.html#method-i-receive_line">#receive_line &mdash; EventMachine::Protocols::LineText2</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp.html#method-i-receive_line">#receive_line &mdash; EventMachine::Protocols::Stomp</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2/Request.html#method-i-receive_line">#receive_line &mdash; EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-receive_line">#receive_line &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineProtocol.html#method-i-receive_line">#receive_line &mdash; EventMachine::Protocols::LineProtocol</a></li>
+    
+      <li><a href="EventMachine/Protocols/HeaderAndContentProtocol.html#method-i-receive_line">#receive_line &mdash; EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpClient.html#method-i-receive_line">#receive_line &mdash; EventMachine::Protocols::SmtpClient</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_line">#receive_line &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_message">#receive_message &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp.html#method-i-receive_msg">#receive_msg &mdash; EventMachine::Protocols::Stomp</a></li>
+    
+      <li><a href="EventMachine/Protocols/ObjectProtocol.html#method-i-receive_object">#receive_object &mdash; EventMachine::Protocols::ObjectProtocol</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_plain_auth">#receive_plain_auth &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_recipient">#receive_recipient &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_reset">#receive_reset &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_sender">#receive_sender &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2/Request.html#method-i-receive_sized_text">#receive_sized_text &mdash; EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2/Request.html#method-i-receive_text">#receive_text &mdash; EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-receive_transaction">#receive_transaction &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-reconnect">#reconnect &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-register_request">#register_request &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-remove">#remove &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-removed-3F">#removed? &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-request">#request &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-requeue">#requeue &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Pool.html#method-i-reschedule">#reschedule &mdash; EventMachine::Pool</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-reset_protocol_state">#reset_protocol_state &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Protocols/Socks4.html#method-i-restore_methods">#restore_methods &mdash; EventMachine::Protocols::Socks4</a></li>
+    
+      <li><a href="EventMachine/SpawnedProcess.html#method-i-resume">#resume &mdash; EventMachine::SpawnedProcess</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-resume">#resume &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/SpawnedProcess.html#method-i-run">#run &mdash; EventMachine::SpawnedProcess</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-run">#run &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-run_heartbeats">#run_heartbeats &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-run_timers">#run_timers &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/PeriodicTimer.html#method-i-schedule">#schedule &mdash; EventMachine::PeriodicTimer</a></li>
+    
+      <li><a href="EventMachine/Selectable.html#method-i-schedule_close">#schedule_close &mdash; EventMachine::Selectable</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPServer.html#method-i-schedule_close">#schedule_close &mdash; EventMachine::EvmaTCPServer</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXServer.html#method-i-schedule_close">#schedule_close &mdash; EventMachine::EvmaUNIXServer</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXServer.html#method-i-select_for_reading-3F">#select_for_reading? &mdash; EventMachine::EvmaUNIXServer</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPClient.html#method-i-select_for_reading-3F">#select_for_reading? &mdash; EventMachine::EvmaTCPClient</a></li>
+    
+      <li><a href="EventMachine/Selectable.html#method-i-select_for_reading-3F">#select_for_reading? &mdash; EventMachine::Selectable</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXClient.html#method-i-select_for_reading-3F">#select_for_reading? &mdash; EventMachine::EvmaUNIXClient</a></li>
+    
+      <li><a href="EventMachine/StreamObject.html#method-i-select_for_reading-3F">#select_for_reading? &mdash; EventMachine::StreamObject</a></li>
+    
+      <li><a href="EventMachine/EvmaKeyboard.html#method-i-select_for_reading-3F">#select_for_reading? &mdash; EventMachine::EvmaKeyboard</a></li>
+    
+      <li><a href="EventMachine/DatagramObject.html#method-i-select_for_reading-3F">#select_for_reading? &mdash; EventMachine::DatagramObject</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPServer.html#method-i-select_for_reading-3F">#select_for_reading? &mdash; EventMachine::EvmaTCPServer</a></li>
+    
+      <li><a href="EventMachine/LoopbreakReader.html#method-i-select_for_reading-3F">#select_for_reading? &mdash; EventMachine::LoopbreakReader</a></li>
+    
+      <li><a href="EventMachine/EvmaUNIXClient.html#method-i-select_for_writing-3F">#select_for_writing? &mdash; EventMachine::EvmaUNIXClient</a></li>
+    
+      <li><a href="EventMachine/DatagramObject.html#method-i-select_for_writing-3F">#select_for_writing? &mdash; EventMachine::DatagramObject</a></li>
+    
+      <li><a href="EventMachine/Selectable.html#method-i-select_for_writing-3F">#select_for_writing? &mdash; EventMachine::Selectable</a></li>
+    
+      <li><a href="EventMachine/EvmaTCPClient.html#method-i-select_for_writing-3F">#select_for_writing? &mdash; EventMachine::EvmaTCPClient</a></li>
+    
+      <li><a href="EventMachine/EvmaKeyboard.html#method-i-select_for_writing-3F">#select_for_writing? &mdash; EventMachine::EvmaKeyboard</a></li>
+    
+      <li><a href="EventMachine/StreamObject.html#method-i-select_for_writing-3F">#select_for_writing? &mdash; EventMachine::StreamObject</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp.html#method-i-send">#send &mdash; EventMachine::Protocols::Stomp</a></li>
+    
+      <li><a href="TestConnection.html#method-i-send_data">#send_data &mdash; TestConnection</a></li>
+    
+      <li><a href="EventMachine/StreamObject.html#method-i-send_data">#send_data &mdash; EventMachine::StreamObject</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-send_data">#send_data &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/EvmaUDPSocket.html#method-i-send_data">#send_data &mdash; EventMachine::EvmaUDPSocket</a></li>
+    
+      <li><a href="EventMachine/DatagramObject.html#method-i-send_datagram">#send_datagram &mdash; EventMachine::DatagramObject</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-send_datagram">#send_datagram &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-send_file_data">#send_file_data &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp.html#method-i-send_frame">#send_frame &mdash; EventMachine::Protocols::Stomp</a></li>
+    
+      <li><a href="EventMachine/Protocols/ObjectProtocol.html#method-i-send_object">#send_object &mdash; EventMachine::Protocols::ObjectProtocol</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-send_packet">#send_packet &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient.html#method-i-send_request">#send_request &mdash; EventMachine::Protocols::HttpClient</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2/Request.html#method-i-send_request">#send_request &mdash; EventMachine::Protocols::HttpClient2::Request</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-send_server_greeting">#send_server_greeting &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="TestConnection.html#method-i-sent_data">#sent_data &mdash; TestConnection</a></li>
+    
+      <li><a href="EventMachine/Protocols/ObjectProtocol.html#method-i-serializer">#serializer &mdash; EventMachine::Protocols::ObjectProtocol</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-i-set">#set &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineText2.html#method-i-set_binary_mode">#set_binary_mode &mdash; EventMachine::Protocols::LineText2</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineAndTextProtocol.html#method-i-set_binary_mode">#set_binary_mode &mdash; EventMachine::Protocols::LineAndTextProtocol</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-set_comm_inactivity_timeout">#set_comm_inactivity_timeout &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-set_default_host_header">#set_default_host_header &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-set_deferred_failure">#set_deferred_failure &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-set_deferred_failure">#set_deferred_failure &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-set_deferred_status">#set_deferred_status &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-set_deferred_status">#set_deferred_status &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-set_deferred_success">#set_deferred_success &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-set_deferred_success">#set_deferred_success &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineText2.html#method-i-set_delimiter">#set_delimiter &mdash; EventMachine::Protocols::LineText2</a></li>
+    
+      <li><a href="EventMachine/Selectable.html#method-i-set_inactivity_timeout">#set_inactivity_timeout &mdash; EventMachine::Selectable</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineText2.html#method-i-set_line_mode">#set_line_mode &mdash; EventMachine::Protocols::LineText2</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-set_pending_connect_timeout">#set_pending_connect_timeout &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/SpawnedProcess.html#method-i-set_receiver">#set_receiver &mdash; EventMachine::SpawnedProcess</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-set_sock_opt">#set_sock_opt &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineText2.html#method-i-set_text_mode">#set_text_mode &mdash; EventMachine::Protocols::LineText2</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-set_timer_quantum">#set_timer_quantum &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Protocols/Socks4.html#method-i-setup_methods">#setup_methods &mdash; EventMachine::Protocols::Socks4</a></li>
+    
+      <li><a href="EventMachine/ThreadedResource.html#method-i-shutdown">#shutdown &mdash; EventMachine::ThreadedResource</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-signal_loopbreak">#signal_loopbreak &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/Queue.html#method-i-size">#size &mdash; EventMachine::Queue</a></li>
+    
+      <li><a href="EventMachine/Protocols/Socks4.html#method-i-socks_post_init">#socks_post_init &mdash; EventMachine::Protocols::Socks4</a></li>
+    
+      <li><a href="EventMachine/Protocols/Socks4.html#method-i-socks_receive_data">#socks_receive_data &mdash; EventMachine::Protocols::Socks4</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-ssl_handshake_completed">#ssl_handshake_completed &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-ssl_verify_peer">#ssl_verify_peer &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/TickLoop.html#method-i-start">#start &mdash; EventMachine::TickLoop</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-start_timer">#start_timer &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-start_tls">#start_tls &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-stateback">#stateback &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Reactor.html#method-i-stop">#stop &mdash; EventMachine::Reactor</a></li>
+    
+      <li><a href="EventMachine/TickLoop.html#method-i-stop">#stop &mdash; EventMachine::TickLoop</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-stop_proxying">#stop_proxying &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-stop_timer">#stop_timer &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/ProcessWatch.html#method-i-stop_watching">#stop_watching &mdash; EventMachine::ProcessWatch</a></li>
+    
+      <li><a href="EventMachine/FileWatch.html#method-i-stop_watching">#stop_watching &mdash; EventMachine::FileWatch</a></li>
+    
+      <li><a href="EventMachine/TickLoop.html#method-i-stopped-3F">#stopped? &mdash; EventMachine::TickLoop</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-stream_file_data">#stream_file_data &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/FileStreamer.html#method-i-stream_one_chunk">#stream_one_chunk &mdash; EventMachine::FileStreamer</a></li>
+    
+      <li><a href="EventMachine/Protocols/Stomp.html#method-i-subscribe">#subscribe &mdash; EventMachine::Protocols::Stomp</a></li>
+    
+      <li><a href="EventMachine/Channel.html#method-i-subscribe">#subscribe &mdash; EventMachine::Channel</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-succeed">#succeed &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-succeed">#succeed &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/DNS/Request.html#method-i-tick">#tick &mdash; EventMachine::DNS::Request</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-tick">#tick &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/Deferrable.html#method-i-timeout">#timeout &mdash; EventMachine::Deferrable</a></li>
+    
+      <li><a href="EventMachine/Completion.html#method-i-timeout">#timeout &mdash; EventMachine::Completion</a></li>
+    
+      <li><a href="EventMachine/DeferrableChildProcess.html#method-i-unbind">#unbind &mdash; EventMachine::DeferrableChildProcess</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpClient.html#method-i-unbind">#unbind &mdash; EventMachine::Protocols::SmtpClient</a></li>
+    
+      <li><a href="EventMachine/DNS/Socket.html#method-i-unbind">#unbind &mdash; EventMachine::DNS::Socket</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineAndTextProtocol.html#method-i-unbind">#unbind &mdash; EventMachine::Protocols::LineAndTextProtocol</a></li>
+    
+      <li><a href="EventMachine/Protocols/LineText2.html#method-i-unbind">#unbind &mdash; EventMachine::Protocols::LineText2</a></li>
+    
+      <li><a href="EventMachine/Protocols/Memcache.html#method-i-unbind">#unbind &mdash; EventMachine::Protocols::Memcache</a></li>
+    
+      <li><a href="EventMachine/Protocols/Postgres3.html#method-i-unbind">#unbind &mdash; EventMachine::Protocols::Postgres3</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient2.html#method-i-unbind">#unbind &mdash; EventMachine::Protocols::HttpClient2</a></li>
+    
+      <li><a href="EventMachine/Protocols/SmtpServer.html#method-i-unbind">#unbind &mdash; EventMachine::Protocols::SmtpServer</a></li>
+    
+      <li><a href="EventMachine/Connection.html#method-i-unbind">#unbind &mdash; EventMachine::Connection</a></li>
+    
+      <li><a href="EventMachine/Protocols/TcpConnectTester.html#method-i-unbind">#unbind &mdash; EventMachine::Protocols::TcpConnectTester</a></li>
+    
+      <li><a href="EventMachine/SystemCmd.html#method-i-unbind">#unbind &mdash; EventMachine::SystemCmd</a></li>
+    
+      <li><a href="EventMachine/Protocols/HttpClient.html#method-i-unbind">#unbind &mdash; EventMachine::Protocols::HttpClient</a></li>
+    
+      <li><a href="EventMachine/Channel.html#method-i-unsubscribe">#unsubscribe &mdash; EventMachine::Channel</a></li>
+    
+      <li><a href="EventMachine/Protocols/SASLauth.html#method-i-validate">#validate &mdash; EventMachine::Protocols::SASLauth</a></li>
+    
+      <li><a href="EventMachine/Protocols/SASLauthclient.html#method-i-validate-3F">#validate? &mdash; EventMachine::Protocols::SASLauthclient</a></li>
+    
+  </ul>
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+</body>
+</html>

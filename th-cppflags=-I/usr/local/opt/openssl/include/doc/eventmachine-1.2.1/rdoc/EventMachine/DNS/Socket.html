@@ -1,0 +1,801 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Class: EventMachine::DNS::Socket</title>
+
+  <link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+  <script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body id="top" class="class">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../../lib/em/resolver_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="lib/em/resolver.rb">lib/em/resolver.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+      <!-- Parent Class -->
+      <div id="parent-class-section" class="section">
+        <h3 class="section-header">Parent</h3>
+        
+        <p class="link"><a href="../Connection.html">EventMachine::Connection</a></p>
+        
+      </div>
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-c-new">::new</a></li>
+          
+          <li><a href="#method-c-open">::open</a></li>
+          
+          <li><a href="#method-i-deregister_request">#deregister_request</a></li>
+          
+          <li><a href="#method-i-nameserver">#nameserver</a></li>
+          
+          <li><a href="#method-i-nameserver-3D">#nameserver=</a></li>
+          
+          <li><a href="#method-i-post_init">#post_init</a></li>
+          
+          <li><a href="#method-i-receive_data">#receive_data</a></li>
+          
+          <li><a href="#method-i-register_request">#register_request</a></li>
+          
+          <li><a href="#method-i-send_packet">#send_packet</a></li>
+          
+          <li><a href="#method-i-start_timer">#start_timer</a></li>
+          
+          <li><a href="#method-i-stop_timer">#stop_timer</a></li>
+          
+          <li><a href="#method-i-tick">#tick</a></li>
+          
+          <li><a href="#method-i-unbind">#unbind</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../../docs/old/ChangeLog.html">ChangeLog</a></li>
+        
+          <li class="file"><a href="../../docs/old/DEFERRABLES.html">DEFERRABLES</a></li>
+        
+          <li class="file"><a href="../../docs/old/EPOLL.html">EPOLL</a></li>
+        
+          <li class="file"><a href="../../docs/old/INSTALL.html">INSTALL</a></li>
+        
+          <li class="file"><a href="../../docs/old/KEYBOARD.html">KEYBOARD</a></li>
+        
+          <li class="file"><a href="../../docs/old/LEGAL.html">LEGAL</a></li>
+        
+          <li class="file"><a href="../../docs/old/LIGHTWEIGHT_CONCURRENCY.html">LIGHTWEIGHT_CONCURRENCY</a></li>
+        
+          <li class="file"><a href="../../docs/old/PURE_RUBY.html">PURE_RUBY</a></li>
+        
+          <li class="file"><a href="../../docs/old/RELEASE_NOTES.html">RELEASE_NOTES</a></li>
+        
+          <li class="file"><a href="../../docs/old/SMTP.html">SMTP</a></li>
+        
+          <li class="file"><a href="../../docs/old/SPAWNED_PROCESSES.html">SPAWNED_PROCESSES</a></li>
+        
+          <li class="file"><a href="../../docs/old/TODO.html">TODO</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine.html">EventMachine</a></li>
+        
+          <li><a href="../../EventMachine/CertificateCreator.html">EventMachine::CertificateCreator</a></li>
+        
+          <li><a href="../../EventMachine/Channel.html">EventMachine::Channel</a></li>
+        
+          <li><a href="../../EventMachine/Completion.html">EventMachine::Completion</a></li>
+        
+          <li><a href="../../EventMachine/Connection.html">EventMachine::Connection</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionError.html">EventMachine::ConnectionError</a></li>
+        
+          <li><a href="../../EventMachine/ConnectionNotBound.html">EventMachine::ConnectionNotBound</a></li>
+        
+          <li><a href="../../EventMachine/DNS.html">EventMachine::DNS</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Request.html">EventMachine::DNS::Request</a></li>
+        
+          <li><a href="../../EventMachine/DNS/RequestIdAlreadyUsed.html">EventMachine::DNS::RequestIdAlreadyUsed</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Resolver.html">EventMachine::DNS::Resolver</a></li>
+        
+          <li><a href="../../EventMachine/DNS/Socket.html">EventMachine::DNS::Socket</a></li>
+        
+          <li><a href="../../EventMachine/DatagramObject.html">EventMachine::DatagramObject</a></li>
+        
+          <li><a href="../../EventMachine/DefaultDeferrable.html">EventMachine::DefaultDeferrable</a></li>
+        
+          <li><a href="../../EventMachine/Deferrable.html">EventMachine::Deferrable</a></li>
+        
+          <li><a href="../../EventMachine/DeferrableChildProcess.html">EventMachine::DeferrableChildProcess</a></li>
+        
+          <li><a href="../../EventMachine/Error.html">EventMachine::Error</a></li>
+        
+          <li><a href="../../EventMachine/EvmaKeyboard.html">EventMachine::EvmaKeyboard</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPClient.html">EventMachine::EvmaTCPClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaTCPServer.html">EventMachine::EvmaTCPServer</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUDPSocket.html">EventMachine::EvmaUDPSocket</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXClient.html">EventMachine::EvmaUNIXClient</a></li>
+        
+          <li><a href="../../EventMachine/EvmaUNIXServer.html">EventMachine::EvmaUNIXServer</a></li>
+        
+          <li><a href="../../EventMachine/FileNotFoundException.html">EventMachine::FileNotFoundException</a></li>
+        
+          <li><a href="../../EventMachine/FileStreamer.html">EventMachine::FileStreamer</a></li>
+        
+          <li><a href="../../EventMachine/FileWatch.html">EventMachine::FileWatch</a></li>
+        
+          <li><a href="../../EventMachine/Iterator.html">EventMachine::Iterator</a></li>
+        
+          <li><a href="../../EventMachine/LoopbreakReader.html">EventMachine::LoopbreakReader</a></li>
+        
+          <li><a href="../../EventMachine/PeriodicTimer.html">EventMachine::PeriodicTimer</a></li>
+        
+          <li><a href="../../EventMachine/Pool.html">EventMachine::Pool</a></li>
+        
+          <li><a href="../../EventMachine/ProcessWatch.html">EventMachine::ProcessWatch</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">EventMachine::Protocols</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HeaderAndContentProtocol.html">EventMachine::Protocols::HeaderAndContentProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient.html">EventMachine::Protocols::HttpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2.html">EventMachine::Protocols::HttpClient2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/HttpClient2/Request.html">EventMachine::Protocols::HttpClient2::Request</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineAndTextProtocol.html">EventMachine::Protocols::LineAndTextProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineProtocol.html">EventMachine::Protocols::LineProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/LineText2.html">EventMachine::Protocols::LineText2</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache.html">EventMachine::Protocols::Memcache</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Memcache/ParserError.html">EventMachine::Protocols::Memcache::ParserError</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/ObjectProtocol.html">EventMachine::Protocols::ObjectProtocol</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Postgres3.html">EventMachine::Protocols::Postgres3</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauth.html">EventMachine::Protocols::SASLauth</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SASLauthclient.html">EventMachine::Protocols::SASLauthclient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpClient.html">EventMachine::Protocols::SmtpClient</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/SmtpServer.html">EventMachine::Protocols::SmtpServer</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Socks4.html">EventMachine::Protocols::Socks4</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp.html">EventMachine::Protocols::Stomp</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/Stomp/Message.html">EventMachine::Protocols::Stomp::Message</a></li>
+        
+          <li><a href="../../EventMachine/Protocols/TcpConnectTester.html">EventMachine::Protocols::TcpConnectTester</a></li>
+        
+          <li><a href="../../EventMachine/Queue.html">EventMachine::Queue</a></li>
+        
+          <li><a href="../../EventMachine/Reactor.html">EventMachine::Reactor</a></li>
+        
+          <li><a href="../../EventMachine/Selectable.html">EventMachine::Selectable</a></li>
+        
+          <li><a href="../../EventMachine/SpawnedProcess.html">EventMachine::SpawnedProcess</a></li>
+        
+          <li><a href="../../EventMachine/StreamObject.html">EventMachine::StreamObject</a></li>
+        
+          <li><a href="../../EventMachine/SystemCmd.html">EventMachine::SystemCmd</a></li>
+        
+          <li><a href="../../EventMachine/ThreadedResource.html">EventMachine::ThreadedResource</a></li>
+        
+          <li><a href="../../EventMachine/TickLoop.html">EventMachine::TickLoop</a></li>
+        
+          <li><a href="../../EventMachine/Timer.html">EventMachine::Timer</a></li>
+        
+          <li><a href="../../EventMachine/UnknownTimerFired.html">EventMachine::UnknownTimerFired</a></li>
+        
+          <li><a href="../../EventMachine/Unsupported.html">EventMachine::Unsupported</a></li>
+        
+          <li><a href="../../EventMachine/UuidGenerator.html">EventMachine::UuidGenerator</a></li>
+        
+          <li><a href="../../EventMachine/YieldBlockFromSpawnedProcess.html">EventMachine::YieldBlockFromSpawnedProcess</a></li>
+        
+          <li><a href="../../Object.html">Object</a></li>
+        
+          <li><a href="../../EventMachine.html">Object::EM</a></li>
+        
+          <li><a href="../../EventMachine/Protocols.html">Object::P</a></li>
+        
+          <li><a href="../../BufferedTokenizer.html">BufferedTokenizer</a></li>
+        
+          <li><a href="../../IO.html">IO</a></li>
+        
+          <li><a href="../../StringIO.html">StringIO</a></li>
+        
+          <li><a href="../../TestConnection.html">TestConnection</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="class">EventMachine::DNS::Socket</h1>
+
+    <div id="description" class="description">
+      
+    </div><!-- description -->
+
+    
+    
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-class-method-details" class="method-section section">
+        <h3 class="section-header">Public Class Methods</h3>
+
+      
+        <div id="new-method" class="method-detail ">
+          <a name="method-c-new"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">new</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="new-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+  <span class="ruby-ivar">@nameserver</span> = <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- new-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- new-method -->
+
+      
+        <div id="open-method" class="method-detail ">
+          <a name="method-c-open"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">open</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="open-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 82</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">open</span>
+  <span class="ruby-constant">EventMachine</span><span class="ruby-operator">::</span><span class="ruby-identifier">open_datagram_socket</span>(<span class="ruby-string">'0.0.0.0'</span>, <span class="ruby-value">0</span>, <span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- open-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- open-method -->
+
+      
+      </div><!-- public-class-method-details -->
+    
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="deregister_request-method" class="method-detail ">
+          <a name="method-i-deregister_request"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">deregister_request</span><span
+              class="method-args">(id, req)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="deregister_request-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 122</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deregister_request</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">req</span>)
+  <span class="ruby-ivar">@requests</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-identifier">stop_timer</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@requests</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- deregister_request-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- deregister_request-method -->
+
+      
+        <div id="nameserver-method" class="method-detail ">
+          <a name="method-i-nameserver"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">nameserver</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="nameserver-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">nameserver</span>
+  <span class="ruby-ivar">@nameserver</span> <span class="ruby-operator">||</span> <span class="ruby-constant">Resolver</span>.<span class="ruby-identifier">nameserver</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- nameserver-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- nameserver-method -->
+
+      
+        <div id="nameserver-3D-method" class="method-detail ">
+          <a name="method-i-nameserver-3D"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">nameserver=</span><span
+              class="method-args">(ns)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="nameserver-3D-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 131</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">nameserver=</span>(<span class="ruby-identifier">ns</span>)
+  <span class="ruby-ivar">@nameserver</span> = <span class="ruby-identifier">ns</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- nameserver-3D-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- nameserver-3D-method -->
+
+      
+        <div id="post_init-method" class="method-detail ">
+          <a name="method-i-post_init"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">post_init</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="post_init-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 90</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">post_init</span>
+  <span class="ruby-ivar">@requests</span> = {}
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- post_init-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- post_init-method -->
+
+      
+        <div id="receive_data-method" class="method-detail ">
+          <a name="method-i-receive_data"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">receive_data</span><span
+              class="method-args">(data)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            <p>Decodes the packet, looks for the request and passes the response over to
+the requester</p>
+            
+
+            
+            <div class="method-source-code" id="receive_data-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 141</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive_data</span>(<span class="ruby-identifier">data</span>)
+  <span class="ruby-identifier">msg</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">msg</span> = <span class="ruby-constant">Resolv</span><span class="ruby-operator">::</span><span class="ruby-constant">DNS</span><span class="ruby-operator">::</span><span class="ruby-constant">Message</span>.<span class="ruby-identifier">decode</span> <span class="ruby-identifier">data</span>
+  <span class="ruby-keyword">rescue</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">req</span> = <span class="ruby-ivar">@requests</span>[<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">id</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">req</span>
+      <span class="ruby-ivar">@requests</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-identifier">stop_timer</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@requests</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+      <span class="ruby-identifier">req</span>.<span class="ruby-identifier">receive_answer</span>(<span class="ruby-identifier">msg</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- receive_data-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- receive_data-method -->
+
+      
+        <div id="register_request-method" class="method-detail ">
+          <a name="method-i-register_request"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">register_request</span><span
+              class="method-args">(id, req)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="register_request-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">register_request</span>(<span class="ruby-identifier">id</span>, <span class="ruby-identifier">req</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@requests</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">id</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">RequestIdAlreadyUsed</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@requests</span>[<span class="ruby-identifier">id</span>] = <span class="ruby-identifier">req</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">start_timer</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- register_request-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- register_request-method -->
+
+      
+        <div id="send_packet-method" class="method-detail ">
+          <a name="method-i-send_packet"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">send_packet</span><span
+              class="method-args">(pkt)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="send_packet-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 127</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">send_packet</span>(<span class="ruby-identifier">pkt</span>)
+  <span class="ruby-identifier">send_datagram</span>(<span class="ruby-identifier">pkt</span>, <span class="ruby-identifier">nameserver</span>, <span class="ruby-value">53</span>)
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- send_packet-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- send_packet-method -->
+
+      
+        <div id="start_timer-method" class="method-detail ">
+          <a name="method-i-start_timer"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">start_timer</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="start_timer-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">start_timer</span>
+  <span class="ruby-ivar">@timer</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">EM</span>.<span class="ruby-identifier">add_periodic_timer</span>(<span class="ruby-value">0.1</span>, &amp;<span class="ruby-identifier">method</span>(<span class="ruby-value">:tick</span>))
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- start_timer-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- start_timer-method -->
+
+      
+        <div id="stop_timer-method" class="method-detail ">
+          <a name="method-i-stop_timer"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">stop_timer</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="stop_timer-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 98</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop_timer</span>
+  <span class="ruby-constant">EM</span>.<span class="ruby-identifier">cancel_timer</span>(<span class="ruby-ivar">@timer</span>)
+  <span class="ruby-ivar">@timer</span> = <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- stop_timer-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- stop_timer-method -->
+
+      
+        <div id="tick-method" class="method-detail ">
+          <a name="method-i-tick"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">tick</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="tick-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 106</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tick</span>
+  <span class="ruby-ivar">@requests</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">id</span>,<span class="ruby-identifier">req</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">req</span>.<span class="ruby-identifier">tick</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- tick-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- tick-method -->
+
+      
+        <div id="unbind-method" class="method-detail ">
+          <a name="method-i-unbind"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">unbind</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="unbind-source">
+<pre>
+<span class="ruby-comment"># File lib/em/resolver.rb, line 103</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unbind</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- unbind-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- unbind-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+
