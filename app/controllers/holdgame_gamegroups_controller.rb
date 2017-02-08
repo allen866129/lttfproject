@@ -731,10 +731,10 @@ def groupdumptoxls
   @groupttendee= @gamegroup.groupattendants
   @attendee =@gamegroup.allgroupattendee
   filename=@holdgame.gamename+@gamegroup.groupname
-  headers["Content-Disposition"] = "attachment; filename=\"#{filename}.xls\"" 
+  headers["Content-Disposition"] = "attachment; filename=\"#{filename}.xlsx\"" 
   respond_to do |format|
-    format.xls 
-    #format.csv
+    format.html
+    format.xlsx
   end
 end  
 protected

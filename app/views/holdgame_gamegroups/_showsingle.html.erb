@@ -63,7 +63,7 @@
  <% if current_user && !@in_blacklist_data %>
   <td><%= button_to '整批報名', singleplayerinput_holdgame_gamegroups_path(@holdgame,gamegroup, :name => 'init') , :method=>:get  %></td>
  <% end %>
-<td>  <%= link_to "輸出到excel", groupdumptoxls_holdgame_gamegroups_path(@holdgame,:gamegroup_id=>gamegroup.id,format: "xls"),:class=> "button radius" %></td>
+<td>  <%= link_to "輸出到excel", groupdumptoxls_holdgame_gamegroups_path(@holdgame,:gamegroup_id=>gamegroup.id,format: "xlsx"),:class=> "button radius" %></td>
 </tr>
 </table>
 </div>

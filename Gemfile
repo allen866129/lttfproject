@@ -81,3 +81,6 @@ gem 'omniauth-google-oauth2', '0.2.8'
 gem "rails_autolink"
 gem 'google-api-client' ,'0.8.6'
 gem 'delayed_job_active_record' , '0.3.0'
+gem 'rubyzip', '= 1.0.0'
+gem 'axlsx', '= 2.0.1'
+gem 'axlsx_rails'
