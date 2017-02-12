@@ -10,14 +10,16 @@
 <p align=center><%= link_to '返回前頁', :back %></p>
 <div class="row">
   <div class="col-xs-12 col-md-12 col-lg-12">
-    <div style="margin-top:50px;" class="mainbox col-xs-8 col-xs-offset-2">
+    <div style="margin-top:30px;" class="mainbox col-xs-8 col-xs-offset-2">
       <div class="panel panel-info">
         <div class="panel-heading">
           <div class="panel-title">
             <i class="fa fa-users"></i>&nbsp;桌盟會員註冊
           </div>
         </div>
-        <div style="padding-top:30px" class="panel-body" >
+        <div style="padding-top:20px" class="panel-body" >
+            <p><font color=red > 如果您是忘記密碼,切勿再重複註冊,請參考<%= link_to "忘記密碼或重設密碼操作示範","https://youtu.be/o99IIifgoEs" ,:target => "_blank"%></font>
+            </p>  
           <% resource.build_playerprofile %>
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html =>{:class =>"form-horizontal form-inline",:role =>"form" } ) do |f| %>
             <div style="display:none" class="alert alert-danger">
