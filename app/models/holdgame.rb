@@ -101,4 +101,14 @@ def self.auto_notice
 
   end  #holdgame
 end
+
+def self.marquee_string
+  @holdgames=Holdgame.forgamesmaps.where("enddate >= (?)", Time.zone.now.to_date)
+  @holdgames= @holdgames.reject {|v| ((v.lttfgameflag==true) && (v.gamegroups.count ==0))||(v.lttfgameflag==false)}
+  show_string='桌盟近期賽事：＊＊＊＊＊' 
+  @holdgames.each do |holdgame|
+     show_string= show_string+holdgame.startdate.to_s+holdgame.gamename+'('+holdgame.courtname+')'+'＊＊＊＊＊'  
+  end 
+  return show_string
+end
 end
