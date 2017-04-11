@@ -103,7 +103,8 @@ def self.auto_notice
 end
 def self.displaygames
   @holdgames=Holdgame.forgamesmaps.where("enddate >= (?)", Time.zone.now.to_date)
-  @displaygames= @holdgames.reject {|v| ((v.lttfgameflag==true) && (v.gamegroups.count ==0))||(v.lttfgameflag==false)}
+  @displaygames= @holdgames.reject {|v| ((v.lttfgameflag==true) && ( (v.gamegroups.count ==0) ||  (v.cancel_flag == true)) )||
+    (v.lttfgameflag==false) }
   @displaygames
   
 end
