@@ -71,6 +71,22 @@ class Gamegroup < ActiveRecord::Base
         return (scoresum>=self.double_scorelow) 
     end 
   end
+
+  def check_regsitered_same_timeframe_group(user)
+
+   
+    user.find_reg_unplay_groups.each do |group|
+
+        if group.holdgame != self.holdgame 
+          temp=(self.starttime-group.starttime).to_i.abs 
+          if (self.starttime-group.starttime).to_i.abs < (3600*4)
+            return true
+          end 
+        end 
+    end  
+    
+    false
+  end
   def allplayers
     playerlist=Array.new
     self.groupattendants.each do |attendrecord|

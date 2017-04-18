@@ -35,8 +35,20 @@ def index
    else
      @in_blacklist_data =nil
    end 
+
   gon.blacklist=1 if @in_blacklist_data
+  gon.doubleresistered=0
+  @doubleresistered= false
   @gamegroups = @holdgame.gamegroups
+  if current_user
+    @gamegroups.each do |gamegroup|
+    
+      if gamegroup.check_regsitered_same_timeframe_group(current_user)
+        gon.doubleresistered=1
+        @doubleresistered= true
+      end  
+    end
+  end 
   if !params[:targroupid] && !@gamegroups.empty?
     @targetgroup_id=@gamegroups.first.id
    
@@ -612,7 +624,8 @@ def get_inputplayer(playerlist,keyword)
           flash[:alert] = @newplayer.username+"已被本賽事主辦人列為黑名單,無法報名本賽事！"         
   elsif(@curgroup.findplayer(@newplayer.id))
           flash[:alert] = "此球友已經完成報名，請勿重覆報名!"
-
+  elsif (@curgroup.check_regsitered_same_timeframe_group(@newplayer))
+         flash[:alert] = @newplayer.username+"此球友已經報名相同時段之其他場賽事,所以無法報名本賽事！需取消其他場賽事報名,才可報名本賽事" 
   elsif playerlist && playerlist.include?(@newplayer.id.to_s)
           flash[:alert]="此球友("+@newplayer.id.to_s+","+@newplayer.username+")已經輸入，請勿重覆輸入!"
   elsif !@curgroup.check_single_meet_group_qualify(@newplayer.playerprofile.curscore) 
@@ -627,6 +640,7 @@ def doubleplayersinput
   flash.clear
   @playerlist=Array.new #to avoid pass nil array to view 
   if params[:registration]
+    binding.pry
     doubleregistration(params[:format], params[:playerid])
      
                         

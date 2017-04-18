@@ -193,7 +193,30 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<a href="#" id="doubleregisteredmodal" class="btn btn-lg btn-info" data-toggle="modal" data-target="#myDoubleRegisteredModal" style="display: none">#</a>
 
+<div class="modal fade" id="myDoubleRegisteredModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">注意事項</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">   
+            <br><strong><font color='red'>請注意!您已經報名相同時段之其他場賽事,所以本賽事某些組別無法報名！若欲報名本賽事,則需取消其他場賽事同時段之分組報名,才可報名本賽事"!</font></strong>
+     
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" >離開</button>
+                
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 
 <script type="text/javascript">
@@ -206,5 +229,9 @@
       {
         document.getElementById("blacklistmodal").click();
       }  
+      if( gon.doubleresistered==1)
+      {
+        document.getElementById("doubleregisteredmodal").click();
+      } 
     });
 </script>

@@ -95,8 +95,17 @@ end
   order_by << "end"
   order(order_by.join(" "))
 end
+def find_reg_unplay_groups
+     attendants=Attendant.where(:player_id=>self.id).find_all{|v| ( v.groupattendant.gamegroup.holdgame) && (v.groupattendant.gamegroup.starttime.to_date>= Time.zone.now.to_date) }
+     @groups=Array.new
+      attendants.each do |attendant|
+      @groups.push(attendant.groupattendant.gamegroup)
+    end
+    return @groups.sort_by { |hsh| hsh[:starttime] }.uniq
+end  
 def find_reg_unplay_games
-  attendants=Attendant.where(:player_id=>self.id)
+
+  #attendants=Attendant.where(:player_id=>self.id)
   attendants=Attendant.where(:player_id=>self.id).find_all{|v| ( v.groupattendant.gamegroup.holdgame) && (v.groupattendant.gamegroup.holdgame.startdate>= Time.zone.now.to_date) }
   return [] if attendants.empty?
     @games=Array.new
