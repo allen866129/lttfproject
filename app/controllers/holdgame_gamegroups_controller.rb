@@ -640,7 +640,6 @@ def doubleplayersinput
   flash.clear
   @playerlist=Array.new #to avoid pass nil array to view 
   if params[:registration]
-    binding.pry
     doubleregistration(params[:format], params[:playerid])
      
                         
