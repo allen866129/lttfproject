@@ -62,6 +62,17 @@ class Holdgame < ActiveRecord::Base
    
     return playergroups 
   end 
+  def find_allgameholders
+     allgameholders= Array.new
+
+     allgameholders.push(self.gameholder.user)
+     if !self.gamecoholders.empty?
+        self.gamecoholders.each do |coholder|
+          allgameholders.push(coholder.user) 
+        end
+      end  
+     allgameholders
+  end  
   def find_gamecoholder(player_id)
       if self.gamecoholders.find_all{|v| v.co_holderid==player_id}.empty?
         return false

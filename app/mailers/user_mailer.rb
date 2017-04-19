@@ -32,22 +32,33 @@
      mail(:to => emails, :subject =>"桌球愛好者聯盟積分賽主辦人待審核通知") 
   end
 
-  def send_publish_notice_to_gameholders(emails, uploadgame)
+  def send_publish_notice_to_gameholders(emails, uploadgame, gameholders)
     @gamename=uploadgame.gamename
     @uploadgame=uploadgame 
-    mail(:to => emails, :subject =>"桌球愛好者聯盟#{@gamename}公告查核通知") 
+    #emails =gameholders.map {|gameholder| gameholder.email}
+    #mail(:to => emails, :subject =>subject)
+    emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>subject) 
   end  
-  def send_updatescore_notice_to_gameholders(emails,newgame)
+  def send_updatescore_notice_to_gameholders(emails,newgame,gameholders)
     @gamename=newgame.gamename
     @newgame=newgame
-    mail(:to => emails, :subject =>"桌球愛好者聯盟#{@gamename}積分更新通知") 
+    #emails =gameholders.map {|gameholder| gameholder.email}
+    #mail(:to => emails, :subject =>subject)
+    emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>subject)    
   end
   def  send_gameholder_approve_notice(gameholder)
      @gameholder=gameholder
      mail(:to => "#{gameholder.user.username} <#{gameholder.user.email}>", :subject =>"桌球愛好者聯盟積分賽主辦人審核通過通知") 
   end  
 
-  def send_playerschanged_single_gameholder(gamegroup,cancelled_player_id,cancelled_palyer_name,newofficial,changetype)
+  def send_playerschanged_single_gameholder(gamegroup,cancelled_player_id,cancelled_palyer_name,newofficial,changetype, gameholders)
+    
+    emails =gameholders.map {|gameholder| gameholder.email}
+
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @gameholder=@holdgame.gameholder.user
@@ -56,7 +67,7 @@
     @cancelled_palyer_name=cancelled_palyer_name
     #@cancelplayer=cancelplayer 
     @newofficial=newofficial
-
+  
     if changetype=='cancel'
       @totalcount=@gamegroup.groupattendants.count #already delete cancelled player
       if @totalcount>@gamegroup.noofplayers
@@ -67,7 +78,8 @@
         @backupcount=0
       end 
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名球員取消報名通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject) 
+      #mail(:to => emails, :subject =>subject)
+
     end
     if changetype=='register'
       @totalcount=@gamegroup.groupattendants.count  #registered player already added
@@ -79,11 +91,14 @@
         @backupcount=0
       end 
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"新增報名球員通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
+      #mail(:to => emails, :subject =>subject)   
     end
+    emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>subject)
   end 
-  def send_playerschanged_double_gameholder(gamegroup, attendrecord, cancelledplayerlist,changetype)
-
+  def send_playerschanged_double_gameholder(gamegroup, attendrecord, cancelledplayerlist,changetype,gameholders)
+    #emails =gameholders.map {|gameholder| gameholder.email}
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @gameholder=@holdgame.gameholder.user
@@ -101,16 +116,19 @@
     if changetype=='cancel'
       @cancelledplayerlist=cancelledplayerlist #playerlist is group
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名隊伍取消報名通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject) 
+      #mail(:to => emails, :subject =>subject)
     end
     if changetype=='register'
       @newplayerlist=attendrecord.attendants #playerlist is group
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"新增報名隊伍通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
+      #mail(:to => emails, :subject =>subject) 
     end
-
+    emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>subject)
   end 
-  def send_playerschanged_team_gameholder(gamegroup,cancelled_team_name,cancelled_palyerlist,newofficial,changetype)
+  def send_playerschanged_team_gameholder(gamegroup,cancelled_team_name,cancelled_palyerlist,newofficial,changetype,gameholders)
+    emails =gameholders.map {|gameholder| gameholder.email}
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @gameholder=@holdgame.gameholder.user
@@ -131,18 +149,21 @@
       @cancelled_teamname=cancelled_team_name
       @cancelledplayerlist=cancelled_palyerlist #playerlist is group=cancelled_palyerlist
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名隊伍取消報名通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject) 
+      #mail(:to => emails, :subject =>subject) 
     end
     if changetype=='register'
 
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"新增報名隊伍通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
+      #mail(:to => emails, :subject =>subject)  
     end
     if changetype=='playerschanged'
        #playerlist is group
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名隊伍隊員異動通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
-    end    
+      #mail(:to => emails, :subject =>subject)  
+    end 
+    emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>subject)   
   end 
 
   def send_backup_to_official_single(gamegroup,newofficial)

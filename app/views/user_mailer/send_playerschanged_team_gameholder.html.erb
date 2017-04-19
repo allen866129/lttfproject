@@ -4,8 +4,8 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p><%= @gameholder.username %>球友您好,</p>
-    <p>您所主辦的<%=@holdgame.startdate.to_s+@holdgame.gamename %>賽事報名隊伍異動資料如下:</p>
+    <p><您好,</p>
+    <p>您所主辦或協辦的<%=@holdgame.startdate.to_s+@holdgame.gamename %>賽事報名隊伍異動資料如下:</p>
         <%if @changetype=='cancel' %>
         <table border=1 link=blue>
           <caption class="text-center" ><strong>取消報名隊伍:<%=@cancelled_teamname %></strong></caption>
