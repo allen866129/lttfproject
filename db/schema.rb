@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151126041454) do
+ActiveRecord::Schema.define(:version => 20170419131256) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -113,12 +113,14 @@ ActiveRecord::Schema.define(:version => 20151126041454) do
     t.integer  "scorehigh"
     t.datetime "starttime"
     t.integer  "gamefee"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.string   "regtype"
     t.text     "double_score_sum_limitation"
     t.integer  "double_scorehigh"
     t.integer  "double_scorelow"
+    t.boolean  "cancellation_deadline_flag",  :default => false
+    t.datetime "cancellation_deadline"
   end
 
   create_table "gameholders", :force => true do |t|

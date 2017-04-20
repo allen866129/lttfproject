@@ -129,7 +129,26 @@
             </div>  
             </div>
 
+              <div class="form-group" style= "padding-top:10px">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "設定報名取消截止時間:", :class => "form-label" %>
+                <%= f.check_box :cancellation_deadline_flag,:class => "form-control"  ,:onchange=> "toggleDeadLineFlagClick();" %> 
+              
+              </div>
+             </div> 
+            <br>
   
+            
+            <div class="form-group" style= "padding-top:10px">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "報名取消截止時間:", :class => "form-label" , :style=> "display:none",:id=> "cancle-deadline-label"%>
+                <%= f.text_field :cancellation_deadline,:class => "form-control", :style=>"display:none" %> 
+
+             </div> 
+            </div> 
+            <br>
+
+
             <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
               <div class="col-md-offset-4 col-md-5">
                 <%= f.submit "建立比賽資料", :class => "btn btn-block btn-info", :id => "btn-signup" do%>
@@ -144,6 +163,7 @@
   </div>      
 </div>  
 <% end %>
+
 <script language="JavaScript">
     $.datepicker.regional['zh-TW']={
    dayNames:["星期日","星期一","星期二","星期三","星期四","星期五","星期六"],
@@ -174,7 +194,10 @@ $("#gamegroup_starttime").datetimepicker({dateFormat:"yy-mm-dd",
                                                         timeFormat:"HH:mm",
                                                         showSecond:false
                                                         });
-
+$("#gamegroup_cancellation_deadline").datetimepicker({dateFormat:"yy-mm-dd", 
+                                                        timeFormat:"HH:mm",
+                                                        showSecond:false
+                                                        });
 </script>
 <script type="text/javascript">
 
@@ -263,5 +286,22 @@ function regtypenotdoubleclick()
     document.getElementById("double-high-label").style.display="none";
     document.getElementById("gamegroup_double_scorelow").style.display="none";
     document.getElementById("double-low-label").style.display="none";
+} 
+function toggleDeadLineFlagClick()
+{
+  
+  if (document.getElementById("gamegroup_cancellation_deadline_flag").checked)
+  {
+    document.getElementById("cancle-deadline-label").style.display="block";
+    document.getElementById("gamegroup_cancellation_deadline").style.display="block";
+  }
+  else
+  {
+    document.getElementById("cancle-deadline-label").style.display="none";
+    document.getElementById("gamegroup_cancellation_deadline").style.display="none";
+  }  
+
+
+ 
 } 
 </script>

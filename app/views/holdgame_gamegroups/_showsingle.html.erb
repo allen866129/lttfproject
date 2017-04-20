@@ -17,15 +17,20 @@
 
           <td ><font color="black">報名費用:</font></td>
           <td ><font color="black">積分限制:</font></td>
-          <td><font color="black">預計參賽人數:</font></td> 
-          <td><font color="black">已報名人數:</font></td> 
+          <td><font color="black">已報名人數/預計參賽人數</font></td> 
+          <td><font color="black">取消截止時間:</font></td> 
           <tr>
           <td><strong><%=gamegroup.gamefee %></strong></td>    
           <td><strong>
              <%=gamegroup.single_limit_string %><br>
           </strong></td> 
-          <td><strong><%=gamegroup.noofplayers %></strong></td>
-          <td><strong><%=gamegroup.totalresgisteredsplayersno %></strong></td>
+          <td><strong><font color="red"><%=gamegroup.totalresgisteredsplayersno %></font>/<%=gamegroup.noofplayers %></strong></td>
+          <% if gamegroup.cancellation_deadline_flag && gamegroup.cancellation_deadline %>
+            <td><strong><font color="red"><%=gamegroup.cancellation_deadline.strftime("%F %H:%M")  %><font color="red"></strong></td>
+          <%else%>
+          <td><strong>無</strong></td>
+
+          <%end%> 
           </tr>
  
       </tbody> 

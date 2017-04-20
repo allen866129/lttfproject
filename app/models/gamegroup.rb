@@ -3,6 +3,7 @@ class Gamegroup < ActiveRecord::Base
   attr_accessible :gamefee, :groupname, :grouptype, :holdgame_id, :noofbackupplayers, :noofplayers, :scorehigh
   attr_accessible :scorelimitation, :scorelow, :starttime , :regtype
   attr_accessible :double_score_sum_limitation, :double_scorehigh, :double_scorelow
+  attr_accessible :cancellation_deadline_flag, :cancellation_deadline
   belongs_to :holdgame
   has_many :groupattendants, dependent: :destroy
   default_scope {order('id ASC')}

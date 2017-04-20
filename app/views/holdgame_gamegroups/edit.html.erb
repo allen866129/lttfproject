@@ -119,6 +119,24 @@
             </div>  
             </div>
 
+             <div class="form-group" style= "padding-top:10px">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "設定報名取消截止時間:", :class => "form-label" %>
+                <%= f.check_box :cancellation_deadline_flag,:class => "form-control"  ,:onchange=> "toggleDeadLineFlagClick();" %> 
+              
+              </div>
+             </div> 
+            <br>
+  
+            
+            <div class="form-group" style= "padding-top:10px">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "報名取消截止時間:", :class => "form-label" , :style=> "display:none",:id=> "cancle-deadline-label"%>
+                <%= f.text_field :cancellation_deadline,:class => "form-control", :style=>"display:none" %> 
+
+             </div> 
+            </div> 
+            <br>
 
             <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
               <div class="col-md-offset-4 col-md-5">
@@ -164,12 +182,16 @@ $("#gamegroup_starttime").datetimepicker({dateFormat:"yy-mm-dd",
                                                         timeFormat:"HH:mm",
                                                         showSecond:false
                                                         });
-
+$("#gamegroup_cancellation_deadline").datetimepicker({dateFormat:"yy-mm-dd", 
+                                                        timeFormat:"HH:mm",
+                                                        showSecond:false
+                                                        });
 </script>
 <script type="text/javascript">
 $( document ).ready(function() {
     toggleSingleSelect();
     toggleDoubleSelect();
+    toggleDeadLineFlagClick();
 });
 function toggleSingleSelect()
 {
@@ -257,4 +279,21 @@ function regtypenotdoubleclick()
     document.getElementById("gamegroup_double_scorelow").style.display="none";
     document.getElementById("double-low-label").style.display="none";
 } 
+function toggleDeadLineFlagClick()
+{
+  
+  if (document.getElementById("gamegroup_cancellation_deadline_flag").checked)
+  {
+    document.getElementById("cancle-deadline-label").style.display="block";
+    document.getElementById("gamegroup_cancellation_deadline").style.display="block";
+  }
+  else
+  {
+    document.getElementById("cancle-deadline-label").style.display="none";
+    document.getElementById("gamegroup_cancellation_deadline").style.display="none";
+  }  
+
+
+ 
+}
 </script>

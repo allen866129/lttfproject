@@ -389,17 +389,23 @@ def cancel_singleplayer_registration
     @attendantrecord=Groupattendant.find(params[:user_in_groupattendant])
     @curgroup=@attendantrecord.gamegroup
     @attendants=@curgroup.groupattendants
-    
-    if (@attendants.index(@attendantrecord)<@curgroup.noofplayers) && (@attendants.count>=@curgroup.noofplayers+1)
-      newofficialattend=@attendants.at(@curgroup.noofplayers).attendants.first
-     
-    end    
-    cancelled_palyer_name= @attendantrecord.attendants.first.name
-    cancelled_player_id=@attendantrecord.attendants.first.player_id
+    if ((@curgroup.holdgame.find_allgameholders.include?(current_user) )|| (current_user.has_role? :admin) || (current_user.has_role? :superuser) || ( !@curgroup.cancellation_deadline_flag)) ||
+       (Time.now < @curgroup.cancellation_deadline)
+       
+      if (@attendants.index(@attendantrecord)<@curgroup.noofplayers) && (@attendants.count>=@curgroup.noofplayers+1)
+        newofficialattend=@attendants.at(@curgroup.noofplayers).attendants.first
+      
+      end    
+        cancelled_palyer_name= @attendantrecord.attendants.first.name
+        cancelled_player_id=@attendantrecord.attendants.first.player_id
 
-    #send_cancel_notice_single(@curgroup, cancelled_player_id,cancelled_palyer_name,newofficialattend,'cancel')
-    @attendantrecord.destroy
-    send_cancel_notice_single(@curgroup, cancelled_player_id,cancelled_palyer_name,newofficialattend,'cancel',@curgroup.holdgame.find_allgameholders)
+        @attendantrecord.destroy
+        send_cancel_notice_single(@curgroup, cancelled_player_id,cancelled_palyer_name,newofficialattend,'cancel',@curgroup.holdgame.find_allgameholders)
+   
+    else
+      flash[:warning]="已超過本比賽分組取消報名截止時間,若欲取消報名,請電主辦人辦理!"
+
+    end    
     redirect_to  holdgame_gamegroups_path(@holdgame, {:targroupid=>@curgroup.id})
 end 
 def cancel_double_registration
@@ -407,33 +413,41 @@ def cancel_double_registration
     @attendantrecord=Groupattendant.find(params[:user_in_groupattendant])
     @curgroup=@attendantrecord.gamegroup
     @groupattendants=@curgroup.groupattendants
-    if (@groupattendants.index(@attendantrecord)<@curgroup.noofplayers) && (@groupattendants.count>=@curgroup.noofplayers+1)
-      @newofficialattend=@groupattendants.at(@curgroup.noofplayers)
-     
-    end
-     @cancelledplayerlist=Array.new
-    for attendant in @attendantrecord.attendants   
-      tempplayer=Hash.new   
-      tempplayer['name']=attendant.name
-      tempplayer['player_id']=attendant.player_id
-      tempplayer['curscore']=attendant.curscore
-      @cancelledplayerlist.push(tempplayer)   
-    end
-    @attendantrecord.destroy
+    if ((@curgroup.holdgame.find_allgameholders.include?(current_user) )|| (current_user.has_role? :admin) || (current_user.has_role? :superuser) || ( !@curgroup.cancellation_deadline_flag)) ||
+       (Time.now < @curgroup.cancellation_deadline)
 
-    send_cancel_notice_double(@curgroup,@newofficialattend, @cancelledplayerlist,'cancel',@curgroup.holdgame.find_allgameholders)
-   
+      if (@groupattendants.index(@attendantrecord)<@curgroup.noofplayers) && (@groupattendants.count>=@curgroup.noofplayers+1)
+        @newofficialattend=@groupattendants.at(@curgroup.noofplayers)
+     
+      end
+      @cancelledplayerlist=Array.new
+      for attendant in @attendantrecord.attendants   
+        tempplayer=Hash.new   
+        tempplayer['name']=attendant.name
+        tempplayer['player_id']=attendant.player_id
+        tempplayer['curscore']=attendant.curscore
+        @cancelledplayerlist.push(tempplayer)   
+       end
+      @attendantrecord.destroy
+
+      send_cancel_notice_double(@curgroup,@newofficialattend, @cancelledplayerlist,'cancel',@curgroup.holdgame.find_allgameholders)
+    else
+      flash[:warning]="已超過本比賽分組取消報名截止時間,若欲取消報名,請電主辦人辦理!"
+
+    end 
     #Attendant.where(:groupattendant_id=>params[:user_in_groupattendant],:player_id=>params[:player_id]).first.destroy
     #@attendantrecord.destroy
     redirect_to  holdgame_gamegroups_path(@holdgame, {:targroupid=>@curgroup.id})
 end
 def cancel_singleplayer_registration_inteam
+
    
     @attendantrecord=Groupattendant.find(params[:user_in_groupattendant])
     @curgroup=@attendantrecord.gamegroup
     @tempattendant=Attendant.where(:groupattendant_id=>params[:user_in_groupattendant],:player_id=>params[:player_id]).first.destroy
     #@attendantrecord.destroy
     send_register_notice_team(@curgroup,@attendantrecord,'playerschanged',@curgroup.holdgame.find_allgameholders)
+ 
     redirect_to  holdgame_gamegroups_path(@holdgame, {:targroupid=>@curgroup.id})
 end
 def cancel_team_registration
@@ -442,22 +456,28 @@ def cancel_team_registration
     @curgroup=@attendantrecord.gamegroup
     @groupattendants=@curgroup.groupattendants
     @cancelled_teamname=@attendantrecord.teamname
-    if (@groupattendants.index(@attendantrecord)<@curgroup.noofplayers) && (@groupattendants.count>=@curgroup.noofplayers+1)
-      @newofficialattend=@groupattendants.at(@curgroup.noofplayers)
+
+    if ((@curgroup.holdgame.find_allgameholders.include?(current_user) )|| (current_user.has_role? :admin) || (current_user.has_role? :superuser) || ( !@curgroup.cancellation_deadline_flag)) ||
+       (Time.now < @curgroup.cancellation_deadline)
+      
+      if (@groupattendants.index(@attendantrecord)<@curgroup.noofplayers) && (@groupattendants.count>=@curgroup.noofplayers+1)
+        @newofficialattend=@groupattendants.at(@curgroup.noofplayers)
      
-    end
-    @cancelledplayerlist=Array.new
-    for attendant in @attendantrecord.attendants  
-      tempplayer=Hash.new   
-      tempplayer['name']=attendant.name
-      tempplayer['player_id']=attendant.player_id
-      tempplayer['curscore']=attendant.curscore
-      @cancelledplayerlist.push(tempplayer) 
-    end
+      end
+      @cancelledplayerlist=Array.new
+      for attendant in @attendantrecord.attendants  
+        tempplayer=Hash.new   
+        tempplayer['name']=attendant.name
+        tempplayer['player_id']=attendant.player_id
+        tempplayer['curscore']=attendant.curscore
+        @cancelledplayerlist.push(tempplayer) 
+      end
     #@tempattendant=Attendant.where(:groupattendant_id=>params[:user_in_groupattendant],:player_id=>params[:player_id]).first.destroy
-    @attendantrecord.destroy
-    send_cancel_notice_team(@curgroup, @cancelled_teamname, @cancelledplayerlist, @newofficialattend, 'cancel', @curgroup.holdgame.find_allgameholders) 
-       
+      @attendantrecord.destroy
+      send_cancel_notice_team(@curgroup, @cancelled_teamname, @cancelledplayerlist, @newofficialattend, 'cancel', @curgroup.holdgame.find_allgameholders) 
+    else
+      flash[:warning]="已超過本比賽分組取消報名截止時間,若欲取消報名,請電主辦人辦理!"
+    end    
     redirect_to  holdgame_gamegroups_path(@holdgame, {:targroupid=>@curgroup.id})
 end
 
@@ -707,6 +727,7 @@ def edit
 
   @gamegroup = @holdgame.gamegroups.find( params[:id] )
   @gamegroup.starttime= @gamegroup.starttime.in_time_zone.strftime("%F %H:%M")
+  @gamegroup.cancellation_deadline= @gamegroup.cancellation_deadline.in_time_zone.strftime("%F %H:%M") if @gamegroup.cancellation_deadline
 
 end
 
