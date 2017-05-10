@@ -5,11 +5,16 @@
 
   require 'koala'
   def sendgamenotice(holdgame,player,subject,message)
-
     @player=player
     @holdgame=holdgame
     @message=message
     mail(:to => "#{player.name} <#{player.email}>", :subject =>subject)
+  end
+  def game_holders_gamenotice_backup(holdgame, subject,message)
+    @holdgame=holdgame
+    @message=message
+    holdersemails=holdgame.find_allgameholders.uniq.map {|a| a.email}
+    mail(:to => holdersemails, :subject =>subject)
   end
   def autogamenotice(holdgame,player)
 
@@ -32,21 +37,21 @@
      mail(:to => emails, :subject =>"桌球愛好者聯盟積分賽主辦人待審核通知") 
   end
 
-  def send_publish_notice_to_gameholders(emails, uploadgame, gameholders)
+  def send_publish_notice_to_gameholders(emails, uploadgame)
     @gamename=uploadgame.gamename
     @uploadgame=uploadgame 
     #emails =gameholders.map {|gameholder| gameholder.email}
     #mail(:to => emails, :subject =>subject)
-    emails =gameholders.map {|gameholder| gameholder.email}
+    #emails =gameholders.map {|gameholder| gameholder.email}
     puts emails
     mail(:to => emails, :subject =>subject) 
   end  
-  def send_updatescore_notice_to_gameholders(emails,newgame,gameholders)
+  def send_updatescore_notice_to_gameholders(emails,newgame)
     @gamename=newgame.gamename
     @newgame=newgame
     #emails =gameholders.map {|gameholder| gameholder.email}
     #mail(:to => emails, :subject =>subject)
-    emails =gameholders.map {|gameholder| gameholder.email}
+    #emails =gameholders.map {|gameholder| gameholder.email}
     puts emails
     mail(:to => emails, :subject =>subject)    
   end
@@ -57,7 +62,6 @@
 
   def send_playerschanged_single_gameholder(gamegroup,cancelled_player_id,cancelled_palyer_name,newofficial,changetype, gameholders)
     
-    emails =gameholders.map {|gameholder| gameholder.email}
 
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame

@@ -164,11 +164,17 @@ def sendemail
         end 
       end 
      end 
-   end
+    end
+  if APP_CONFIG['Mailer_delay']
+    UserMailer.delay.game_holders_gamenotice_backup(@holdgame, subject,message)
+  else
+    UserMailer.delay.game_holders_gamenotice_backup(@holdgame, subject,message).deliver 
+  end  
+
   flash[:success]="郵寄寄發作業已完成!"
   
   redirect_to  preparesendmail_holdgame_gamegroups_path(@holdgame, :subject=>subject , :message=>message)
-end  
+end 
 
 def registration
 

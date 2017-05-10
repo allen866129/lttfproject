@@ -210,9 +210,9 @@ class UploadgamesController < ApplicationController
   end
 
   def send_publish_notice_to_gameholders(uploadgame)
-    gameholderlist=Array.new
-    gameholderlist.push(uploadgame.holdgame.gameholder) if uploadgame.holdgame
-    emails =gameholderlist.uniq.map {|a| a.email}
+
+    emails=uploadgame.holdgame.find_allgameholders.uniq.map {|a| a.email}
+    
 
     if APP_CONFIG['Mailer_delay']
         #UserMailer.gamerecords_publish_notice(@user, @player, @playergames, uploadgame).deliver
@@ -241,9 +241,9 @@ class UploadgamesController < ApplicationController
 end
 
 def send_updatescore_notice_to_gameholders(newgame,uploadgame)
-    gameholderlist=Array.new
-    gameholderlist.push(uploadgame.holdgame.gameholder) if uploadgame.holdgame
-    emails =gameholderlist.uniq.map {|a| a.email}
+
+    emails=uploadgame.holdgame.find_allgameholders.uniq.map {|a| a.email}
+
     if APP_CONFIG['Mailer_delay']
         #UserMailer.gamerecords_publish_notice(@user, @player, @playergames, uploadgame).deliver
         UserMailer.delay.send_updatescore_notice_to_gameholders(emails, newgame) if !emails.empty?
