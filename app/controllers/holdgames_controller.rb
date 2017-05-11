@@ -136,7 +136,7 @@ def publish_all
     message=message+lttfgamesindex_gamesmaps_url+"\n"
     holdgames.each do |holdgame|
       message=message+"============================================\n"  
-      message=message+holdgame.startdate.to_s+holdgame.gamename+"\n"
+      message=message+"("+holdgames.city+holdgames.county+")"+holdgame.startdate.to_s+holdgame.gamename+"\n"
       message=message+holdgame_gamegroups_url(holdgame)+"\n"
     end  
     UserMailer.holdgame_publish_all_to_FB(message).deliver 
