@@ -474,13 +474,11 @@ class Uploadgame < ActiveRecord::Base
     gamesrecords
   end  
   def max(*values)
-    values.max
- 
+    values.max 
   end
 
   def min(*values)
     values.min
-
   end
   def find_system_adjust_score(adjustplayer)
     system_suggest_players =Array.new
@@ -497,7 +495,9 @@ class Uploadgame < ActiveRecord::Base
     @playersummery.each do |player|
       suggestplayer=Hash.new
       suggestplayer=player
-
+      puts player
+      logger.info(player)
+ 
       if player["scorechanged"]>49|| player["bgamescore"]==0
         @playerwongames=@gamesrecords.find_all{|v| v["Aplayer"]==player["name"]}
         @playerlosegames=@gamesrecords.find_all{|v| v["Bplayer"]==player["name"]}
@@ -542,24 +542,25 @@ class Uploadgame < ActiveRecord::Base
    
           lostlistplayersinfo=@playersummery.find_all{|v| @lostlist.include?(v["name"])}
            
-          openscorelist=lostlistplayersinfo.map{|v| v["bgamescore"].to_i}   
+          tempopenscorelist=lostlistplayersinfo.map{|v| v["bgamescore"].to_i}   
              
-          openscorelist=openscorelist.find_all{|v| v>0}
-         
+          openscorelist=tempopenscorelist.find_all{|v| v>0}
+
           #average_opp_score=openscorelist.inject{ |sum, el| sum + el } /openscorelist.size
           #system_suggest_score=max(average_opp_score,75)
 
-          system_suggest_score = openscorelist ? max(openscorelist.min,75) : 0  if !openscorelist.empty?
+          system_suggest_score = !(openscorelist==[]) ? max(openscorelist.min,75) : 0  
           
         elsif ( @playerwongames.count>0 && @playerlosegames.count==0)
 
           @winlist=@playerwongames.map{|v| v["Bplayer"]}
           winlistplayersinfo=@playersummery.find_all{|v| @winlist.include?(v["name"])}
-          openscorelist=winlistplayersinfo.map{|v| v["bgamescore"].to_i}
-          openscorelist=openscorelist.find_all{|v| v>0}
+          tempopenscorelist=winlistplayersinfo.map{|v| v["bgamescore"].to_i}
+          openscorelist=tempopenscorelist.find_all{|v| v>0}
+
           #average_opp_score=openscorelist.inject{ |sum, el| sum + el } /openscorelist.size
           #system_suggest_score=max(average_opp_score,player["bgamescore"])
-          system_suggest_score = openscorelist ? max(openscorelist.max,player["bgamescore"]) : 0 
+          system_suggest_score = !(openscorelist==[]) ?  max(openscorelist.max,player["bgamescore"]) : 0 
             
         end 
         suggestplayer["sys suggest score"]=system_suggest_score
