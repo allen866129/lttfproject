@@ -44,7 +44,7 @@
     #mail(:to => emails, :subject =>subject)
     #emails =gameholders.map {|gameholder| gameholder.email}
     puts emails
-    mail(:to => emails, :subject =>subject) 
+    mail(:to => emails, :subject =>"桌球愛好者聯盟#{@gamename}比賽成績上傳通知") 
   end  
   def send_updatescore_notice_to_gameholders(emails,newgame)
     @gamename=newgame.gamename
@@ -53,7 +53,7 @@
     #mail(:to => emails, :subject =>subject)
     #emails =gameholders.map {|gameholder| gameholder.email}
     puts emails
-    mail(:to => emails, :subject =>subject)    
+    mail(:to => emails, :subject =>"桌球愛好者聯盟#{@gamename}公告查核通知")   
   end
   def  send_gameholder_approve_notice(gameholder)
      @gameholder=gameholder
