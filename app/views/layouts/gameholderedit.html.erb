@@ -342,8 +342,18 @@ function updateAddress(county,address){
       city='連江縣';
     } else
     {
-      county="非台灣";
+      //alert(address);
+      //alert(address.split('澳門'));
       city="非台灣";
+
+      var pos=address.search("澳門");
+      if(pos>=0)
+      {  
+        county="澳門";
+      } else
+      {
+        county="其他地區"
+      }
        //alert('錯誤的位置，請重新設定位置!');
        //return;
 
