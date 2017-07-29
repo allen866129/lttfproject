@@ -102,7 +102,7 @@ class HoldgamesController < InheritedResources::Base
       end
     end  
      
-     UserMailer.holdgame_cancel_notice_to_FB(holdgame).deliver f APP_CONFIG['HOST_TYPE']=='server'
+     UserMailer.holdgame_cancel_notice_to_FB(holdgame).deliver if APP_CONFIG['HOST_TYPE']=='server'
   end
   def cancel
     @holdgame = Holdgame.find(params[:format])
