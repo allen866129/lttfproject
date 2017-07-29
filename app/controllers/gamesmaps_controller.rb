@@ -48,7 +48,6 @@ class GamesmapsController < ApplicationController
     #@holdgames=Holdgame.forgamesmaps.where("startdate+gamedays >= ? ", Time.zone.now.to_date).where(:lttfgameflag => true)
     @holdgames=Holdgame.forgamesmaps.where("enddate >= (?)", Time.zone.now.to_date).where(:lttfgameflag => true)
     @holdgames= @holdgames.select {|v| v.gamegroups.count !=0}
-    
     @holdgames_hash=Array.new
     @hash  = Gmaps4rails.build_markers @holdgames do |holdgame, marker|
       marker.lat(holdgame.lat)

@@ -259,6 +259,7 @@ function reverseGeocode(latlng,addressupdate){
       if (status == google.maps.GeocoderStatus.OK) {
             var level_1;
             var level_2;
+
             for (var x = 0, length_1 = results.length; x < length_1; x++){
               for (var y = 0, length_2 = results[x].address_components.length; y < length_2; y++){
                   var type = results[x].address_components[y].types[0];
@@ -273,6 +274,7 @@ function reverseGeocode(latlng,addressupdate){
             }
             if(addressupdate)
               {
+              
                 updateAddress(level_2,results[0].formatted_address);
               } 
        } else
@@ -315,6 +317,7 @@ function setcitycountforaddress(city, county)
 }
 function updateAddress(county,address){
  // document.getElementById("ttcourt_city").value=prov;
+
  if( address.search("台灣")>0)
  {
    var fulladdress=address.split('台灣');
@@ -323,6 +326,8 @@ function updateAddress(county,address){
   }
  else
  {
+
+
   var pos=address.search("金門縣")
   if(pos>0)
   {
@@ -337,9 +342,14 @@ function updateAddress(county,address){
       city='連江縣';
     } else
     {
-       alert('錯誤的位置，請重新設定位置!');
-       return;
-    }
+      county='非台灣';
+      city='非台灣';
+       //alert('錯誤的位置，請重新設定位置!');
+       //return;
+
+    } 
+    
+    
   }
   
  }
