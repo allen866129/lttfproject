@@ -101,7 +101,8 @@
               
                 <%for player in row_group.attendants%>
                          
-                <td style="text-align:center"><font color='blue'><strong> <%=  player.player_id  %></strong></font></td>
+                <td style="text-align:center"><font color='blue'><strong> <%=  player.player_id  %></strong></font>
+                 <%= image_tag(player.stars_picture, :class => " dp img-responsive" ) %></td>
                 <td style="text-align:center;white-space: nowrap;">
                   <%= link_to(playerprofile_path(player.player_id)) do %>
                     <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%=  player.name %></font>
