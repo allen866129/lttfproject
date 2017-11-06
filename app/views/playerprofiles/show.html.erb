@@ -20,14 +20,16 @@
       <strong>會員基本資料</strong>
 
     </caption>  
-    <td rowspan=4 ><%= image_tag(@playerprofile.user.playerphoto_url(:thumb)) %></td>
+    <td rowspan=4 > <%= image_tag(@playerprofile.user.playerphoto_url(:thumb)) %></td>
 
     <td><font color="black">編號:</font></td>
     <td><font color="black">姓名:</td>
+    
     <td><i class="fa fa-facebook-square"><font color="black"></i>FB帳號:</font></td>
     <td><font color="black">性別:</font></td>
     <tr>
-    <td><strong><%= @playerprofile.user_id %></strong></td>
+    <td <td style="horizontal-align : center;"><strong><%= @playerprofile.user_id %></strong>  
+      <%= image_tag(@playerprofile.user.rating_stars_picture, :class => " dp img-responsive" ) %> </td>
     <td><strong><%= @playerprofile.user.username %></strong></td>
     <td><strong><%= @playerprofile.user.fbaccount %></strong></td>
     <td><strong><%= @playerprofile.bio %></strong></td>  
@@ -140,7 +142,8 @@
 
    <div class="table-responsive datagrid">
       <table class="datatable table-striped" border=1>
-        <caption class="text-center" ><strong>會員參賽紀錄表</strong></caption>  
+        <caption class="text-center" ><strong>會員參賽紀錄表(已參賽：<font color=red>
+          <%= @playerprofile.player_gamelist_without_preadjust.count %></font>場)</strong></caption>  
         <thead>
           <tr>
           <th>比賽名稱</th>

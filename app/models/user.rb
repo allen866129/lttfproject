@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   attr_accessible :id, :username, :email, :fbaccount, :password, :password_confirmation, :remember_me,:playerphoto ,:playerprofile_attributes
    attr_accessible :phone
   attr_accessible :role_ids
+
   accepts_nested_attributes_for :playerprofile   
   mount_uploader :playerphoto, PlayerPhotoUploader 
   has_one :shopcart
@@ -152,6 +153,34 @@ def totalcarts
     end 
     @total_num
 end
+
+
+def  rating_stars_picture
+
+      case  self.playerprofile.get_star_numbers
+        when 0
+
+          file_path="zero_star.png"  
+          
+        when 1  
+          file_path="one_star.png"  
+          
+        when 2
+           file_path="two_stars.png"  
+          
+        when 3
+          file_path="three_stars.png"  
+          
+        when 4
+           file_path="four_stars.png"  
+          
+        when 5 
+           file_path="five_stars.png"  
+             
+          
+         end
+       return file_path 
+  end 
  private
     def username_without_
      
@@ -168,11 +197,17 @@ end
     end  
     def my_email_validation
         if email  =~ /hinet.net/
-             errors[:email] << "can not be foo"
+             errors[:email] << "請勿使用 hinet.net 郵箱"
          elsif email=~ /msa.net/
-            errors[:email] << "can not be bar"
+            errors[:email] << "請勿使用 mas.net 郵箱"
         elsif email=~ /xuit.net/
-            errors[:email] << "can not be xxx"
+            errors[:email] << "請勿使用 xuit.net 郵箱"
+        elsif email =~/gmail.com.tw/
+           errors[:email] << "gmail.com.tw郵箱有誤"
+        elsif email =~/yahoo/
+           errors[:email] << "請勿使用 yahoo郵箱,建議改用gmail"  
         end
     end 
+
+
 end

@@ -33,9 +33,42 @@ def get_score_data_table
   #@trendchart
   data_table
 end  
-def get_played_games_table (page_parm)
+
+def player_gamelist_without_preadjust
+  @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
+  @adjkeyword="前置調整"
+  @Gamelist=Game.where("gamename not like ?","%#{ @adjkeyword}%").where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist  
+  
+end
+
+def player_gamelist
+  #include 前置調整
   @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
   @Gamelist=Game.where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist
+end
+
+def get_star_numbers
+       @Gamelist=self.player_gamelist
+      if @Gamelist.count <5
+        return 0
+      elsif @Gamelist.count <10 
+        return 1
+      elsif @Gamelist.count <20 
+        return 2
+      elsif   @Gamelist.count <50
+        return 3  
+      elsif   @Gamelist.count <100
+        return 4
+      else
+        return 5            
+      end
+end 
+def get_played_games_table (page_parm)
+  #@gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
+  #@Gamelist=Game.where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist=self.player_gamelist
   @GameTable=Array.new()
 
       #@GameTable=mda(6,@Gamelist.length)
