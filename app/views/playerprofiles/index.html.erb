@@ -6,7 +6,6 @@
     <thead>
       <tr>
       <th>照片</th>
-      <th>星級</th> 
       <th><%= sortable "user_id", "會員編號" %></th>
       <th><%= sortable "name", "會員姓名" %></th>
       <th><%= sortable "curscore", "目前積分" %></th>
@@ -21,8 +20,7 @@
       <% @playerprofiles.each do |playerprofile| %>
         <tr>
         <td><%= image_tag(playerprofile.user.playerphoto_url(:tiny),:class => "dp img-circle img-responsive") %></td>
-        <td style="horizontal-align : center;"><%= image_tag(playerprofile.user.rating_stars_picture, :class => " dp img-responsive" ) %></td>
-        <td><%= playerprofile.user_id %></td>
+        <td style="horizontal-align : center;"><%= playerprofile.user_id %><%= image_tag(playerprofile.user.rating_stars_picture, :class => " dp img-responsive" ) %></td>
         <td style="white-space: nowrap;">
           <%= link_to(playerprofile) do %>
             <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= playerprofile.name %></font>
