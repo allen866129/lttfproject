@@ -10,4 +10,12 @@ def stars_picture
 	#@user.rating_stars_picture
 	return user.rating_stars_picture
 end	
+def attand_phone_from_user
+	user=User.find(self.player_id)
+	return user.phone
+end
+def attand_email_from_user
+	user=User.find(self.player_id)
+	return user.email
+end
 end

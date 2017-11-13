@@ -134,8 +134,8 @@
                     <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%=  player.name %></font> 
                   
                   <% end %>
-                  <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser)|| @holdgame.find_gamecoholder(current_user.id) ) &&(player.phone)  %>
-                    <br><%= player.phone %>
+                  <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser)|| @holdgame.find_gamecoholder(current_user.id) ) && (player.attand_phone_from_user)  %>
+                    <br><%= player.attand_phone_from_user%>
                   <%end%>
                 </td>
                 <td  style="text-align:center"><font color='blue'><strong> <%=  @player_current_score[player.player_id] %></strong></font>

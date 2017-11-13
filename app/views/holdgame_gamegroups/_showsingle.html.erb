@@ -101,13 +101,13 @@
                 
                  <td style="text-align:center"><font  color='blue'><strong><%= serial+1 %><strong/></font></td>
                
-                <td style="text-align:center;horizontal-align:center;"><font color='blue'><strong><%= player.player_id %><strong/></font><%= image_tag(player.stars_picture, :class => " dp img-responsive" ) if player %></td>
+                <td style="text-align:center;horizontal-align:center;"><font color='blue'><strong><%= player.player_id %><strong/></font><%= image_tag(player.stars_picture, :class => " dp img-responsive" ) %></td>
                 <td style="text-align:center; white-space: nowrap;">
                   <%= link_to(playerprofile_path(player.player_id)) do %>
                     <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%=  player.name %></font>
                   <% end %>                   
-                    <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) ) &&(player.phone)  %>
-                       <br><%= player.phone %>
+                    <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) ) &&(player.attand_phone_from_user)  %>
+                       <br><%= player.attand_phone_from_user %>
                   <%end%>
                 </td>
                 <td style="text-align:center">

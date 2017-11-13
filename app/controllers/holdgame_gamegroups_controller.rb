@@ -362,8 +362,7 @@ if APP_CONFIG['Mailer_delay']
   UserMailer.delay.send_playerschanged_double_gameholder(curgroup, newofficialattend,cancelledplayerlist,type,gameholders)
 else
   UserMailer.send_playerschanged_double_gameholder(curgroup, newofficialattend,cancelledplayerlist,type,gameholders).deliver
-end  
-       
+end     
   if newofficialattend
      if APP_CONFIG['Mailer_delay']
        UserMailer.delay.send_backup_to_official_double(curgroup, newofficialattend)

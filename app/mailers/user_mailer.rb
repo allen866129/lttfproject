@@ -8,7 +8,7 @@
     @player=player
     @holdgame=holdgame
     @message=message
-    mail(:to => "#{player.name} <#{player.email}>", :subject =>subject)
+    mail(:to => "#{player.name} <#{player.attand_email_from_user}>", :subject =>subject)
   end
   def game_holders_gamenotice_backup(holdgame, subject,message)
     @holdgame=holdgame
@@ -21,7 +21,7 @@
     @player=player
     @gamename=holdgame.startdate.to_s+holdgame.gamename
     @holdgame=holdgame
-    mail(:to => "#{player.name} <#{player.email}>", :subject =>"桌球愛好者聯盟#{@gamename}出賽提醒通知")
+    mail(:to => "#{player.name} <#{player.attand_email_from_user}>", :subject =>"桌球愛好者聯盟#{@gamename}出賽提醒通知")
   end
 
   def send_game_waiting_publish_notice(emails,uploadgame)
@@ -177,13 +177,15 @@
 
     @newofficial=newofficial
     subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"列為正選參賽球員通知"
-    mail(:to => "#{newofficial.name} <#{newofficial.email}>", :subject =>subject)
+    mail(:to => "#{newofficial.name} <#{newofficial.attand_email_from_user}>", :subject =>subject)
   end 
   def send_backup_to_official_double(gamegroup,newofficial)
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @playerlist=newofficial.attendants
-    emails = @playerlist.collect(&:email).join(",")
+
+    #emails = @playerlist.collect(&:email).join(",")
+    emails = newofficial.players_to_users.collect(&:email).join(",")
     subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"列為正選參賽隊伍通知"
     mail(:to => emails, :subject =>subject)
   end  
@@ -191,7 +193,8 @@
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @playerlist=newofficial.attendants
-    emails = @playerlist.collect(&:email).join(",")
+    #emails = @playerlist.collect(&:email).join(",")
+    emails = newofficial.players_to_users.collect(&:email).join(",")
     subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"列為正選參賽隊伍通知"
     mail(:to => emails, :subject =>subject)
   end  
