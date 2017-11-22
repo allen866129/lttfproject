@@ -8,6 +8,7 @@
           <td><font color="black">比賽賽制:</font></td>
           <td><font color="black">報名方式:</font></td>
           <td ><font color="black">開賽時間:</font></td>
+          <td ><font color="black">參賽次數資格:</font></td>
         </tr>
     
         <tr>
@@ -15,6 +16,7 @@
           <td><strong><%=gamegroup.grouptype %></strong></td>
           <td><strong><%=Gamegroup.regtypes[gamegroup.regtype] %></strong></td>
           <td ><strong><font color=red ><%= gamegroup.starttime.strftime("%F %H:%M")  %></p></strong></td>
+          <td><%= image_tag(gamegroup.rating_stars_picture, :class => " dp img-responsive" )%></td>
         </tr>
 
    
@@ -23,6 +25,7 @@
           <td ><font color="black">積分限制:</font></td>
           <td><font color="black">已報名隊數/預計參賽隊數</font></td> 
           <td><font color="black">取消截止時間:</font></td> 
+          <td ><font color="black">需認證單位:</font></td>
         </tr>
         <tr> 
           <td><strong><%=gamegroup.gamefee %></strong></td>    
@@ -38,6 +41,11 @@
             <td><strong>無</strong></td>
 
           <%end%> 
+          <% if gamegroup.authcerts %>
+            <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive" )%></td>
+          <%else%>
+            <td><strong>無</strong></td>
+          <%end%>
         </tr>      
       </tbody>   
     

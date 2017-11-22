@@ -29,20 +29,24 @@
     <td><font color="black">性別:</font></td>
     <tr>
     <td <td style="horizontal-align : center;"><strong><%= @playerprofile.user_id %></strong>  
-      <%= image_tag(@playerprofile.user.rating_stars_picture, :class => " dp img-responsive" ) %> </td>
+      <%= image_tag(@playerprofile.user.rating_stars_picture, :class => " dp img-responsive center-block" ) %> </td>
     <td><strong><%= @playerprofile.user.username %></strong></td>
     <td><strong><%= @playerprofile.user.fbaccount %></strong></td>
     <td><strong><%= @playerprofile.bio %></strong></td>  
     <tr>  
     <td><font color="black">初始積分:</font></td>      
     <td><font color="black">目前積分:</font></td>  
-    <td><font color="black">總勝場數:</font></td> 
-    <td><font color="black">總敗場數:</font></td> 
+    <td><font color="black">總勝/敗場數:</font></td> 
+    <td><font color="black">單位認證:</font></td> 
     <tr>
     <td><strong><%= @playerprofile.initscore %></strong></td>
     <td><strong><font color="red"><%= @playerprofile.curscore %></font></strong></td>   
-    <td><strong><%= @playerprofile.totalwongames %></strong></td> 
-    <td><strong><%= @playerprofile.totallosegames %></strong></td>
+    <td><strong><%= @playerprofile.totalwongames %>/<%= @playerprofile.totallosegames %></strong></td> 
+    <td><strong>
+           <%@playerprofile.user.authcertunits.each do | authcertunit| %>
+             <%= image_tag(authcertunit.unitlogo_url(:tiny), :class => " dp img-responsive center-block" ) %>
+          <% end %>  
+    </strong></td>
     <tr>
     <td><font color="black">持拍方式:</td>      
     <td colspan=2><font color="black">球拍型號:</td>  

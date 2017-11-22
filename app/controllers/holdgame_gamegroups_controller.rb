@@ -109,7 +109,7 @@ def check_user_meetgroupqualify(gamegroups, player_id)
 
   gamegroups.each do |gamegroup|
  
-    user_meet_groups[gamegroup.id]=gamegroup.check_meet_group_qualify(player.playerprofile.curscore)
+    user_meet_groups[gamegroup.id]=gamegroup.check_meet_group_score_qualify(player.playerprofile.curscore)&&gamegroup.check_player_meet_group_cert(player)
   end  
   return user_meet_groups
 end
@@ -503,7 +503,7 @@ def teamplayersinput
         scoresum+=player.playerprofile.curscore
       end 
       
-      if(!@curgroup.check_double_team_meet_group_qualify(scoresum))
+      if(!@curgroup.check_double_team_meet_group_score_qualify(scoresum))
         flash[:alert]='該組積分總和不符合本分組資格，無法接受報名!' 
       else
         successflag=true
@@ -567,7 +567,7 @@ def teamplayersadd
          scoresum+=player.playerprofile.curscore
        end  
    
-       if(!@curgroup.check_double_team_meet_group_qualify(scoresum))
+       if(!@curgroup.check_double_team_meet_group_score_qualify(scoresum))
            flash[:alert]='該組積分總和不符合本分組資格，無法接受更改或新增!' 
          else
           successflag=true
@@ -654,7 +654,7 @@ def get_inputplayer(playerlist,keyword)
          flash[:alert] = @newplayer.username+"此球友已經報名相同時段之其他場賽事,所以無法報名本賽事！需取消其他場賽事報名,才可報名本賽事" 
   elsif playerlist && playerlist.include?(@newplayer.id.to_s)
           flash[:alert]="此球友("+@newplayer.id.to_s+","+@newplayer.username+")已經輸入，請勿重覆輸入!"
-  elsif !@curgroup.check_single_meet_group_qualify(@newplayer.playerprofile.curscore) 
+  elsif !(@curgroup.check_single_meet_group_score_qualify(@newplayer.playerprofile.curscore)&&@curgroup.check_player_meet_group_cert(@newplayer)) 
           flash[:alert] = "此球友("+@newplayer.id.to_s+","+@newplayer.username+","+@newplayer.playerprofile.curscore.to_s+ ")不符合此分組參賽資格，無法報名此分組比賽!"  
   else
     return @newplayer    
@@ -684,7 +684,10 @@ def doubleplayersinput
         @newplayer1=get_inputplayer(params[:playerid],params[:keyword1])
         @newplayer2=get_inputplayer(params[:playerid],params[:keyword2])
         if @newplayer1 && @newplayer2
-            if( !@curgroup.check_double_team_meet_group_qualify(@newplayer1.playerprofile.curscore+@newplayer2.playerprofile.curscore))
+            if !(@curgroup.check_player_meet_group_cert(@newplayer1) && @curgroup.check_player_meet_group_cert(@newplayer2))
+              flash[:notice]='該組有球員不符合本分組資格，無法接受報名!'
+
+            elsif( !@curgroup.check_double_team_meet_group_score_qualify(@newplayer1.playerprofile.curscore+@newplayer2.playerprofile.curscore))
               flash[:notice]='該組積分總和不符合本分組資格，無法接受報名!' 
             else
               @playerlist.push( @newplayer1)
@@ -729,7 +732,6 @@ def create
 end
 
 def edit
-
   @gamegroup = @holdgame.gamegroups.find( params[:id] )
   @gamegroup.starttime= @gamegroup.starttime.in_time_zone.strftime("%F %H:%M")
   @gamegroup.cancellation_deadline= @gamegroup.cancellation_deadline.in_time_zone.strftime("%F %H:%M") if @gamegroup.cancellation_deadline
@@ -737,7 +739,6 @@ def edit
 end
 
 def update
-
   @gamegroup = @holdgame.gamegroups.find( params[:format] )
 
   if @gamegroup.update_attributes( params[:gamegroup] )

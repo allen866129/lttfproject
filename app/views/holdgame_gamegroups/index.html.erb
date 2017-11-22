@@ -85,6 +85,7 @@
       <%end%>  
     </tr>
   </table>
+
  </div>
 
 
@@ -94,9 +95,10 @@
     <ul class="nav nav-tabs nav-justified" id="tabs" role="tablist" > 
       <% @gamegroups.each_with_index do |gamegroup, tabindex| %>
         <% if gamegroup.id== @targetgroup_id %>
-            <li class="active"><a href= "<%= '#tab'+ (tabindex+1).to_s %>"  role="tab" data-toggle="tab"><%=gamegroup.groupname %></a></li>
+            <li class="active"><a href= "<%= '#tab'+ (tabindex+1).to_s %>"  role="tab" data-toggle="tab"><%=gamegroup.groupname %><br>
+              <font color=red><%=gamegroup.authcondition %></font></a></li>
          <% else %>
-            <li><a href= "<%= '#tab'+ (tabindex+1).to_s %>"  role="tab" data-toggle="tab"><%=gamegroup.groupname %></a></li>
+            <li><a href= "<%= '#tab'+ (tabindex+1).to_s %>"  role="tab" data-toggle="tab"><%=gamegroup.groupname %><br><font color=red><%=gamegroup.authcondition %></font></a></li>
          
         <% end %>  
         
@@ -109,16 +111,16 @@
           <% else %>
             <div class="tab-pane" id="<%= 'tab'+ (tabindex+1).to_s %>" >
           <% end  %>  
-
+          
           <% if !current_user %>
             <% @user_registered=false %>
             <% @user_in_group=false %>
             <% @user_meet_group=false %>
           <% else %>
             <% @user_in_group=gamegroup.findplayer(current_user.id) %>
-            <% @user_meet_group=gamegroup.check_single_meet_group_qualify(current_user.playerprofile.curscore) %>
+            <% @user_meet_group=gamegroup.check_single_meet_group_score_qualify(current_user.playerprofile.curscore) && gamegroup.check_player_meet_group_cert(current_user)  %>
           <% end %>  
-
+           
           <%case gamegroup.regtype %>
           <% when 'single' %>
             <%= render :partial => "showsingle", :locals => { :gamegroup => gamegroup , :attendeearray =>  gamegroup.allgroupattendee, :user_registered=>@user_registered, :user_in_group => @user_in_group, :user_meet_group => @user_meet_group, :in_blacklist_flag=>@in_blacklist_data} %>

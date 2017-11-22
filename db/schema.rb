@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20170419131256) do
+ActiveRecord::Schema.define(:version => 20171121050841) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(:version => 20170419131256) do
     t.integer  "player_id"
   end
 
+  create_table "authcertunits", :force => true do |t|
+    t.string   "unitname"
+    t.string   "address"
+    t.string   "tel"
+    t.integer  "majorcontact_id"
+    t.string   "unitlogo"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
   create_table "authorizations", :force => true do |t|
     t.string   "provider"
     t.string   "uid"
@@ -70,6 +80,13 @@ ActiveRecord::Schema.define(:version => 20170419131256) do
     t.text     "note"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+  end
+
+  create_table "certifications", :force => true do |t|
+    t.integer  "authcertunit_id"
+    t.integer  "user_id"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
   create_table "courtphotos", :force => true do |t|
@@ -113,14 +130,18 @@ ActiveRecord::Schema.define(:version => 20170419131256) do
     t.integer  "scorehigh"
     t.datetime "starttime"
     t.integer  "gamefee"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
     t.string   "regtype"
     t.text     "double_score_sum_limitation"
     t.integer  "double_scorehigh"
     t.integer  "double_scorelow"
     t.boolean  "cancellation_deadline_flag",  :default => false
     t.datetime "cancellation_deadline"
+    t.string   "minimal_LTTF_games_limited",  :default => "無限制(0顆星)"
+    t.string   "authcerts"
+    t.boolean  "need_authcert_flag",          :default => false
+    t.string   "authcondition",               :default => "參賽次數&認證單位核可符合任一項即可"
   end
 
   create_table "gameholders", :force => true do |t|

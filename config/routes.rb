@@ -3,6 +3,14 @@ Lttfproject::Application.routes.draw do
   
 
 
+  resources :authcertunits do
+      collection do
+        post :remove_certification
+        get :certifyplayerinput
+      end
+  end      
+
+
   resources :shopcarts do
     collection do
       get :shopcartstoxls

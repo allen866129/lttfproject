@@ -31,8 +31,10 @@ class User < ActiveRecord::Base
   has_one :playerprofile, dependent: :destroy
   has_one :gameholder, dependent: :destroy
   has_many :authorizations, dependent: :destroy
+  has_many :certifications
+  has_many :authcertunits , through: :certifications 
   attr_accessible :id, :username, :email, :fbaccount, :password, :password_confirmation, :remember_me,:playerphoto ,:playerprofile_attributes
-   attr_accessible :phone
+  attr_accessible :phone
   attr_accessible :role_ids
 
   accepts_nested_attributes_for :playerprofile   
