@@ -50,7 +50,8 @@ def player_gamelist
 end
 
 def get_star_numbers
-       @Gamelist=self.player_gamelist
+
+       @Gamelist=self.player_gamelist_without_preadjust
       if @Gamelist.count <5
         return 0
       elsif @Gamelist.count <10 
