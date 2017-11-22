@@ -13,7 +13,7 @@
         <td><strong><%=gamegroup.grouptype %></strong></td>
         <td><strong><%=Gamegroup.regtypes[gamegroup.regtype] %></strong></td>
         <td ><strong><font color=red ><%= gamegroup.starttime.strftime("%F %H:%M")  %></font></strong></td>
-        <td><%= image_tag(gamegroup.rating_stars_picture, :class => " dp img-responsive" )%></td>
+        <td><%= image_tag(gamegroup.rating_stars_picture, :class => " dp img-responsive center-block" )%></td>
         <tr>  
 
           <td ><font color="black">報名費用:</font></td>
@@ -34,7 +34,7 @@
 
           <%end%> 
           <% if gamegroup.authcerts %>
-            <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive" )%></td>
+            <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive center-block" )%></td>
           <%else%>
             <td><strong>無</strong></td>
           <%end%>
@@ -108,7 +108,7 @@
                 
                  <td style="text-align:center"><font  color='blue'><strong><%= serial+1 %><strong/></font></td>
                
-                <td style="text-align:center;horizontal-align:center;"><font color='blue'><strong><%= player.player_id %><strong/></font><%= image_tag(player.stars_picture, :class => " dp img-responsive" ) %></td>
+                <td style="text-align:center;horizontal-align:center;"><font color='blue'><strong><%= player.player_id %><strong/></font><%= image_tag(player.stars_picture, :class => " dp img-responsive center-block" ) %></td>
                 <td style="text-align:center; white-space: nowrap;">
                   <%= link_to(playerprofile_path(player.player_id)) do %>
                     <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%=  player.name %></font>
