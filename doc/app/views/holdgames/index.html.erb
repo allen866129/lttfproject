@@ -1,0 +1,92 @@
+<% #encoding: UTF-8;” %>
+<% set_meta_tags :title => '比賽登錄及管理系統'%>
+
+<div class="row">
+  <%= link_to_if( current_user && (current_user.has_role? :gameholder), '登錄新比賽', new_holdgame_path, :class=> "button radius") %>
+  <%= link_to_if( current_user && (current_user.has_role? :gameholder) , '查詢本人登錄之比賽', holdgames_path(:user=>current_user.gameholder), :class=> "button radius") %>
+  <%= link_to_if(current_user && ((current_user.has_role? :admin) || (current_user.has_role? :superuser) || (current_user.has_role? :gameholder)), '查詢所有登錄之比賽', holdgames_path(:all=>'all'), :class=> "button radius") %>
+ <%= link_to_if(current_user && ((current_user.has_role? :admin) || (current_user.has_role? :superuser) ), '公告比賽列表', publish_all_holdgames_path, :class=> "button radius") %>
+ <%= link_to "下載獎狀樣本", 'http://www.twlttf.org/files/1234.docx',:class=> "button radius"%>
+
+  <!div class="col-md-12 col-sm-12 col-md-12 col-lg-12">
+
+    <div class="table-responsive datagrid">
+      <table class="datatable  table-striped table-condensed" border=1 link=blue >
+        <% if @allgames %>
+          <caption class="text-center" ><strong>比賽登錄及報名系統(所有賽事)</strong></caption> 
+      
+        <%else%> 
+          <caption class="text-center" ><strong>比賽登錄及報名系統--(<%=current_user.gameholder.name%>登錄之賽事)</strong></caption>
+        <%end%>
+        <thead>
+          <tr>
+            <th>賽事名稱</th>
+            <th>比賽日期</th>
+            <th>比賽地點</th>
+            <th>主辦人員</th>
+            <th>比賽資訊</th>
+            <th>功能操作</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @holdgames.reverse.each do |holdgame| %>
+            <tr>
+                <td><%= holdgame.gamename %></td>
+                <% if holdgame.gamedays==1 %>
+                    <td><%= holdgame.startdate.strftime('%F') %></td>
+                <%else%>
+                  <td><%= holdgame.startdate.strftime('%F') %>~<%= holdgame.enddate.strftime('%F') %></td>
+                <%end%>    
+                <td><%= holdgame.courtname %></td>
+                 <td align=center style="white-space: nowrap;"><%= holdgame.gameholder.name %>
+                  <% holdgame.gamecoholders.each do |coholder| %>
+                    <br>
+                   、<%= coholder.name %>
+                   <% end %>
+                </td>
+                <td width="auto">
+                  <p style="white-space: pre-line ;width:auto; text-align:justify; ">
+                    <%= holdgame.gamenote %>
+                  </p>
+                </td>
+             
+               
+            
+
+            <td><%= link_to '分組報名', holdgame_gamegroups_path(holdgame),:class=> "button radius" %>
+            <% if (current_user && ((current_user.has_role? :admin) || (current_user.has_role? :superuser)  ||
+             (current_user.id==holdgame.gameholder.user_id)|| (holdgame.find_gamecoholder(current_user.id)) )) %>
+              <%= link_to '新增分組', new_holdgame_gamegroup_path(holdgame), :class=> "button radius"  %>
+              <%= link_to "修改資料",  edit_holdgame_path(holdgame),:class=> "button radius" %>
+              <%= link_to "輸入成績", copy_players_list_holdgames_path(holdgame) ,:target=> '_blank' ,data: { confirm: 
+                 '要進行輸入成績作業前請確定已登入google,因為google更改安全設定,進入googlepsread後,會看到一些設定畫面,請按下方 英文 advance或中文 進階按鈕,然後依指示操作,同意各項授權,並輸入繼續後,即可恢復以前的操作方式'}, :class=> "button radius" %>
+              <%= button_to "上傳成績", uploadfile_fromholdgame_uploadgames_path(holdgame), {:onclick => "return confirm('請確認已輸入比賽成績後再上傳?')", :method => :get}   %>
+              <%= link_to "寄通知信", preparesendmail_holdgame_gamegroups_path(holdgame),:class=> "button radius" %>
+              <%= link_to "共同主辦人設定", gamecoholders_path(holdgame) ,:class=> "button radius" %>
+              <%= link_to '取消比賽', cancel_holdgames_path(holdgame),  :method => :post, data: { confirm: '確定要取消本場比賽?'},:class=> "button radius"   %>
+              <%= link_to '刪除比賽', holdgame, method: :delete, data: { confirm: '確定要刪除本場比賽資料?'},:class=> "button radius"   %>
+            <%end%> 
+           
+            </td>
+
+            </tr>
+          <% end %>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="8">
+              <div class="text-center">
+               <%= paginate @holdgames, :theme => 'twitter-bootstrap-3' %>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+
+ 
+
+
+

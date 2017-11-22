@@ -1,0 +1,41 @@
+<h1>Listing gamegroups</h1>
+
+<table>
+  <tr>
+    <th>Holdgame</th>
+    <th>Groupname</th>
+    <th>Grouptype</th>
+    <th>Noofplayers</th>
+    <th>Noofbackupplayers</th>
+    <th>Scorelimitation</th>
+    <th>Scorelow</th>
+    <th>Scorehigh</th>
+    <th>Starttime</th>
+    <th>Gamefee</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @gamegroups.each do |gamegroup| %>
+  <tr>
+    <td><%= gamegroup.holdgame_id %></td>
+    <td><%= gamegroup.groupname %></td>
+    <td><%= gamegroup.grouptype %></td>
+    <td><%= gamegroup.noofplayers %></td>
+    <td><%= gamegroup.noofbackupplayers %></td>
+    <td><%= gamegroup.scorelimitation %></td>
+    <td><%= gamegroup.scorelow %></td>
+    <td><%= gamegroup.scorehigh %></td>
+    <td><%= gamegroup.starttime %></td>
+    <td><%= gamegroup.gamefee %></td>
+    <td><%= link_to 'Show', gamegroup %></td>
+    <td><%= link_to 'Edit', edit_gamegroup_path(gamegroup) %></td>
+    <td><%= link_to 'Destroy', gamegroup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Gamegroup', new_gamegroup_path %>

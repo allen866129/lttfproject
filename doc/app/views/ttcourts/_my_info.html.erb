@@ -1,0 +1,33 @@
+<div class="wrapper">
+  <p align=center><strong><%= ttcourt.placename %></strong><br></p>
+ 
+  所在地址：<%=ttcourt.address %><br>
+  開放時間：<%=ttcourt.opentime %><br>
+  場地設施：<%=ttcourt.facilities %><br>
+  收費標準：<%=ttcourt.playfee %><br>
+  其他補充：<%=ttcourt.supplyinfo %><br>
+  聯絡資訊：<%=ttcourt.contactinfo %><br>
+  <% if ttcourt.infoURL!='' %>
+    相關網址：<%= link_to ttcourt.placename, ttcourt.infoURL %><br></a>
+  <%end%>  
+  資料來源：<%= ttcourt.infosource %>
+
+
+
+
+  <% photos=ttcourt.courtphotos.all %>
+  <%if !photos.empty? %>
+    <div id="dScroll">
+     <%for photo in photos %> 
+       <%= image_tag(photo.photo_url(:thumb),:class => " img-responsive") %><br>
+     <%end%>
+   </div>
+  <%end%>
+
+<% if current_user%> 
+  <% if (current_user.has_role? :admin)||(current_user.has_role? :superuser)||(current_user.has_role? :mapmanager) %>
+   <%= link_to image_tag('/images/edit.ico') , edit_ttcourt_path(ttcourt)  %>
+    <%= link_to image_tag('/images/delete.ico') , ttcourt , method: :delete, data: { confirm: '確定刪除此場地資料?' } %>
+  <% end %>
+<% end %>
+</div>

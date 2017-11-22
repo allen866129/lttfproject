@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+	<p><%= @player.name %>球友您好,</p>
+	<p>這是您報名參加的桌球愛好者聯盟<%=@gamename%> 出賽提醒通知郵件。</p>
+	<p>
+  	提醒您,您報名的本項賽事將於 <strong><font color='red'><%= @holdgame.startdate.to_s %></font></strong>舉行,請準時出席.<br>若您不克參賽,請儘速前往報名網頁取消報名,以利賽事安排！<br>
+    <strong><font color='red'>如果無故缺賽,將可能被主辦人列入黑名單,爾後無法再報名該主辦人所舉辦的桌盟賽事,敬請配合！</font></strong>  
+	</p>
+	<p>桌球愛好者聯盟敬上</p>
+  <p>請勿直接回覆本郵件！</p>
+  <p>如果有任何問題請跟本賽事主辦人：<%=@holdgame.gameholder.name%> 連絡. <br>
+     連絡電話：<%=@holdgame.gameholder.phone %> <br>
+     email: <%= mail_to @holdgame.gameholder.email, @holdgame.gameholder.email %><br>
+   </p>   
+ 	<%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', holdgame_gamegroups_url(@holdgame) %>
+  </body>
+</html>

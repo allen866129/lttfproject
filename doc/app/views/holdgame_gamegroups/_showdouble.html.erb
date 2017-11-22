@@ -1,0 +1,153 @@
+<% #encoding: UTF-8;” %>
+<br>
+
+<div class="table-responsive datagrid" >
+  <table class="table-striped table-condensed" border=1 > 
+    <tbody>
+      <tr>
+        <td><font color="black">分組名稱:</font></td>
+        <td><font color="black">比賽賽制:</font></td>
+        <td><font color="black">報名方式:</font></td>
+        <td ><font color="black">開賽時間:</font></td>
+        <td ><font color="black">參賽次數資格:</font></td>
+      </tr>
+    
+      <tr>
+        <td><strong><%=gamegroup.groupname %></strong></td>
+        <td><strong><%=gamegroup.grouptype %></strong></td>
+        <td><strong><%=Gamegroup.regtypes[gamegroup.regtype] %></strong></td>
+        <td ><strong><font color=red ><%= gamegroup.starttime.strftime("%F %H:%M")  %></p></strong></td>
+        <td><%= image_tag(gamegroup.rating_stars_picture, :class => " dp img-responsive" )%></td>
+      </tr>
+
+   
+        <tr> 
+          <td ><font color="black">報名費用:</font></td>
+          <td ><font color="black">積分限制:</font></td>
+          <td><font color="black">已報名隊數/預計參賽隊數</font></td> 
+          <td><font color="black">取消截止時間:</font></td> 
+          <td ><font color="black">需認證單位:</font></td>
+        </tr>
+        <tr> 
+          <td><strong><%=gamegroup.gamefee %></strong></td>    
+          <td><strong>
+             <%=gamegroup.single_limit_string %><br>
+             <%=gamegroup.double_team_limit_string %>
+          </strong></td> 
+          <td><strong><font color="red"><%=gamegroup.totalresgisteredsplayersno %></font>/<%=gamegroup.noofplayers %></strong></td>
+
+          <% if gamegroup.cancellation_deadline_flag && gamegroup.cancellation_deadline %>
+            <td><strong><font color="red"><%=gamegroup.cancellation_deadline.strftime("%F %H:%M")  %><font color="red"></strong></td>
+          <%else%>
+            <td><strong>無</strong></td>
+
+          <%end%> 
+          <% if gamegroup.authcerts %>
+            <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive" )%></td>
+          <%else%>
+            <td><strong>無</strong></td>
+          <%end%>
+        </tr>
+            
+      </tbody> 
+    
+      
+</table>
+
+</div>
+
+
+<!-- Button (Double) -->
+
+<br>
+<div class="table-responsive datagrid">
+<table class="table-striped table-condensed" border=1 >
+<tr>
+  <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) || @holdgame.find_gamecoholder(current_user.id))  %>
+     <td><%= button_to '修改分組資料', edit_holdgame_gamegroup_path(@holdgame, gamegroup), :method=>:get %></td>
+
+     <td><%= button_to '刪除此分組', holdgame_gamegroup_path(@holdgame, gamegroup),
+                              :method => :delete %></td>
+  <% end %>                            
+  <% if current_user && !@in_blacklist_data %>
+  <td><%= button_to '報名參賽', doubleplayersinput_holdgame_gamegroups_path(@holdgame,gamegroup, :name => 'init') , :method=>:get  %></td>
+  <% end %>  
+  
+  <td>  <%= link_to "輸出到excel", groupdumptoxls_holdgame_gamegroups_path(@holdgame,:gamegroup_id=>gamegroup.id,format: "xlsx"), :class=> "button radius" %></td>             
+</tr>
+</table>
+</div>
+
+<br>
+
+  <!div class="table-responsive datagrid"  width="100%">
+    <!table class="datatable " border=1 link=blue>
+  <div class="table-responsive datagrid">
+    <table class="table-striped table-condensed" border=1 >  
+      <caption class="text-center" ><strong>已報名清單</strong></caption> 
+
+        <thead>
+         
+        <tr>
+        <th style="text-align:center" width='5%' >序號</th>         
+        <th style="text-align:center" >編號</th>
+        <th style="text-align:center" width="18%" >姓名</th>
+        <th style="text-align:center" >積分</th>
+        <th style="text-align:center" >編號</th>
+        <th style="text-align:center" width="18%">姓名</th>
+        <th style="text-align:center" >積分</th>
+        <th style="text-align:center" >備註</th>
+        <th style="text-align:center" width="15%"></th>
+        </tr>
+        </thead>  
+        <tbody>
+
+          <tr>
+              <%  gamegroup.groupattendants.each_with_index do |row_group,groupindex| %> 
+              
+               <td style="text-align:center"><font color='blue'><strong> <%= groupindex+1 %></strong></font></td>
+              
+                <%for player in row_group.attendants%>
+                         
+                <td style="text-align:center; horizontal-align:center;"><font color='blue'><strong> <%=  player.player_id  %></strong></font>
+                 <%= image_tag(player.stars_picture, :class => " dp img-responsive" ) %></td>
+                <td style="text-align:center;white-space: nowrap;">
+                  <%= link_to(playerprofile_path(player.player_id)) do %>
+                    <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%=  player.name %></font>
+                  <% end %>
+
+                  <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) || @holdgame.find_gamecoholder(current_user.id) ) && (player.attand_phone_from_user)  %>
+
+                  <br><%= player.attand_phone_from_user%>
+                  <%end%>
+  
+                </td>
+                <td style="text-align:center"> <font color='blue'><strong><%= @player_current_score[player.player_id] %></strong></font></td>
+                <%end%>
+                <%if groupindex+1>gamegroup.noofplayers%>
+                  <td style="text-align:center"><font color='red'><strong>候補</font></strong></td>
+                <%else%>
+                  <td style="text-align:center"><font color='blue'><strong>正選</strong></font></td>
+                <%end%>                          
+                <td style="text-align:center">
+                    <% if current_user && (player.player_id==current_user.id ||  player.registor_id==current_user.id ||@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser)|| @holdgame.find_gamecoholder(current_user.id) )  %>
+                      <%= button_to '取消報名', cancel_double_registration_holdgame_gamegroups_path(@holdgame, gamegroup, :user_in_groupattendant=>gamegroup.find_player_in_attendants(player.player_id)) ,  {:onclick => "return confirm('確定取消報名?')", :method => :post}  %>
+                    <%end%>
+                </td>  
+                </tr> 
+    
+              <% end %>
+        
+            
+       
+      </tbody>    
+      <tfoot>
+
+  
+      </tfoot>  
+    </table>  
+  </div>
+
+  <%= link_to '返回前頁', holdgames_path %>
+  <%= link_to '桌盟比賽地圖', lttfgamesindex_gamesmaps_path %>
+

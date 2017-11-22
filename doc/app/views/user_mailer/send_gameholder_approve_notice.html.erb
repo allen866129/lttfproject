@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+	<p><%= @gameholder.user.username %>球友您好,</p>
+	<p>很高興的通知您,您已通過的桌球愛好者聯盟積分賽主辦人的資格審核,您可以開始使用桌盟的積分賽系統舉辦比賽!</p>
+	<P>您通過審核的主辦場地為<%=@gameholder.courtname%></p>
+	<p>桌球愛好者聯盟敬上</p>
+ 	
+  <p>若要登錄比賽,請前往<%= link_to  '桌盟比賽登錄維護網頁', holdgames_url %></p>
+  <p> 提醒你,可以前往<%= link_to '主辦人相關操作示範及說明', demos_gameholders_url %>查看各項操作示範視頻</p>
+
+  </body>
+</html>

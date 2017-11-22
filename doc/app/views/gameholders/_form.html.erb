@@ -1,0 +1,300 @@
+
+<%= include_gon %>
+
+<div class="row">
+  
+    
+    
+     <div class="col-xs-8 col-md-10 col-lg-10 col-md-offset-2">
+          
+     <div class="mainbox col-xs-8 col-md-10 col-lg-10 ">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <%if controller.action_name=='new' %>
+                <i class="fa fa-users"></i>&nbsp;申請成為比賽主辦人
+            <% else %>
+               <i class="fa fa-users"></i>&nbsp;主辦人資料修改  
+            <%end %>    
+          </div>
+        </div>
+        <div style="padding-top:30px" class="panel-body" >
+       <%= form_for(@gameholder ,:html =>{:class =>"form-horizontal form-inline",:role =>"form" }) do |f| %>
+
+          <% if @gameholder.errors.any? %>
+            <div id="error_explanation">
+               <h2><%= pluralize(@gameholder.errors.count, "error") %> prohibited this gameholder from being saved:</h2>
+                   
+               <ul>
+                 <% @gameholder.errors.full_messages.each do |msg| %>
+                   <li><%= msg %></li>
+                 <% end %>
+               </ul>
+            </div>
+          <% end %>
+
+            <div class="form-group">
+              <div class="col-xs-10 col-md-10 col-lg-10">
+                
+                    <%= f.label "會員編號:", :class => "form-label" %>
+                    <%= f.text_field :user_id, :class =>"form-control", :size => "50", :readonly=>true  %>
+                  
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-xs-10 col-md-10 col-lg-10">
+              
+                    <%= f.label "姓名:", :class => "form-label" %>
+                    <%= f.text_field :name, :class =>"form-control", :size => "50",:readonly=>true  %>
+
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-xs-10 col-md-10 col-lg-10 col-md-offset-5">      
+
+                    <%= f.label "所在縣市:", :class => "form-label" %>
+                    <%= f.select :city, @citiesarray, {:required => true, :class =>"form-control", :size => "50"}, :onchange => "cityChange(this);"  %>
+
+              </div>
+            </div>   
+  
+            <div class="form-group">
+              <div class="col-xs-10 col-md-10 col-lg-10 col-md-offset-5">   
+                    <%= f.label "鄉鎮市區：", :class => "form-label" %>
+                    <%= f.select :county, @countiesarray, {:required => true, :class => "form-control", :size => "50"}, :onchange => "countyChange(this);"  %>
+
+              </div>  
+            </div>
+             <div class="col-xs-10 col-md-10 col-lg-10">
+                <br>
+                 <p align=center>
+                  <a href="#" class="btn btn-lg btn-info" data-toggle="modal" data-target="#myMapModal">從打桌球地圖上的場地挑選</a>
+                  </p>
+              </div>       
+            <div class="form-group">
+              <div class="col-xs-10 col-md-10 col-lg-10">
+                    
+                    <%= f.label "場地名稱:", :class => "form-label" %>
+                    <%= f.text_field :courtname, :class =>"form-control", :size => "50"  %>
+
+              </div>
+            </div>
+
+              <div class="form-group">
+                <div class="col-xs-10 col-md-10 col-lg-10">
+ 
+                      <%= f.label "地址:", :class => "form-label" %>
+                      <%= f.text_field :address, :required => true, :class => "form-control", :size => "50",:onchange=>"codeAddress(this);"  %>
+                      <br></br>
+                      <%= check_box("tag", 0 , {checked: true}) %>使用自動地址解碼
+                </div>
+              </div>
+
+            <div class="col-xs-10 col-md-10 col-lg-10"></br></div>
+           <div id='map' style='width: 100%; height: 300px;'></div>
+           <div class="col-xs-12 col-md-10 col-lg-10"></br></div>
+            
+            <div class="form-group">
+              <div class="col-xs-10 col-md-10 col-lg-10">
+
+                    <%= f.label "經度：", :class => "form-label" %>
+                    <%= f.number_field :lng,  :class => "text_field",:step=>'any' ,:size => "15"%>
+  
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <div class="col-xs-10 col-md-10 col-lg-10">
+           
+                    <%= f.label "緯度：", :class => "form-label" %>
+                    <%= f.number_field :lat,  :class => "text_field",:step=>'any', :size => "15"  %>
+
+              </div>
+            </div>
+
+
+
+              <div class="form-group">
+                <div class="col-xs-10 col-md-10 col-lg-10">
+
+                      <%= f.label "電話:", :class => "form-label" %>
+                      <%= f.text_field :phone, :class =>"form-control", :size => "50"  %>
+
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-xs-10 col-md-10 col-lg-10">
+
+                      <%= f.label "聯絡信箱:", :class => "form-label" %>
+                       <%= f.text_field :email, :class =>"form-control", :size => "50"  %>
+
+                </div>
+              </div>
+
+            <div class="form-group">
+              <div class="col-xs-10 col-md-10 col-lg-10">
+            
+                    <%= f.label "贊助單位:", :class => "form-label" %>
+                    <%= f.text_field :sponsor, :class =>"form-control", :size => "50"  %>
+
+              </div>
+            </div>
+            
+
+   
+            <div class="col-md-offset-4 col-md-5">
+               <br>
+              <%= f.submit "進行新增/變更", :class => "btn btn-block btn-info", :id => "btn-edit" do%>
+                <i class="icon-hand-right"></i>
+              <% end %>
+            </div>
+
+            <div class="col-md-3"></div>
+
+          <% end %>
+        </div>
+      </div>
+     </div>
+      </div>    
+
+</div>
+
+          
+              <div class="modal fade" id="myMapModal">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">請選擇球館</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container">
+                      <div class="row">   
+                     
+                        <%= collection_select( "area","courts", @areacourts,:id,:placename  )%>
+                        <br><strong>請先在上一頁面選擇您球館所在的縣市及地區!</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">放棄離開</button>
+                    <button type="button" class="btn btn-primary" id="btn" data-dismiss="modal" >選定存檔</button>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+
+<script type="text/javascript">
+$(document).on("click", "#btn", function(event){
+  var cCourtname=document.getElementById("area_courts"); 
+  areacourtsChange(cCourtname);
+});
+
+
+function cityChange(selectObj) {
+  // get the index of the selected option
+  var idx = selectObj.selectedIndex;
+  // get the value of the selected option
+  var which = selectObj.options[idx].value;
+
+  //gon.countiesarray= gon.twzipecode[which];
+  // get the country select element via its known id
+  gon.countiesarray=Object.keys(gon.twzipecode[which]);
+
+ 
+ // remove the current options from the country select 
+ var cSelect=document.getElementById("gameholder_county");
+ 
+var len=cSelect.options.length;
+
+  while (cSelect.options.length > 0) {
+    cSelect.remove(0);
+  }
+  var newOption;
+  // create new options
+  for (var i=0; i<gon.countiesarray.length; i++) {
+    newOption = document.createElement("option");
+    newOption.value = gon.countiesarray[i];  // assumes option string and value are the same
+    newOption.text=gon.countiesarray[i];
+    // add the new option
+    try {
+      cSelect.add(newOption);  // this will fail in DOM browsers but is needed for IE
+    }
+    catch (e) {
+      cSelect.appendChild(newOption);
+
+    }
+  }   
+  
+ var cAddress=document.getElementById("gameholder_address");
+ countyChange(cSelect);
+}
+
+ function countyChange(selectObj) {
+  var idx = selectObj.selectedIndex;
+  // get the value of the selected option
+  var which = selectObj.options[idx].value;
+ var cAddress=document.getElementById("gameholder_address");
+ var cSelect=document.getElementById("gameholder_city");
+ cAddress.value=cSelect.value+which;
+ gon.areacourts=_.where(gon.ttcourts, {city: cSelect.value, county: which});
+ changeareacourts(gon.areacourts);
+ codeAddress();
+ 
+
+}
+function areacourtsChange(selectObj) {
+  var idx = selectObj.selectedIndex;
+  // get the value of the selected option
+ var which = parseInt(selectObj.options[idx].value);
+ var cCourtname=document.getElementById("gameholder_courtname"); 
+ var cAddress=document.getElementById("gameholder_address");
+ var cCity=document.getElementById("gameholder_city");
+ var cCounty=document.getElementById("gameholder_county");
+ var cLat=document.getElementById("gameholder_lat");
+ var cLng=document.getElementById("gameholder_lng");
+ var aa=_.findWhere(gon.ttcourts,{id: which});
+ cCourtname.value=aa['placename'];
+ cAddress.value=aa['address'];
+ //cCity.value=aa['city'];
+ //cCounty.value=aa['county'];
+ cLat.value=aa['lat'];
+ cLng.value=aa['lng']; 
+ gon.lat=aa['lat'];
+ gon.lng=aa['lng'];
+ //console.log(cCity);
+ resetlocation(aa);
+
+}
+function changeareacourts(areacourts){
+   var cAreaSelect=document.getElementById("area_courts");
+  var len=cAreaSelect.options.length;
+
+  while (cAreaSelect.options.length > 0) {
+    cAreaSelect.remove(0);
+  }
+  var newOption;
+  // create new options
+  for (var i=0; i<areacourts.length; i++) {
+    newOption = document.createElement("option");
+    newOption.value = areacourts[i]['id'];  // assumes option string and value are the same
+    newOption.text=areacourts[i]['placename'];
+    // add the new option
+    try {
+      cAreaSelect.add(newOption);  // this will fail in DOM browsers but is needed for IE
+    }
+    catch (e) {
+      cAreaSelect.appendChild(newOption);
+
+    }
+  }   
+
+}
+</script>

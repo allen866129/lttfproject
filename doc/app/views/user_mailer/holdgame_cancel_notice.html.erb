@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+	<p><%= @player.name %>球友您好,</p>
+
+	<p>很抱歉的通知您,您報名的桌球愛好者聯盟<%= @tempdategame%>,本賽事因故取消 ,特知通知。如有不便敬請見諒。</p>
+	<p>如有疑問，請跟賽事主辦人連絡!<p>
+	<p><%= link_to @tempdategame+'報名網頁', holdgame_gamegroups_url(@holdgame) %></p>
+	<p>桌球愛好者聯盟敬上</p>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+<ul class="nav navbar-nav navbar-right">
+  
+  <% if current_user %>
+    <li class="dropdown">
+      <%= link_to "/account" , :class => "dropdown-toggle", :data => { :toggle => "dropdown" } do %>
+      會員: <%= current_user.username %>
+      <% end %>
+
+      <% if !current_user.authorizations.pluck(:provider).include?('facebook') %>
+        <%= render_list :class => "dropdown-menu" do |li|
+          li << link_to("個人基本資料",playerprofile_path(current_user))
+
+          li << link_to("修改個人資料",edit_registration_path(current_user))
+         
+          li << link_to("設定facebook帳號連結", user_omniauth_authorize_path('facebook'))
+          
+          li << link_to("登出",destroy_user_session_path, :method => :delete ) 
+        end%>
+      <%else%>
+      
+        <%= render_list :class => "dropdown-menu" do |li|
+          li << link_to("個人基本資料",playerprofile_path(current_user))
+          
+          li << link_to("修改個人資料",edit_registration_path(current_user))
+
+          li << link_to("取消FB帳號連結",fbconnections_removefbconnect_path, :method=>:get, data: {confirm: "確定要取消FB帳號連結?"} )
+
+          li << link_to("登出",destroy_user_session_path, :method => :delete)
+        end%>
+     
+      <%end%> 
+      
+    </li>
+  
+  <% else %>
+    <li>
+      <%= link_to( new_user_registration_path) do %>
+        <i class="fa fa-users"></i>&nbsp;註冊
+      <% end %>
+    </li>
+    <li>
+      <%= link_to( new_user_session_path )  do %>
+        <i class="fa fa-child"></i>&nbsp;登入系統
+      <% end %>
+
+    </li>
+    <li>
+    <p>  <%= link_to(image_tag("/images/facebook.ico"),user_omniauth_authorize_path('facebook'))  %> </p>
+           
+    </li>  
+  <% end %>
+</ul>

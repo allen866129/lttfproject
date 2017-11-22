@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Holdgame:</b>
+  <%= @gamegroup.holdgame_id %>
+</p>
+
+<p>
+  <b>Groupname:</b>
+  <%= @gamegroup.groupname %>
+</p>
+
+<p>
+  <b>Grouptype:</b>
+  <%= @gamegroup.grouptype %>
+</p>
+
+<p>
+  <b>Noofplayers:</b>
+  <%= @gamegroup.noofplayers %>
+</p>
+
+<p>
+  <b>Noofbackupplayers:</b>
+  <%= @gamegroup.noofbackupplayers %>
+</p>
+
+<p>
+  <b>Scorelimitation:</b>
+  <%= @gamegroup.scorelimitation %>
+</p>
+
+<p>
+  <b>Scorelow:</b>
+  <%= @gamegroup.scorelow %>
+</p>
+
+<p>
+  <b>Scorehigh:</b>
+  <%= @gamegroup.scorehigh %>
+</p>
+
+<p>
+  <b>Starttime:</b>
+  <%= @gamegroup.starttime %>
+</p>
+
+<p>
+  <b>Gamefee:</b>
+  <%= @gamegroup.gamefee %>
+</p>
+
+
+<%= link_to 'Edit', edit_gamegroup_path(@gamegroup) %> |
+<%= link_to 'Back', gamegroups_path %>

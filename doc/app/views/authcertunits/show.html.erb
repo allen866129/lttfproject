@@ -1,0 +1,82 @@
+
+<div class="table-responsive datagrid">
+  <table class="datatable  table-striped table-condensed" border=1 link=blue>
+    <caption class="text-center" ><strong><%=@authcertunit.unitname%> 認證會員總表(:<font color="red"><%=@certifications.count%></font>位)</strong></caption>
+    <%if (current_user.id==@authcertunit.majorcontact_id)||(current_user.has_role? :admin)||(current_user.has_role? :superuser) %>
+        <%= button_to '新增認證名單', certifyplayerinput_authcertunits_path(@authcertunit) ,{:method=> :get}%>
+    <%end%>
+    <thead>
+      <tr>
+      <th>照片</th>
+      <th><%=  "會員編號" %></th>
+      <th><%=  "會員姓名" %></th>
+      <th><%=  "目前積分" %></th>
+      <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @certifications %>
+      <% @certifications.each do |certification| %>
+        <tr>
+        <td><%= image_tag(certification.user.playerphoto_url(:tiny),:class => "dp img-circle img-responsive center-block") %></td>
+        <td style="horizontal-align : center;"><%= certification.user.id %><%= image_tag(certification.user.rating_stars_picture, :class => " dp img-responsive center-block" ) %>
+        </td>
+        <td style="white-space: nowrap;">
+          <%= link_to(certification.user.playerprofile) do %>
+            <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= certification.user.username %></font>
+          <% end %>
+        </td>
+        <td><font color=red><%= certification.user.playerprofile.curscore %></font></td>
+        <td> <%= button_to '取消認證', remove_certification_authcertunits_path(@authcertunit, :certification=>certification) ,  {:onclick => "return confirm('確定取消認證?')", :method => :post}  %></td>
+        </tr>
+      <% end %>
+     <%end%> 
+    </tbody>
+    <tfoot>
+      <tr>
+      <td colspan="8">
+      <div class="text-center">
+        <% if @certification %>
+           <%= paginate @certification, :theme => 'twitter-bootstrap-3' %>
+        <%end%>   
+      </div>
+      </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>認證單位:</b>
+  <%= @authcertunit.unitname %>
+</p>
+
+<p>
+  <b>地址:</b>
+  <%= @authcertunit.address %>
+</p>
+
+<p>
+  <b>電話:</b>
+  <%= @authcertunit.tel %>
+</p>
+
+<p>
+  <b>聯絡人:</b>
+  <%= @authcertunit.contact_user.username %>
+</p>
+
+<p>
+  <b>logo:</b></br>
+  <%=image_tag(@authcertunit.unitlogo_url)%>
+
+</p>
+<% if (current_user.has_role? :admin)||(current_user.has_role? :superuser) %>
+
+
+<%= link_to '修改', edit_authcertunit_path(@authcertunit) %> |
+
+<% end %>
+<%= link_to '返回前頁', authcertunits_path %>

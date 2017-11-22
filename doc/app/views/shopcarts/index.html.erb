@@ -1,0 +1,167 @@
+<% #encoding: UTF-8;” %>
+<%= content_for :head do %>
+  <meta charset="utf-8">
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+  <script src='https://www.google.com/jsapi'></script>
+  <style>
+    article,aside,figure,figcaption,footer,header,hgroup,menu,nav,section {display:block;}
+    body {font: 62.5% "Trebuchet MS", sans-serif; margin: 50px;}
+  </style>
+<% end %>
+<br>
+<%if current_user.has_role?(:admin) || current_user.has_role?(:superuser) %>
+ <%= link_to "輸出到excel", shopcartstoxls_shopcarts_path(format: "xls"),:class=> "button radius" %>
+<br><br>
+<%end%>
+
+<% if current_user %>
+  <% if !current_user.shopcart %>
+    <H1><strong><font color="red">您尚未登記訂購桌盟球衣！已經停止訂購<!%= link_to '立即前往訂購', new_shopcart_path %></font></strong>
+    </H1>      
+  <%else%>
+    <div class="table-responsive datagrid">
+      <table class="datatable  table-striped table-condensed" border=1 link=blue>
+        <caption class="text-center" >
+          <strong><%=current_user.username%>的訂購清單(有效訂單共<font color="red"><%= current_user.shopcart ? current_user.shopcart.totalcarts : 0%></font>件球衣,應付總金額為：<font color="red"><%=current_user.shopcart ? current_user.shopcart.totalbilling : 0%>元</font>)
+          </strong>
+        </caption>
+        <thead>
+          <tr>
+            <th>編號</th>
+            <th>姓名</th>
+            <th>5XL</th>
+            <th>4XL</th>
+            <th>3XL</th>
+            <th>2XL</th>
+            <th>XL</th>
+            <th>L</th>
+            <th>M</th>
+            <th>S</th>
+            <th>XS</th>           
+            <th>總件數</th>
+            <th>取貨方式</th>
+            <th>確認付款</th>
+            <th>寄送完成</th>
+            <th>寄送日期</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="success">
+            <td><%= current_user.id %></td>
+            <td nowrap="nowrap"><%= current_user.username %></td>
+            <td><%= current_user.shopcart.X5L %></td>
+            <td><%= current_user.shopcart.X4L %></td>
+            <td><%= current_user.shopcart.X3L %></td>
+            <td><%= current_user.shopcart.X2L %></td>
+            <td><%= current_user.shopcart.XL %></td>
+            <td><%= current_user.shopcart.L %></td>
+            <td><%= current_user.shopcart.M %></td>
+            <td><%= current_user.shopcart.S %></td>
+            <td><%= current_user.shopcart.XS %></td>
+            <td><%= current_user.shopcart.totalcarts%> </td>
+            <td><%= current_user.shopcart.take_or_mail %> </td>
+            <td><%= check_box_tag 'paycheck', '1', current_user.shopcart.pay_check , :disabled => true %></td>
+            <td><%= check_box_tag 'sent_flag', '1', current_user.shopcart.sent_flag  , :disabled => true %></td>            
+            <td><%= current_user.shopcart.sent_date %></td>
+          </tr>
+          <tr>
+           <td colspan='15'>寄送地址：<%= current_user.shopcart.address %></td>
+          </tr>  
+        </tbody>  
+        <tfoot>
+
+
+        </tfoot>
+      </table>
+      <div class="text-center">
+        <%= link_to '檢視訂單明細', current_user.shopcart %>
+        <%= link_to '修改訂單', edit_shopcart_path(current_user.shopcart) %>
+        <%= link_to '取消訂單', current_user.shopcart, method: :delete, data: { confirm: '確定要刪除訂單?' } %>
+      </div>
+    </div>
+  <%end%>  
+<%end%>
+<br>
+<div class="col-md-12 text-center">
+  <h3><font color="red">匯款帳號：中國信託新店分行(822) 314-54-0069705,戶名：李昆展 </font></h3>
+  <h4><font color="blue">匯款完成後,請進入“修改訂單”功能選項,於匯款資料欄位輸入"匯款銀行/日期,匯款帳號末五碼,匯款金額,匯款人,桌盟會員編號/姓名 等資訊"</font></h4>
+</div>  
+<br><br><br><br>
+
+    <div class="col-md-6 text-center">
+      <img src="images/LTTF2016shirts.jpg" class="img-responsive" alt="Responsive image">
+    </div>
+    <div class="col-md-6 text-center">
+      <img src="images/sizetable.jpg" class="img-responsive" alt="Responsive image">
+    </div>
+    <br>
+
+      <div id='chart' class="col-md-12 " style="width:100%; height:300px"></div>
+        <%= render_chart @chart, 'chart' %>
+<br>
+<div class="col-md-12 text-center">    
+<div class="table-responsive datagrid">
+  <table class="datatable  table-striped table-condensed" border=1 link=blue>
+    <caption class="text-center" ><strong>全部訂購清單列表(有效訂單:共<font color="red"><%=Shopcart.all.size%></font>筆,<font color="red"><%=Shopcart.totalcarts%></font>件,<font color="red"><%=Shopcart.totalbilling%></font>元)</strong> </caption>
+
+  <thead>
+    <tr>
+      <th>編號</th>
+      <th>姓名</th>
+      <th>5XL</th>
+      <th>4XL</th>
+      <th>3XL</th>
+      <th>2XL</th>
+      <th>XL</th>
+      <th>L</th>
+      <th>M</th>      
+      <th>S</th>
+      <th>XS</th>
+      <th>總件數</th>
+      <th>取貨方式</th>
+      <th>確認付款</th>
+      <th>寄送完成</th>
+      <th>寄送日期</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shopcarts.each do |shopcart| %>
+      <tr >
+        <td><%= shopcart.user_id %></td>
+        <td nowrap="nowrap"><%= shopcart.user.username %></td>
+        <td><%= shopcart.X5L %></td>
+        <td><%= shopcart.X4L %></td>
+        <td><%= shopcart.X3L %></td>
+        <td><%= shopcart.X2L %></td>
+        <td><%= shopcart.XL %></td>
+        <td><%= shopcart.L %></td>
+        <td><%= shopcart.M %></td>
+        <td><%= shopcart.S %></td>
+        <td><%= shopcart.XS %></td>
+        <td><%= shopcart.totalcarts%> </td>   
+        <td><%= shopcart.take_or_mail %> </td>
+        <td ><%= check_box_tag 'paycheck', '1', shopcart.pay_check , :disabled => true %></td>
+        <td><%= check_box_tag 'sent_flag', '1', shopcart.sent_flag  , :disabled => true %></td>
+        <td><%= shopcart.sent_date %></td>
+      </tr>
+    <% end %>
+  </tbody>  
+      <tfoot>
+      <tr>
+      <td colspan="8">
+      <div class="text-center">
+        <% if @shopcarts %>
+           <%= paginate @shopcarts, :theme => 'twitter-bootstrap-3' %>
+        <%end%>   
+      </div>
+      </td>
+      </tr>
+    </tfoot>
+</table>
+</div>
+</div>
+<br />
+
+

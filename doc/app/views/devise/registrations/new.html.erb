@@ -1,0 +1,194 @@
+<%= content_for :head do %>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <%= javascript_include_tag 'jquery.preimage' %>
+  <%= javascript_include_tag 'image_upload' %>
+ 
+<% end %>
+<% set_meta_tags :site => '桌球愛好者聯盟',:title=>'桌球愛好者聯盟積分賽系統註冊網頁',:description => '桌球愛好者聯盟積分賽系統',
+    :og => { :title =>'桌球愛好者聯盟積分賽系統註冊網頁'  , :image => 'http://twlttf.org/lttfgroupphoto.jpg', :description =>'歡迎球友註冊桌盟積分賽會員', :url=> 'http://www.twlttf.org'} %>
+ <link rel="canonical" href= 'http://www.twlttf.org' />    
+<p align=center><%= link_to '返回前頁', :back %></p>
+<div class="row">
+  <div class="col-xs-12 col-md-12 col-lg-12">
+    <div style="margin-top:30px;" class="mainbox col-xs-8 col-xs-offset-2">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <div class="panel-title">
+            <i class="fa fa-users"></i>&nbsp;桌盟會員註冊
+          </div>
+        </div>
+        <div style="padding-top:20px" class="panel-body" >
+            <p><font color=red > 如果您是忘記密碼,切勿再重複註冊,請參考<%= link_to "忘記密碼或重設密碼操作示範","https://youtu.be/o99IIifgoEs" ,:target => "_blank"%></font>
+            </p>  
+          <% resource.build_playerprofile %>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html =>{:class =>"form-horizontal form-inline",:role =>"form" } ) do |f| %>
+            <div style="display:none" class="alert alert-danger">
+              <p><%= devise_error_messages! %></p>
+              <span></span>
+            </div>
+
+            <p><font color=red > "請務必使用中文真實全名，若非使用真實全名，此帳號將會被刪除!"</font></p>
+            <div class="form-group">
+
+              <div class="col-xs-12 col-md-12 col-lg-12">
+
+                <%= f.label "會員姓名", :class => "form-label" %>:
+                <%= f.text_field :username, :required => true, :autofocus => true, :class => "form-control", :size => "50",:placeholder =>"請務必使用中文真實全名，若非使用真實全名，此帳號將會被刪除!" %>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <p><font color=red > "請勿使用hinet.net 結尾的信箱,也不可使用yahoo及pchome信箱"</font></p>            
+            <div class="form-group">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "Email", :class => "form-label" %>:
+                <%= f.email_field :email, :required => true, :autofocus => true, :class => "form-control", :size => "50", :placeholder => "請勿使用hinet.net 結尾的信箱,也不可使用yahoo信箱"  %>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <div class="form-group">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "FB帳號", :class => "form-label" %>:
+                <%= f.text_field :fbaccount, :class =>"form-control",:size => "50",:placeholder =>"FB帳號(例如:李昆展, Seven Wu),請不要填入FB註冊email或網址或email小老鼠符號前的文字)" %>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <div class="form-group">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "電話", :class => "form-label" %>:
+                <%= f.text_field :phone, :required => true, :class =>"form-control",:size => "50",:placeholder =>"必須填寫,僅提供積分賽主辦人連絡用!" %>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <div class="form-group">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "密碼", :class => "form-label" %>:
+                <%= f.password_field :password, autocomplete: "off", :required => true, :class =>"form-control", :size => "50",
+                 :placeholder =>"請輸入四位數以上之密碼"%>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <div class="form-group">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "確認密碼", :class => "form-label" %>:
+                <%= f.password_field :password_confirmation, autocomplete: "off", :class =>"form-control", :size => "50" %>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <%= f.fields_for :playerprofile do |profile_form| %>
+              <div class="form-group">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <%= profile_form.label "初始積分",  :class => "form-label" %>:
+                  <%= profile_form.number_field :initscore,:required => true, :min=> 0, :class =>"form-control", :size => "50"  %>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+              <div class="form-group">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <%= profile_form.label "性別", :class => "form-label-standard" %>:
+                  <%= profile_form.select :bio, [ '男' , '女'], :class => "form-control" %>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+              <div class="form-group">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <%= profile_form.label "持拍方式", :class => "form-label-standard" %>:
+                  <%= profile_form.select :paddleholdtype, ['右手日直','右手橫拍','右手中直','右手陰陽拍','左手日直','左手橫拍','左手中直','左手陰陽拍'], :class => "form-control"  %>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+              <div class="form-group">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <%= profile_form.label "球拍型號", :class => "form-label" %>:
+                  <%= profile_form.text_field :paddlemodel, :class =>"form-control", :size => "50" %>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+              <div class="form-group">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <%= profile_form.label "正手膠皮",:class => "form-label" %>:
+                  <%= profile_form.text_field :forwardrubber, :class =>"form-control", :size => "50" %>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+              <div class="form-group">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <%= profile_form.label "反手膠皮", :class => "form-label" %>:
+                  <%= profile_form.text_field :backrubber, :class =>"form-control", :size => "50" %>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+              <div class="form-group">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  <%= f.label "會員照片上傳 : (請使用600x400或300x200比例)" %>
+                  <%= f.file_field :playerphoto, :class => "file", :id => "member_photo" ,:onchange => "readURL(this)" %>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+              <div class="form-group">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                  照片預覽 :<br>
+                   <img id="img_preview" src="" alt="照片預覽" style="width:300px;height:200px;overflow: auto;" />
+                </div>
+              </div>
+            <% end %>
+            <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <div class="col-md-offset-4 col-md-5">
+              <%= f.submit "註冊", :class => "btn btn-block btn-info", :id => "btn-signup" do%>
+                <i class="icon-hand-right"></i>
+              <% end %>
+            </div>
+            <div class="col-md-3"></div>
+
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<p align=center><%= link_to '返回前頁', :back %></p>
+<a href="#" id="startmodal" class="btn btn-lg btn-info" data-toggle="modal" data-target="#myModal" style="display: none">#</a>
+
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title"><font color='red'>提醒您，註冊前請先詳細閱讀下列相關注意事項!</font></h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">   
+            <br><strong>1.如果您已註冊過，但是因為密碼忘記無法登入，務必不可重複註冊，請先使用 <%= link_to "忘記密碼?", new_password_path(resource_name) %>功能來重設密碼! </strong>
+            <br><br><strong>
+             2.如果您已使用忘記密碼功能，但一直無法收到重設密碼郵件，那有可能是你原先輸入的郵箱錯誤，請與桌盟李組長(allen866129@gmail.com)連絡解決，
+             <font color='red'>請不要重覆註冊!</font>
+            <br><br><Strong>3."姓名"欄位請務必填寫<font color='red'>中文真實姓名全名</font>，若不按此規定填寫，則帳號將會被取消!</Strong>
+            <br><br><Strong>4."FB帳號"欄位請填入FB的帳號名稱(都是中文或英文姓名)，例如<font color='blue'> 李昆展、Seven Wu</font> 等<font color='red'>，請務必不可填入電子郵件帳號或電子郵件帳號內"@"符號前的代碼</font></Strong>
+            <br><br><Strong>
+             5.請勿使用<font color='red'>hinet.net</font>結尾的信箱及<font color='red'>yahoo或pchome</font>信箱來註冊,因為hinet及yahoo&pchome的信箱會阻擋桌盟系統寄發的相關郵件!
+            </strong>
+            <br><br><Strong>
+            6.如果發現有同姓名的球友已經先行註冊，而導致您無法成功註冊，麻煩您在姓名後面用括號加註的方式來註冊，例如 李組長<font color='red'>(新北)</font>的方式來註冊</strong>
+            <br><br><Strong>
+            7."初始積分"欄位如果不知如何填寫，可先填0分，0分可報名任何一場積分賽，但如果無法確定自己的實力級距，建議先從1600分以下的積分賽先打起!不論初始積分是否填0分,積分計算時會依該球員前幾場參賽的勝負紀錄再重新賦予粗估的初始積分</strong>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" >OK</button>
+                
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+
+
+<script type="text/javascript">
+    $(window).load(function(){
+      
+        document.getElementById("startmodal").click();
+      
+    });
+</script>

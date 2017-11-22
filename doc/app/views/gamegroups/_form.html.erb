@@ -1,0 +1,57 @@
+<%= form_for(@gamegroup) do |f| %>
+  <% if @gamegroup.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@gamegroup.errors.count, "error") %> prohibited this gamegroup from being saved:</h2>
+
+      <ul>
+      <% @gamegroup.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :holdgame_id %><br />
+    <%= f.number_field :holdgame_id %>
+  </div>
+  <div class="field">
+    <%= f.label :groupname %><br />
+    <%= f.text_field :groupname %>
+  </div>
+  <div class="field">
+    <%= f.label :grouptype %><br />
+    <%= f.text_field :grouptype %>
+  </div>
+  <div class="field">
+    <%= f.label :noofplayers %><br />
+    <%= f.number_field :noofplayers %>
+  </div>
+  <div class="field">
+    <%= f.label :noofbackupplayers %><br />
+    <%= f.number_field :noofbackupplayers %>
+  </div>
+  <div class="field">
+    <%= f.label :scorelimitation %><br />
+    <%= f.text_field :scorelimitation %>
+  </div>
+  <div class="field">
+    <%= f.label :scorelow %><br />
+    <%= f.number_field :scorelow %>
+  </div>
+  <div class="field">
+    <%= f.label :scorehigh %><br />
+    <%= f.number_field :scorehigh %>
+  </div>
+  <div class="field">
+    <%= f.label :starttime %><br />
+    <%= f.datetime_select :starttime %>
+  </div>
+  <div class="field">
+    <%= f.label :gamefee %><br />
+    <%= f.number_field :gamefee %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

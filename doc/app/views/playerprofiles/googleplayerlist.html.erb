@@ -1,0 +1,56 @@
+
+ <div class="row">
+  <div class="col-xs-10 col-md-10 col-lg-10">
+    <% if current_user && ((current_user.has_role? :gameholder) || (current_user.has_role? :superuser)|| (current_user.has_role? :admin)) %>
+      <%= form_tag googleplayerlist_playerprofiles_path, :method => :get do %>
+    
+        <p align =center>   
+        <%= text_field_tag :playerlistfileurl, (@previousfileurl or '') , :placeholder=>'貼入團體名單檔案連結網址(限google spreadsheet,並將檔案權限設為任何人都可編輯！)'%>
+          <!input id="playerlistfileurl" name="playerlistfileurl" type="text"  size=80 />
+          <%= submit_tag "團體成績查詢及排名" %> 
+        </p> 
+      <%end%>
+    <%end%>
+ 
+    <div class="table-responsive datagrid">
+      <table class="datatable table-striped" border=1 link=blue>
+        <thead>
+          <tr>
+          <th>序號(排名)</th>
+          <th>會員編號</th>
+          <th>會員姓名</th>
+          <th>目前積分</th>
+          <th>總勝場數</th>
+          <th>總敗場數</th>
+          </tr>
+        </thead>
+        <tbody>  
+          <%  @players.each_with_index do |player,i| %>
+  
+            <tr>  
+            <td> <%= i+1 %></td>
+            <td> <%= player.id %></td>
+            <td> <%= player.username %></td>
+            <td> <%= player.playerprofile.curscore %></td>
+            <td> <%= player.playerprofile.totalwongames %></td>
+            <td> <%= player.playerprofile.totallosegames %></td>
+            </tr>
+          <% end %>
+
+        </tbody>  
+        <tfoot>
+          <td colspan= 9>
+          <div class="text-center">
+          
+          </div>  
+         </td>
+        </tfoot> 
+  
+      </table>  
+    </div>
+  </div>  
+</div>
+  
+
+    
+  

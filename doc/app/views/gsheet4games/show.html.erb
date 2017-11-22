@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Fileulr:</b>
+  <%= @gsheet4game.fileulr %>
+</p>
+
+<p>
+  <b>Holdgame:</b>
+  <%= @gsheet4game.holdgame_id %>
+</p>
+
+<p>
+  <b>In use:</b>
+  <%= @gsheet4game.in_use %>
+</p>
+
+
+<%= link_to 'Edit', edit_gsheet4game_path(@gsheet4game) %> |
+<%= link_to 'Back', gsheet4games_path %>

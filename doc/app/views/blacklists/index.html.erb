@@ -1,0 +1,62 @@
+<%=form_tag blacklists_path ,multipart:true , :method => :get do %>
+  主辦人：<%= select_tag 'gameholder' , options_for_select(@gameholder_lists, @current_gameholder_id) %> 
+  <%= submit_tag   "篩選" ,:name=>"gameholderfilter"  %>
+<%end%>
+<%=form_tag blacklistsearch_blacklists_path ,multipart:true , :method => :post do %>
+    <%= text_field_tag :keyword, params[:keyword] , :placeholder=>'本人欲新增之黑名單資料搜尋(編號或姓名)'%>
+    <%= submit_tag   "名單搜尋" ,:name=>"blacklist_add"  %><br>
+<%end%>
+
+<% table_title = (@current_gameholder_id==0) ? "全部主辦人之黑名單列表" : "（主辦人：" +@current_gameholder_name+"）之黑名單列表" %>
+
+
+<div style="text-align: left">
+  <div class="table-responsive datagrid">
+    <table class="datatable table-striped" border=1>
+      <caption class="text-center" ><strong><%=table_title%> </strong></caption>  
+      <thead>
+        <tr>
+          <th>序號</th>
+          <th>會員編號</th>
+          <th>姓名</th>
+          <th>列為黑名單之主辦人</th>
+          <th>備註（列為黑名單原因）</th>
+          <th></th>
+          <th></th>
+      </tr>
+
+      </thead>
+      <tbody>    
+        <% @blacklists.each_with_index do |blacklist,i| %>
+
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= blacklist.playerprofile_id %></td>
+            <td style="white-space: nowrap;">
+              <%= link_to blacklistsearch_blacklists_path(:keyword=>blacklist.playerprofile_id)  , :method=> :post do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= blacklist.player_name %></font>
+              <% end %>
+            </td>
+     
+            <td><%= blacklist.gameholder.user.username %></td>
+            <td><%= blacklist.note %></td>
+            <td><%= link_to image_tag('/images/edit.ico') , edit_blacklist_path(blacklist) %></td>
+            <td><%= link_to image_tag('/images/delete.ico'), blacklist, method: :delete, data: { confirm: '確定刪除?' } %></td>
+          </tr>
+        <% end %> 
+      </tbody>  
+      <tfoot>
+      <tr>
+      <td colspan="8">
+      <div class="text-center">
+        <% if @blacklists %>
+           <%= paginate @blacklists, :theme => 'twitter-bootstrap-3' %>
+        <%end%>   
+      </div>
+      </td>
+      </tr>
+    </tfoot>
+    </table>
+  </div>
+</div>  
+  

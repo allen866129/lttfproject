@@ -1,0 +1,36 @@
+<% set_meta_tags :title => '歷史積分賽事總表'%>
+  <div class="table-responsive datagrid">
+    <table class="datatable  table-striped table-condensed" border=1 link=blue>
+      <caption class="text-center" ><strong>歷史積分賽事總表(共:<font color="red"><%= @gamescount %></font> 場)</strong></caption>  
+      <thead>
+        <tr>
+        <th align=center>比賽名稱</th>
+        <th align=center>上傳人員</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @games.each do |game| %>
+          <tr>
+            <td><%= link_to(game) do %>
+              <i class="fa fa-hand-o-up"></i>&nbsp;<font color=blue><%= game.gamename %></font>
+              <% end %>     
+            </td>
+            <td ><%= game.uploader %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2">
+            <div class="text-center">
+               <%= paginate @games, :theme => 'twitter-bootstrap-3' %>
+            </div>
+          </td>
+        </tr>    
+      </tfoot>
+    </table>
+  </div>
+ 
+
+
+

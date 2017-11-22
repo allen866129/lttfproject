@@ -1,0 +1,15 @@
+.nav-tabs > li.active > a,
+        .nav-tabs > li.active > a:hover,
+        .nav-tabs > li.active > a:focus {
+          color: #555555;
+          cursor: default;
+          background-color: #ffffff;
+          border: 5px solid #dddddd;
+          border-bottom-color: solid;
+          width:100%;
+          overflow: auto;
+          padding-right:0;
+          } 
+#tabs li a { border-color: blue;background-color:#A5C967; }
+#tabs li.active a {border-bottom-color: transparent;background-color:yellow; }
+.my-tab .tab-pane{ border:solid 1px blue;  border-top: 1; background-color:#F7EFC6; width:100%;overflow: auto; padding-right:0;}

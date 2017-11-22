@@ -1,0 +1,343 @@
+<html>
+<head>
+  <%= display_meta_tags :site => '桌球愛好者聯盟' %>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+
+
+<script src="//maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry" type="text/javascript"></script>
+<!script src="//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js" type="text/javascript"><!/script>
+ 
+<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+<script src='//cdn.rawgit.com/printercu/google-maps-utility-library-v3-read-only/master/infobox/src/infobox_packed.js' type='text/javascript'></script> <!-- only if you need custom infoboxes -->
+
+<%= include_gon %>
+
+      <!%= display_meta_tags(default_gamegroups_meta_tags) %>   
+      <!link rel="canonical" href= 'http://twlttf.org/lttfproject/gamesmaps/lttfgamesindex' />                             
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="shortcut icon" href="/images/lttficon.ico">
+      <%= yield :head %>
+      <%= render :partial => "common/easy_menu" %>
+</head>
+
+  <body>
+ 
+    <div id="wrap">
+
+      <div class="container">
+        <div class="row">
+
+          <div class="col-md-4">
+               <!-- devise notice -->
+            <%= render partial: "common/flash_messages", flash: flash %>
+          </div>
+          <div class="col-md-offset-10 col-md-2 hidden-xs">
+                   
+              <%= render partial: "common/side_bar"%>
+          </div>    
+                  
+          <div class="col-xs-12 col-md-10 col-lg-10">  
+            
+            <%= yield %>
+          
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-9">
+         
+            </br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <%= render :partial => "common/bootstrap_modal" %>
+    <%= render :partial => "common/facebook_js" %>
+    <%= render :partial => "common/google_analytics" %>
+    <%= render :partial => "common/footer" %>
+    <!%= javascript_include_tag "application" %>
+ 
+     
+<script type="text/javascript">
+var Markers= [];
+var geocoder;
+var handler = Gmaps.build('Google');
+
+//var myCenter=new google.maps.LatLng(gon.lat, gon.lng);
+//var marker=new google.maps.Marker({
+//    position:myCenter
+//});
+ var courts_array =<%= raw @ttcourts_hash.to_json %>  
+
+geocoder = new google.maps.Geocoder();
+
+ map= handler.buildMap({ internal: {id: 'map'}}, function(){
+ markers = handler.addMarkers([
+    {
+      lat: gon.lat,
+      lng: gon.lng,
+      picture: {
+        
+        width:  24,
+        height: 24
+      },
+
+      infowindow: gon.courtname,
+      
+      
+    }
+  ], {draggable: false});
+  
+  
+  handler.fitMapToBounds();
+  handler.getMap().setZoom(16);
+  handler.map.centerOn({ lat: gon.lat, lng: gon.lng }); 
+ // handler.map.listen_to_markers(markers);
+  Markers=markers;
+});
+
+
+//$('.btn').click(function(){
+
+//    initialize();
+
+//});
+
+
+
+function setAllMap(map) {
+
+  for (var i = 0; i < Markers.length; i++) {
+    Markers[i].setMap(map);
+  }
+
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+ handler.removeMarkers(Markers);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+  setAllMap(map);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  handler.removeMarkers(Markers);
+  Markers = [];
+}
+function resetlocation(courtinfo)
+{
+        
+        handler.map.centerOn({ lat: courtinfo['lat'], lng: courtinfo['lng'] }); 
+        deleteMarkers();
+       
+        markers = handler.addMarkers([
+          {
+            lat: courtinfo['lat'],
+            lng: courtinfo['lng'],
+            picture: {
+        
+            width:  24,
+            height: 24
+          },
+
+          infowindow: courtinfo['placename'],
+            
+        }
+      ], {draggable: false});
+
+      handler.map.listen_to_markers(markers);
+      Markers=markers;
+
+}
+function codeAddress() {
+    var address = document.getElementById("gameholder_address").value;
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode( { 'address': address}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+
+
+
+        gon.lng=results[0].geometry.location.lng();
+        gon.lat=results[0].geometry.location.lat();
+        handler.map.centerOn({ lat: gon.lat, lng: gon.lng }); 
+        deleteMarkers();
+        markers = handler.addMarkers([
+          {
+            lat: gon.lat,
+            lng: gon.lng,
+            picture: {
+        
+            width:  24,
+            height: 24
+          },
+
+          infowindow: "請移動到場地正確位置",
+            
+        }
+      ], {draggable: true});
+      handler.map.listen_to_markers(markers);
+      Markers=markers;
+      document.getElementById("gameholder_lat").value=gon.lat;
+      document.getElementById("gameholder_lng").value=gon.lng;
+      var latlng = new google.maps.LatLng(gon.lat,gon.lng);
+      reverseGeocode(latlng,false);
+
+      } else {
+        alert("Geocode was not successful for the following reason: " + status);
+      }
+    });
+  };
+
+function testaddress(pos) {
+var geocoder = new google.maps.Geocoder();
+geocoder.geocode({
+latLng: pos
+}, function(responses) {
+if (responses && responses.length > 0) {
+alert('You current co-ordinate is'  + pos);
+} else {
+alert('Cannot determine address at this location.');
+}
+});
+};
+function addresschange() 
+{
+  codeAddress();
+  
+  document.getElementById("gameholder_lat").value=gon.lat;
+  document.getElementById("gameholder_lng").value=gon.lng;
+}
+
+function testdragend(pos)
+{
+  
+  var tt_lat = document.getElementById("gameholder_lat");
+  var tt_lng = document.getElementById("gameholder_lng");
+  tt_lat.value = pos.d;
+  tt_lng.value = pos.e;
+  handler.getMap().setZoom(16);
+  handler.map.centerOn({ lat: pos.d, lng: pos.e }); 
+  reverseGeocode(pos,true);
+}
+
+handler.map.listen_to_markers = function(markers){
+  for(var i = 0; i < markers.length; i++){
+    marker = markers[i];
+    google.maps.event.addListener(marker.serviceObject, 'dragend', 
+      function() {testdragend(this.getPosition() )})
+  }
+};
+
+handler.map.callback = function(){
+  
+  handler.map.listen_to_markers(Gmaps.map.markers);
+}
+
+
+function reverseGeocode(latlng,addressupdate){
+  var geocoder = new google.maps.Geocoder();
+  geocoder.geocode({'latLng': latlng}, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+            var level_1;
+            var level_2;
+            for (var x = 0, length_1 = results.length; x < length_1; x++){
+              for (var y = 0, length_2 = results[x].address_components.length; y < length_2; y++){
+                  var type = results[x].address_components[y].types[0];
+                    if ( type === "administrative_area_level_1") {
+                      level_1 = results[x].address_components[y].long_name;
+                      if (level_2) break;
+                    } else if (type === "locality"){
+                      level_2 = results[x].address_components[y].long_name;
+                      if (level_1) break;
+                    }
+                }
+            }
+           
+            updateAddress(level_2,results[0].formatted_address,addressupdate);
+       } else
+       {
+
+       }
+  });
+}
+function setcitycountforaddress(city, county)
+{
+  var cCity=document.getElementById("gameholder_city");
+  var cCounty=document.getElementById("gameholder_county");
+  cCity.value=city;
+
+  gon.countiesarray=Object.keys(gon.twzipecode[city]);
+  
+  var len=cCounty.options.length;
+
+  while (cCounty.options.length > 0) {
+    cCounty.remove(0);
+  }
+  var newOption;
+  var idx;
+   for (var i=0; i<gon.countiesarray.length; i++) {
+    newOption = document.createElement("option");
+    newOption.value = gon.countiesarray[i];  // assumes option string and value are the same
+    newOption.text=gon.countiesarray[i];
+    if (city==gon.countiesarray[i]) idx=i;
+    // add the new option
+    try {
+      cCounty.add(newOption);  // this will fail in DOM browsers but is needed for IE
+    }
+    catch (e) {
+      cCounty.appendChild(newOption);
+
+    }
+  }    
+  cCounty.selectedIndex=idx;
+  cCounty.value=county;
+}
+function updateAddress(county,address,updateflag){
+ // document.getElementById("ttcourt_city").value=prov;
+ if( address.search("台灣")>0)
+ {
+   var fulladdress=address.split('台灣');
+   var city=fulladdress[1].split(county)[0];
+   var address=fulladdress[1];
+  }
+ else
+ {
+  var pos=address.search("金門縣")
+  if(pos>0)
+  {
+    city="金門縣";
+   var address= address.substr(pos,address.length-pos);
+  } else
+  {
+    var pos=address.search("連江縣")
+    if(pos>0)
+    {
+      var address=address.split('福州市');
+      city='連江縣';
+    } else
+    {
+       alert('錯誤的位置，請重新設定位置!');
+       return;
+    }
+  }
+  
+ }
+ ;
+  
+setcitycountforaddress(city, county);
+  if (updateflag==true)
+     document.getElementById("gameholder_address").value=address;
+  
+   // do what you want with the address here
+}
+</script>
