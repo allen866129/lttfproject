@@ -16,7 +16,7 @@
           <td><strong><%=gamegroup.grouptype %></strong></td>
           <td><strong><%=Gamegroup.regtypes[gamegroup.regtype] %></strong></td>
           <td ><strong><font color=red ><%= gamegroup.starttime.strftime("%F %H:%M")  %></p></strong></td>
-          <td><%= image_tag(gamegroup.rating_stars_picture, :class => " dp img-responsive" )%></td>
+          <td><%= image_tag(gamegroup.rating_stars_picture, :class => " dp img-responsive center-block" )%></td>
         </tr>
 
    
@@ -42,7 +42,7 @@
 
           <%end%> 
           <% if gamegroup.authcerts %>
-            <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive" )%></td>
+            <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive center-block" )%></td>
           <%else%>
             <td><strong>無</strong></td>
           <%end%>
