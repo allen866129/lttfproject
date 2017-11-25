@@ -10,24 +10,31 @@ def get_score_data_table
   data_table = GoogleVisualr::DataTable.new
   data_table.new_column('date', '日期')
   data_table.new_column('number', '積分走勢')
-  if  self.gamehistory
-    @scorechangearray = self.gamehistory.split(/\n/).reject(&:blank?)
-    data_table.add_rows(@scorechangearray.count)
+  #if  self.gamehistory
+  #  @scorechangearray = self.gamehistory.split(/\n/).reject(&:blank?)
+  #  data_table.add_rows(@scorechangearray.count)
 
-    (1..@scorechangearray.count).each do |i|
-      @record =@scorechangearray.shift
-      @gamedate= @record.split("(").first
-      @gamescore= @record.split("(").last.split(")").first
-      data_table.set_cell(i-1, 0, @gamedate.to_date)
-      data_table.set_cell(i-1, 1, @gamescore.to_i)
+  #  (1..@scorechangearray.count).each do |i|
+  #    @record =@scorechangearray.shift
+  #    @gamedate= @record.split("(").first
+  #    @gamescore= @record.split("(").last.split(")").first
+  #    data_table.set_cell(i-1, 0, @gamedate.to_date)
+  #    data_table.set_cell(i-1, 1, @gamescore.to_i)
     
-    end
-  else
-    data_table.add_rows(1)
-    data_table.set_cell(0, 0, self.created_at.to_date)
-    data_table.set_cell(0, 1, self.initscore)
+  #  end
+  #else
+  #  data_table.add_rows(1)
+  #  data_table.set_cell(0, 0, self.created_at.to_date)
+  #  data_table.set_cell(0, 1, self.initscore)
 
-  end 
+  #end 
+
+  data_table.add_rows(self.score_trend_arrays.count)
+  self.score_trend_arrays.each_with_index do |game, i|
+    data_table.set_cell(i, 0, game['date'])
+    data_table.set_cell(i, 1, game['score'])
+  #    data_table.set_cell(i-1, 1, @gamescore.to_i)
+  end  
   #opts   = { :width => 700, :height => 400, :title =>  '積分走勢圖', :legend => 'bottom' }
   #@trendchart = GoogleVisualr::Interactive::LineChart.new(data_table, opts)
   #@trendchart
@@ -41,7 +48,57 @@ def player_gamelist_without_preadjust
   @Gamelist  
   
 end
+def score_trend_arrays
+  scoretrend =Array.new
+ 
+  self.player_gamelist_without_preadjust.each do |game|
+    @scores =Hash.new
+    playergameresult=game.getplayersummary.find{ |p| p["id"] == self.user.id }
+    @scores['date']=game.gamedate
+    @scores['date']=game.updated_at.to_date if !@scores['date']
+    @scores['score']= playergameresult['agamescore']
+    scoretrend.insert(0,@scores)
+   end 
 
+  if scoretrend.empty? 
+    @scores =Hash.new
+    @scores['date']=self.created_at.to_date
+    if self.initscore 
+       @scores['score']=self.initscore
+    else
+       @scores['score']=0
+    end   
+    scoretrend.insert(0,@scores)
+  end
+  scoretrend
+end
+def current_score
+  lastgame=self.player_gamelist_without_preadjust.first
+  if lastgame 
+    playergameresult=lastgame.getplayersummary.find{ |p| p["id"] == self.user.id }
+    return playergameresult["agamescore"]
+  else
+     return self.initscore
+  end  
+end
+def total_won_games_count
+  won_games_count=0
+  games=self.player_gamelist_without_preadjust
+  self.player_gamelist_without_preadjust.each do |game|
+    playergameresult=game.getplayersummary.find{ |p| p["id"] == self.user.id }
+    won_games_count+=playergameresult["wongames"]
+  end  
+  return won_games_count
+end
+def total_lose_games_count
+ lose_games_count=0
+  games=self.player_gamelist_without_preadjust
+  self.player_gamelist_without_preadjust.each do |game|
+    playergameresult=game.getplayersummary.find{ |p| p["id"] == self.user.id }
+    lose_games_count+=playergameresult["losegames"]
+  end  
+  return lose_games_count 
+end
 def player_gamelist
   #include 前置調整
   @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"

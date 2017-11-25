@@ -41,7 +41,7 @@
             <td><strong>無</strong></td>
 
           <%end%> 
-          <% if gamegroup.authcerts %>
+          <% if gamegroup.need_authcert_flag %>
             <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive center-block" )%></td>
           <%else%>
             <td><strong>無</strong></td>

@@ -40,8 +40,8 @@
     <td><font color="black">單位認證:</font></td> 
     <tr>
     <td><strong><%= @playerprofile.initscore %></strong></td>
-    <td><strong><font color="red"><%= @playerprofile.curscore %></font></strong></td>   
-    <td><strong><%= @playerprofile.totalwongames %>/<%= @playerprofile.totallosegames %></strong></td> 
+    <td><strong><font color="red"><%= @playerprofile.current_score%></font></strong></td>   
+    <td><strong><%= @playerprofile.total_won_games_count %>/<%= @playerprofile.total_lose_games_count %></strong></td> 
     <td><strong>
            <%@playerprofile.user.authcertunits.each do | authcertunit| %>
              <%= image_tag(authcertunit.unitlogo_url(:tiny), :class => " dp img-responsive center-block" ) %>

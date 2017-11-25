@@ -27,10 +27,10 @@
                 <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= playerprofile.name %></font>
               <% end %>
           </td>
-          <td><font color=red><%= playerprofile.curscore %></font></td>
+          <td><font color=red><%= playerprofile.current_score %></font></td>
           <td><%= playerprofile.initscore %></td>
-          <td><%= playerprofile.totalwongames %></td>
-          <td><%= playerprofile.totallosegames %></td>
+          <td><%= playerprofile.total_won_games_count %></td>
+          <td><%= playerprofile.total_lose_games_count %></td>
           <td><%= playerprofile.lastscoreupdatedate %></td>
           <td>
             <%playerprofile.user.authcertunits.each do | authcertunit| %>
