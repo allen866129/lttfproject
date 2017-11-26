@@ -48,7 +48,8 @@ class Uploadgame < ActiveRecord::Base
       @Curprofile = Playerprofile.where( :name => @Curplayer["name"] ).first
       if @Curprofile
         @Curplayer["id"]= @Curprofile.user_id #id
-        @Curplayer["bgamescore"]= (@Curprofile.curscore==nil) ? @Curprofile.initscore : @Curprofile.curscore
+        #@Curplayer["bgamescore"]= (@Curprofile.curscore==nil) ? @Curprofile.initscore : @Curprofile.curscore
+        @Curplayer["bgamescore"]= @Curprofile.current_score
         #@Curplayer["bgamescore"] = @Curprofile.curscore #Bscore
         #@Curplayer["bgamescore"]=@Curprofile.initscore if @Curplayer[3]==nil
         @Curplayer["wongames"] = 0  #Wongames
