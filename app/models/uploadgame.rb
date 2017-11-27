@@ -62,7 +62,8 @@ class Uploadgame < ActiveRecord::Base
         end  
         @Curplayer["suggestscore"] = (oldplayerinfo==nil) ? nil : oldplayerinfo["suggestscore"] #SuggestScore
         @Curplayer["adjustscore"] = (oldplayerinfo==nil) ? nil : oldplayerinfo["adjustscore"] #adjustScore
-        @Curplayer["original bscore"] = @Curprofile.curscore #original bgamescore without adjustment
+        #@Curplayer["original bscore"] = @Curprofile.curscore #original bgamescore without adjustment
+        @Curplayer["original bscore"] = @Curprofile.current_score
       else
         @Curplayer["id"]=nil #can't find player by name in the DB
       end  
@@ -407,7 +408,8 @@ class Uploadgame < ActiveRecord::Base
 
       @playerindb = User.find(@player["id"].to_i).playerprofile
 
-      @player["bgamescore"] =  (@playerindb.curscore==@player["original bscore"].to_i) ? @player["bgamescore"].to_i : @playerindb.curscore 
+      #@player["bgamescore"] =  (@playerindb.curscore==@player["original bscore"].to_i) ? @player["bgamescore"].to_i : @playerindb.curscore 
+      @player["bgamescore"] =  (@playerindb.current_score==@player["original bscore"].to_i) ? @player["bgamescore"].to_i : @playerindb.current_score
 
       @player["bgamescore"]=@player["bgamescore"].to_i
       @player["wongames"]=@player["wongames"].to_i
@@ -417,7 +419,7 @@ class Uploadgame < ActiveRecord::Base
       @player["suggestscore"]=@player["suggestscore"].to_i
       if @player["original bscore"]!=nil
       
-         if @playerindb.curscore==@player["original bscore"].to_i
+         if @playerindb.current_score==@player["original bscore"].to_i
            @player["adjustscore"]=@player["adjustscore"].to_i if  @player["adjustscore"]!=nil
          else
           @player["adjustscore"]=0
@@ -426,8 +428,8 @@ class Uploadgame < ActiveRecord::Base
          @player["adjustscore"]=@player["adjustscore"].to_i if  @player["adjustscore"]!=nil
       end      
       if @player["original bscore"]!=nil
-        if @playerindb.curscore!=@player["original bscore"].to_i
-          @player["original bscore"]=@playerindb.curscore
+        if @playerindb.current_score!=@player["original bscore"].to_i
+          @player["original bscore"]=@playerindb.current_score
         else
           @player["original bscore"]=@player["original bscore"].to_i
         end  
