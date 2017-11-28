@@ -60,16 +60,20 @@ def score_trend_arrays
     scoretrend.insert(0,@scores)
    end 
 
-  if scoretrend.empty? 
-    @scores =Hash.new
-    @scores['date']=self.created_at.to_date
-    if self.initscore 
-       @scores['score']=self.initscore
+  @initscores =Hash.new
+
+  if self.initscore 
+       @initscores['score']=self.initscore
     else
-       @scores['score']=0
-    end   
-    scoretrend.insert(0,@scores)
-  end
+       @initscores['score']=0
+  end   
+  if scoretrend.empty? 
+     @initscores['date']=self.created_at.to_date
+     scoretrend.insert(0,@initscores)
+  else
+    @initscores['date']=scoretrend[0]['date']-1
+    scoretrend.insert(0,@initscores)
+  end 
   scoretrend
 end
 def current_score
