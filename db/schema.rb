@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20171121050841) do
+ActiveRecord::Schema.define(:version => 20171213043350) do
 
   create_table "active_admin_comments", :force => true do |t|
     t.string   "namespace"
@@ -142,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20171121050841) do
     t.string   "authcerts"
     t.boolean  "need_authcert_flag",          :default => false
     t.string   "authcondition",               :default => "參賽次數&認證單位核可符合任一項即可"
+    t.datetime "registration_deadline"
+    t.boolean  "registration_deadline_flag",  :default => false
   end
 
   create_table "gameholders", :force => true do |t|
@@ -171,6 +173,7 @@ ActiveRecord::Schema.define(:version => 20171121050841) do
     t.string   "originalfileurl"
     t.datetime "created_at",      :null => false
     t.datetime "updated_at",      :null => false
+    t.integer  "uploadgame_id"
   end
 
   create_table "groupattendants", :force => true do |t|

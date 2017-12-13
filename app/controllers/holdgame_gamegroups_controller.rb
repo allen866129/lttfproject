@@ -462,8 +462,8 @@ def cancel_team_registration
     @groupattendants=@curgroup.groupattendants
     @cancelled_teamname=@attendantrecord.teamname
 
-    if ((@curgroup.holdgame.find_allgameholders.include?(current_user) )|| (current_user.has_role? :admin) || (current_user.has_role? :superuser) || ( !@curgroup.cancellation_deadline_flag)) ||
-       (Time.now < @curgroup.cancellation_deadline)
+    if ((@curgroup.holdgame.find_allgameholders.include?(current_user) )|| (current_user.has_role? :admin) || (current_user.has_role? :superuser) || ( !@curgroup.cancellation_deadline_flag ||
+       (Time.now < @curgroup.cancellation_deadline)))
       
       if (@groupattendants.index(@attendantrecord)<@curgroup.noofplayers) && (@groupattendants.count>=@curgroup.noofplayers+1)
         @newofficialattend=@groupattendants.at(@curgroup.noofplayers)
@@ -735,6 +735,8 @@ def edit
   @gamegroup = @holdgame.gamegroups.find( params[:id] )
   @gamegroup.starttime= @gamegroup.starttime.in_time_zone.strftime("%F %H:%M")
   @gamegroup.cancellation_deadline= @gamegroup.cancellation_deadline.in_time_zone.strftime("%F %H:%M") if @gamegroup.cancellation_deadline
+  @gamegroup.registration_deadline= @gamegroup.registration_deadline.in_time_zone.strftime("%F %H:%M") if @gamegroup.registration_deadline
+
 
 end
 

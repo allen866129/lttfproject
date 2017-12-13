@@ -176,13 +176,32 @@
 
              </div> 
             </div> 
-            <br>            
+            <br>
+
+            <div class="form-group" style= "padding-top:10px">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "設定報名截止時間:", :class => "form-label" %>
+                <%= f.check_box :registration_deadline_flag,:class => "form-control"  ,:onchange=> "toggleRegDeadLineFlagClick();" %> 
+              
+              </div>
+             </div> 
+            <br>
+  
+            
+            <div class="form-group" style= "padding-top:10px">
+              <div class="col-xs-12 col-md-12 col-lg-12">
+                <%= f.label "報名截止時間:", :class => "form-label" , :style=> "display:none",:id=> "reg-deadline-label"%>
+                <%= f.text_field :registration_deadline,:class => "form-control", :style=>"display:none" %> 
+
+             </div> 
+            </div> 
+            <br>
 
 
               <div class="form-group" style= "padding-top:10px">
               <div class="col-xs-12 col-md-12 col-lg-12">
                 <%= f.label "設定報名取消截止時間:", :class => "form-label" %>
-                <%= f.check_box :cancellation_deadline_flag,:class => "form-control"  ,:onchange=> "toggleDeadLineFlagClick();" %> 
+                <%= f.check_box :cancellation_deadline_flag,:class => "form-control"  ,:onchange=> "toggleCancelDeadLineFlagClick();" %> 
               
               </div>
              </div> 
@@ -241,6 +260,10 @@ $.datepicker.setDefaults($.datepicker.regional["zh-TW"]);
 $.timepicker.setDefaults($.timepicker.regional["zh-TW"]);
 
 $("#gamegroup_starttime").datetimepicker({dateFormat:"yy-mm-dd", 
+                                                        timeFormat:"HH:mm",
+                                                        showSecond:false
+                                                        });
+$("#gamegroup_registration_deadline").datetimepicker({dateFormat:"yy-mm-dd", 
                                                         timeFormat:"HH:mm",
                                                         showSecond:false
                                                         });
@@ -337,7 +360,24 @@ function regtypenotdoubleclick()
     document.getElementById("gamegroup_double_scorelow").style.display="none";
     document.getElementById("double-low-label").style.display="none";
 } 
-function toggleDeadLineFlagClick()
+function toggleRegDeadLineFlagClick()
+{
+  
+  if (document.getElementById("gamegroup_registration_deadline_flag").checked)
+  {
+    document.getElementById("reg-deadline-label").style.display="block";
+    document.getElementById("gamegroup_registration_deadline").style.display="block";
+  }
+  else
+  {
+    document.getElementById("reg-deadline-label").style.display="none";
+    document.getElementById("gamegroup_registration_deadline").style.display="none";
+  }  
+
+
+ 
+} 
+function toggleCancelDeadLineFlagClick()
 {
   
   if (document.getElementById("gamegroup_cancellation_deadline_flag").checked)
@@ -379,7 +419,8 @@ function toggleauthcertFlagClick()
 $(window).load(function(){
         toggleSingleSelect();
         toggleDoubleSelect();
-        toggleDeadLineFlagClick();
+        toggleRegDeadLineFlagClick();
+        toggleCancelDeadLineFlagClick();
         toggleauthcertFlagClick();
       
     }); 

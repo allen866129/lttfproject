@@ -4,6 +4,7 @@ class Gamegroup < ActiveRecord::Base
   attr_accessible :scorelimitation, :scorelow, :starttime , :regtype
   attr_accessible :double_score_sum_limitation, :double_scorehigh, :double_scorelow
   attr_accessible :cancellation_deadline_flag, :cancellation_deadline
+  attr_accessible :registration_deadline_flag, :registration_deadline
   attr_accessible :minimal_LTTF_games_limited, :authcerts ,:need_authcert_flag, :authcondition
   belongs_to :holdgame
   has_many :groupattendants, dependent: :destroy

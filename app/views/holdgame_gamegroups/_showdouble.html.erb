@@ -4,52 +4,66 @@
 <div class="table-responsive datagrid" >
   <table class="table-striped table-condensed" border=1 > 
     <tbody>
-      <tr>
         <td><font color="black">分組名稱:</font></td>
         <td><font color="black">比賽賽制:</font></td>
         <td><font color="black">報名方式:</font></td>
-        <td ><font color="black">開賽時間:</font></td>
-        <td ><font color="black">參賽次數資格:</font></td>
-      </tr>
-    
-      <tr>
+        <td ><font color="black">報名費用:</font></td>
+        <tr>
         <td><strong><%=gamegroup.groupname %></strong></td>
         <td><strong><%=gamegroup.grouptype %></strong></td>
         <td><strong><%=Gamegroup.regtypes[gamegroup.regtype] %></strong></td>
-        <td ><strong><font color=red ><%= gamegroup.starttime.strftime("%F %H:%M")  %></p></strong></td>
-        <td><%= image_tag(gamegroup.rating_stars_picture, :class => " dp img-responsive center-block" )%></td>
-      </tr>
+        <td><strong><%=gamegroup.gamefee %></strong></td>  
 
-   
+        <tr>
+        <td><font color="black">已報名隊數</font></td>
+        <td><font color="black">預計參賽隊數</font></td> 
+        <td ><font color="black">參賽次數資格:</font></td>
+        <td ><font color="black">需認證單位:</font></td>
+
+            
+    
+        <tr>
+        <td><strong><font color="red"><%=gamegroup.totalresgisteredsplayersno %></font></td>
+        <td><strong><font color="red"><%=gamegroup.noofplayers %></strong></td>
+
+        <td><%= image_tag(gamegroup.rating_stars_picture, :class => " dp img-responsive center-block" )%></td>
+        <% if gamegroup.need_authcert_flag %>
+            <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive center-block" )%></td>
+        <%else%>
+            <td><strong>無</strong></td>
+        <%end%>
+
+        <tr>
+        <td ><font color="black">積分限制:</font>
+        <td ><font color="black">開賽時間:</font></td>   
+        <td><font color="black">報名截止時間:</font></td> 
+        <td><font color="black">取消截止時間:</font></td> 
         <tr> 
-          <td ><font color="black">報名費用:</font></td>
-          <td ><font color="black">積分限制:</font></td>
-          <td><font color="black">已報名隊數/預計參賽隊數</font></td> 
-          <td><font color="black">取消截止時間:</font></td> 
-          <td ><font color="black">需認證單位:</font></td>
-        </tr>
-        <tr> 
-          <td><strong><%=gamegroup.gamefee %></strong></td>    
-          <td><strong>
+        <td><strong>
              <%=gamegroup.single_limit_string %><br>
              <%=gamegroup.double_team_limit_string %>
-          </strong></td> 
-          <td><strong><font color="red"><%=gamegroup.totalresgisteredsplayersno %></font>/<%=gamegroup.noofplayers %></strong></td>
+        </strong></td> 
+        <td ><strong><font color=red ><%= gamegroup.starttime.strftime("%F %H:%M")  %></font></strong></td>
+        <% if gamegroup.registration_deadline_flag && gamegroup.registration_deadline %>
+            <td><strong><font color="red"><%=gamegroup.registration_deadline.strftime("%F %H:%M")  %><font color="red"></strong></td><br>
 
-          <% if gamegroup.cancellation_deadline_flag && gamegroup.cancellation_deadline %>
-            <td><strong><font color="red"><%=gamegroup.cancellation_deadline.strftime("%F %H:%M")  %><font color="red"></strong></td>
-          <%else%>
+        <%else%>
             <td><strong>無</strong></td>
 
-          <%end%> 
-          <% if gamegroup.need_authcert_flag %>
-            <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive center-block" )%></td>
-          <%else%>
+        <%end%>         
+
+
+        <% if gamegroup.cancellation_deadline_flag && gamegroup.cancellation_deadline %>
+            <td><strong><font color="red"><%=gamegroup.cancellation_deadline.strftime("%F %H:%M")  %><font color="red"></strong></td><br>
+
+        <%else%>
             <td><strong>無</strong></td>
-          <%end%>
-        </tr>
-            
+
+        <%end%>         
+ 
       </tbody> 
+    
+
     
       
 </table>
@@ -69,7 +83,8 @@
      <td><%= button_to '刪除此分組', holdgame_gamegroup_path(@holdgame, gamegroup),
                               :method => :delete %></td>
   <% end %>                            
-  <% if current_user && !@in_blacklist_data %>
+  <% if (current_user && !@in_blacklist_data  && ( !gamegroup.registration_deadline_flag ||
+       (Time.now < gamegroup.registration_deadline))||(gamegroup.holdgame.find_allgameholders.include?(current_user) )|| (current_user.has_role? :admin) || (current_user.has_role? :superuser)) %>
   <td><%= button_to '報名參賽', doubleplayersinput_holdgame_gamegroups_path(@holdgame,gamegroup, :name => 'init') , :method=>:get  %></td>
   <% end %>  
   
