@@ -18,4 +18,9 @@ def attand_email_from_user
 	user=User.find(self.player_id)
 	return user.email
 end
+def score_in_time
+	user=User.find(self.player_id)
+	return user.playerprofile.current_score
+	
+end
 end

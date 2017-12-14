@@ -160,8 +160,8 @@
                     <br><%= player.attand_phone_from_user%>
                   <%end%>
                 </td>
-                <td  style="text-align:center"><font color='blue'><strong> <%=  @player_current_score[player.player_id] %></strong></font>
-                  <%if @player_current_score[player.player_id]!= player.curscore %>
+                <td  style="text-align:center"><font color='blue'><strong> <%=  player.score_in_time%></strong></font>
+                  <%if player.score_in_time!= player.curscore %>
                   <br>
                      <font color='red'><strong>(<%= player.curscore %>)<strong/></font>
                   <%end%>

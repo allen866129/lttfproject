@@ -137,7 +137,7 @@
                   <%end%>
                 </td>
                 <td style="text-align:center">
-                  <font color='blue'><strong><%= @player_current_score[player.player_id] %><strong/></font></td>
+                  <font color='blue'><strong><%= player.score_in_time %><strong/></font></td>
 
                 <td style="text-align:center">
 
@@ -147,7 +147,7 @@
                   <font color='blue'><strong/>正選<strong/></font>
                 <%end%>
 
-                <%if @player_current_score[player.player_id]!= player.curscore %>
+                <%if player.score_in_time!= player.curscore %>
                  <br>
                  <font color='red'><strong>(<%= player.curscore %>)<strong/></font>
                 <%end%>
