@@ -118,7 +118,7 @@
             <% @user_meet_group=false %>
           <% else %>
             <% @user_in_group=gamegroup.findplayer(current_user.id) %>
-            <% @user_meet_group=gamegroup.check_single_meet_group_score_qualify(current_user.playerprofile.curscore) && gamegroup.check_player_meet_group_cert(current_user)  %>
+            <% @user_meet_group=gamegroup.check_single_meet_group_score_qualify(current_user.playerprofile.current_score) && gamegroup.check_player_meet_group_cert(current_user)  %>
           <% end %>  
            
           <%case gamegroup.regtype %>

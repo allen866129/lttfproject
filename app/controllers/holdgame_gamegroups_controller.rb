@@ -109,7 +109,7 @@ def check_user_meetgroupqualify(gamegroups, player_id)
 
   gamegroups.each do |gamegroup|
  
-    user_meet_groups[gamegroup.id]=gamegroup.check_meet_group_score_qualify(player.playerprofile.curscore)&&gamegroup.check_player_meet_group_cert(player)
+    user_meet_groups[gamegroup.id]=gamegroup.check_meet_group_score_qualify(player.playerprofile.current_score)&&gamegroup.check_player_meet_group_cert(player)
   end  
   return user_meet_groups
 end

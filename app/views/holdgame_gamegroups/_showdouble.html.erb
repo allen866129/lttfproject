@@ -83,8 +83,11 @@
      <td><%= button_to '刪除此分組', holdgame_gamegroup_path(@holdgame, gamegroup),
                               :method => :delete %></td>
   <% end %>                            
-  <% if (current_user && !@in_blacklist_data  && ( !gamegroup.registration_deadline_flag ||
-       (Time.now < gamegroup.registration_deadline))||(gamegroup.holdgame.find_allgameholders.include?(current_user) )|| (current_user.has_role? :admin) || (current_user.has_role? :superuser)) %>
+ <% if (current_user && ( (!@in_blacklist_data  && ( !gamegroup.registration_deadline_flag || #first 2 line is for noremal user
+       (Time.now < gamegroup.registration_deadline))) ||
+       ( gamegroup.holdgame.find_allgameholders.include?(current_user) || (current_user.has_role? :admin)|| 
+           (current_user.has_role? :superuser)
+       )))%>
   <td><%= button_to '報名參賽', doubleplayersinput_holdgame_gamegroups_path(@holdgame,gamegroup, :name => 'init') , :method=>:get  %></td>
   <% end %>  
   
