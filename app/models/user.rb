@@ -206,8 +206,6 @@ def  rating_stars_picture
             errors[:email] << "請勿使用 xuit.net 郵箱"
         elsif email =~/gmail.com.tw/
            errors[:email] << "gmail.com.tw郵箱有誤"
-        elsif email =~/yahoo/
-           errors[:email] << "請勿使用 yahoo郵箱,建議改用gmail"  
         elsif email =~/pchome/
            errors[:email] << "請勿使用 pchome郵箱,建議改用gmail"  
         end
