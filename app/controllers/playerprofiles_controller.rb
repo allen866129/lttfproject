@@ -39,6 +39,11 @@ class PlayerprofilesController < ApplicationController
    # @playerprofiles = Playerprofile.where( [ "name like ?", "%#{params[:keyword]}%" ]).page( params[:page] ).per(100)
     render :action => :index
   end 
+  def batchaccountsinput
+    Playerprofile.batch_create_account
+    redirect_to  :back
+    
+  end
   def googleplayerlist
     if params[:playerlistfileurl]
       @players=Playerprofile.googleplayerlist(params[:playerlistfileurl])
@@ -82,6 +87,7 @@ class PlayerprofilesController < ApplicationController
   # GET /playerprofiles/new
   # GET /playerprofiles/new.json
   def new
+
     @playerprofile  = current_user.build_playerprofile
      format.html { redirect_to @playerprofile, notice: 'Playerprofile was successfully new.' }
       respond_to do |format|
@@ -99,11 +105,12 @@ class PlayerprofilesController < ApplicationController
   # POST /playerprofiles
   # POST /playerprofiles.json
   def create
-   
+  
   @playerprofile = current_user.playerprofile.build(params[:playerprofile])
   #@playerprofile = Playerprofile.where( :user_id => current_user.id).first
-  #@playerprofile.name=current_user.username
-  
+  @playerprofile.name=current_user.username
+  @playerprofile.lastscoreupdatedate=current.user.created_at.to_date
+  @playerprofile.curscore=@playerprofile.initscore
   
 
     respond_to do |format|

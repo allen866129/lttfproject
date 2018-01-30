@@ -112,6 +112,7 @@ devise_for :users, :controllers => {:registrations => 'users/registrations', :om
        get :googleplayerlist   
        get :callback   
        get :lttfindex  
+       get :batchaccountsinput
        #post :toggleblacklist
      end   
   end

@@ -1,0 +1,209 @@
+                         remove_certification_authcertunits POST     /authcertunits/remove_certification(.:format)                                        authcertunits#remove_certification
+                           certifyplayerinput_authcertunits GET      /authcertunits/certifyplayerinput(.:format)                                          authcertunits#certifyplayerinput
+                                              authcertunits GET      /authcertunits(.:format)                                                             authcertunits#index
+                                                            POST     /authcertunits(.:format)                                                             authcertunits#create
+                                           new_authcertunit GET      /authcertunits/new(.:format)                                                         authcertunits#new
+                                          edit_authcertunit GET      /authcertunits/:id/edit(.:format)                                                    authcertunits#edit
+                                               authcertunit GET      /authcertunits/:id(.:format)                                                         authcertunits#show
+                                                            PUT      /authcertunits/:id(.:format)                                                         authcertunits#update
+                                                            DELETE   /authcertunits/:id(.:format)                                                         authcertunits#destroy
+                                   shopcartstoxls_shopcarts GET      /shopcarts/shopcartstoxls(.:format)                                                  shopcarts#shopcartstoxls
+                                                  shopcarts GET      /shopcarts(.:format)                                                                 shopcarts#index
+                                                            POST     /shopcarts(.:format)                                                                 shopcarts#create
+                                               new_shopcart GET      /shopcarts/new(.:format)                                                             shopcarts#new
+                                              edit_shopcart GET      /shopcarts/:id/edit(.:format)                                                        shopcarts#edit
+                                                   shopcart GET      /shopcarts/:id(.:format)                                                             shopcarts#show
+                                                            PUT      /shopcarts/:id(.:format)                                                             shopcarts#update
+                                                            DELETE   /shopcarts/:id(.:format)                                                             shopcarts#destroy
+                                               gsheet4games GET      /gsheet4games(.:format)                                                              gsheet4games#index
+                                                            POST     /gsheet4games(.:format)                                                              gsheet4games#create
+                                            new_gsheet4game GET      /gsheet4games/new(.:format)                                                          gsheet4games#new
+                                           edit_gsheet4game GET      /gsheet4games/:id/edit(.:format)                                                     gsheet4games#edit
+                                                gsheet4game GET      /gsheet4games/:id(.:format)                                                          gsheet4games#show
+                                                            PUT      /gsheet4games/:id(.:format)                                                          gsheet4games#update
+                                                            DELETE   /gsheet4games/:id(.:format)                                                          gsheet4games#destroy
+                                                 blacklists GET      /blacklists(.:format)                                                                blacklists#index
+                                                            POST     /blacklists(.:format)                                                                blacklists#create
+                                              new_blacklist GET      /blacklists/new(.:format)                                                            blacklists#new
+                                             edit_blacklist GET      /blacklists/:id/edit(.:format)                                                       blacklists#edit
+                                                  blacklist GET      /blacklists/:id(.:format)                                                            blacklists#show
+                                                            PUT      /blacklists/:id(.:format)                                                            blacklists#update
+                                                            DELETE   /blacklists/:id(.:format)                                                            blacklists#destroy
+                                 toggleblacklist_blacklists POST     /blacklists/toggleblacklist(.:format)                                                blacklists#toggleblacklist
+                                 blacklistsearch_blacklists POST     /blacklists/blacklistsearch(.:format)                                                blacklists#blacklistsearch
+                                                            GET      /blacklists(.:format)                                                                blacklists#index
+                                                            POST     /blacklists(.:format)                                                                blacklists#create
+                                                            GET      /blacklists/new(.:format)                                                            blacklists#new
+                                                            GET      /blacklists/:id/edit(.:format)                                                       blacklists#edit
+                                                            GET      /blacklists/:id(.:format)                                                            blacklists#show
+                                                            PUT      /blacklists/:id(.:format)                                                            blacklists#update
+                                                            DELETE   /blacklists/:id(.:format)                                                            blacklists#destroy
+                                                   advitems GET      /advitems(.:format)                                                                  advitems#index
+                                                            POST     /advitems(.:format)                                                                  advitems#create
+                                                new_advitem GET      /advitems/new(.:format)                                                              advitems#new
+                                               edit_advitem GET      /advitems/:id/edit(.:format)                                                         advitems#edit
+                                                    advitem GET      /advitems/:id(.:format)                                                              advitems#show
+                                                            PUT      /advitems/:id(.:format)                                                              advitems#update
+                                                            DELETE   /advitems/:id(.:format)                                                              advitems#destroy
+                                                 home_index GET      /home(.:format)                                                                      home#index
+                           registration_holdgame_gamegroups POST     /holdgames/:holdgame_id/gamegroups/registration(.:format)                            holdgame_gamegroups#registration
+               cancel_team_registration_holdgame_gamegroups POST     /holdgames/:holdgame_id/gamegroups/cancel_team_registration(.:format)                holdgame_gamegroups#cancel_team_registration
+       cancel_singleplayer_registration_holdgame_gamegroups POST     /holdgames/:holdgame_id/gamegroups/cancel_singleplayer_registration(.:format)        holdgame_gamegroups#cancel_singleplayer_registration
+             cancel_double_registration_holdgame_gamegroups POST     /holdgames/:holdgame_id/gamegroups/cancel_double_registration(.:format)              holdgame_gamegroups#cancel_double_registration
+cancel_singleplayer_registration_inteam_holdgame_gamegroups POST     /holdgames/:holdgame_id/gamegroups/cancel_singleplayer_registration_inteam(.:format) holdgame_gamegroups#cancel_singleplayer_registration_inteam
+                            playerinput_holdgame_gamegroups GET      /holdgames/:holdgame_id/gamegroups/playerinput(.:format)                             holdgame_gamegroups#playerinput
+                      singleplayerinput_holdgame_gamegroups GET      /holdgames/:holdgame_id/gamegroups/singleplayerinput(.:format)                       holdgame_gamegroups#singleplayerinput
+                     doubleplayersinput_holdgame_gamegroups GET      /holdgames/:holdgame_id/gamegroups/doubleplayersinput(.:format)                      holdgame_gamegroups#doubleplayersinput
+                       teamplayersinput_holdgame_gamegroups GET      /holdgames/:holdgame_id/gamegroups/teamplayersinput(.:format)                        holdgame_gamegroups#teamplayersinput
+                         teamplayersadd_holdgame_gamegroups GET      /holdgames/:holdgame_id/gamegroups/teamplayersadd(.:format)                          holdgame_gamegroups#teamplayersadd
+                singlegroupregistration_holdgame_gamegroups GET      /holdgames/:holdgame_id/gamegroups/singlegroupregistration(.:format)                 holdgame_gamegroups#singlegroupregistration
+                                        holdgame_gamegroups PUT      /holdgames/:holdgame_id/gamegroups(.:format)                                         holdgame_gamegroups#update
+                         groupdumptoxls_holdgame_gamegroups GET      /holdgames/:holdgame_id/gamegroups/groupdumptoxls(.:format)                          holdgame_gamegroups#groupdumptoxls
+                        preparesendmail_holdgame_gamegroups GET      /holdgames/:holdgame_id/gamegroups/preparesendmail(.:format)                         holdgame_gamegroups#preparesendmail
+                              sendemail_holdgame_gamegroups POST     /holdgames/:holdgame_id/gamegroups/sendemail(.:format)                               holdgame_gamegroups#sendemail
+                            publishtoFB_holdgame_gamegroups GET      /holdgames/:holdgame_id/gamegroups/publishtoFB(.:format)                             holdgame_gamegroups#publishtoFB
+                                                            GET      /holdgames/:holdgame_id/gamegroups(.:format)                                         holdgame_gamegroups#index
+                                                            POST     /holdgames/:holdgame_id/gamegroups(.:format)                                         holdgame_gamegroups#create
+                                     new_holdgame_gamegroup GET      /holdgames/:holdgame_id/gamegroups/new(.:format)                                     holdgame_gamegroups#new
+                                    edit_holdgame_gamegroup GET      /holdgames/:holdgame_id/gamegroups/:id/edit(.:format)                                holdgame_gamegroups#edit
+                                         holdgame_gamegroup GET      /holdgames/:holdgame_id/gamegroups/:id(.:format)                                     holdgame_gamegroups#show
+                                                            PUT      /holdgames/:holdgame_id/gamegroups/:id(.:format)                                     holdgame_gamegroups#update
+                                                            DELETE   /holdgames/:holdgame_id/gamegroups/:id(.:format)                                     holdgame_gamegroups#destroy
+                                copy_players_list_holdgames GET      /holdgames/copy_players_list(.:format)                                               holdgames#copy_players_list
+                                        coholders_holdgames GET      /holdgames/coholders(.:format)                                                       holdgames#coholders
+                                           cancel_holdgames POST     /holdgames/cancel(.:format)                                                          holdgames#cancel
+                                      publish_all_holdgames GET      /holdgames/publish_all(.:format)                                                     holdgames#publish_all
+                                                  holdgames GET      /holdgames(.:format)                                                                 holdgames#index
+                                                            POST     /holdgames(.:format)                                                                 holdgames#create
+                                               new_holdgame GET      /holdgames/new(.:format)                                                             holdgames#new
+                                              edit_holdgame GET      /holdgames/:id/edit(.:format)                                                        holdgames#edit
+                                                   holdgame GET      /holdgames/:id(.:format)                                                             holdgames#show
+                                                            PUT      /holdgames/:id(.:format)                                                             holdgames#update
+                                                            DELETE   /holdgames/:id(.:format)                                                             holdgames#destroy
+                                         upload_uploadgames GET      /uploadgames/upload(.:format)                                                        uploadgames#upload
+                              displayuploadfile_uploadgames GET      /uploadgames/displayuploadfile(.:format)                                             uploadgames#displayuploadfile
+                        uploadfile_fromholdgame_uploadgames GET      /uploadgames/uploadfile_fromholdgame(.:format)                                       uploadgames#uploadfile_fromholdgame
+                                   savetoupload_uploadgames POST     /uploadgames/savetoupload(.:format)                                                  uploadgames#savetoupload
+                              publishuploadgame_uploadgames POST     /uploadgames/publishuploadgame(.:format)                                             uploadgames#publishuploadgame
+                         publish_trycalculation_uploadgames POST     /uploadgames/publish_trycalculation(.:format)                                        uploadgames#publish_trycalculation
+                              calculategamepage_uploadgames POST     /uploadgames/calculategamepage(.:format)                                             uploadgames#calculategamepage
+                                 trycalculation_uploadgames POST     /uploadgames/trycalculation(.:format)                                                uploadgames#trycalculation
+                                  caculatescore_uploadgames POST     /uploadgames/caculatescore(.:format)                                                 uploadgames#caculatescore
+                              gamescorechecking_uploadgames GET      /uploadgames/gamescorechecking(.:format)                                             uploadgames#gamescorechecking
+                              show_player_games_uploadgames GET      /uploadgames/show_player_games(.:format)                                             uploadgames#show_player_games
+                          cal_show_player_games_uploadgames GET      /uploadgames/cal_show_player_games(.:format)                                         uploadgames#cal_show_player_games
+                      publish_show_player_games_uploadgames GET      /uploadgames/publish_show_player_games(.:format)                                     uploadgames#publish_show_player_games
+                displayupload_show_player_games_uploadgames GET      /uploadgames/displayupload_show_player_games(.:format)                               uploadgames#displayupload_show_player_games
+                               calculategamepage_uploadgame POST     /uploadgames/:id/calculategamepage(.:format)                                         uploadgames#calculategamepage
+                                  trycalculation_uploadgame GET      /uploadgames/:id/trycalculation(.:format)                                            uploadgames#trycalculation
+                                   caculatescore_uploadgame POST     /uploadgames/:id/caculatescore(.:format)                                             uploadgames#caculatescore
+                                                uploadgames GET      /uploadgames(.:format)                                                               uploadgames#index
+                                                            POST     /uploadgames(.:format)                                                               uploadgames#create
+                                             new_uploadgame GET      /uploadgames/new(.:format)                                                           uploadgames#new
+                                            edit_uploadgame GET      /uploadgames/:id/edit(.:format)                                                      uploadgames#edit
+                                                 uploadgame GET      /uploadgames/:id(.:format)                                                           uploadgames#show
+                                                            PUT      /uploadgames/:id(.:format)                                                           uploadgames#update
+                                                            DELETE   /uploadgames/:id(.:format)                                                           uploadgames#destroy
+                                    show_player_games_games GET      /games/show_player_games(.:format)                                                   games#show_player_games
+                                       lttfratinginfo_games GET      /games/lttfratinginfo(.:format)                                                      games#lttfratinginfo
+                                                      games GET      /games(.:format)                                                                     games#index
+                                                            POST     /games(.:format)                                                                     games#create
+                                                   new_game GET      /games/new(.:format)                                                                 games#new
+                                                  edit_game GET      /games/:id/edit(.:format)                                                            games#edit
+                                                       game GET      /games/:id(.:format)                                                                 games#show
+                                                            PUT      /games/:id(.:format)                                                                 games#update
+                                                            DELETE   /games/:id(.:format)                                                                 games#destroy
+                                           new_user_session GET      /users/sign_in(.:format)                                                             devise/sessions#new
+                                               user_session POST     /users/sign_in(.:format)                                                             devise/sessions#create
+                                       destroy_user_session DELETE   /users/sign_out(.:format)                                                            devise/sessions#destroy
+                                    user_omniauth_authorize GET|POST /users/auth/:provider(.:format)                                                      users/omniauth_callbacks#passthru {:provider=>/facebook/}
+                                     user_omniauth_callback GET|POST /users/auth/:action/callback(.:format)                                               users/omniauth_callbacks#:action
+                                              user_password POST     /users/password(.:format)                                                            devise/passwords#create
+                                          new_user_password GET      /users/password/new(.:format)                                                        devise/passwords#new
+                                         edit_user_password GET      /users/password/edit(.:format)                                                       devise/passwords#edit
+                                                            PUT      /users/password(.:format)                                                            devise/passwords#update
+                                   cancel_user_registration GET      /users/cancel(.:format)                                                              users/registrations#cancel
+                                          user_registration POST     /users(.:format)                                                                     users/registrations#create
+                                      new_user_registration GET      /users/sign_up(.:format)                                                             users/registrations#new
+                                     edit_user_registration GET      /users/edit(.:format)                                                                users/registrations#edit
+                                                            PUT      /users(.:format)                                                                     users/registrations#update
+                                                            DELETE   /users(.:format)                                                                     users/registrations#destroy
+                                                      users GET      /users(.:format)                                                                     users#index
+                                                            POST     /users(.:format)                                                                     users#create
+                                                   new_user GET      /users/new(.:format)                                                                 users#new
+                                                  edit_user GET      /users/:id/edit(.:format)                                                            users#edit
+                                                       user GET      /users/:id(.:format)                                                                 users#show
+                                                            PUT      /users/:id(.:format)                                                                 users#update
+                                                            DELETE   /users/:id(.:format)                                                                 users#destroy
+                                                       root          /                                                                                    home#index
+                                      import_playerprofiles POST     /playerprofiles/import(.:format)                                                     playerprofiles#import
+                                      search_playerprofiles GET      /playerprofiles/search(.:format)                                                     playerprofiles#search
+                            googleplayerlist_playerprofiles GET      /playerprofiles/googleplayerlist(.:format)                                           playerprofiles#googleplayerlist
+                                    callback_playerprofiles GET      /playerprofiles/callback(.:format)                                                   playerprofiles#callback
+                                   lttfindex_playerprofiles GET      /playerprofiles/lttfindex(.:format)                                                  playerprofiles#lttfindex
+                          batchaccountsinput_playerprofiles GET      /playerprofiles/batchaccountsinput(.:format)                                         playerprofiles#batchaccountsinput
+                                             playerprofiles GET      /playerprofiles(.:format)                                                            playerprofiles#index
+                                                            POST     /playerprofiles(.:format)                                                            playerprofiles#create
+                                          new_playerprofile GET      /playerprofiles/new(.:format)                                                        playerprofiles#new
+                                         edit_playerprofile GET      /playerprofiles/:id/edit(.:format)                                                   playerprofiles#edit
+                                              playerprofile GET      /playerprofiles/:id(.:format)                                                        playerprofiles#show
+                                                            PUT      /playerprofiles/:id(.:format)                                                        playerprofiles#update
+                                                            DELETE   /playerprofiles/:id(.:format)                                                        playerprofiles#destroy
+                                                   ttcourts GET      /ttcourts(.:format)                                                                  ttcourts#index
+                                                            POST     /ttcourts(.:format)                                                                  ttcourts#create
+                                                new_ttcourt GET      /ttcourts/new(.:format)                                                              ttcourts#new
+                                               edit_ttcourt GET      /ttcourts/:id/edit(.:format)                                                         ttcourts#edit
+                                                    ttcourt GET      /ttcourts/:id(.:format)                                                              ttcourts#show
+                                                            PUT      /ttcourts/:id(.:format)                                                              ttcourts#update
+                                                            DELETE   /ttcourts/:id(.:format)                                                              ttcourts#destroy
+                                 approveprocess_gameholders GET      /gameholders/approveprocess(.:format)                                                gameholders#approveprocess
+                                        approve_gameholders POST     /gameholders/approve(.:format)                                                       gameholders#approve
+                                          demos_gameholders GET      /gameholders/demos(.:format)                                                         gameholders#demos
+                                                gameholders GET      /gameholders(.:format)                                                               gameholders#index
+                                                            POST     /gameholders(.:format)                                                               gameholders#create
+                                             new_gameholder GET      /gameholders/new(.:format)                                                           gameholders#new
+                                            edit_gameholder GET      /gameholders/:id/edit(.:format)                                                      gameholders#edit
+                                                 gameholder GET      /gameholders/:id(.:format)                                                           gameholders#show
+                                                            PUT      /gameholders/:id(.:format)                                                           gameholders#update
+                                                            DELETE   /gameholders/:id(.:format)                                                           gameholders#destroy
+                                                  gamesmaps PUT      /gamesmaps(.:format)                                                                 gamesmaps#update
+                                   lttfgamesindex_gamesmaps GET      /gamesmaps/lttfgamesindex(.:format)                                                  gamesmaps#lttfgamesindex
+                                                            GET      /gamesmaps(.:format)                                                                 gamesmaps#index
+                                                            POST     /gamesmaps(.:format)                                                                 gamesmaps#create
+                                               new_gamesmap GET      /gamesmaps/new(.:format)                                                             gamesmaps#new
+                                              edit_gamesmap GET      /gamesmaps/:id/edit(.:format)                                                        gamesmaps#edit
+                                                   gamesmap GET      /gamesmaps/:id(.:format)                                                             gamesmaps#show
+                                                            PUT      /gamesmaps/:id(.:format)                                                             gamesmaps#update
+                                                            DELETE   /gamesmaps/:id(.:format)                                                             gamesmaps#destroy
+                                coholderinput_gamecoholders GET      /gamecoholders/coholderinput(.:format)                                               gamecoholders#coholderinput
+                                              gamecoholders GET      /gamecoholders(.:format)                                                             gamecoholders#index
+                                                            POST     /gamecoholders(.:format)                                                             gamecoholders#create
+                                           new_gamecoholder GET      /gamecoholders/new(.:format)                                                         gamecoholders#new
+                                          edit_gamecoholder GET      /gamecoholders/:id/edit(.:format)                                                    gamecoholders#edit
+                                               gamecoholder GET      /gamecoholders/:id(.:format)                                                         gamecoholders#show
+                                                            PUT      /gamecoholders/:id(.:format)                                                         gamecoholders#update
+                                                            DELETE   /gamecoholders/:id(.:format)                                                         gamecoholders#destroy
+                              fbconnections_removefbconnect GET      /fbconnections/removefbconnect(.:format)                                             fbconnections#removefbconnect
+                               fbconnections_resetfbconnect GET      /fbconnections/resetfbconnect(.:format)                                              fbconnections#resetfbconnect
+                                                 admin_root          /admin(.:format)                                                                     admin/dashboard#index
+                               batch_action_admin_shopcarts POST     /admin/shopcarts/batch_action(.:format)                                              admin/shopcarts#batch_action
+                                            admin_shopcarts GET      /admin/shopcarts(.:format)                                                           admin/shopcarts#index
+                                                            POST     /admin/shopcarts(.:format)                                                           admin/shopcarts#create
+                                         new_admin_shopcart GET      /admin/shopcarts/new(.:format)                                                       admin/shopcarts#new
+                                        edit_admin_shopcart GET      /admin/shopcarts/:id/edit(.:format)                                                  admin/shopcarts#edit
+                                             admin_shopcart GET      /admin/shopcarts/:id(.:format)                                                       admin/shopcarts#show
+                                                            PUT      /admin/shopcarts/:id(.:format)                                                       admin/shopcarts#update
+                                                            DELETE   /admin/shopcarts/:id(.:format)                                                       admin/shopcarts#destroy
+                                            admin_dashboard GET      /admin/dashboard(.:format)                                                           admin/dashboard#index
+                                   batch_action_admin_users POST     /admin/users/batch_action(.:format)                                                  admin/users#batch_action
+                                                admin_users GET      /admin/users(.:format)                                                               admin/users#index
+                                                            POST     /admin/users(.:format)                                                               admin/users#create
+                                             new_admin_user GET      /admin/users/new(.:format)                                                           admin/users#new
+                                            edit_admin_user GET      /admin/users/:id/edit(.:format)                                                      admin/users#edit
+                                                 admin_user GET      /admin/users/:id(.:format)                                                           admin/users#show
+                                                            PUT      /admin/users/:id(.:format)                                                           admin/users#update
+                                                            DELETE   /admin/users/:id(.:format)                                                           admin/users#destroy
+                                             admin_comments GET      /admin/comments(.:format)                                                            admin/comments#index
+                                                            POST     /admin/comments(.:format)                                                            admin/comments#create
+                                              admin_comment GET      /admin/comments/:id(.:format)                                                        admin/comments#show
+                                                            DELETE   /admin/comments/:id(.:format)                                                        admin/comments#destroy

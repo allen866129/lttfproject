@@ -193,7 +193,7 @@
     <%= link_to_if current_user && (current_user.has_role? :admin), '會員管理面板', admin_root_path, :class=> "button radius" %>
     <%= link_to_if current_user && (current_user.has_role? :admin), '廣告版面管理', advitems_path, :class=> "button radius" %>
     <%= link_to_if current_user && (current_user.has_role? :admin), 'Google輸入檔管理', gsheet4games_path, :class=> "button radius" %>
-
+    <%= link_to_if current_user && (current_user.has_role? :admin), '團體註冊', batchaccountsinput_playerprofiles_path, :class=> "button radius" %>
  </div> 
 <%end%> 
 	<!-- script references -->
