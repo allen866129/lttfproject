@@ -48,6 +48,21 @@ def player_gamelist_without_preadjust
   @Gamelist  
   
 end
+def statistic_gamelist
+  qualified_games=self.player_gamelist_without_preadjust.where(:created_at =>APP_CONFIG['award_statistic_start_date']..APP_CONFIG['award_statistic_end_date'])
+  return qualified_games
+end
+def statistic_gamelist_count
+  statistic_gamelist.count
+end
+def qualifiedwongames_count 
+  won_games_count=0
+  self.statistic_gamelist.each do |game|
+    playergameresult=game.getplayersummary.find{ |p| p["id"] == self.user.id }
+    won_games_count+=playergameresult["wongames"]
+  end  
+  return won_games_count
+end  
 def score_trend_arrays
   scoretrend =Array.new
  

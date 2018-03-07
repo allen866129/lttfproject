@@ -1,0 +1,154 @@
+
+<% set_meta_tags :title => '桌球愛好者聯盟2018年 小心有毒桌球用品 X 台灣紐鮑爾桌球 榮譽榜()'%>
+<div class="table-responsive datagrid w-auto">
+  <table class="datatable  table-striped table-condensed" border=1 link=blue>
+    <caption class="text-center" ><strong>2018年度桌盟球癌排行榜(取前五名頒獎)</strong></caption> 
+    <thead>
+      <tr>
+      <th>照片</th>
+      <th>會員編號</th>
+      <th>會員姓名</th>
+      <th>目前積分</th>
+      <th><font color=red>2018年參賽總場數</font></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% if @joingames_ranking %>
+
+        <% @joingames_ranking.each do |playerprofile| %>
+          <tr>
+          <td><%= image_tag(playerprofile.user.playerphoto_url(:tiny),:class => "dp img-circle img-responsive center-block") %></td>
+          <td style="horizontal-align : center;"><%= playerprofile.user_id %><%= image_tag(playerprofile.user.rating_stars_picture, :class => " dp img-responsive center-block" ) %></td>
+          <td style="white-space: nowrap;">
+              <%= link_to(playerprofile) do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= playerprofile.user.username %></font>
+              <% end %>
+          </td>
+          <td><%= playerprofile.current_score %></font></td>
+          <td><font color=red><%= playerprofile.statistic_gamelist_count %></font></td>
+      
+          </tr> 
+        <% end %>
+       
+       <%end%> 
+    
+    </tbody>
+    
+  </table>
+</div>
+<br><br><br>
+<div class="table-responsive datagrid w-auto">
+  <table class="datatable  table-striped table-condensed" border=1 link=blue>
+    <caption class="text-center" ><strong>2018年度桌盟勝場王排行榜(取ㄧ名頒獎)</strong></caption> 
+    <thead>
+      <tr>
+      <th>照片</th>
+      <th>會員編號</th>
+      <th>會員姓名</th>
+      <th>目前積分</th>
+      <th><font color=red>"2018年總勝場數"</font></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% if @wongames_ranking%>
+
+        <% @wongames_ranking.each do |playerprofile| %>
+          <tr>
+          <td><%= image_tag(playerprofile.user.playerphoto_url(:tiny),:class => "dp img-circle img-responsive center-block") %></td>
+          <td style="horizontal-align : center;"><%= playerprofile.user_id %><%= image_tag(playerprofile.user.rating_stars_picture, :class => " dp img-responsive center-block" ) %></td>
+          <td style="white-space: nowrap;">
+              <%= link_to(playerprofile) do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= playerprofile.user.username %></font>
+              <% end %>
+          </td>
+          <td><%= playerprofile.current_score %></font></td>
+          <td><font color=red><%= playerprofile.qualifiedwongames_count %></font></td>
+      
+          </tr> 
+        <% end %>
+       
+       <%end%> 
+    
+    </tbody>
+    
+  </table>
+</div>
+
+<br><br><br>
+<div class="table-responsive datagrid w-auto">
+  <table class="datatable  table-striped table-condensed" border=1 link=blue>
+    <caption class="text-center" ><strong>桌盟2018年度球王排行榜(取ㄧ名頒獎,參賽場次最少需12場)</strong></caption> 
+    <thead>
+      <tr>
+      <th>照片</th>
+      <th>會員編號</th>
+      <th>會員姓名</th>
+      <th>目前積分</th>
+      <th><font color=red>2018年參賽總場數</font></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% if @highest_score_player%>
+
+        <% @highest_score_player.each do |playerprofile| %>
+          <tr>
+          <td><%= image_tag(playerprofile.user.playerphoto_url(:tiny),:class => "dp img-circle img-responsive center-block") %></td>
+          <td style="horizontal-align : center;"><%= playerprofile.user_id %><%= image_tag(playerprofile.user.rating_stars_picture, :class => " dp img-responsive center-block" ) %></td>
+          <td style="white-space: nowrap;">
+              <%= link_to(playerprofile) do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= playerprofile.user.username %></font>
+              <% end %>
+          </td>
+          <td><font color=red><%= playerprofile.current_score %></font></td>
+          <td><font color=red><%= playerprofile.statistic_gamelist_count %></font></td>
+      
+          </tr> 
+        <% end %>
+       
+       <%end%> 
+    
+    </tbody>
+    
+  </table>
+</div>
+
+<br><br><br>
+<div class="table-responsive datagrid w-auto">
+  <table class="datatable  table-striped table-condensed" border=1 link=blue>
+    <caption class="text-center" ><strong>2018年度主辦賽事場次排行榜(取ㄧ名頒獎)</strong></caption> 
+    <thead>
+      <tr>
+      <th>照片</th>
+      <th>會員編號</th>
+      <th>主辦人姓名</th>
+      <th><font color=red>"2018年主辦桌盟積分賽場數"</font></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <% if  @award_gameholers%>
+
+        <%  @award_gameholers.each do |gameholder| %>
+          <tr>
+          <td><%= image_tag(gameholder.user.playerphoto_url(:tiny),:class => "dp img-circle img-responsive center-block") %></td>
+          <td style="horizontal-align : center;"><%= gameholder.user.id %><%= image_tag(gameholder.user.rating_stars_picture, :class => " dp img-responsive center-block" ) %></td>
+          <td style="white-space: nowrap;">
+              <%= link_to(gameholder.user.playerprofile) do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= gameholder.user.username %></font>
+              <% end %>
+          </td>
+
+          <td><font color=red><%= gameholder.prize_games_count %></font></td>
+      
+          </tr> 
+        <% end %>
+       
+       <%end%> 
+    
+    </tbody>
+    
+  </table>
+</div>

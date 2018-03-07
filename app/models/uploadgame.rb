@@ -239,7 +239,7 @@ class Uploadgame < ActiveRecord::Base
 
             end 
             puts @SingleGame
-            logger.info(@SingleGame)
+            logger.info(@SingleGame)      
             aplayer=playersinfo.find{|v| v['name']==@SingleGame['Aplayer']}
             bplayer=playersinfo.find{|v| v['name']==@SingleGame['Bplayer']}
             @SingleGame['Aplayer bgamescore']=(aplayer["adjustscore"]==nil || aplayer["adjustscore"].to_i==0 ) ? aplayer["bgamescore"].to_i : aplayer["adjustscore"].to_i

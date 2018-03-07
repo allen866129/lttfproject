@@ -93,7 +93,8 @@ Lttfproject::Application.routes.draw do
   resources :games do
     collection do 
       get  :show_player_games
-      get   :lttfratinginfo
+      get  :lttfratinginfo
+      get  :lttfprize
     end  
   end
 
