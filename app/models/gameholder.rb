@@ -12,7 +12,7 @@ class Gameholder < ActiveRecord::Base
   	self.zipcode=TWZipCode_hash[self.city][self.county]
   end	
   def prize_games_count
-    return self.holdgames.where(:startdate =>APP_CONFIG['award_statistic_start_date']..APP_CONFIG['award_statistic_end_date']).count
+    return self.holdgames.where(:startdate =>APP_CONFIG['award_statistic_start_date']..DateTime.now.to_date).count
  
   end
 end

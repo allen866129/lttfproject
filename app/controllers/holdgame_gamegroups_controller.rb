@@ -125,12 +125,16 @@ def preparesendmail
      gamegroup.allgroupattendee.flatten.each do |player|
        @player_email[player.player_id]=false
      end 
+
       if(gamegroup.noofplayers!=0)
         groupbackup=gamegroup.allgroupattendee.in_groups_of(gamegroup.noofplayers,false)[1]
         
         @backupplayerlist=@backupplayerlist+groupbackup.flatten if groupbackup
       
-     end 
+       else
+
+        @backupplayerlist=gamegroup.allgroupattendee.flatten
+      end  
    end
    gon.player_email=@player_email
    @backupplayerIDlist=Array.new
