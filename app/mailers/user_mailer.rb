@@ -201,7 +201,7 @@
   def post_to_LTTF (messagetofb , nameoflink,pathlink)
     
     #oauth_access_token = access_token
-    
+    return 
     image_path = "#{Rails.root}/public/LTTF_logo.png"  #change to your image path
     message = messagetofb # your message
     @testuser=User.find(1)
@@ -240,7 +240,7 @@
   end
 
   def gamerecords_publish_notice_to_FB ( uploadgame)
-    
+    return 
     @gamename=uploadgame.gamename
     @uploadgame=uploadgame
    
@@ -280,7 +280,8 @@
    
   end
  # def newholdgame_publish_notice_to_FB ( holdgame,access_token)
-   def newholdgame_publish_notice_to_FB ( holdgame) 
+   def newholdgame_publish_notice_to_FB ( holdgame)
+   return  
     @gamename=holdgame.gamename
     @holdgame=holdgame
     @tempdategame=holdgame.startdate.to_s+holdgame.gamename+"("+holdgame.city+holdgame.county+")"
@@ -336,7 +337,7 @@
   end
 
  def newscore_publish_notice_to_FB ( newgame)
-    
+    return 
     @gamename=newgame.gamename
     @newgame=newgame
     
@@ -379,7 +380,7 @@
     mail(:to => "#{player.name} <#{player.email}>", :subject => "桌球愛好者聯盟#{@tempdategame}賽事取消通知")
   end  
   def holdgame_cancel_notice_to_FB(holdgame)
-  
+    return  
     @tempdategame=holdgame.startdate.to_s+holdgame.gamename
           
     #mail(:to => "lttf.taiwan@gmail.com", :subject => "桌球愛好者聯盟#{gamename}積分更新公告")
@@ -406,7 +407,7 @@
   end  
   def holdgame_publish_all_to_FB(message)
 
-          
+    return      
     #mail(:to => "lttf.taiwan@gmail.com", :subject => "桌球愛好者聯盟#{gamename}積分更新公告")
     #mail(:to => "allen866129@gmail.com", :subject => "桌球愛好者聯盟#{gamename}積分更新公告")
     
