@@ -230,7 +230,7 @@ Devise.setup do |config|
   require "omniauth-facebook" 
 
   #config.omniauth :facebook, ENV["FACEBOOK_KEY"], ENV["FACEBOOK_SECRET"], { :scope => 'email, offline_access, manage_pages,publish_stream,user_groups,publish_actions', :locale =>'zh_TW', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
-  config.omniauth :facebook, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_ID'].to_s, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_SECRET'], { :scope => 'email, user_managed_groups,publish_actions', :locale =>'zh_TW', callback_url:  => ENV['SERVER_ROOT']+'/users/auth/facebook/callback', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :facebook, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_ID'].to_s, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_SECRET'], { :scope => 'email, user_managed_groups,publish_actions', :locale =>'zh_TW',  :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
