@@ -407,7 +407,7 @@
   end  
   def holdgame_publish_all_to_FB(message)
 
-    return      
+         
     #mail(:to => "lttf.taiwan@gmail.com", :subject => "桌球愛好者聯盟#{gamename}積分更新公告")
     #mail(:to => "allen866129@gmail.com", :subject => "桌球愛好者聯盟#{gamename}積分更新公告")
     
