@@ -206,10 +206,11 @@
     message = messagetofb # your message
     @testuser=User.find(1)
     access_token=@testuser.authorizations.where(:provider => 'facebook').last.token
+    Koala.config.api_version = "v2.6"
     graph = Koala::Facebook::API.new(access_token)
-    graph = Koala::Facebook::API.new(access_token )
+    #graph = Koala::Facebook::API.new(access_token )
    
-   
+  
   
     graph.put_wall_post(messagetofb, {   
     "link" => "http://www.twlttf.org/lttfproject/uploadgames/gamescorechecking",
