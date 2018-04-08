@@ -69,10 +69,17 @@
    </p>
    
   <div id="map" style='width: 100%; height: 250px;'></div>
-     
+   <p style="white-space: pre-line ;width:auto; text-align:justify "><font color="blue">
 
   <div class="table-responsive datagrid" >
+
+   
+    <% if current_user && ( @holdgame.gameholder.user_id==current_user.id || current_user.has_role?(:admin)||current_user.has_role?(:superuser)|| @holdgame.find_gamecoholder(current_user.id))   %>
+    <p><font color="red">因為facbook改變隱私政策,所有直接公告於桌盟FB的功能暫時無法使用,麻煩主辦人自行複製比賽報名網頁網址張貼於桌盟網站!
+   </font></p> <br><br>
+    <%end%> 
   <table class="table-striped table-condensed" border=1 >
+    
     <tr>
       <% if current_user && ( @holdgame.gameholder.user_id==current_user.id || current_user.has_role?(:admin)||current_user.has_role?(:superuser)|| @holdgame.find_gamecoholder(current_user.id))   %>
         <td><%= button_to '新增分組', new_holdgame_gamegroup_path(@holdgame), :method => :get  %></td>
@@ -87,6 +94,7 @@
   </table>
 
  </div>
+ 
 
 
 
