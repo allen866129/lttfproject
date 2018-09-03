@@ -20,6 +20,20 @@ class Gamegroup < ActiveRecord::Base
   	end	
   	return nil
   end
+  
+  def getscorestring
+    case self.scorelimitation
+      when '無積分限制'
+       return '無'
+      when '限制高低分' 
+        return self.scorelow.to_s+'~'+self.scorehigh.to_s 
+      when '限制最高分'
+        return '小於'+self.scorehigh.to_s 
+      when '限制最低分'
+        return '大於'+self.scorelow.to_s
+    end  
+   
+  end
   def  rating_stars_picture
 
       case  self.minimal_LTTF_games_limited
