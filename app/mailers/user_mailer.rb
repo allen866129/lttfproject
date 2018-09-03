@@ -240,7 +240,7 @@
   end
 
   def gamerecords_publish_notice_to_FB ( uploadgame)
-
+    return 
     @gamename=uploadgame.gamename
     @uploadgame=uploadgame
    
@@ -251,11 +251,8 @@
           "各位盟友，#{@gamename}比賽成績已開始公告查核作業\n"+
            "請參賽盟友儘速前往以下網址查核您的出賽成績。\n"+
            "如果您此次的比賽成績紀錄有誤，請儘速跟桌盟或主辦單位反應更正，以免影響正確的積分計算，謝謝配合。\n"+
-           "桌球愛好者聯盟敬上"+ uploadgame_url(uploadgame)
+           "桌球愛好者聯盟敬上"
     @testuser=User.find(1)
-    mail(:to => "#{@testuser.username} <#{@testuser.email}>", :subject => "桌球愛好者聯盟#{@gamename}比賽結果查核通知")
-    return 
-    # FB disabled======================================
     access_token=@testuser.authorizations.where(:provider => 'facebook').last.token
     graph = Koala::Facebook::API.new(access_token)
     graph.put_wall_post(@message, {   
@@ -284,15 +281,11 @@
   end
  # def newholdgame_publish_notice_to_FB ( holdgame,access_token)
    def newholdgame_publish_notice_to_FB ( holdgame)
-  
+   return  
     @gamename=holdgame.gamename
     @holdgame=holdgame
     @tempdategame=holdgame.startdate.to_s+holdgame.gamename+"("+holdgame.city+holdgame.county+")"
     @gameholdername=Gameholder.find(holdgame.gameholder_id).name
-    @testuser=User.find(1)
-    mail(:to => "#{@testuser.username} <#{@testuser.email}>", :subject => "桌球愛好者聯盟#{@gamename}比賽結果查核通知")
-
-    return 
     @message="桌球愛好者聯盟新增賽事公告\n"+
           "各位盟友，#{@tempdategame}已開始接受報名。\n"+
           "此項賽事主辦人:#{@gameholdername}\n"+
@@ -317,9 +310,6 @@
     #mail(:to => "allen866129@gmail.com", :subject => "桌球愛好者聯盟#{gamename}比賽結果查核公告")
     @message=@message+ "桌球愛好者聯盟敬上"
     @testuser=User.find(1)
-    mail(:to => "#{@testuser.username} <#{@testuser.email}>", :subject => "桌球愛好者聯盟#{@gamename}比賽結果查核通知")
-   
-
     access_token=@testuser.authorizations.where(:provider => 'facebook').last.token
     graph = Koala::Facebook::API.new(access_token)
    
