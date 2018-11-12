@@ -98,7 +98,8 @@ class GamesController < ApplicationController
     @players=Playerprofile.where(:updated_at => APP_CONFIG['award_statistic_start_date']..APP_CONFIG['award_statistic_end_date'])
     @joingames_ranking=@players.sort_by(&:statistic_gamelist_count).reverse.first(10)
     @wongames_ranking=@players.sort_by(&:qualifiedwongames_count).reverse.first(10)
-    @highest_score_player=@joingames_ranking.select{ |player| player.statistic_gamelist_count > 11 }.sort_by(&:current_score).reverse.first(10)
+    #@highest_score_player=@joingames_ranking.select{ |player| player.statistic_gamelist_count > 11 }.sort_by(&:current_score).reverse.first(10)
+    @highest_score_player=@players.select{ |player| player.statistic_gamelist_count > 11 }.sort_by(&:current_score).reverse.first(10)
     @award_gameholers=Gameholder.all.sort_by(&:prize_games_count).reverse.first(10)
   end
 end
