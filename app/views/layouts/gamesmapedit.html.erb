@@ -180,6 +180,10 @@ function codeAddress() {
 
         gon.lng=results[0].geometry.location.lng();
         gon.lat=results[0].geometry.location.lat();
+        gon.zipcode=results[0].address_components[3].long_name;
+        gon.city=results[0].address_components[1].long_name;
+        gon.county=results[0].address_components[0].long_name;
+        gon.country=results[0].address_components[2].long_name;
         handler.map.centerOn({ lat: gon.lat, lng: gon.lng }); 
         deleteMarkers();
         markers = handler.addMarkers([
@@ -319,7 +323,7 @@ function setcitycountforaddress(city, county)
 function updateAddress(county,address){
 
  // document.getElementById("ttcourt_city").value=prov;
- if( address.search("台灣")>0)
+  if (gon.country=="台灣")
  {
    var fulladdress=address.split('台灣');
    var city=fulladdress[1].split(county)[0];
@@ -349,7 +353,7 @@ function updateAddress(county,address){
  }
  ;
   
-setcitycountforaddress(city, county);
+setcitycountforaddress(gon.city, gon.county);
  
      document.getElementById("holdgame_address").value=address;
   
