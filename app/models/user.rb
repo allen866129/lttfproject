@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: true, if: -> { self.username.present? }
   validate :username_without_
   validate :username_without_space
+  validate :username_not_allenglish 
   validate :fbaccount_without_email
   validate :my_email_validation
   validates_format_of :email,:with => Devise.email_regexp
@@ -192,6 +193,13 @@ def  rating_stars_picture
     def username_without_space
      
        errors.add(:username, "姓名不得含有空白字元請重新輸入") unless read_attribute(:username).to_s.exclude? " "  
+      
+    end
+    def username_not_allenglish
+        if username =~/\p{Han}/
+        else
+           errors[:username] << "please don't hike!"
+        end  
       
     end
     def fbaccount_without_email
