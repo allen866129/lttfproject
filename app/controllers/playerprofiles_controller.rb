@@ -111,7 +111,7 @@ class PlayerprofilesController < ApplicationController
   @playerprofile.name=current_user.username
   @playerprofile.lastscoreupdatedate=current.user.created_at.to_date
   @playerprofile.curscore=@playerprofile.initscore
-  
+  @playerprofile.id=@playerprofile.user_id
 
     respond_to do |format|
       if @playerprofile.save
