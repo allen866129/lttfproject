@@ -44,7 +44,8 @@ end
 def player_gamelist_without_preadjust
   @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
   @adjkeyword="前置調整"
-  @Gamelist=Game.Game.qualified_players_for_prize_games_2018.where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist=Game.where("gamename not like ?","%#{ @adjkeyword}%")
+          .where(:id =>1130..1417).where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
   @Gamelist  
 end
 def statistic_gamelist
