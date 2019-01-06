@@ -40,25 +40,31 @@ def get_score_data_table
   #@trendchart
   data_table
 end  
-
 def player_gamelist_without_preadjust
+  @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
+  @adjkeyword="前置調整"
+  @Gamelist=Game.where("gamename not like ?","%#{ @adjkeyword}%")
+          .where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist  
+end
+def prize_2018_player_gamelist_without_preadjust
   @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
   @adjkeyword="前置調整"
   @Gamelist=Game.where("gamename not like ?","%#{ @adjkeyword}%")
           .where(:id =>1130..1417).where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
   @Gamelist  
 end
-def statistic_gamelist
+def prize_2018_statistic_gamelist
  # qualified_games=self.player_gamelist_without_preadjust.where(:created_at =>APP_CONFIG['award_statistic_start_date']..APP_CONFIG['award_statistic_end_date'])
-  qualified_games=self.player_gamelist_without_preadjust
+  qualified_games=self.prize_2018_player_gamelist_without_preadjust
   return qualified_games
 end
-def statistic_gamelist_count
-  statistic_gamelist.count
+def prize_2018_statistic_gamelist_count
+  prize_2018_statistic_gamelist.count
 end
 def qualifiedwongames_count 
   won_games_count=0
-  self.statistic_gamelist.each do |game|
+  self.prize_2018_statistic_gamelist.each do |game|
     playergameresult=game.getplayersummary.find{ |p| p["id"] == self.user.id }
     won_games_count+=playergameresult["wongames"]
   end  

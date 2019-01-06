@@ -97,10 +97,13 @@ class GamesController < ApplicationController
   def lttfprize
     #@players=Playerprofile.where(:updated_at => APP_CONFIG['award_statistic_start_date']..APP_CONFIG['award_statistic_end_date'])
     @players=Game.qualified_players_for_prize_games_2018
-    @joingames_ranking=@players.sort_by(&:statistic_gamelist_count).reverse.first(10)
+    binding.pry
+    @joingames_ranking=@players.sort_by(&:prize_2018_statistic_gamelist_count).reverse.first(10)
+    binding.pry
     @wongames_ranking=@players.sort_by(&:qualifiedwongames_count).reverse.first(10)
+    binding.pry
     #@highest_score_player=@joingames_ranking.select{ |player| player.statistic_gamelist_count > 11 }.sort_by(&:current_score).reverse.first(10)
-    @highest_score_player=@players.select{ |player| player.statistic_gamelist_count > 11 }.sort_by(&:current_score).reverse.first(10)
+    @highest_score_player=@players.select{ |player| player.prize_2018_statistic_gamelist_count > 11 }.sort_by(&:current_score).reverse.first(10)
     @award_gameholers=Gameholder.all.sort_by(&:prize_games_count).reverse.first(10)
   end
 end

@@ -83,7 +83,6 @@ class Game < ActiveRecord::Base
           .where(:id =>1130..1417)   
     @qualified_players=Array.new
     @Prize_Gamelist_2018.each do |game|
-      puts game
 
       if game.players_result
          @currentgamesummery= game.players_result.split(/\n/)
