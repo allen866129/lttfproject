@@ -44,12 +44,12 @@ end
 def player_gamelist_without_preadjust
   @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
   @adjkeyword="前置調整"
-  @Gamelist=Game.where("gamename not like ?","%#{ @adjkeyword}%").where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist=Game.Game.qualified_players_for_prize_games_2018.where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
   @Gamelist  
-  
 end
 def statistic_gamelist
-  qualified_games=self.player_gamelist_without_preadjust.where(:created_at =>APP_CONFIG['award_statistic_start_date']..APP_CONFIG['award_statistic_end_date'])
+ # qualified_games=self.player_gamelist_without_preadjust.where(:created_at =>APP_CONFIG['award_statistic_start_date']..APP_CONFIG['award_statistic_end_date'])
+  qualified_games=self.player_gamelist_without_preadjust
   return qualified_games
 end
 def statistic_gamelist_count
