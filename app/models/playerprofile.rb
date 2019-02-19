@@ -185,6 +185,7 @@ def get_played_games_table (page_parm)
 end
 def add_name
   self.name=self.user.username if !self.name
+  self.id  = self.user_id
   #if self.initscore!=0
   #  self.gamehistory=self.user.created_at.to_date.to_s+"("+self.initscore.to_s+")" 
   #end 

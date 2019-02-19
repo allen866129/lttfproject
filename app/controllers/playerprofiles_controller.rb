@@ -89,6 +89,7 @@ class PlayerprofilesController < ApplicationController
   def new
 
     @playerprofile  = current_user.build_playerprofile
+    @playerprofile.id=@playerprofile.user_id
      format.html { redirect_to @playerprofile, notice: 'Playerprofile was successfully new.' }
       respond_to do |format|
       format.html # new.html.erb
