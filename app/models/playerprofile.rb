@@ -225,7 +225,9 @@ def self.googleplayerlist(fileurl)
   @playerlistsheet=spreadsheet.worksheets[0]
   @searchplayerlist= Array.new 
   (2..@playerlistsheet.num_rows).each do |i|
-    @searchplayerlist.push(@playerlistsheet[i,2].to_i)
+
+      @searchplayerlist.push(@playerlistsheet[i,2].to_i)    
+
   end
   players= User.find(@searchplayerlist)
   @players=players.sort_by{|p| p.playerprofile[:curscore]}.reverse
@@ -246,6 +248,58 @@ def self.googleplayerlist(fileurl)
   playerlistws.save
   @players
 end
+def self.find_playerlist_from_googlesheet_by_name(fileurl)
+  client = Google::APIClient.new(
+         :application_name => 'lttfprojecttest',
+          :application_version => '1.0.0')
+   #fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
+   
+  keypath = Rails.root.join('config','client.p12').to_s
+  key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
+  client.authorization = Signet::OAuth2::Client.new(
+     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+     :audience => 'https://accounts.google.com/o/oauth2/token',
+     :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
+     :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
+     :access_type => 'offline' ,
+     :approval_prompt=>'force',
+     :signing_key => key)
+  client.authorization.fetch_access_token!
+  connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
+    #@newgame=Uploadgame.new
+  spreadsheet = connection.spreadsheet_by_url(fileurl)
+  playerlistws=spreadsheet.worksheets[0]
+  @playerlistsheet=spreadsheet.worksheets[0]
+  playerlistws[1,1]='序號(排名)'
+  playerlistws[1,2]='桌盟編號'
+  playerlistws[1,3]='姓名'
+  playerlistws[1,4]='目前積分'
+  playerlistws[1,5]='累計總勝場數'
+  playerlistws[1,6]='累計總敗場數'
+  @foundplayerlist= Array.new 
+  @unfoundplayerlist=Array.new
+  (2..@playerlistsheet.num_rows).each do |i|
+      playerlistws[i,1]=i-1
+      @user=User.where( :username=>@playerlistsheet[i,3].lstrip.rstrip).first
+      if @user
+
+        playerlistws[i,2]=@user.id
+        playerlistws[i,3]=@user.username
+        playerlistws[i,4]=@user.playerprofile.curscore
+        playerlistws[i,5]=@user.playerprofile.totalwongames
+        playerlistws[i,6]=@user.playerprofile.totallosegames 
+        @foundplayerlist.push(@user) 
+
+      else
+         playerlistws[i,3]=@playerlistsheet[i,3].lstrip.rstrip
+         @unfoundplayerlist.push(@playerlistsheet[i,3].lstrip.rstrip)
+      end  
+
+  end
+  playerlistws.save
+  return @foundplayerlist, @unfoundplayerlist
+end
+
 def self.batch_create_account
    client = Google::APIClient.new(
          :application_name => 'lttfprojecttest',

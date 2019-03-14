@@ -110,7 +110,8 @@ devise_for :users, :controllers => {:registrations => 'users/registrations', :om
      collection do
        post :import 
        get :search
-       get :googleplayerlist   
+       get :googleplayerlist  
+       get :googleplayerlistbyname 
        get :callback   
        get :lttfindex  
        get :batchaccountsinput

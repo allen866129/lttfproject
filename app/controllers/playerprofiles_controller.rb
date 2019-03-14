@@ -55,6 +55,17 @@ class PlayerprofilesController < ApplicationController
     
   end
 
+  def googleplayerlistbyname
+      if params[:playerlistfileurl]
+      @foundplayers, @unfoundplayers=Playerprofile.find_playerlist_from_googlesheet_by_name(params[:playerlistfileurl])
+      @previousfileurl=params[:playerlistfileurl]
+      @foundplayers=@foundplayers.uniq
+    else
+       @foundplayers=[] 
+       @unfoundplayers=[]
+       @previousfileurl=nil
+    end 
+  end
  
   def show
    
