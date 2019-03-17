@@ -2,7 +2,7 @@
 <% set_meta_tags :title => '桌球愛好者聯盟積分總表'%>
 <div class="table-responsive datagrid w-auto">
   <table class="datatable  table-striped table-condensed" border=1 link=blue>
-    <caption class="text-center" ><strong>會員積分總表(有效會員:<font color="red"><%=@membercount%></font>位)</strong></caption> 
+    <caption class="text-center" ><strong>會員積分總表(有效會員:<font color="red"><%=User.count%></font>位)</strong></caption> 
     <thead>
       <tr>
       <th>照片</th>
