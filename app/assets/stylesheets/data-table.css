@@ -24,11 +24,11 @@
 }
 
 .datagrid table thead th .asc {
-  background-image: url(/images/up_arrow.gif);
+  background-image: asset-url ('up_arrow.gif');
 }
 
 .datagrid table thead th .desc {
-  background-image: url(/images/down_arrow.gif);
+  background-image: asset-url ('down_arrow.gif');
 }
 
 

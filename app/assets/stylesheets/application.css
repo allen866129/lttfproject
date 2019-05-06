@@ -10,14 +10,16 @@
  *
  *= require_self
  *= require_tree .
+
  */
  //= require common
 
  @font-face {
    font-family: 'Glyphicons Halflings';
-   src: url('/assets/glyphicons-halflings-regular.eot');
-   src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-        url('/assets/glyphicons-halflings-regular.woff') format('woff'),
-        url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
-        url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+   src: asset-url ('glyphicons-halflings-regular.eot');
+   src: asset-url ('glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+        asset-url ('glyphicons-halflings-regular.woff') format('woff'),
+        asset-url ('glyphicons-halflings-regular.ttf') format('truetype'),
+        asset-url ('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
  }
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");

@@ -145,7 +145,7 @@ require 'activeadmin'
 
   # == Setting a Favicon
   #
-  # config.favicon = '/assets/favicon.ico'
+  # config.favicon = '/assets/lttf_logo_60x40.ico'
 
 
   # == Removing Breadcrumbs

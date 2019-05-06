@@ -12,7 +12,7 @@
 
           li << link_to("修改個人資料",edit_registration_path(current_user))
          
-          li << link_to("設定facebook帳號連結", user_omniauth_authorize_path('facebook'))
+          #li << link_to("設定facebook帳號連結", user_omniauth_authorize_path('facebook'))
           
           li << link_to("登出",destroy_user_session_path, :method => :delete ) 
         end%>
@@ -23,7 +23,7 @@
           
           li << link_to("修改個人資料",edit_registration_path(current_user))
 
-          li << link_to("取消FB帳號連結",fbconnections_removefbconnect_path, :method=>:get, data: {confirm: "確定要取消FB帳號連結?"} )
+         # li << link_to("取消FB帳號連結",fbconnections_removefbconnect_path, :method=>:get, data: {confirm: "確定要取消FB帳號連結?"} )
 
           li << link_to("登出",destroy_user_session_path, :method => :delete)
         end%>
@@ -45,7 +45,7 @@
 
     </li>
     <li>
-    <p>  <%= link_to(image_tag("/images/facebook.ico"),user_omniauth_authorize_path('facebook'))  %> </p>
+   <p>  <!%= link_to(image_tag("/images/facebook.ico"),user_omniauth_authorize_path('facebook'))  %> </p>
            
     </li>  
   <% end %>

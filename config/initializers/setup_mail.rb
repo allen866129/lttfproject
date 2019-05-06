@@ -25,7 +25,7 @@ ActionMailer::Base.smtp_settings = {
   :domain               =>  APP_CONFIG[APP_CONFIG['HOST_TYPE']]["Mailer_Domain"],
   :user_name            =>  APP_CONFIG[APP_CONFIG['HOST_TYPE']]["Mailer_User"],
   :password             =>  APP_CONFIG[APP_CONFIG['HOST_TYPE']]["Mailer_PWD"],
-  :authentication       => "plain",
+  :authentication       => "login",
   :enable_starttls_auto => APP_CONFIG[APP_CONFIG['HOST_TYPE']]["Mailer_Auto_SSL"]
 }
 ActionMailer::Base.default_url_options[:host] =  APP_CONFIG[APP_CONFIG['HOST_TYPE']]["Mailer_Host"] 

@@ -8,7 +8,7 @@ class Gamegroup < ActiveRecord::Base
   attr_accessible :minimal_LTTF_games_limited, :authcerts ,:need_authcert_flag, :authcondition
   belongs_to :holdgame
   has_many :groupattendants, dependent: :destroy
-  after_commit :check_cancel_date_time
+ # before_save :check_cancel_date_time
   default_scope {order('id ASC')}
   def self.regtypes
    {'single'=>'個人', 'double'=>'雙人', 'team'=>'團體'}
@@ -24,7 +24,7 @@ class Gamegroup < ActiveRecord::Base
   def check_cancel_date_time
 
     self.cancellation_deadline_flag= false if !cancellation_deadline 
-    self.save
+    #self.save
   end
   def  rating_stars_picture
 

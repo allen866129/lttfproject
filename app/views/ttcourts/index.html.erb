@@ -18,7 +18,7 @@
     </ul>    
     <% if current_user%> 
       <% if (current_user.has_role? :admin)||(current_user.has_role? :superuser)||(current_user.has_role? :mapmanager) %>
-        <%= link_to image_tag('/images/button_add.ico') , new_ttcourt_path  %>
+        <%= link_to image_tag('button_add.ico') , new_ttcourt_path  %>
      <% end %>
     <% end %>    
    </div>

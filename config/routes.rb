@@ -49,7 +49,7 @@ Lttfproject::Application.routes.draw do
           get :teamplayersinput
           get :teamplayersadd
           get :singlegroupregistration
-          put :update
+          patch :update
           get :groupdumptoxls
           get :preparesendmail
           post :sendemail

@@ -246,6 +246,7 @@ def copy_players_list
   if !playerlist.empty?
     playerlist=playerlist.uniq{|x| x.player_id}  
   end
+
   client = Google::APIClient.new(
          :application_name => 'lttfprojecttest',
           :application_version => '1.0.0')
