@@ -43,3 +43,4 @@ capybara-*.html
 Gemfile.lock
 database*.yml
 /config/client.p12
+/vendor/cache/

@@ -136,15 +136,18 @@ def set_future_games_showdata
   @showgames=Array.new
    
   @futuregames.each do |futuregame|
-      group_type=futuregame.find_player_ingroups_type(self.id)
+      if futuregame
 
-      if !group_type.empty?
-        gamegroups=Hash.new
-        gamegroups['groups_type']=group_type
-        gamegroups['holdgame']=futuregame
-        @showgames.push(gamegroups)
+        group_type=futuregame.find_player_ingroups_type(self.id)
 
-      end  
+        if !group_type.empty?
+          gamegroups=Hash.new
+          gamegroups['groups_type']=group_type
+          gamegroups['holdgame']=futuregame
+          @showgames.push(gamegroups)
+
+       end
+      end   
   end     
   @showgames
 end 

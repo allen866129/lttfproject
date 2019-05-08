@@ -2,7 +2,6 @@ Lttfproject::Application.routes.draw do
 
   
 
-
   resources :authcertunits do
       collection do
         post :remove_certification
@@ -103,8 +102,9 @@ devise_for :users, :controllers => {:registrations => 'users/registrations', :om
 #devise_for :users, :controllers => { :registrations => 'users/registrations'}  
 
   devise_scope :user do
-      resources :users 
+     resources :users 
   end
+  
   root :to => "home#index"
   resources :playerprofiles do
      collection do

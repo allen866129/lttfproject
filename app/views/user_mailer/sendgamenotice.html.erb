@@ -15,6 +15,8 @@
      連絡電話：<%=@holdgame.gameholder.phone %> <br>
      email: <%= mail_to @holdgame.gameholder.email, @holdgame.gameholder.email %><br>
    </p>   
- 	<%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', holdgame_gamegroups_url(@holdgame) %>
+
+ 	<!%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁~', holdgame_gamegroups_url(@holdgame) %>
+  <%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', 'http://www.twlttf.org'+holdgame_gamegroups_path(@holdgame) %>
   </body>
 </html>

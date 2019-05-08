@@ -39,7 +39,7 @@ Lttfproject::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
   # Expands the lines which load the assets
-  config.assets.debug = false
+  config.assets.debug = true
   config.action_mailer.default_url_options = { :host => 'www.twlttf.org' }
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the

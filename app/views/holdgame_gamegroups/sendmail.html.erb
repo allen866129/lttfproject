@@ -23,7 +23,6 @@
   </div>
  
    <% for gamegroup in @gamegroups %>
-  <% binding.pry %>
    <% if gamegroup.noofplayers!=0 %>
      <% playerlists=gamegroup.allgroupattendee.in_groups_of(gamegroup.noofplayers,false) %>
    <%else%>

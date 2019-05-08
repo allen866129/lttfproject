@@ -1,13 +1,16 @@
 <!script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAeQ-zOQ8eENrd2wbVDPs7HhcmTVj-hPiI"></script>
+<!script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAeQ-zOQ8eENrd2wbVDPs7HhcmTVj-hPiI"></script>
+ <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 <%= include_gon %>
+
 <% set_meta_tags :og => { :title => @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁' , :image => 'http://twlttf.org/LTTF_logo.png', :description =>'歡迎球友前往此報名網頁報名參賽', :url=>holdgame_gamegroups_url(@holdgame)} %>
 
 <link rel="canonical" href= <%=holdgame_gamegroups_url(@holdgame)%> />    
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
   <h1 align=center> <%= @holdgame.startdate %> <%= @holdgame.gamename %></h1>
   
-
 
        
    <div class ="well" style='width: 100%'>
@@ -230,6 +233,7 @@
 
 <script type="text/javascript">
     $(window).load(function(){
+
       if( gon.log_in==0)
       {
         document.getElementById("startmodal").click();
