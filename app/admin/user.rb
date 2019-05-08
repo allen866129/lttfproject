@@ -6,6 +6,7 @@ ActiveAdmin.register User do
   	column :id
     column :username
     column :email
+    column :phone 
     column :fbaccount 
     column :roles do |user|
      user.roles.collect {|c| c.name.capitalize }.to_sentence    
@@ -18,6 +19,7 @@ ActiveAdmin.register User do
       row :id
       row :username
       row :email
+      row :phone 
       row :fbaccount
       row :playerphoto 
       row :roles do |user|
@@ -31,6 +33,7 @@ ActiveAdmin.register User do
       f.input :id, input_html: { disabled: true }
       f.input :username, input_html: { disabled: true }
       f.input :email
+      f.input :phone
       f.input :fbaccount
       f.input :roles, :collection => Role.global,
        :label_method => lambda { |el| t "simple_form.options.user.roles.#{el.name}" }

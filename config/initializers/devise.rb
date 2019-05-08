@@ -230,7 +230,8 @@ Devise.setup do |config|
   require "omniauth-facebook" 
 
   #config.omniauth :facebook, ENV["FACEBOOK_KEY"], ENV["FACEBOOK_SECRET"], { :scope => 'email, offline_access, manage_pages,publish_stream,user_groups,publish_actions', :locale =>'zh_TW', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
-  config.omniauth :facebook, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_ID'].to_s, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_SECRET'], { :scope => 'email, user_groups,publish_actions', :locale =>'zh_TW', :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  config.omniauth :facebook, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_ID'].to_s, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_SECRET'], { :callback_url=> APP_CONFIG[APP_CONFIG['HOST_TYPE']]['REDIRECT_URI'], :scope => 'email, groups_access_member_info, publish_to_group', :locale =>'zh_TW',  :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+  #config.omniauth :facebook, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_ID'].to_s, APP_CONFIG[APP_CONFIG['HOST_TYPE']]['APP_SECRET'], { :callback_url=> "http://www.twlttf.org/users/auth/facebook/callback", :scope => 'email,publish_actions', :locale =>'zh_TW',  :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting

@@ -4,9 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-	<p>您好,</p>
-	<p>您所主辦的<%=@gamename%>已經完成積分更新作業!</p>
-  <P>您可前往 <%= link_to @gamename+'歷史積分賽網頁', game_url(@newgame) %> 查看積分更新內容</p>
+    <p>您好,</p>
+    <p>您所主辦或協辦的<%=@gamename%>已經完成積分更新作業!</p>
+  <P>您可前往 <%= link_to @gamename+'歷史積分賽網頁', 'http://www.twlttf.org'+game_path(@newgame) %> 查看積分更新內容</p>
 
 	<p>桌球愛好者聯盟敬上</p>
  	

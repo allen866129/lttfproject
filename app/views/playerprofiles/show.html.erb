@@ -20,27 +20,33 @@
       <strong>會員基本資料</strong>
 
     </caption>  
-    <td rowspan=4 ><%= image_tag(@playerprofile.user.playerphoto_url(:thumb)) %></td>
+    <td rowspan=4 > <%= image_tag(@playerprofile.user.playerphoto_url(:thumb)) %></td>
 
     <td><font color="black">編號:</font></td>
     <td><font color="black">姓名:</td>
+    
     <td><i class="fa fa-facebook-square"><font color="black"></i>FB帳號:</font></td>
     <td><font color="black">性別:</font></td>
     <tr>
-    <td><strong><%= @playerprofile.user_id %></strong></td>
+    <td <td style="horizontal-align : center;"><strong><%= @playerprofile.user_id %></strong>  
+      <%= image_tag(@playerprofile.user.rating_stars_picture, :class => " dp img-responsive center-block" ) %> </td>
     <td><strong><%= @playerprofile.user.username %></strong></td>
     <td><strong><%= @playerprofile.user.fbaccount %></strong></td>
     <td><strong><%= @playerprofile.bio %></strong></td>  
     <tr>  
     <td><font color="black">初始積分:</font></td>      
     <td><font color="black">目前積分:</font></td>  
-    <td><font color="black">總勝場數:</font></td> 
-    <td><font color="black">總敗場數:</font></td> 
+    <td><font color="black">總勝/敗場數:</font></td> 
+    <td><font color="black">單位認證:</font></td> 
     <tr>
     <td><strong><%= @playerprofile.initscore %></strong></td>
-    <td><strong><font color="red"><%= @playerprofile.curscore %></font></strong></td>   
-    <td><strong><%= @playerprofile.totalwongames %></strong></td> 
-    <td><strong><%= @playerprofile.totallosegames %></strong></td>
+    <td><strong><font color="red"><%= @playerprofile.current_score%></font></strong></td>   
+    <td><strong><%= @playerprofile.total_won_games_count %>/<%= @playerprofile.total_lose_games_count %></strong></td> 
+    <td><strong>
+           <%@playerprofile.user.authcertunits.each do | authcertunit| %>
+             <%= image_tag(authcertunit.unitlogo_url(:tiny), :class => " dp img-responsive center-block" ) %>
+          <% end %>  
+    </strong></td>
     <tr>
     <td><font color="black">持拍方式:</td>      
     <td colspan=2><font color="black">球拍型號:</td>  
@@ -60,14 +66,18 @@
     <td colspan=3><strong><%= @playerprofile.lastgamename %></strong></td>   
     <td><strong><%= @playerprofile.lastscoreupdatedate %></strong></td> 
      
-    <% if current_user && ( @playerprofile.user_id==current_user.id || current_user.has_role?(:admin)||current_user.has_role?(:superuser))   %>
+
       <tr>
          <td colspan=3 ><font color="black">E-mail:</font></td>
          <td colspan=2 ><font color="black">電話:</font></td> 
       <tr>
-         <td colspan=3 ><strong><%= @playerprofile.user.email %></strong></td>
-         <td colspan=2 ><strong><%= @playerprofile.user.phone %></strong></td>  
-    <%end%>
+        <% if current_user && ( @playerprofile.user_id==current_user.id || current_user.has_role?(:admin)||current_user.has_role?(:superuser))   %>    
+           <td colspan=3 ><strong><%= @playerprofile.user.email %></strong></td>
+           <td colspan=2 ><strong><%= @playerprofile.user.phone %></strong></td>  
+        <% else %>
+           <td colspan=3 ><strong><%= @playerprofile.user.mask_email %></strong></td>
+           <td colspan=2 ><strong><%= @playerprofile.user.mask_phone %></strong></td>  
+        <%end %>
     
     <% if   controller_name == "blacklists" && action_name=="blacklistsearch" && current_user &&  (@playerprofile.user_id!=current_user.id) && (current_user.has_role?(:gameholder))  %>  
     
@@ -136,7 +146,8 @@
 
    <div class="table-responsive datagrid">
       <table class="datatable table-striped" border=1>
-        <caption class="text-center" ><strong>會員參賽紀錄表</strong></caption>  
+        <caption class="text-center" ><strong>會員參賽紀錄表(已參賽：<font color=red>
+          <%= @playerprofile.player_gamelist_without_preadjust.count %></font>場)</strong></caption>  
         <thead>
           <tr>
           <th>比賽名稱</th>

@@ -40,8 +40,8 @@
      
             <td><%= blacklist.gameholder.user.username %></td>
             <td><%= blacklist.note %></td>
-            <td><%= link_to image_tag('/images/edit.ico') , edit_blacklist_path(blacklist) %></td>
-            <td><%= link_to image_tag('/images/delete.ico'), blacklist, method: :delete, data: { confirm: '確定刪除?' } %></td>
+            <td><%= link_to image_tag('edit.ico') , edit_blacklist_path(blacklist) %></td>
+            <td><%= link_to image_tag('delete.ico'), blacklist, method: :delete, data: { confirm: '確定刪除?' } %></td>
           </tr>
         <% end %> 
       </tbody>  

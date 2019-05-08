@@ -5,18 +5,23 @@
 
   require 'koala'
   def sendgamenotice(holdgame,player,subject,message)
-
     @player=player
     @holdgame=holdgame
     @message=message
-    mail(:to => "#{player.name} <#{player.email}>", :subject =>subject)
+    mail(:to => "#{player.name} <#{player.attand_email_from_user}>", :subject =>subject)
+  end
+  def game_holders_gamenotice_backup(holdgame, subject,message)
+    @holdgame=holdgame
+    @message=message
+    holdersemails=holdgame.find_allgameholders.uniq.map {|a| a.email}
+    mail(:to => holdersemails, :subject =>subject)
   end
   def autogamenotice(holdgame,player)
 
     @player=player
     @gamename=holdgame.startdate.to_s+holdgame.gamename
     @holdgame=holdgame
-    mail(:to => "#{player.name} <#{player.email}>", :subject =>"桌球愛好者聯盟#{@gamename}出賽提醒通知")
+    mail(:to => "#{player.name} <#{player.attand_email_from_user}>", :subject =>"桌球愛好者聯盟#{@gamename}出賽提醒通知")
   end
 
   def send_game_waiting_publish_notice(emails,uploadgame)
@@ -35,19 +40,29 @@
   def send_publish_notice_to_gameholders(emails, uploadgame)
     @gamename=uploadgame.gamename
     @uploadgame=uploadgame 
-    mail(:to => emails, :subject =>"桌球愛好者聯盟#{@gamename}公告查核通知") 
+    #emails =gameholders.map {|gameholder| gameholder.email}
+    #mail(:to => emails, :subject =>subject)
+    #emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>"桌球愛好者聯盟#{@gamename}比賽成績上傳通知") 
   end  
   def send_updatescore_notice_to_gameholders(emails,newgame)
     @gamename=newgame.gamename
     @newgame=newgame
-    mail(:to => emails, :subject =>"桌球愛好者聯盟#{@gamename}積分更新通知") 
+    #emails =gameholders.map {|gameholder| gameholder.email}
+    #mail(:to => emails, :subject =>subject)
+    #emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>"桌球愛好者聯盟#{@gamename}公告查核通知")   
   end
   def  send_gameholder_approve_notice(gameholder)
      @gameholder=gameholder
      mail(:to => "#{gameholder.user.username} <#{gameholder.user.email}>", :subject =>"桌球愛好者聯盟積分賽主辦人審核通過通知") 
   end  
 
-  def send_playerschanged_single_gameholder(gamegroup,cancelled_player_id,cancelled_palyer_name,newofficial,changetype)
+  def send_playerschanged_single_gameholder(gamegroup,cancelled_player_id,cancelled_palyer_name,newofficial,changetype, gameholders)
+    
+
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @gameholder=@holdgame.gameholder.user
@@ -56,7 +71,7 @@
     @cancelled_palyer_name=cancelled_palyer_name
     #@cancelplayer=cancelplayer 
     @newofficial=newofficial
-
+  
     if changetype=='cancel'
       @totalcount=@gamegroup.groupattendants.count #already delete cancelled player
       if @totalcount>@gamegroup.noofplayers
@@ -67,7 +82,8 @@
         @backupcount=0
       end 
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名球員取消報名通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject) 
+      #mail(:to => emails, :subject =>subject)
+
     end
     if changetype=='register'
       @totalcount=@gamegroup.groupattendants.count  #registered player already added
@@ -79,11 +95,14 @@
         @backupcount=0
       end 
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"新增報名球員通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
+      #mail(:to => emails, :subject =>subject)   
     end
+    emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>subject)
   end 
-  def send_playerschanged_double_gameholder(gamegroup, attendrecord, cancelledplayerlist,changetype)
-
+  def send_playerschanged_double_gameholder(gamegroup, attendrecord, cancelledplayerlist,changetype,gameholders)
+    #emails =gameholders.map {|gameholder| gameholder.email}
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @gameholder=@holdgame.gameholder.user
@@ -101,16 +120,19 @@
     if changetype=='cancel'
       @cancelledplayerlist=cancelledplayerlist #playerlist is group
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名隊伍取消報名通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject) 
+      #mail(:to => emails, :subject =>subject)
     end
     if changetype=='register'
       @newplayerlist=attendrecord.attendants #playerlist is group
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"新增報名隊伍通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
+      #mail(:to => emails, :subject =>subject) 
     end
-
+    emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>subject)
   end 
-  def send_playerschanged_team_gameholder(gamegroup,cancelled_team_name,cancelled_palyerlist,newofficial,changetype)
+  def send_playerschanged_team_gameholder(gamegroup,cancelled_team_name,cancelled_palyerlist,newofficial,changetype,gameholders)
+    emails =gameholders.map {|gameholder| gameholder.email}
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @gameholder=@holdgame.gameholder.user
@@ -131,18 +153,21 @@
       @cancelled_teamname=cancelled_team_name
       @cancelledplayerlist=cancelled_palyerlist #playerlist is group=cancelled_palyerlist
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名隊伍取消報名通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject) 
+      #mail(:to => emails, :subject =>subject) 
     end
     if changetype=='register'
 
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"新增報名隊伍通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
+      #mail(:to => emails, :subject =>subject)  
     end
     if changetype=='playerschanged'
        #playerlist is group
       subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"報名隊伍隊員異動通知"
-      mail(:to => "#{@gameholder.username} <#{@gameholder.email}>", :subject =>subject)
-    end    
+      #mail(:to => emails, :subject =>subject)  
+    end 
+    emails =gameholders.map {|gameholder| gameholder.email}
+    puts emails
+    mail(:to => emails, :subject =>subject)   
   end 
 
   def send_backup_to_official_single(gamegroup,newofficial)
@@ -152,13 +177,15 @@
 
     @newofficial=newofficial
     subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"列為正選參賽球員通知"
-    mail(:to => "#{newofficial.name} <#{newofficial.email}>", :subject =>subject)
+    mail(:to => "#{newofficial.name} <#{newofficial.attand_email_from_user}>", :subject =>subject)
   end 
   def send_backup_to_official_double(gamegroup,newofficial)
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @playerlist=newofficial.attendants
-    emails = @playerlist.collect(&:email).join(",")
+
+    #emails = @playerlist.collect(&:email).join(",")
+    emails = newofficial.players_to_users.collect(&:email).join(",")
     subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"列為正選參賽隊伍通知"
     mail(:to => emails, :subject =>subject)
   end  
@@ -166,22 +193,24 @@
     @gamegroup=gamegroup
     @holdgame=@gamegroup.holdgame
     @playerlist=newofficial.attendants
-    emails = @playerlist.collect(&:email).join(",")
+    #emails = @playerlist.collect(&:email).join(",")
+    emails = newofficial.players_to_users.collect(&:email).join(",")
     subject=@holdgame.startdate.to_s+@holdgame.gamename+"-"+@gamegroup.groupname+"列為正選參賽隊伍通知"
     mail(:to => emails, :subject =>subject)
   end  
   def post_to_LTTF (messagetofb , nameoflink,pathlink)
     
     #oauth_access_token = access_token
-    
+    return 
     image_path = "#{Rails.root}/public/LTTF_logo.png"  #change to your image path
     message = messagetofb # your message
     @testuser=User.find(1)
     access_token=@testuser.authorizations.where(:provider => 'facebook').last.token
+    Koala.config.api_version = "v2.6"
     graph = Koala::Facebook::API.new(access_token)
-    graph = Koala::Facebook::API.new(access_token )
+    #graph = Koala::Facebook::API.new(access_token )
    
-   
+  
   
     graph.put_wall_post(messagetofb, {   
     "link" => "http://www.twlttf.org/lttfproject/uploadgames/gamescorechecking",
@@ -211,7 +240,7 @@
   end
 
   def gamerecords_publish_notice_to_FB ( uploadgame)
-    
+    return 
     @gamename=uploadgame.gamename
     @uploadgame=uploadgame
    
@@ -251,10 +280,11 @@
    
   end
  # def newholdgame_publish_notice_to_FB ( holdgame,access_token)
-   def newholdgame_publish_notice_to_FB ( holdgame) 
+   def newholdgame_publish_notice_to_FB ( holdgame)
+   return  
     @gamename=holdgame.gamename
     @holdgame=holdgame
-    @tempdategame=holdgame.startdate.to_s+holdgame.gamename
+    @tempdategame=holdgame.startdate.to_s+holdgame.gamename+"("+holdgame.city+holdgame.county+")"
     @gameholdername=Gameholder.find(holdgame.gameholder_id).name
     @message="桌球愛好者聯盟新增賽事公告\n"+
           "各位盟友，#{@tempdategame}已開始接受報名。\n"+
@@ -307,7 +337,7 @@
   end
 
  def newscore_publish_notice_to_FB ( newgame)
-    
+    return 
     @gamename=newgame.gamename
     @newgame=newgame
     
@@ -350,7 +380,7 @@
     mail(:to => "#{player.name} <#{player.email}>", :subject => "桌球愛好者聯盟#{@tempdategame}賽事取消通知")
   end  
   def holdgame_cancel_notice_to_FB(holdgame)
-  
+    return  
     @tempdategame=holdgame.startdate.to_s+holdgame.gamename
           
     #mail(:to => "lttf.taiwan@gmail.com", :subject => "桌球愛好者聯盟#{gamename}積分更新公告")
@@ -377,7 +407,7 @@
   end  
   def holdgame_publish_all_to_FB(message)
 
-          
+         
     #mail(:to => "lttf.taiwan@gmail.com", :subject => "桌球愛好者聯盟#{gamename}積分更新公告")
     #mail(:to => "allen866129@gmail.com", :subject => "桌球愛好者聯盟#{gamename}積分更新公告")
     

@@ -29,20 +29,24 @@
    <% if  holdgame.original_filename %>
       <%= link_to "說明附檔:"+holdgame.original_filename, holdgame.gameinfofile_url ,style: 'color:#FF11FF;'%>
     <%end%>
-   <p style="white-space: pre-line ;width:auto; text-align:justify ">
-   <font color ='blue'>比賽辦法說明:<br><%=holdgame.gamenote %></font><br>
+   <p style="white-space: pre-line ;width:200px; word-wrap: break-word;text-align:justify ">
+    <% if holdgame.lttfgameflag %>
+     <font color ='blue'>詳細比賽辦法請參考報名網址:</font> <br><%= link_to  holdgame.gamename, holdgame_gamegroups_path(holdgame) ,style: 'color:#FF11FF;'  %><br>
+   <% else %>
+      <font color ='blue'>詳細比賽辦法請參考報名網址:</font> <br><%= link_to_if(holdgame.url!="", holdgame.gamename, holdgame.url ,style: 'color:#FF11FF;' ) %></br>
+   <% end %>
    </p>
 
   <% if holdgame.lttfgameflag %>
     <% if current_user &&( holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) )  %>
-      <%= link_to image_tag('/images/edit.ico'), edit_holdgame_path(holdgame), :method=>:get %></td>
+      <%= link_to image_tag('images/edit.ico'), edit_holdgame_path(holdgame), :method=>:get %></td>
 
-      <%=link_to image_tag('/images/delete.ico'), cancel_holdgames_path(holdgame),  :method => :post, data: { confirm: '確定要取消本場比賽?'}  %></td>
+      <%=link_to image_tag('images/delete.ico'), cancel_holdgames_path(holdgame),  :method => :post, data: { confirm: '確定要取消本場比賽?'}  %></td>
     <% end %>      
   <% else %>
       <% if current_user && ( (current_user.has_role? :admin)||(current_user.has_role? :superuser)||(current_user.id== holdgame.gameholder_id)) %>
-       <%= link_to image_tag('/images/edit.ico') , edit_gamesmap_path(holdgame)  %>
-       <%= link_to image_tag('/images/delete.ico') , gamesmap_path(holdgame) , method: :delete, data: { confirm: '確定刪除此比賽活動資料?' } %>
+       <%= link_to image_tag('images/edit.ico') , edit_gamesmap_path(holdgame)  %>
+       <%= link_to image_tag('images/delete.ico') , gamesmap_path(holdgame) , method: :delete, data: { confirm: '確定刪除此比賽活動資料?' } %>
     <% end %>
   <% end %>  
 

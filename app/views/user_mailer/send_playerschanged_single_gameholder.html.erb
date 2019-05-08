@@ -4,8 +4,8 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <p><%= @gameholder.username %>球友您好,</p>
-    <p>您所主辦的本賽事報名球友異動資料如下:</p>
+    <p>您好,</p>
+    <p>您所主辦或協辦的本賽事報名球友異動資料如下:</p>
     <p style="white-space: pre-line ;width:auto; text-align:justify ">
       <%if @changetype=='cancel' %>	
         <% if	@newofficial%>
@@ -19,7 +19,7 @@
          新增報名球員: 桌盟會員編號:<%= @newofficial.player_id %>, 姓名:<%= @newofficial.name %>
       <%end%>  
      本組別原設定參賽人數為<%= @gamegroup.noofplayers %>人, 目前報名人數共<%=@totalcount%>人, 其中正選<%= @officialcount %>人, 候補<%=@backupcount%>人
-      <%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', holdgame_gamegroups_url(@holdgame) %>
+      <%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', 'www.twlttf.org'+holdgame_gamegroups_path(@holdgame) %>
 
     </p>
     <p>桌球愛好者聯盟敬上</p>

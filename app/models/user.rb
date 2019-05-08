@@ -5,7 +5,10 @@ class User < ActiveRecord::Base
   validates :username, presence: true
   validates :username, uniqueness: true, if: -> { self.username.present? }
   validate :username_without_
+  validate :username_without_space
+  validate :username_not_allenglish 
   validate :fbaccount_without_email
+  validate :my_email_validation
   validates_format_of :email,:with => Devise.email_regexp
   scope :find_by_name, ->(playername) { where username: playername }
   scope :find_by_id,->(id){where id: id}
@@ -29,9 +32,12 @@ class User < ActiveRecord::Base
   has_one :playerprofile, dependent: :destroy
   has_one :gameholder, dependent: :destroy
   has_many :authorizations, dependent: :destroy
+  has_many :certifications
+  has_many :authcertunits , through: :certifications 
   attr_accessible :id, :username, :email, :fbaccount, :password, :password_confirmation, :remember_me,:playerphoto ,:playerprofile_attributes
-   attr_accessible :phone
+  attr_accessible :phone
   attr_accessible :role_ids
+
   accepts_nested_attributes_for :playerprofile   
   mount_uploader :playerphoto, PlayerPhotoUploader 
   has_one :shopcart
@@ -93,8 +99,17 @@ end
   order_by << "end"
   order(order_by.join(" "))
 end
+def find_reg_unplay_groups
+     attendants=Attendant.where(:player_id=>self.id).find_all{|v| ( v.groupattendant.gamegroup.holdgame) && (v.groupattendant.gamegroup.starttime.to_date>= Time.zone.now.to_date) }
+     @groups=Array.new
+      attendants.each do |attendant|
+      @groups.push(attendant.groupattendant.gamegroup)
+    end
+    return @groups.sort_by { |hsh| hsh[:starttime] }.uniq
+end  
 def find_reg_unplay_games
-  attendants=Attendant.where(:player_id=>self.id)
+
+  #attendants=Attendant.where(:player_id=>self.id)
   attendants=Attendant.where(:player_id=>self.id).find_all{|v| ( v.groupattendant.gamegroup.holdgame) && (v.groupattendant.gamegroup.holdgame.startdate>= Time.zone.now.to_date) }
   return [] if attendants.empty?
     @games=Array.new
@@ -103,21 +118,36 @@ def find_reg_unplay_games
     end
     return @games.sort_by { |hsh| hsh[:startdate] }.uniq
 end 
+def mask_email
+  temp=self.email.gsub(/.{3}@/, '###@')
+  temp=temp.gsub(/^.{3}/, '###')
+  return temp
+end
+def mask_phone
+  if self.phone
+
+   return self.phone.gsub(/.{5}$/, 'xxxxx')
+  end 
+   
+end  
 def set_future_games_showdata
   @futuregames=self.find_reg_unplay_games
 
   @showgames=Array.new
    
   @futuregames.each do |futuregame|
-      group_type=futuregame.find_player_ingroups_type(self.id)
+      if futuregame
 
-      if !group_type.empty?
-        gamegroups=Hash.new
-        gamegroups['groups_type']=group_type
-        gamegroups['holdgame']=futuregame
-        @showgames.push(gamegroups)
+        group_type=futuregame.find_player_ingroups_type(self.id)
 
-      end  
+        if !group_type.empty?
+          gamegroups=Hash.new
+          gamegroups['groups_type']=group_type
+          gamegroups['holdgame']=futuregame
+          @showgames.push(gamegroups)
+
+       end
+      end   
   end     
   @showgames
 end 
@@ -129,13 +159,68 @@ def totalcarts
     end 
     @total_num
 end
+
+
+def  rating_stars_picture
+
+      case  self.playerprofile.get_star_numbers
+        when 0
+
+          file_path="zero_star.png"  
+          
+        when 1  
+          file_path="one_star.png"  
+          
+        when 2
+           file_path="two_stars.png"  
+          
+        when 3
+          file_path="three_stars.png"  
+          
+        when 4
+           file_path="four_stars.png"  
+          
+        when 5 
+           file_path="five_stars.png"  
+             
+          
+         end
+       return file_path 
+  end 
  private
     def username_without_
      
        errors.add(:username, "姓名不得含有\"_\"字元請重新輸入，請用\"-\"字元取代\"_\"字元 ") unless read_attribute(:username).to_s.exclude? "_"  
       
     end
+    def username_without_space
+     
+       errors.add(:username, "姓名不得含有空白字元請重新輸入") unless read_attribute(:username).to_s.exclude? " "  
+      
+    end
+    def username_not_allenglish
+        if username =~/\p{Han}/
+        else
+           errors[:username] << "please don't hike!"
+        end  
+      
+    end
     def fbaccount_without_email
       errors.add(:fbaccount, "FB帳號不可使用email，請使用FB上的名字") unless read_attribute(:fbaccount).to_s.exclude? "@"  
     end  
+    def my_email_validation
+        if email  =~ /hinet.net/
+             errors[:email] << "請勿使用 hinet.net 郵箱"
+         elsif email=~ /msa.net/
+            errors[:email] << "請勿使用 mas.net 郵箱"
+        elsif email=~ /xuit.net/
+            errors[:email] << "請勿使用 xuit.net 郵箱"
+        elsif email =~/gmail.com.tw/
+           errors[:email] << "gmail.com.tw郵箱有誤"
+        elsif email =~/pchome/
+           errors[:email] << "請勿使用 pchome郵箱,建議改用gmail"  
+        end
+    end 
+
+
 end

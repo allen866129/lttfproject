@@ -10,32 +10,149 @@ def get_score_data_table
   data_table = GoogleVisualr::DataTable.new
   data_table.new_column('date', '日期')
   data_table.new_column('number', '積分走勢')
-  if  self.gamehistory
-    @scorechangearray = self.gamehistory.split(/\n/).reject(&:blank?)
-    data_table.add_rows(@scorechangearray.count)
+  #if  self.gamehistory
+  #  @scorechangearray = self.gamehistory.split(/\n/).reject(&:blank?)
+  #  data_table.add_rows(@scorechangearray.count)
 
-    (1..@scorechangearray.count).each do |i|
-      @record =@scorechangearray.shift
-      @gamedate= @record.split("(").first
-      @gamescore= @record.split("(").last.split(")").first
-      data_table.set_cell(i-1, 0, @gamedate.to_date)
-      data_table.set_cell(i-1, 1, @gamescore.to_i)
+  #  (1..@scorechangearray.count).each do |i|
+  #    @record =@scorechangearray.shift
+  #    @gamedate= @record.split("(").first
+  #    @gamescore= @record.split("(").last.split(")").first
+  #    data_table.set_cell(i-1, 0, @gamedate.to_date)
+  #    data_table.set_cell(i-1, 1, @gamescore.to_i)
     
-    end
-  else
-    data_table.add_rows(1)
-    data_table.set_cell(0, 0, self.created_at.to_date)
-    data_table.set_cell(0, 1, self.initscore)
+  #  end
+  #else
+  #  data_table.add_rows(1)
+  #  data_table.set_cell(0, 0, self.created_at.to_date)
+  #  data_table.set_cell(0, 1, self.initscore)
 
-  end 
+  #end 
+
+  data_table.add_rows(self.score_trend_arrays.count)
+  self.score_trend_arrays.each_with_index do |game, i|
+    data_table.set_cell(i, 0, game['date'])
+    data_table.set_cell(i, 1, game['score'])
+  #    data_table.set_cell(i-1, 1, @gamescore.to_i)
+  end  
   #opts   = { :width => 700, :height => 400, :title =>  '積分走勢圖', :legend => 'bottom' }
   #@trendchart = GoogleVisualr::Interactive::LineChart.new(data_table, opts)
   #@trendchart
   data_table
 end  
-def get_played_games_table (page_parm)
+def player_gamelist_without_preadjust
+  @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
+  @adjkeyword="前置調整"
+  @Gamelist=Game.where("gamename not like ?","%#{ @adjkeyword}%")
+          .where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist  
+end
+def prize_2018_player_gamelist_without_preadjust
+  @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
+  @adjkeyword="前置調整"
+  @Gamelist=Game.where("gamename not like ?","%#{ @adjkeyword}%")
+          .where(:id =>1130..1417).where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist  
+end
+def prize_2018_statistic_gamelist
+ # qualified_games=self.player_gamelist_without_preadjust.where(:created_at =>APP_CONFIG['award_statistic_start_date']..APP_CONFIG['award_statistic_end_date'])
+  qualified_games=self.prize_2018_player_gamelist_without_preadjust
+  return qualified_games
+end
+def prize_2018_statistic_gamelist_count
+  prize_2018_statistic_gamelist.count
+end
+def qualifiedwongames_count 
+  won_games_count=0
+  self.prize_2018_statistic_gamelist.each do |game|
+    playergameresult=game.getplayersummary.find{ |p| p["id"] == self.user.id }
+    won_games_count+=playergameresult["wongames"]
+  end  
+  return won_games_count
+end  
+def score_trend_arrays
+  scoretrend =Array.new
+ 
+  self.player_gamelist_without_preadjust.each do |game|
+    @scores =Hash.new
+    playergameresult=game.getplayersummary.find{ |p| p["id"] == self.user.id }
+    @scores['date']=game.gamedate
+    @scores['date']=game.updated_at.to_date if !@scores['date']
+    @scores['score']= playergameresult['agamescore']
+    scoretrend.insert(0,@scores)
+   end 
+
+  @initscores =Hash.new
+
+  if self.initscore 
+       @initscores['score']=self.initscore
+    else
+       @initscores['score']=0
+  end   
+  if scoretrend.empty? 
+     @initscores['date']=self.created_at.to_date
+     scoretrend.insert(0,@initscores)
+  else
+    @initscores['date']=scoretrend[0]['date']-1
+    scoretrend.insert(0,@initscores)
+  end 
+  scoretrend
+end
+def current_score
+  lastgame=self.player_gamelist_without_preadjust.first
+  if lastgame 
+    playergameresult=lastgame.getplayersummary.find{ |p| p["id"] == self.user.id }
+    return playergameresult["agamescore"]
+  else
+     return self.initscore
+  end  
+end
+def total_won_games_count
+  won_games_count=0
+  games=self.player_gamelist_without_preadjust
+  self.player_gamelist_without_preadjust.each do |game|
+    playergameresult=game.getplayersummary.find{ |p| p["id"] == self.user.id }
+    won_games_count+=playergameresult["wongames"]
+  end  
+  return won_games_count
+end
+def total_lose_games_count
+ lose_games_count=0
+  games=self.player_gamelist_without_preadjust
+  self.player_gamelist_without_preadjust.each do |game|
+    playergameresult=game.getplayersummary.find{ |p| p["id"] == self.user.id }
+    lose_games_count+=playergameresult["losegames"]
+  end  
+  return lose_games_count 
+end
+def player_gamelist
+  #include 前置調整
   @gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
   @Gamelist=Game.where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist
+end
+
+def get_star_numbers
+
+       @Gamelist=self.player_gamelist_without_preadjust
+      if @Gamelist.count <5
+        return 0
+      elsif @Gamelist.count <10 
+        return 1
+      elsif @Gamelist.count <20 
+        return 2
+      elsif   @Gamelist.count <50
+        return 3  
+      elsif   @Gamelist.count <100
+        return 4
+      else
+        return 5            
+      end
+end 
+def get_played_games_table (page_parm)
+  #@gamekeytofind="_"+self.user_id.to_s+"_"+self.name+"_"
+  #@Gamelist=Game.where("players_result like ?","%#{ @gamekeytofind}%").order('created_at DESC')
+  @Gamelist=self.player_gamelist
   @GameTable=Array.new()
 
       #@GameTable=mda(6,@Gamelist.length)
@@ -68,12 +185,13 @@ def get_played_games_table (page_parm)
 end
 def add_name
   self.name=self.user.username if !self.name
-  if self.initscore!=0
-    self.gamehistory=self.user.created_at.to_date.to_s+"("+self.initscore.to_s+")" 
-  end 
+  self.id  = self.user_id
+  #if self.initscore!=0
+  #  self.gamehistory=self.user.created_at.to_date.to_s+"("+self.initscore.to_s+")" 
+  #end 
   self.lastscoreupdatedate=self.user.created_at.to_date
   self.curscore=self.initscore
-    #self.save
+  #self.save
 end	
 def self.findlastrow(worksheet, targetcol)
   @ws_row=worksheet.num_rows
@@ -107,7 +225,9 @@ def self.googleplayerlist(fileurl)
   @playerlistsheet=spreadsheet.worksheets[0]
   @searchplayerlist= Array.new 
   (2..@playerlistsheet.num_rows).each do |i|
-    @searchplayerlist.push(@playerlistsheet[i,2].to_i)
+
+      @searchplayerlist.push(@playerlistsheet[i,2].to_i)    
+
   end
   players= User.find(@searchplayerlist)
   @players=players.sort_by{|p| p.playerprofile[:curscore]}.reverse
@@ -128,6 +248,110 @@ def self.googleplayerlist(fileurl)
   playerlistws.save
   @players
 end
+def self.find_playerlist_from_googlesheet_by_name(fileurl)
+  client = Google::APIClient.new(
+         :application_name => 'lttfprojecttest',
+          :application_version => '1.0.0')
+   #fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
+   
+  keypath = Rails.root.join('config','client.p12').to_s
+  key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
+  client.authorization = Signet::OAuth2::Client.new(
+     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+     :audience => 'https://accounts.google.com/o/oauth2/token',
+     :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
+     :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
+     :access_type => 'offline' ,
+     :approval_prompt=>'force',
+     :signing_key => key)
+  client.authorization.fetch_access_token!
+  connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
+    #@newgame=Uploadgame.new
+  spreadsheet = connection.spreadsheet_by_url(fileurl)
+  playerlistws=spreadsheet.worksheets[0]
+  @playerlistsheet=spreadsheet.worksheets[0]
+  playerlistws[1,1]='序號(排名)'
+  playerlistws[1,2]='桌盟編號'
+  playerlistws[1,3]='姓名'
+  playerlistws[1,4]='目前積分'
+  playerlistws[1,5]='累計總勝場數'
+  playerlistws[1,6]='累計總敗場數'
+  @foundplayerlist= Array.new 
+  @unfoundplayerlist=Array.new
+  (2..@playerlistsheet.num_rows).each do |i|
+      playerlistws[i,1]=i-1
+      @user=User.where( :username=>@playerlistsheet[i,3].lstrip.rstrip).first
+      if @user
+
+        playerlistws[i,2]=@user.id
+        playerlistws[i,3]=@user.username
+        playerlistws[i,4]=@user.playerprofile.curscore
+        playerlistws[i,5]=@user.playerprofile.totalwongames
+        playerlistws[i,6]=@user.playerprofile.totallosegames 
+        @foundplayerlist.push(@user) 
+
+      else
+         playerlistws[i,3]=@playerlistsheet[i,3].lstrip.rstrip
+         @unfoundplayerlist.push(@playerlistsheet[i,3].lstrip.rstrip)
+      end  
+
+  end
+  playerlistws.save
+  return @foundplayerlist, @unfoundplayerlist
+end
+
+def self.batch_create_account
+   client = Google::APIClient.new(
+         :application_name => 'lttfprojecttest',
+          :application_version => '1.0.0')
+   #fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
+   
+    keypath = Rails.root.join('config','client.p12').to_s
+    key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
+    client.authorization = Signet::OAuth2::Client.new(
+     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+     :audience => 'https://accounts.google.com/o/oauth2/token',
+     :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
+     :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
+     :access_type => 'offline' ,
+     :approval_prompt=>'force',
+     :signing_key => key)
+     client.authorization.fetch_access_token!
+ 
+    connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
+    #@newgame=Uploadgame.new
+    spreadsheet = connection.spreadsheet_by_url("https://docs.google.com/spreadsheets/d/1sg9c40WhAPmAxSjwiDDPPwm9vI9ViT9Fb-kyDOgkroE/edit?usp=sharing")
+    ws = spreadsheet.worksheets[0]
+    (2..ws.num_rows).each do |j|
+
+         username=ws[j,2]
+         initscore=ws[j,3]
+         email=ws[j,4]
+         phone=ws[j,5]
+         password=ws[j,6]
+         gender=ws[j,7]
+        
+ 
+          if !User.where(:username=>  username).first
+            User.transaction do
+              @user=User.create( :username=>  username, :password=>password, :password_confirmation =>password, :email => email, :phone=>phone, )
+              @user.save
+              puts @user
+            end
+               Playerprofile.transaction do
+                  @user.build_playerprofile if !@user.playerprofile
+         
+                  @profile=@user.playerprofile   
+                  @profile.name=@user.username
+                  @profile.initscore=initscore
+                  @profile.bio=gender
+                  @profile.lastscoreupdatedate=Time.zone.now.to_date
+                  @profile.save
+  
+               end  
+          end 
+      end    
+end  
 def self.import
   connection = GoogleDrive.login(APP_CONFIG['Google_Account'], APP_CONFIG['Google_PWD'])
   spreadsheet = connection.spreadsheet_by_title("桌球愛好者聯盟球友積分總表")

@@ -102,7 +102,7 @@ class HoldgamesController < InheritedResources::Base
       end
     end  
      
-     UserMailer.holdgame_cancel_notice_to_FB(holdgame).deliver f APP_CONFIG['HOST_TYPE']=='server'
+     UserMailer.holdgame_cancel_notice_to_FB(holdgame).deliver if APP_CONFIG['HOST_TYPE']=='server'
   end
   def cancel
     @holdgame = Holdgame.find(params[:format])
@@ -136,7 +136,7 @@ def publish_all
     message=message+lttfgamesindex_gamesmaps_url+"\n"
     holdgames.each do |holdgame|
       message=message+"============================================\n"  
-      message=message+holdgame.startdate.to_s+holdgame.gamename+"\n"
+      message=message+holdgame.startdate.to_s+holdgame.gamename+"("+holdgame.city+holdgame.county+")"+"\n"
       message=message+holdgame_gamegroups_url(holdgame)+"\n"
     end  
     UserMailer.holdgame_publish_all_to_FB(message).deliver 
@@ -246,6 +246,7 @@ def copy_players_list
   if !playerlist.empty?
     playerlist=playerlist.uniq{|x| x.player_id}  
   end
+
   client = Google::APIClient.new(
          :application_name => 'lttfprojecttest',
           :application_version => '1.0.0')

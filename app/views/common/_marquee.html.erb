@@ -1,0 +1,3 @@
+<br>
+
+<font color=red><marquee style="font-size:16px ;white-space:nowrap; margin-top: 20px;" >桌盟近期賽事***<%= Holdgame.displaygames.map{|game| link_to game.startdate.to_s+game.gamename+'('+game.city+game.county+'-->'+game.courtname+')', holdgame_gamegroups_path(game)}.join('***').html_safe %></marquee></font>

@@ -23,7 +23,13 @@
   </div>
  
    <% for gamegroup in @gamegroups %>
-   <% playerlists=gamegroup.allgroupattendee.in_groups_of(gamegroup.noofplayers,false) %>
+   <% if gamegroup.noofplayers!=0 %>
+     <% playerlists=gamegroup.allgroupattendee.in_groups_of(gamegroup.noofplayers,false) %>
+   <%else%>
+     <% playerlists.push([]) %>
+     <% playerlists.push(gamegroup.allgroupattendee)%>
+     <% puts playerlists %>
+   <% end %>  
   <div class="table-responsive datagrid">
    
     <table class="table-striped table-condensed" border=0 name="<%="group_"+gamegroup.id.to_s%>"  id="<%="group_"+gamegroup.id.to_s%>" >

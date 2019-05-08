@@ -4,9 +4,9 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-	<p>您好,</p>
-	<p>您所主辦的<%=@gamename%>已經開始查核作業!</p>
-  <P>您可前往 <%= link_to @gamename+'公告查核網頁', uploadgame_url(@uploadgame) %> 查看查核內容</p>
+  <p>您好,</p>
+  <p>您所主辦或協辦的<%=@gamename%>已經開始查核作業!</p>
+  <P>您可前往 <%= link_to @gamename+'公告查核網頁', 'www.twlttf.org'+uploadgame_path(@uploadgame) %> 查看查核內容</p>
   <p>如果有球友反應查核紀錄錯誤需更正,麻煩您更正後再重新上傳成績,管理人員將會儘速重新公告查核!</p>  
 	<p>桌球愛好者聯盟敬上</p>
 

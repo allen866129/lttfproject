@@ -14,7 +14,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li>   <div class = "navbar-brand"><a  href= "/"><img src="/images/lttf_logo_60x40.jpg" class="img-responsive" alt="LTTF Logo"></a></li>
+        <li>   <div class = "navbar-brand"><a  href= "/home"><%= image_tag ("lttf_logo_60x40.jpg")%> <!img src="/images/lttf_logo_60x40.jpg" class="img-responsive" alt="LTTF Logo"></a></li>
 
         <li class="dropdown">
             <a href="#" data-toggle="dropdown" class="dropdown-toggle">桌盟積分賽專區<b class="caret"></b></a>
@@ -23,7 +23,10 @@
               <li><%= link_to '積分總表', playerprofiles_path %></li>
               <li><%= link_to '賽事查核', gamescorechecking_uploadgames_path %></li>
               <li><%= link_to '歷史積分賽', games_path %></li>
+              <li><%= link_to '整批球友資料查詢', googleplayerlistbyname_playerprofiles_path %></li>              
+              <li><%= link_to '2018年桌盟積分賽榮譽榜', lttfprize_games_path %></li>
               <li><%= link_to '桌盟積分賽規則說明', lttfratinginfo_games_path %></li>
+              <li><%= link_to '桌盟相關操作示範及說明(忘記密碼如何登入？)', demos_gameholders_path %></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -34,6 +37,7 @@
                 <li><%= link_to '團體排名整理', googleplayerlist_playerprofiles_path %></li>
                 <li><%= link_to '比賽登錄及管理', holdgames_path %></li>
                 <li><%= link_to '黑名單管理', blacklists_path %></li>
+                <li><%= link_to '積分賽認證單位相關作業', authcertunits_path %></li>
               <%end%>
               <% if current_user %>
                 <li><%= link_to '主辦人相關資料處理及主辦人申請', gameholders_path %></li>

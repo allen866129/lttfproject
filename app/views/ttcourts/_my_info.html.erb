@@ -26,8 +26,8 @@
 
 <% if current_user%> 
   <% if (current_user.has_role? :admin)||(current_user.has_role? :superuser)||(current_user.has_role? :mapmanager) %>
-   <%= link_to image_tag('/images/edit.ico') , edit_ttcourt_path(ttcourt)  %>
-    <%= link_to image_tag('/images/delete.ico') , ttcourt , method: :delete, data: { confirm: '確定刪除此場地資料?' } %>
+   <%= link_to image_tag('edit.ico') , edit_ttcourt_path(ttcourt)  %>
+    <%= link_to image_tag('delete.ico') , ttcourt , method: :delete, data: { confirm: '確定刪除此場地資料?' } %>
   <% end %>
 <% end %>
 </div>

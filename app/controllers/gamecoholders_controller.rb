@@ -113,7 +113,7 @@ def get_inputplayer(playerlist,keyword,holdgame)
   if ! reg.match(keyword)
     @newplayer = User.where(:username=>keyword).first
   else
-    @newplayer=User.find_by_id(keyword.to_i)  
+    @newplayer=User.find(keyword.to_i)  
   end  
   if !@newplayer 
           flash[:error] = "無此球友資料，請查明後再輸入!" 

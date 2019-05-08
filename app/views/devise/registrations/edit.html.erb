@@ -27,6 +27,7 @@
               </div>
             </div>
             <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <p><font color=red > "請勿使用hinet.net 結尾的信箱,也不可使用pchome信箱"</font></p>                
             <div class="form-group">
               <div class="col-xs-12 col-md-12 col-lg-12">
                 <%= f.label "Email", :class => "form-label" %>:
@@ -44,7 +45,7 @@
             <div class="form-group">
               <div class="col-xs-12 col-md-12 col-lg-12">
                 <%= f.label "電話", :class => "form-label" %>:
-                <%= f.text_field :phone, :class =>"form-control",:size => "50",:placeholder =>"僅提供積分賽主辦人連絡用!" %>
+                <%= f.text_field :phone, :required => true, :class =>"form-control",:size => "50",:placeholder =>"僅提供積分賽主辦人連絡用!" %>
               </div>
             </div>
             <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
@@ -123,6 +124,13 @@
              <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
              <div class="form-group">
              <div class="col-xs-12 col-md-12 col-lg-12">
+             <% ['facebook'].each do |provider| %>
+
+             <% if current_user.authorizations.pluck(:provider).include?(provider.to_s) %>
+             <%= provider.to_s.titleize %> <font color=red>帳號已連結</font>
+             <% end %>
+             <br/>
+             <% end %> 
             <div><%= f.label "目前密碼" %> <i><font color=red>(資料變更作業需要輸入原密碼確認)</font></i><br />
              <%= f.password_field :current_password, autocomplete: "off",:required => true ,:class =>"form-control",:size => "50"%></div>
            </div>
@@ -142,18 +150,7 @@
     </div>
   </div>
 </div>
-<div>
 
-
-<% ['facebook'].each do |provider| %>
-
-  <% if current_user.authorizations.pluck(:provider).include?(provider.to_s) %>
-    <%= provider.to_s.titleize %> 帳號已連結
-  <% end %>
-<br/>
-<% end %>
-
-</div>
 <p align=center><%= link_to '返回前頁', :back %></p>
 
 

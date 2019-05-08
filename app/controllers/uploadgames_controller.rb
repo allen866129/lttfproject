@@ -75,6 +75,8 @@ class UploadgamesController < ApplicationController
 
       @uploadgame.save! 
     end  
+    Rails.cache.delete(current_user.id.to_s+"curgame")
+    Rails.cache.delete(current_user.id.to_s+"playersummery")
     send_game_waiting_publish_notice(@uploadgame)
     flash[:success] = "檔案上傳成功"
     @uploadgames =  Uploadgame.waitingforprocess.page(params[:page]).per(10)
@@ -208,9 +210,9 @@ class UploadgamesController < ApplicationController
   end
 
   def send_publish_notice_to_gameholders(uploadgame)
-    gameholderlist=Array.new
-    gameholderlist.push(uploadgame.holdgame.gameholder) if uploadgame.holdgame
-    emails =gameholderlist.uniq.map {|a| a.email}
+
+    emails=uploadgame.holdgame.find_allgameholders.uniq.map {|a| a.email}
+    
 
     if APP_CONFIG['Mailer_delay']
         #UserMailer.gamerecords_publish_notice(@user, @player, @playergames, uploadgame).deliver
@@ -239,9 +241,9 @@ class UploadgamesController < ApplicationController
 end
 
 def send_updatescore_notice_to_gameholders(newgame,uploadgame)
-    gameholderlist=Array.new
-    gameholderlist.push(uploadgame.holdgame.gameholder) if uploadgame.holdgame
-    emails =gameholderlist.uniq.map {|a| a.email}
+
+    emails=uploadgame.holdgame.find_allgameholders.uniq.map {|a| a.email}
+
     if APP_CONFIG['Mailer_delay']
         #UserMailer.gamerecords_publish_notice(@user, @player, @playergames, uploadgame).deliver
         UserMailer.delay.send_updatescore_notice_to_gameholders(emails, newgame) if !emails.empty?
@@ -257,7 +259,6 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
     date = DateTime.now
     User.transaction do
       adjustplayers.each  do |player|
-       
         @player=User.find(player["id"].to_i)
         if player["bgamescore"]!= player["original bscore"]  #賽前積分不等候原來績分,表示需前作調整
           if @player.playerprofile.initscore ==0        #初始積分為0,前置調整當作賦予初始積分不是前置調整
@@ -276,8 +277,12 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
             curlines=curlines+"_"+scorechange.to_s
             @player.playerprofile.curscore=player["agamescore"].to_i
             @player.playerprofile.lastscoreupdatedate =date.to_date.to_s
-            @player.playerprofile.gamehistory=@player.playerprofile.gamehistory+"\n"+date.to_date.to_s+"("+player["agamescore"].to_s+")" 
-         
+            newgamehistory=date.to_date.to_s+"("+player["agamescore"].to_s+")" 
+            if @player.playerprofile.gamehistory==nil
+               @player.playerprofile.gamehistory=newgamehistory
+            else
+               @player.playerprofile.gamehistory=@player.playerprofile.gamehistory+"\n"+newgamehistory 
+            end  
           end
           @player.save 
           @playerscore=player 
@@ -397,19 +402,23 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
         send_publish_notice_to_gameholders(@uploadgame)
         @uploadgames = Uploadgame.waitingforprocess.page(params[:page]).per(10)
         flash[:success]="本賽事公告作業完成!"
-    
+        Rails.cache.delete(current_user.id.to_s+"curgame")
+        Rails.cache.delete(current_user.id.to_s+"playersummery")
+        Rails.cache.delete(current_user.id.to_s+"gamesrecords")
+        Rails.cache.delete(current_user.id.to_s+"adjustplayers")    
       redirect_to :action => "index"
     end
    
   end
   def trycalculation
+
    # @uploadgame = Uploadgame.find(params[:game_id])
     @uploadgame=Rails.cache.read(current_user.id.to_s+"curgame")
     @playerssummery=Rails.cache.read(current_user.id.to_s+"playersummery")
     @gamesrecords=Rails.cache.read(current_user.id.to_s+"gamesrecords")
     @adjustplayers=Rails.cache.read(current_user.id.to_s+"adjustplayers")
     @autosuggest=Rails.cache.read(current_user.id.to_s+"autosuggest")
-   
+
     #params[:adjustscores].each do |adjustscore|
     @adjustplayers.each_with_index do |adjustplayer,i|  
       adjustplayer["adjustscore"]=params[:adjustscores][i]
@@ -446,6 +455,11 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
         end
         @uploadgames = Uploadgame.waitingforprocess.page(params[:page]).per(10)
         flash[:success]="積分更新作業完成!"
+        Rails.cache.delete(current_user.id.to_s+"curgame")
+        Rails.cache.delete(current_user.id.to_s+"playersummery")
+        Rails.cache.delete(current_user.id.to_s+"gamesrecords")
+        Rails.cache.delete(current_user.id.to_s+"adjustplayers")
+        Rails.cache.delete(current_user.id.to_s+"autosuggest")      
         redirect_to :action => "index"
     end
    

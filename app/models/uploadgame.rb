@@ -48,7 +48,8 @@ class Uploadgame < ActiveRecord::Base
       @Curprofile = Playerprofile.where( :name => @Curplayer["name"] ).first
       if @Curprofile
         @Curplayer["id"]= @Curprofile.user_id #id
-        @Curplayer["bgamescore"]= (@Curprofile.curscore==nil) ? @Curprofile.initscore : @Curprofile.curscore
+        #@Curplayer["bgamescore"]= (@Curprofile.curscore==nil) ? @Curprofile.initscore : @Curprofile.curscore
+        @Curplayer["bgamescore"]= @Curprofile.current_score
         #@Curplayer["bgamescore"] = @Curprofile.curscore #Bscore
         #@Curplayer["bgamescore"]=@Curprofile.initscore if @Curplayer[3]==nil
         @Curplayer["wongames"] = 0  #Wongames
@@ -61,7 +62,8 @@ class Uploadgame < ActiveRecord::Base
         end  
         @Curplayer["suggestscore"] = (oldplayerinfo==nil) ? nil : oldplayerinfo["suggestscore"] #SuggestScore
         @Curplayer["adjustscore"] = (oldplayerinfo==nil) ? nil : oldplayerinfo["adjustscore"] #adjustScore
-        @Curplayer["original bscore"] = @Curprofile.curscore #original bgamescore without adjustment
+        #@Curplayer["original bscore"] = @Curprofile.curscore #original bgamescore without adjustment
+        @Curplayer["original bscore"] = @Curprofile.current_score
       else
         @Curplayer["id"]=nil #can't find player by name in the DB
       end  
@@ -237,6 +239,7 @@ class Uploadgame < ActiveRecord::Base
 
             end 
             puts @SingleGame
+            logger.info(@SingleGame)      
             aplayer=playersinfo.find{|v| v['name']==@SingleGame['Aplayer']}
             bplayer=playersinfo.find{|v| v['name']==@SingleGame['Bplayer']}
             @SingleGame['Aplayer bgamescore']=(aplayer["adjustscore"]==nil || aplayer["adjustscore"].to_i==0 ) ? aplayer["bgamescore"].to_i : aplayer["adjustscore"].to_i
@@ -405,7 +408,8 @@ class Uploadgame < ActiveRecord::Base
 
       @playerindb = User.find(@player["id"].to_i).playerprofile
 
-      @player["bgamescore"] =  (@playerindb.curscore==@player["original bscore"].to_i) ? @player["bgamescore"].to_i : @playerindb.curscore 
+      #@player["bgamescore"] =  (@playerindb.curscore==@player["original bscore"].to_i) ? @player["bgamescore"].to_i : @playerindb.curscore 
+      @player["bgamescore"] =  (@playerindb.current_score==@player["original bscore"].to_i) ? @player["bgamescore"].to_i : @playerindb.current_score
 
       @player["bgamescore"]=@player["bgamescore"].to_i
       @player["wongames"]=@player["wongames"].to_i
@@ -415,7 +419,7 @@ class Uploadgame < ActiveRecord::Base
       @player["suggestscore"]=@player["suggestscore"].to_i
       if @player["original bscore"]!=nil
       
-         if @playerindb.curscore==@player["original bscore"].to_i
+         if @playerindb.current_score==@player["original bscore"].to_i
            @player["adjustscore"]=@player["adjustscore"].to_i if  @player["adjustscore"]!=nil
          else
           @player["adjustscore"]=0
@@ -424,8 +428,8 @@ class Uploadgame < ActiveRecord::Base
          @player["adjustscore"]=@player["adjustscore"].to_i if  @player["adjustscore"]!=nil
       end      
       if @player["original bscore"]!=nil
-        if @playerindb.curscore!=@player["original bscore"].to_i
-          @player["original bscore"]=@playerindb.curscore
+        if @playerindb.current_score!=@player["original bscore"].to_i
+          @player["original bscore"]=@playerindb.current_score
         else
           @player["original bscore"]=@player["original bscore"].to_i
         end  
@@ -473,13 +477,11 @@ class Uploadgame < ActiveRecord::Base
     gamesrecords
   end  
   def max(*values)
-    values.max
- 
+    values.max 
   end
 
   def min(*values)
     values.min
-
   end
   def find_system_adjust_score(adjustplayer)
     system_suggest_players =Array.new
@@ -496,7 +498,9 @@ class Uploadgame < ActiveRecord::Base
     @playersummery.each do |player|
       suggestplayer=Hash.new
       suggestplayer=player
-
+      puts player
+      logger.info(player)
+ 
       if player["scorechanged"]>49|| player["bgamescore"]==0
         @playerwongames=@gamesrecords.find_all{|v| v["Aplayer"]==player["name"]}
         @playerlosegames=@gamesrecords.find_all{|v| v["Bplayer"]==player["name"]}
@@ -541,24 +545,25 @@ class Uploadgame < ActiveRecord::Base
    
           lostlistplayersinfo=@playersummery.find_all{|v| @lostlist.include?(v["name"])}
            
-          openscorelist=lostlistplayersinfo.map{|v| v["bgamescore"].to_i}   
+          tempopenscorelist=lostlistplayersinfo.map{|v| v["bgamescore"].to_i}   
              
-          openscorelist=openscorelist.find_all{|v| v>0}
-         
+          openscorelist=tempopenscorelist.find_all{|v| v>0}
+
           #average_opp_score=openscorelist.inject{ |sum, el| sum + el } /openscorelist.size
           #system_suggest_score=max(average_opp_score,75)
 
-          system_suggest_score = openscorelist ? max(openscorelist.min,75) : 0  if !openscorelist.empty?
+          system_suggest_score = !(openscorelist==[]) ? max(openscorelist.min,75) : 0  
           
         elsif ( @playerwongames.count>0 && @playerlosegames.count==0)
 
           @winlist=@playerwongames.map{|v| v["Bplayer"]}
           winlistplayersinfo=@playersummery.find_all{|v| @winlist.include?(v["name"])}
-          openscorelist=winlistplayersinfo.map{|v| v["bgamescore"].to_i}
-          openscorelist=openscorelist.find_all{|v| v>0}
+          tempopenscorelist=winlistplayersinfo.map{|v| v["bgamescore"].to_i}
+          openscorelist=tempopenscorelist.find_all{|v| v>0}
+
           #average_opp_score=openscorelist.inject{ |sum, el| sum + el } /openscorelist.size
           #system_suggest_score=max(average_opp_score,player["bgamescore"])
-          system_suggest_score = openscorelist ? max(openscorelist.max,player["bgamescore"]) : 0 
+          system_suggest_score = !(openscorelist==[]) ?  max(openscorelist.max,player["bgamescore"]) : 0 
             
         end 
         suggestplayer["sys suggest score"]=system_suggest_score

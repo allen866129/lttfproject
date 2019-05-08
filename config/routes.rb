@@ -2,6 +2,13 @@ Lttfproject::Application.routes.draw do
 
   
 
+  resources :authcertunits do
+      collection do
+        post :remove_certification
+        get :certifyplayerinput
+      end
+  end      
+
 
   resources :shopcarts do
     collection do
@@ -41,7 +48,7 @@ Lttfproject::Application.routes.draw do
           get :teamplayersinput
           get :teamplayersadd
           get :singlegroupregistration
-          put :update
+          patch :update
           get :groupdumptoxls
           get :preparesendmail
           post :sendemail
@@ -85,7 +92,8 @@ Lttfproject::Application.routes.draw do
   resources :games do
     collection do 
       get  :show_player_games
-      get   :lttfratinginfo
+      get  :lttfratinginfo
+      get  :lttfprize
     end  
   end
 
@@ -94,16 +102,19 @@ devise_for :users, :controllers => {:registrations => 'users/registrations', :om
 #devise_for :users, :controllers => { :registrations => 'users/registrations'}  
 
   devise_scope :user do
-      resources :users 
+     resources :users 
   end
+  
   root :to => "home#index"
   resources :playerprofiles do
      collection do
        post :import 
        get :search
-       get :googleplayerlist   
+       get :googleplayerlist  
+       get :googleplayerlistbyname 
        get :callback   
        get :lttfindex  
+       get :batchaccountsinput
        #post :toggleblacklist
      end   
   end

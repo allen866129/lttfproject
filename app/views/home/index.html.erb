@@ -1,7 +1,7 @@
 
 
 
-<!-- Carousel
+<!-- Carousel test master 1
 ================================================== -->
 <div id="myCarousel" class="carousel slide"  data-ride="carousel">
   <!-- Indicators -->
@@ -10,10 +10,23 @@
     <li data-target="#myCarousel" data-slide-to="1" ></li>
     <li data-target="#myCarousel" data-slide-to="2" ></li>
     <li data-target="#myCarousel" data-slide-to="3" ></li> 
+    <li data-target="#myCarousel" data-slide-to="4" ></li> 
+    <li data-target="#myCarousel" data-slide-to="5" ></li> 
+    <li data-target="#myCarousel" data-slide-to="6" ></li> 
+    <li data-target="#myCarousel" data-slide-to="7" ></li> 
   </ol>
   <div class="carousel-inner">
     <div class="item active">
-      <img src="images/2015-1.jpg"  style="width:100%;height:100%" class="img-responsive">
+
+      <%= image_tag( "2018.jpg" , {:style=>"width:100%;height:100%"}) %>
+      <div class="container">
+        <div class="carousel-caption">
+
+        </div>
+      </div>
+    </div>
+     <div class="item">
+        <%= image_tag( "2017.jpg" , {:style=>"width:100%;height:100%"}) %>
       <div class="container">
         <div class="carousel-caption">
 
@@ -21,7 +34,34 @@
       </div>
     </div>
     <div class="item">
-      <img src="images/2015.jpg" style="width:100%;height:100%" class="img-responsive">
+       <%= image_tag( "2017-1.jpg" , {:style=>"width:100%;height:100%"}) %>
+      <div class="container">
+        <div class="carousel-caption">
+
+        </div>
+      </div>
+    </div>
+    <div class="item">
+
+       <%= image_tag( "2016.jpg" , {:style=>"width:100%;height:100%"}) %>
+      <div class="container">
+        <div class="carousel-caption">
+
+        </div>
+      </div>
+    </div>
+    <div class="item">
+
+        <%= image_tag( "2015-1.jpg" , {:style=>"width:100%;height:100%"}) %>
+      <div class="container">
+        <div class="carousel-caption">
+
+        </div>
+      </div>
+    </div>
+    <div class="item">
+
+        <%= image_tag( "2015.jpg" , {:style=>"width:100%;height:100%"}) %>
       <div class="container">
         <div class="carousel-caption">
      
@@ -29,7 +69,8 @@
       </div>
     </div>
      <div class="item">
-      <img src="images/2014.jpg" style="width:100%;height:100%" class="img-responsive">
+
+        <%= image_tag( "2014.jpg" , {:style=>"width:100%;height:100%"}) %>
       <div class="container">
         <div class="carousel-caption">
      
@@ -38,7 +79,7 @@
     </div>
  
     <div class="item">
-      <img src="images/2013.jpg" style="width:100%;height:100%" class="img-responsive">
+        <%= image_tag( "2013.jpg" , {:style=>"width:100%;height:100%"}) %>
       <div class="container">
         <div class="carousel-caption">
      
@@ -59,7 +100,7 @@
 <!-- Marketing messaging and featurettes
 ================================================== -->
 <!-- Wrap the rest of the page in another container to center all the content. -->
-
+<%= render :partial => "common/marquee" %>
 <div class="container marketing">
 
   <!-- Three columns of text below the carousel -->
@@ -106,9 +147,9 @@
       但是期望大家不要把輸贏及積分高低起伏看的太重，秉持快樂打球的意念，平常心來看待即可。
     </p>
     <p class="lead">
-      想要參與桌盟積分賽及各項桌盟球聚比賽等活動，請先註冊成為桌盟會員才可參加。桌盟積分賽系統是完全免費
+ 想要參與桌盟積分賽及各項桌盟球聚比賽等活動，請先註冊成為桌盟會員才可參加。桌盟積分賽系統是完全免費
       的系統，除了歡迎大家註冊之外，更歡迎加入主辦人行列，主動使用桌盟積分系統來主辦比賽計算積分，桌盟完全不收任何費用，
-      但限制比賽個人最高收費不得超過<font color='red'>200元</font>。
+      <font color='red'>也取消最高收費限制，建議主辦單位需在賽程安排上儘量所有參賽者至少可打3場5局3勝制的比賽。</font>
     </p>
     <p class="lead">
       <font color= 'red'><%= link_to '>>前往桌盟球友積分總表', playerprofiles_path %></font><br>
@@ -125,7 +166,7 @@
   <hr class="featurette-divider">
 
   <div class="featurette">
-    <img class="featurette-image img-circle pull-left" src="images/ttcourts_photo.jpg">
+    <img class="featurette-image img-circle pull-left" src="/images/ttcourts_photo.jpg">
     <h2 class="featurette-heading"><font color='red'>台灣打桌球地圖 </font><br></h2>
     <h3><span class="text-muted"><font color='blue'>尋找台灣地區打桌球場地的好幫手</font></span></h3>
     <p class="lead">            
@@ -141,7 +182,7 @@
   <hr class="featurette-divider">
 
   <div class="featurette">
-    <img class="featurette-image img-circle pull-right" src="images/lttfinter.jpg">
+    <img class="featurette-image img-circle pull-right" src="/images/lttfinter.jpg")>
     <h2 class="featurette-heading"><font color='red'>桌球愛好者聯盟FB社團</font><br></h2>
     <h3><span class="text-muted"><font color='blue'>桌球愛好者交流的園地,歡迎球友加入</font></span></h3>
     <p class="lead">
@@ -166,7 +207,8 @@
     <%= link_to_if current_user && (current_user.has_role? :admin), '會員管理面板', admin_root_path, :class=> "button radius" %>
     <%= link_to_if current_user && (current_user.has_role? :admin), '廣告版面管理', advitems_path, :class=> "button radius" %>
     <%= link_to_if current_user && (current_user.has_role? :admin), 'Google輸入檔管理', gsheet4games_path, :class=> "button radius" %>
-
+    <!% = link_to_if current_user && (current_user.has_role? :admin), '團體註冊', batchaccountsinput_playerprofiles_pat 
+     %>
  </div> 
 <%end%> 
 	<!-- script references -->

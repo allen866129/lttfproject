@@ -29,7 +29,13 @@
  
     <% for gamegroup in @gamegroups %>
       <% if gamegroup.noofplayers>0 %>
-        <% playerlists=gamegroup.allgroupattendee.in_groups_of(gamegroup.noofplayers,false) %>
+         <% playerlists=gamegroup.allgroupattendee.in_groups_of(gamegroup.noofplayers,false) %>
+      <%else%>
+        <% playerlists=Array.new %>
+        <% playerlists.push([]) %>
+        <% playerlists.push(gamegroup.allgroupattendee)%>
+      <%end%>
+
           <div class="table-responsive datagrid">
    
             <table class="table-striped table-condensed" border=0 name="<%="group_"+gamegroup.id.to_s%>"  id="<%="group_"+gamegroup.id.to_s%>" >
@@ -64,7 +70,7 @@
           </table>
     
         </div>
-      <%end%>
+     
     <%end%>
 </div>  
 </p>  

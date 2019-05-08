@@ -9,7 +9,7 @@
 	  很高興通知您,您已經遞補為報名本賽事正選參賽球友,請準時出席參賽。<br>
 	  如果您無法出席比賽，請您儘速取消報名，以利主辦單位安排後續賽程! <br>
 	  謝謝合作! <br>
-		<%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', holdgame_gamegroups_url(@holdgame) %>
+		<%= link_to  @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁', 'www.twlttf.org'+holdgame_gamegroups_path(@holdgame) %>
 	</p>
 	<p>桌球愛好者聯盟敬上</p>
   </body>

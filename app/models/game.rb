@@ -1,3 +1,4 @@
+# encoding: UTF-8;”
 class Game < ActiveRecord::Base
   attr_accessible :id, :detailgameinfo, :gamedate, :gamename, :originalfileurl, :players_result, :uploader
   def getplayersummary
@@ -76,6 +77,23 @@ class Game < ActiveRecord::Base
   end
     gamesrecords
   end  
+  def self.qualified_players_for_prize_games_2018
+    @adjkeyword="前置調整"
+    @Prize_Gamelist_2018=Game.where("gamename not like ?","%#{ @adjkeyword}%")
+          .where(:id =>1130..1417)   
+    @qualified_players=Array.new
+    @Prize_Gamelist_2018.each do |game|
 
-
+      if game.players_result
+         @currentgamesummery= game.players_result.split(/\n/)
+         @currentgamesummery.each do |playersummery|
+            dummy,player_id, player_name,playe_bgamescore,player_wongames,player_lostgamse,player_agamescore,
+                player_scorechanged,player_suggestscore,player_adjustscore,player_originalbscore= playersummery.split("_")
+          @tempplayer=Playerprofile.find(player_id.to_i) 
+          @qualified_players.push(@tempplayer) if !(@qualified_players.include? @tempplayer)      
+         end       
+      end
+    end 
+    return @qualified_players.uniq
+  end 
 end

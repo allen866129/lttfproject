@@ -5,28 +5,56 @@
         <td><font color="black">分組名稱:</font></td>
         <td><font color="black">比賽賽制:</font></td>
         <td><font color="black">報名方式:</font></td>
-        <td ><font color="black">開賽時間:</font></td>
-
-    
+        <td ><font color="black">報名費用:</font></td>
         <tr>
         <td><strong><%=gamegroup.groupname %></strong></td>
         <td><strong><%=gamegroup.grouptype %></strong></td>
         <td><strong><%=Gamegroup.regtypes[gamegroup.regtype] %></strong></td>
-        <td ><strong><%= gamegroup.starttime.strftime("%F %H:%M")  %></strong></td>
-        <tr>  
+        <td><strong><%=gamegroup.gamefee %></strong></td>  
 
-          <td ><font color="black">報名費用:</font></td>
-          <td ><font color="black">積分限制:</font></td>
-          <td><font color="black">預計參賽人數:</font></td> 
-          <td><font color="black">已報名人數:</font></td> 
-          <tr>
-          <td><strong><%=gamegroup.gamefee %></strong></td>    
-          <td><strong>
-             <%=gamegroup.single_limit_string %><br>
-          </strong></td> 
-          <td><strong><%=gamegroup.noofplayers %></strong></td>
-          <td><strong><%=gamegroup.totalresgisteredsplayersno %></strong></td>
-          </tr>
+        <tr>
+        <td><font color="black">已報名人數</font></td>
+        <td><font color="black">預計參賽人數</font></td> 
+        <td ><font color="black">參賽次數資格:</font></td>
+        <td ><font color="black">需認證單位:</font></td>
+
+            
+    
+        <tr>
+        <td><strong><font color="red"><%=gamegroup.totalresgisteredsplayersno %></font></td>
+        <td><strong><font color="red"><%=gamegroup.noofplayers %></strong></td>
+
+        <td><%= image_tag(gamegroup.rating_stars_picture, :class => " dp img-responsive center-block" )%></td>
+        <% if gamegroup.need_authcert_flag %>
+            <td><%= gamegroup.authcerts%><%= image_tag( gamegroup.authcert_logo, :class => " dp img-responsive center-block" )%></td>
+        <%else%>
+            <td><strong>無</strong></td>
+        <%end%>
+
+        <tr>
+        <td ><font color="black">積分限制:</font>
+        <td ><font color="black">開賽時間:</font></td>   
+        <td><font color="black">報名截止時間:</font></td> 
+        <td><font color="black">取消截止時間:</font></td> 
+        <tr> 
+        <td><strong><%=gamegroup.single_limit_string %></strong></td>
+        <td ><strong><font color=red ><%= gamegroup.starttime.strftime("%F %H:%M")  %></font></strong></td>
+        <% if gamegroup.registration_deadline_flag && gamegroup.registration_deadline %>
+            <td><strong><font color="red"><%=gamegroup.registration_deadline.strftime("%F %H:%M")  %><font color="red"></strong></td><br>
+
+        <%else%>
+            <td><strong>無</strong></td>
+
+        <%end%>         
+
+
+        <% if gamegroup.cancellation_deadline_flag && gamegroup.cancellation_deadline %>
+            <td><strong><font color="red"><%=gamegroup.cancellation_deadline.strftime("%F %H:%M")  %><font color="red"></strong></td><br>
+
+        <%else%>
+            <td><strong>無</strong></td>
+
+        <%end%>         
  
       </tbody> 
     
@@ -53,17 +81,23 @@
   <% end %>                            
 
        
-
-  <% if !user_in_group && user_meet_group && gamegroup.regtype=='single' && !@in_blacklist_data%>
+  <% if !user_in_group && user_meet_group && gamegroup.regtype=='single' && !@in_blacklist_data && !gamegroup.check_regsitered_same_timeframe_group(current_user) && ( !gamegroup.registration_deadline_flag ||
+       (Time.now < gamegroup.registration_deadline))
+       %>
     <td> <%= button_to '本人報名',registration_holdgame_gamegroups_path(@holdgame,gamegroup),{:onclick => "return confirm('確定報名參賽?')", :method => :post}  %></td>
   <%end%>   
        
          
 </td>     
- <% if current_user && !@in_blacklist_data %>
+ <% if (current_user && ( (!@in_blacklist_data  && ( !gamegroup.registration_deadline_flag || #first 2 line is for noremal user
+       (Time.now < gamegroup.registration_deadline))) ||
+       ( gamegroup.holdgame.find_allgameholders.include?(current_user) || (current_user.has_role? :admin)|| 
+           (current_user.has_role? :superuser)
+       )))%>
+
   <td><%= button_to '整批報名', singleplayerinput_holdgame_gamegroups_path(@holdgame,gamegroup, :name => 'init') , :method=>:get  %></td>
  <% end %>
-<td>  <%= link_to "輸出到excel", groupdumptoxls_holdgame_gamegroups_path(@holdgame,:gamegroup_id=>gamegroup.id,format: "xls"),:class=> "button radius" %></td>
+<td>  <%= link_to "輸出到excel", groupdumptoxls_holdgame_gamegroups_path(@holdgame,:gamegroup_id=>gamegroup.id,format: "xlsx"),:class=> "button radius" %></td>
 </tr>
 </table>
 </div>
@@ -97,17 +131,17 @@
                 
                  <td style="text-align:center"><font  color='blue'><strong><%= serial+1 %><strong/></font></td>
                
-                <td style="text-align:center"><font color='blue'><strong><%= player.player_id %><strong/></font></td>
+                <td style="text-align:center;horizontal-align:center;"><font color='blue'><strong><%= player.player_id %><strong/></font><%= image_tag(player.stars_picture, :class => " dp img-responsive center-block" ) %></td>
                 <td style="text-align:center; white-space: nowrap;">
                   <%= link_to(playerprofile_path(player.player_id)) do %>
                     <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%=  player.name %></font>
                   <% end %>                   
-                    <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) ) &&(player.phone)  %>
-                       <br><%= player.phone %>
+                    <% if current_user && (@holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) ) &&(player.attand_phone_from_user)  %>
+                       <br><%= player.attand_phone_from_user %>
                   <%end%>
                 </td>
                 <td style="text-align:center">
-                  <font color='blue'><strong><%= @player_current_score[player.player_id] %><strong/></font></td>
+                  <font color='blue'><strong><%= player.score_in_time %><strong/></font></td>
 
                 <td style="text-align:center">
 
@@ -117,7 +151,7 @@
                   <font color='blue'><strong/>正選<strong/></font>
                 <%end%>
 
-                <%if @player_current_score[player.player_id]!= player.curscore %>
+                <%if player.score_in_time!= player.curscore %>
                  <br>
                  <font color='red'><strong>(<%= player.curscore %>)<strong/></font>
                 <%end%>

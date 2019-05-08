@@ -43,7 +43,7 @@ body {padding-top:50px;}
 }
 .jumbotron {
   background: #f0f0f0;
-  background-image: url(../images/lttfgroup.jpg);
+  background-image: asset-url ('lttfgroup.jpg');
   background-size: 100%;
   background-position: center center;
   background-repeat: no-repeat;

@@ -21,7 +21,7 @@ class CourtphotoUploader < CarrierWave::Uploader::Base
     include Sprockets::Helpers::RailsHelper
     include Sprockets::Helpers::IsolatedHelper
   # Do it the old way
-   end
+end
     #include Sprockets::Helpers::RailsHelper
     #include Sprockets::Helpers::IsolatedHelper
  

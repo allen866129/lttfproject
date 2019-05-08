@@ -1,0 +1,21 @@
+<p>桌球愛好者聯盟新增賽事公告</p>
+
+<p>各位盟友，<%= @tempdategame %>已開始接受報名。</p>
+<p>此項賽事主辦人: <%= @gameholdername %>。 </p>
+<p>請符合參賽資格且欲參賽之盟友儘速前往以下網址報名</p>
+<p><%= link_to @gamename, holdgame_gamegroups_url(@holdgame) %></p>
+
+
+<%    if !@holdgame.gamegroups.empty?           %>
+<%        @holdgame.gamegroups.each do |gamegroup| %>
+ 
+<p>=======================</p>
+<p>組別:      <%=gamegroup.groupname%> 
+<p>賽制：     <%=gamegroup.grouptype %> </p>
+<p>積分限制： <%=gamegroup.getscorestring%> </p>
+<p>報名費用： <%=gamegroup.gamefee.to_s %> </p>
+<p>預計參賽人數： <%gamegroup.noofplayers.to_s %></p>
+<p>比賽時間： <%=gamegroup.starttime.strftime("%F %H:%M") %></p>
+<%end%>  
+<%end%> 
+<p>桌球愛好者聯盟敬上  </p>

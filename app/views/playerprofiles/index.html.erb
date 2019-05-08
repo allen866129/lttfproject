@@ -1,11 +1,11 @@
 
 <% set_meta_tags :title => '桌球愛好者聯盟積分總表'%>
-<div class="table-responsive datagrid">
+<div class="table-responsive datagrid w-auto">
   <table class="datatable  table-striped table-condensed" border=1 link=blue>
-    <caption class="text-center" ><strong>會員積分總表(有效會員:<font color="red"><%=@membercount%></font>位)</strong></caption> 
+    <caption class="text-center" ><strong>會員積分總表(有效會員:<font color="red"><%=User.count%></font>位)</strong></caption> 
     <thead>
       <tr>
-      <th>會員照片</th>
+      <th>照片</th>
       <th><%= sortable "user_id", "會員編號" %></th>
       <th><%= sortable "name", "會員姓名" %></th>
       <th><%= sortable "curscore", "目前積分" %></th>
@@ -13,27 +13,38 @@
       <th><%= sortable "totalwongames", "總勝場數" %></th>
       <th><%= sortable "totallosegames", "總敗場數" %></th>
       <th><%= sortable "lastscoreupdatedate", "積分更新日期" %></th>
+      <th>單位認證</th>
       </tr>
     </thead>
     <tbody>
+
       <% if @playerprofiles %>
-      <% @playerprofiles.each do |playerprofile| %>
-        <tr>
-        <td><%= image_tag(playerprofile.user.playerphoto_url(:tiny),:class => "dp img-circle img-responsive") %></td>
-        <td><%= playerprofile.user_id %></td>
-        <td style="white-space: nowrap;">
-          <%= link_to(playerprofile) do %>
-            <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= playerprofile.name %></font>
-          <% end %>
-        </td>
-        <td><font color=red><%= playerprofile.curscore %></font></td>
-        <td><%= playerprofile.initscore %></td>
-        <td><%= playerprofile.totalwongames %></td>
-        <td><%= playerprofile.totallosegames %></td>
-        <td><%= playerprofile.lastscoreupdatedate %></td>
-        </tr>
-      <% end %>
-     <%end%> 
+
+        <% @playerprofiles.each do |playerprofile| %>
+          <tr>
+          <td><%= image_tag(playerprofile.user.playerphoto_url(:tiny),:class => "dp img-circle img-responsive center-block") %></td>
+          <td style="horizontal-align : center;"><%= playerprofile.user_id %><%= image_tag(playerprofile.user.rating_stars_picture, :class => " dp img-responsive center-block" ) %></td>
+          <td style="white-space: nowrap;">
+              <%= link_to(playerprofile) do %>
+                <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"><%= playerprofile.user.username %></font>
+              <% end %>
+          </td>
+          <td><font color=red><%= playerprofile.current_score %></font></td>
+          <td><%= playerprofile.initscore %></td>
+          <td><%= playerprofile.total_won_games_count %></td>
+          <td><%= playerprofile.total_lose_games_count %></td>
+          <td><%= playerprofile.lastscoreupdatedate %></td>
+          <td>
+            <%playerprofile.user.authcertunits.each do | authcertunit| %>
+              <%= image_tag(authcertunit.unitlogo_url(:cell), :class => " dp img-responsive center-block" ) %>
+            <% end %>  
+          </td>
+      
+          </tr> 
+        <% end %>
+       
+       <%end%> 
+    
     </tbody>
     <tfoot>
       <tr>

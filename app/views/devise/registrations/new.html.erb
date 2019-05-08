@@ -10,31 +10,38 @@
 <p align=center><%= link_to '返回前頁', :back %></p>
 <div class="row">
   <div class="col-xs-12 col-md-12 col-lg-12">
-    <div style="margin-top:50px;" class="mainbox col-xs-8 col-xs-offset-2">
+    <div style="margin-top:30px;" class="mainbox col-xs-8 col-xs-offset-2">
       <div class="panel panel-info">
         <div class="panel-heading">
           <div class="panel-title">
             <i class="fa fa-users"></i>&nbsp;桌盟會員註冊
           </div>
         </div>
-        <div style="padding-top:30px" class="panel-body" >
+        <div style="padding-top:20px" class="panel-body" >
+            <p><font color=red > 如果您是忘記密碼,切勿再重複註冊,請參考<%= link_to "忘記密碼或重設密碼操作示範","https://youtu.be/o99IIifgoEs" ,:target => "_blank"%></font>
+            </p>  
           <% resource.build_playerprofile %>
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), :html =>{:class =>"form-horizontal form-inline",:role =>"form" } ) do |f| %>
             <div style="display:none" class="alert alert-danger">
               <p><%= devise_error_messages! %></p>
               <span></span>
             </div>
+
+            <p><font color=red > "請務必使用中文真實全名，若非使用真實全名，此帳號將會被刪除!"</font></p>
             <div class="form-group">
+
               <div class="col-xs-12 col-md-12 col-lg-12">
+
                 <%= f.label "會員姓名", :class => "form-label" %>:
                 <%= f.text_field :username, :required => true, :autofocus => true, :class => "form-control", :size => "50",:placeholder =>"請務必使用中文真實全名，若非使用真實全名，此帳號將會被刪除!" %>
               </div>
             </div>
             <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
+            <p><font color=red > "請勿使用hinet.net 結尾的信箱,也不可使用pchome信箱"</font></p>            
             <div class="form-group">
               <div class="col-xs-12 col-md-12 col-lg-12">
                 <%= f.label "Email", :class => "form-label" %>:
-                <%= f.email_field :email, :required => true, :autofocus => true, :class => "form-control", :size => "50", :placeholder => "請勿使用hinet.net 結尾的信箱來註冊"  %>
+                <%= f.email_field :email, :required => true, :autofocus => true, :class => "form-control", :size => "50", :placeholder => "請勿使用hinet.net 結尾的信箱,也不可使用pchome信箱"  %>
               </div>
             </div>
             <div class="col-xs-12 col-md-12 col-lg-12"></br></div>
@@ -158,7 +165,7 @@
             <br><br><Strong>3."姓名"欄位請務必填寫<font color='red'>中文真實姓名全名</font>，若不按此規定填寫，則帳號將會被取消!</Strong>
             <br><br><Strong>4."FB帳號"欄位請填入FB的帳號名稱(都是中文或英文姓名)，例如<font color='blue'> 李昆展、Seven Wu</font> 等<font color='red'>，請務必不可填入電子郵件帳號或電子郵件帳號內"@"符號前的代碼</font></Strong>
             <br><br><Strong>
-             5.請勿使用<font color='red'>hinet.net</font>結尾的信箱來註冊,因為hinet的信箱會阻擋桌盟系統寄發的相關郵件!
+             5.請勿使用<font color='red'>hinet.net</font>結尾的信箱及<font color='red'>pchome</font>信箱來註冊,因為hinet及pchome的信箱會阻擋桌盟系統寄發的相關郵件!
             </strong>
             <br><br><Strong>
             6.如果發現有同姓名的球友已經先行註冊，而導致您無法成功註冊，麻煩您在姓名後面用括號加註的方式來註冊，例如 李組長<font color='red'>(新北)</font>的方式來註冊</strong>

@@ -7,7 +7,14 @@ class Groupattendant < ActiveRecord::Base
   	  @playerlist=self.attendants
       @playerlist
   end	
-
+  def players_to_users
+    users= Array.new
+    self.attendants.each do |attendant|
+      user=User.find(attendant.player_id)
+      users.push(user)
+    end  
+    return users
+  end  
   def findplayer(player_id)
    	  if self.playerlist.find_all{|v| v.player_id==player_id}.empty?
    	    return false
@@ -15,6 +22,6 @@ class Groupattendant < ActiveRecord::Base
    	  	return true
    	  end	
   end	
-  
+
 
 end

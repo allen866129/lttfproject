@@ -39,6 +39,11 @@ class PlayerprofilesController < ApplicationController
    # @playerprofiles = Playerprofile.where( [ "name like ?", "%#{params[:keyword]}%" ]).page( params[:page] ).per(100)
     render :action => :index
   end 
+  def batchaccountsinput
+    Playerprofile.batch_create_account
+    redirect_to  :back
+    
+  end
   def googleplayerlist
     if params[:playerlistfileurl]
       @players=Playerprofile.googleplayerlist(params[:playerlistfileurl])
@@ -50,6 +55,17 @@ class PlayerprofilesController < ApplicationController
     
   end
 
+  def googleplayerlistbyname
+      if params[:playerlistfileurl]
+      @foundplayers, @unfoundplayers=Playerprofile.find_playerlist_from_googlesheet_by_name(params[:playerlistfileurl])
+      @previousfileurl=params[:playerlistfileurl]
+      @foundplayers=@foundplayers.uniq
+    else
+       @foundplayers=[] 
+       @unfoundplayers=[]
+       @previousfileurl=nil
+    end 
+  end
  
   def show
    
@@ -82,7 +98,9 @@ class PlayerprofilesController < ApplicationController
   # GET /playerprofiles/new
   # GET /playerprofiles/new.json
   def new
+
     @playerprofile  = current_user.build_playerprofile
+    @playerprofile.id=@playerprofile.user_id
      format.html { redirect_to @playerprofile, notice: 'Playerprofile was successfully new.' }
       respond_to do |format|
       format.html # new.html.erb
@@ -99,12 +117,13 @@ class PlayerprofilesController < ApplicationController
   # POST /playerprofiles
   # POST /playerprofiles.json
   def create
-   
+  
   @playerprofile = current_user.playerprofile.build(params[:playerprofile])
   #@playerprofile = Playerprofile.where( :user_id => current_user.id).first
-  #@playerprofile.name=current_user.username
-  
-  
+  @playerprofile.name=current_user.username
+  @playerprofile.lastscoreupdatedate=current.user.created_at.to_date
+  @playerprofile.curscore=@playerprofile.initscore
+  @playerprofile.id=@playerprofile.user_id
 
     respond_to do |format|
       if @playerprofile.save
