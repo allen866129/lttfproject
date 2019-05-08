@@ -2,11 +2,7 @@
 
 source 'https://rubygems.org'
 
-<<<<<<< HEAD
 gem 'rails', '~> 4.2.3'
-=======
-gem 'rails', '4.2.11.1'
->>>>>>> 4b3821635fc60da2fde59ad9d38a2893d5a3ce6d
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -15,11 +11,7 @@ gem 'pg', '0.18.4'
 #gem 'protected_attributes' #for rails 4.2.6
 # Gems used only for assets and not required
 # in production environments by default.
-<<<<<<< HEAD
 
-=======
-#group :assets do
->>>>>>> 4b3821635fc60da2fde59ad9d38a2893d5a3ce6d
   gem 'sass-rails'
   gem 'coffee-rails'
 
@@ -28,13 +20,8 @@ gem 'pg', '0.18.4'
 
   gem 'uglifier' , '>= 1.0.3'
   gem 'font-awesome-rails'
-<<<<<<< HEAD
 
 
-=======
-#end
-
->>>>>>> 4b3821635fc60da2fde59ad9d38a2893d5a3ce6d
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
