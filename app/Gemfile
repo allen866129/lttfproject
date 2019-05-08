@@ -39,7 +39,6 @@ gem 'pry', '0.10.4', :group => :development
 gem "pry-nav" ,:group => :development
 # To use debugger
 # gem 'debugger'
-gem 'responders'
 gem 'addressable'
 gem "devise"
 gem 'database_cleaner'
@@ -98,3 +97,4 @@ gem 'rake'
 gem 'ransack'
 gem 'rack-cache' 
 gem 'protected_attributes'
+gem 'responders', '~> 2.0'
