@@ -1,7 +1,7 @@
 <ul id="sidebar" class="nav nav-stacked affix hidden-xs" >
   <li><font color="red" size="1"><strong>廣告出租!請洽李組長</strong></font></li>
   <%  Advitem.reloadadvs.shuffle.each do |advitem|  %>
-    <li><a  href= "<%= advitem.adv_link%>" ><%= image_tag(advitem.adv_photo.url) %><!img src="<%= advitem.adv_photo.url%>" class="img-responsive" alt="LTTF Logo"></a></li>
+    <li><a  href= "<%= advitem.adv_link%>" ><%= image_tag(advitem.adv_photo.url, class: "img-responsive") %></a></li>
   <%end %>
 </ul>
    
