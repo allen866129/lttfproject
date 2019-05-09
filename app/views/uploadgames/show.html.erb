@@ -123,12 +123,14 @@
         </td>
         <td class='Match_WinEntity'>
           <% if  @game_individual[0][5].to_i>@game_individual[1][5].to_i %>
-            <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+            <% #= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+            <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Aplayer"]), :remote=>true do %>
                        <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Aplayer"] %> </font>
             <% end %>          
   
           <%else%>
-            <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Bplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+            <% #= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Bplayer"]), :remote=>true, data: {toggle: "modal", target: "#player_modal"} do %>
+            <%= link_to displayupload_show_player_games_uploadgames_path(@uploadgame,:player_name=>game["Bplayer"]), :remote=>true do %>
                        <i class="fa fa-file-o"></i>&nbsp;<font color="#3A01DF"> <%= game["Bplayer"] %> </font>
             <% end %>                       
           <%end%>
@@ -156,13 +158,6 @@
         <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>                 
       </div>
     <div class="modal-body">
-      <div class="container">
-        <div class="row">   
-          <div id="modal_content">
-          </div>
-                
-        </div>
-      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">關閉視窗</button>

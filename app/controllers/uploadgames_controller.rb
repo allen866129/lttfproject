@@ -480,6 +480,7 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
     @gamesrecords=@uploadgame.getdetailgamesrecord
     @gamesrecords=@gamesrecords.find_all{|v| v['Aplayer']==params[:player_name]||v['Bplayer']==params[:player_name]}
     @targetplayername=params[:player_name]
+
   end  
   def cal_show_player_games
    @uploadgame=Rails.cache.read(current_user.id.to_s+"curgame")
@@ -492,6 +493,7 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
     #@gamesrecords=@uploadgame.getdetailgamesrecord
     @gamesrecords=@gamesrecords.find_all{|v| v['Aplayer']==params[:player_name]||v['Bplayer']==params[:player_name]}
     @targetplayername=params[:player_name]
+
   end 
   def publish_show_player_games
     @uploadgame=Rails.cache.read(current_user.id.to_s+"curgame")
@@ -506,6 +508,7 @@ def updategamescore_to_main_table (uploadgame, inp_adjustplayers)
     #@gamesrecords=@uploadgame.getdetailgamesrecord
     @gamesrecords=@gamesrecords.find_all{|v| v['Aplayer']==params[:player_name]||v['Bplayer']==params[:player_name]}
     @targetplayername=params[:player_name]
+
   end 
   def set_adjust_players(playersinfo)
     @adjustplayers = Array.new
