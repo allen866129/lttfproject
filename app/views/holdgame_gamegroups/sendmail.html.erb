@@ -12,7 +12,7 @@
 
 <div class="col-xs-12 col-md-12 col-lg-12">
   <div class="form_row">
-    <font size='7' color='blue'><strong>
+    <font size='4' color='blue'><strong>
     <label for="send_group">選擇傳送對象:</label>
     <%= check_box_tag 'all resgistrations', 0,false,:onclick=> "checkall(this)" %>所有報名球友
     <%= check_box_tag 'all official', 0,false,:onclick=> "checkallofficial(this)" %>所有正選球友
@@ -37,7 +37,7 @@
          
         <% playerlists.each_with_index do |playerlist, listindex| %>
           <tr>
-            <td><font size='7' color='red'><strong>
+            <td><font size='4' color='red'><strong>
               <% if listindex==0 %>  
                 <%= check_box_tag gamegroup.id.to_s+'_official', 0,false,:onclick=> "checkgroupofficial(this,#{gamegroup.id})" %><%=gamegroup.groupname+'-正選'%>
               <%else%>
