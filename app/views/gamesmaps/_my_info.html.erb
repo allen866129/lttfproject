@@ -39,14 +39,14 @@
 
   <% if holdgame.lttfgameflag %>
     <% if current_user &&( holdgame.gameholder.user_id==current_user.id|| current_user.has_role?(:admin)||current_user.has_role?(:superuser) )  %>
-      <%= link_to image_tag('images/edit.ico'), edit_holdgame_path(holdgame), :method=>:get %></td>
+      <%= link_to image_tag('edit.ico'), edit_holdgame_path(holdgame), :method=>:get %></td>
 
-      <%=link_to image_tag('images/delete.ico'), cancel_holdgames_path(holdgame),  :method => :post, data: { confirm: '確定要取消本場比賽?'}  %></td>
+      <%=link_to image_tag('delete.ico'), cancel_holdgames_path(holdgame),  :method => :post, data: { confirm: '確定要取消本場比賽?'}  %></td>
     <% end %>      
   <% else %>
       <% if current_user && ( (current_user.has_role? :admin)||(current_user.has_role? :superuser)||(current_user.id== holdgame.gameholder_id)) %>
-       <%= link_to image_tag('images/edit.ico') , edit_gamesmap_path(holdgame)  %>
-       <%= link_to image_tag('images/delete.ico') , gamesmap_path(holdgame) , method: :delete, data: { confirm: '確定刪除此比賽活動資料?' } %>
+       <%= link_to image_tag('edit.ico') , edit_gamesmap_path(holdgame)  %>
+       <%= link_to image_tag('delete.ico') , gamesmap_path(holdgame) , method: :delete, data: { confirm: '確定刪除此比賽活動資料?' } %>
     <% end %>
   <% end %>  
 
