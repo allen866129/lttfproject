@@ -69,27 +69,84 @@
 
   </body>
 <script type="text/javascript">
+//var json_array= <%=raw @hash.to_json %>;
+var cities_arr= <%= raw @citiesarray %>;
+var courts_array =<%= raw @ttcourts.to_json %>;  
+//var courts_array = [<%= raw @geojson.to_json %>];
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWxsZW44NjYxMjkiLCJhIjoiY2syaGd5aHVyMGE3OTNobGlyZHY4a2s2aiJ9.QslC2-wkDFqWPUOqa6a8sQ';
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+center: [120.5, 24], // starting position [lng, lat]
+zoom: 6// starting zoom
+});
+var js_array = <%= raw @geojson.to_json %>;
+
+
+
+_.each(js_array, function(marker, index){
+  //json.marker = markers[index];
+
+
+  var el = document.createElement('div');
+  el.className = 'marker';
+
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(el)
+    .setLngLat(marker.geometry.coordinates)
+    .addTo(map);
+});
+
+
 function createSidebarLi(json){
-  return ("<li><a>" + json.name + "</a></li>");
+  return ("<li><a>" + json.placename + "</a></li>");
 };
+
 function createCollpasingSidebarLi(cur_court,json){
   
- return ("<li><font color=\'red\'>" + json.name +"</font><ul><li>"+ 
+ return ("<li><font color=\'red\'>" + json.placename +"</font><ul><li>"+ 
            "所在地址:"+cur_court['address']+"</li><li>"+
            "開放時間:"+cur_court['opentime']+"</li><li>"+
            "場地設施:"+cur_court['facilities']+"</li><li>"+
            "收費標準:"+cur_court['playfee']+"</li>"+
        "</ul></li>");
 };
-function bindLiToMarker($li, marker){
+function bindLiToMarker($li, cur_court){
   $li.on('click', function(){
-    handler.getMap().setZoom(16);
-    marker.setMap(handler.getMap()); //because clusterer removes map property from marker
-    marker.panTo();
-    google.maps.event.trigger(marker.getServiceObject(), 'click');
+     map.flyTo({
+    center: [cur_court.lng,cur_court.lat],
+    zoom: 15
+  });
+  createPopUp(cur_court);
+  var activeItem = document.getElementsByClassName('active');
+  if (activeItem[0]) {
+    activeItem[0].classList.remove('active');
+  }
+  this.parentNode.classList.add('active');
   })
+  
+  
 };
 
+function createPopUp(cur_court) {
+  var popUps = document.getElementsByClassName('mapboxgl-popup');
+  // Check if there is already a popup on the map and if so, remove it
+  if (popUps[0]) popUps[0].remove();
+
+  var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat([cur_court.lng,cur_court.lat])
+    .setHTML('<div class="wrapper">'+
+         '<p align=center><strong>' +cur_court.placename+'</strong><br></p>'+
+           '所在地址：'+cur_court.address +'<br>'+
+           '開放時間：'+cur_court.opentime +'<br>'+
+           '場地設施：'+cur_court.facilities+'<br>'+
+           '收費標準：'+cur_court.playfee +'<br>'+
+           '其他補充：'+cur_court.supplyinfo+'<br>'+
+           '聯絡資訊：'+cur_court.contactinfo+'<br>'+
+           '資料來源：'+cur_court.infosource
+      )
+    .addTo(map);
+}
 function createCollpasingSidebar(courts_array,json_array,index){
  
   _.each(json_array, function(json){
@@ -97,7 +154,7 @@ function createCollpasingSidebar(courts_array,json_array,index){
     var $li = $( createCollpasingSidebarLi(cur_court,json) );
     var ul='city'+index;
     $("#city"+index).append($li);
-    bindLiToMarker($li, json.marker);
+     bindLiToMarker($li, cur_court);
    
   });
  
@@ -106,11 +163,11 @@ function createSidebar(json_array){
   _.each(json_array, function(json){
     var $li = $( createSidebarLi(json) );
     $li.appendTo('#sidebar_container');
-    bindLiToMarker($li, json.marker);
+   // bindLiToMarker($li, json.marker);
 
   });
 };
-
+/*
   handler = Gmaps.build('Google');
   handler.buildMap({ provider: {auto_adjust:false}, internal: {id: 'map'}}, function(){
   var json_array= <%=raw @hash.to_json %>;
@@ -127,9 +184,10 @@ function createSidebar(json_array){
   handler.fitMapToBounds();
   handler.getMap().setZoom(7);
   handler.map.centerOn({ lat: 24, lng: 120.5 }); 
+  */
   var gamecount=0
   _.each(cities_arr, function(city, index){
-    var city_courts=_.where(json_array, {city: city});
+    var city_courts=_.where(courts_array, {city: city});
     if(city_courts.length>0)
     {  
       $('.collapsibleList').append("<li><strong><font color=\'blue\'>"+city+"("+city_courts.length+")"+"</font></strong><ul id=city"+ (gamecount+1)+">");
@@ -141,7 +199,7 @@ function createSidebar(json_array){
     CollapsibleLists.applyTo(document.getElementById('ttcourtslist'));
 
 
-    });
+
 
 
 </script>

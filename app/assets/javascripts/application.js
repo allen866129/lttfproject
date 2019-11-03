@@ -16,3 +16,6 @@
 //= require underscore
 //= require gmaps/google
 //= require_tree .
+//= require leaflet
+//*= require mapbox-gl
+//*= require mapbox-gl-geocoder

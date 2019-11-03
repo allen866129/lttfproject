@@ -9,34 +9,38 @@ class TtcourtsController < ApplicationController
     @citiesarray=TWZipCode_hash.keys
     @ttcourts = Ttcourt.all
     @ttcourts_hash=Array.new
-    @hash  = Gmaps4rails.build_markers @ttcourts do |ttcourt, marker|
-      marker.lat(ttcourt.lat)
-      marker.lng(ttcourt.lng)
-     
-      marker.infowindow render_to_string(:partial => "/ttcourts/my_info", :formats => [:html],:locals => { :ttcourt => ttcourt})
-      marker.picture({
-       
-                       :width  => "24",
-                       :height => "24",
-                       
-                      })
-       
-      marker.title(ttcourt.placename)
-      marker.json({ :id => ttcourt.id , :name=>"("+ttcourt.county+")"+ttcourt.placename, :city => ttcourt.city })
-      @tempcourt=Hash.new
-      @tempcourt['id']=ttcourt.id
-      @tempcourt['address']=ttcourt.address
-      @tempcourt['opentime']=ttcourt.opentime
-      @tempcourt['facilities']=ttcourt.facilities
-      @tempcourt['playfee']=ttcourt.playfee
-      @ttcourts_hash.push(@tempcourt)
-    end
-    
+
+    @geojson = Array.new
+    @ttcourts.each do |court|
+          @geojson << {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [court.lng, court.lat],
+              zipcode:court.zipcode
+
+            },
+            properties: {
+              name: court.placename,
+              address: court.address,
+              opentime: court.opentime,
+              facilities: court.facilities,
+              playfee: court.playfee, 
+              city: court.city,
+              county:court.county,
+              :'marker-color' => '#00607d',
+              :'marker-symbol' => 'circle',
+              :'marker-size' => 'medium'
+            }
+          }
+        
+        end
+        
     @ttcourts_views_record=Webpageview.first_or_initialize
     @ttcourts_views_record.ttcourts_views_increment
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @ttcourts }
+      format.json { render json: @geojson } 
     end
   end
 

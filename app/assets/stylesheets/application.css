@@ -10,10 +10,11 @@
  *
  *= require_self
  *= require_tree .
-
+ *= require mapbox-gl
+ *= require mapbox-gl-geocoder
  */
  //= require common
-
+ //= require leaflet
  @font-face {
    font-family: 'Glyphicons Halflings';
    src: asset-url ('glyphicons-halflings-regular.eot');
@@ -23,3 +24,10 @@
         asset-url ('glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
  }
 @import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+// the following two lines go to the top
+//= depend_on_asset "layers.png"
+//= depend_on_asset "layers-2x.png"
+ 
+@import "leaflet";
+@import "incidents";
+#mapid { height: 180px; }

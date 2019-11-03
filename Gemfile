@@ -28,7 +28,7 @@ gem 'jquery-rails'
 # gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'bcrypt'
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
+gem 'jbuilder'
 
 # Use unicorn as the app server
 # gem 'unicorn'
@@ -100,3 +100,5 @@ gem 'ransack'
 gem 'rack-cache' 
 gem 'protected_attributes'
 gem 'sprockets-rails'
+gem 'leaflet-rails'
+gem 'mapbox-gl-rails'
