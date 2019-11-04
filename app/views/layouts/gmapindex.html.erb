@@ -188,6 +188,10 @@ function createSidebar(json_array){
 
 
   map.on('click', function(e) {
+    var activeItem = document.getElementsByClassName('active');
+    if (activeItem[0]) {
+      activeItem[0].classList.remove('active');
+    }
   // Query all the rendered points in the view
   var features = map.queryRenderedFeatures(e.point, { layers: ['locations'] });
 
