@@ -121,22 +121,22 @@ function createSidebarLi(json){
   return ("<li><a>" + json.placename + "</a></li>");
 };
 
-function createCollpasingSidebarLi(cur_court,json){
+function createCollpasingSidebarLi(json_marker){
   
- return ("<li><font color=\'red\'>" + json.placename +"</font><ul><li>"+ 
-           "所在地址:"+cur_court['address']+"</li><li>"+
-           "開放時間:"+cur_court['opentime']+"</li><li>"+
-           "場地設施:"+cur_court['facilities']+"</li><li>"+
-           "收費標準:"+cur_court['playfee']+"</li>"+
+ return ("<li><font color=\'red\'>" + json_marker.properties.name +"</font><ul><li>"+ 
+           "所在地址:"+json_marker.properties.address+"</li><li>"+
+           "開放時間:"+json_marker.properties.opentime +"</li><li>"+
+           "場地設施:"+json_marker.properties.facilities+"</li><li>"+
+           "收費標準:"+json_marker.properties.playfee+"</li>"+
        "</ul></li>");
 };
-function bindLiToMarker($li, cur_court){
+function bindLiToMarker($li, json_marker){
   $li.on('click', function(){
      map.flyTo({
-    center: [cur_court.lng,cur_court.lat],
+    center: json_marker.geometry.coordinates,
     zoom: 15
   });
-  createPopUp(cur_court);
+  createPopUp(json_marker);
   var activeItem = document.getElementsByClassName('active');
   if (activeItem[0]) {
     activeItem[0].classList.remove('active');
@@ -146,39 +146,30 @@ function bindLiToMarker($li, cur_court){
   
   
 };
-function flyTocourt(cur_court) {
+function flyTocourt(json_marker) {
   map.flyTo({
-    center: [cur_court.lng,cur_court.lat],
+    center: json_marker.geometry.coordinates,
     zoom: 15
   });
 }
-function createPopUp(cur_court) {
+function createPopUp(json_marker) {
   var popUps = document.getElementsByClassName('mapboxgl-popup');
   // Check if there is already a popup on the map and if so, remove it
   if (popUps[0]) popUps[0].remove();
 
   var popup = new mapboxgl.Popup({ closeOnClick: false })
-    .setLngLat([cur_court.lng,cur_court.lat])
-    .setHTML('<div class="wrapper">'+
-         '<p align=center><strong>' +cur_court.placename+'</strong><br></p>'+
-           '所在地址：'+cur_court.address +'<br>'+
-           '開放時間：'+cur_court.opentime +'<br>'+
-           '場地設施：'+cur_court.facilities+'<br>'+
-           '收費標準：'+cur_court.playfee +'<br>'+
-           '其他補充：'+cur_court.supplyinfo+'<br>'+
-           '聯絡資訊：'+cur_court.contactinfo+'<br>'+
-           '資料來源：'+cur_court.infosource
-      )
+    .setLngLat(json_marker.geometry.coordinates)
+    .setHTML(json_marker.properties.popup_info) 
     .addTo(map);
 }
 function createCollpasingSidebar(courts_array,json_array,index){
  
-  _.each(json_array, function(json){
-    var cur_court=_.findWhere(courts_array, {id: json.id});
-    var $li = $( createCollpasingSidebarLi(cur_court,json) );
+  _.each(json_array, function(json_marker){
+   // var cur_court=_.findWhere(courts_array, {id: json.id});
+    var $li = $( createCollpasingSidebarLi(json_marker) );
     var ul='city'+index;
     $("#city"+index).append($li);
-     bindLiToMarker($li, cur_court);
+     bindLiToMarker($li, json_marker);
    
   });
  
@@ -211,7 +202,9 @@ function createSidebar(json_array){
   */
   var gamecount=0
   _.each(cities_arr, function(city, index){
-    var city_courts=_.where(courts_array, {city: city});
+    //var city_courts=_.where(js_array, {city: city});
+    
+    city_courts=js_array.filter(marker => marker.properties.city == city); 
     if(city_courts.length>0)
     {  
       $('.collapsibleList').append("<li><strong><font color=\'blue\'>"+city+"("+city_courts.length+")"+"</font></strong><ul id=city"+ (gamecount+1)+">");
@@ -223,7 +216,7 @@ function createSidebar(json_array){
     CollapsibleLists.applyTo(document.getElementById('ttcourtslist'));
 
 
-map.on('click', function(e) {
+  map.on('click', function(e) {
   // Query all the rendered points in the view
   var features = map.queryRenderedFeatures(e.point, { layers: ['locations'] });
 
@@ -240,13 +233,14 @@ map.on('click', function(e) {
     }
     // Find the index of the store.features that corresponds to the clickedPoint that fired the event listener
     var selectedFeature = clickedPoint.properties.address;
-
-    for (var i = 0; i < courts_array.length; i++) {
+    var target_marker= jsarray.find(marker=>marker.properties.address == selectedFeature) 
+   /* for (var i = 0; i < courts_array.length; i++) {
       if (courts_array[i].address == selectedFeature) {
         selectedFeatureIndex = i;
       }
     }
-    flyToCourt(courts_array[selectedFeatureIndex]);
+    */
+    flyToCourt(target_marker);
     // 2. Close all other popups and display popup for clicked store
     //createPopUp(courts_array[selectedFeatureIndex]);
     // 3. Highlight listing in sidebar (and remove highlight for all other listings)
