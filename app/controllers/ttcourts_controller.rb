@@ -28,6 +28,9 @@ class TtcourtsController < ApplicationController
               playfee: court.playfee, 
               city: court.city,
               county:court.county,
+              supplyinfo:court.supplyinfo,
+              infosource: court.infosource,
+              contactinfo: court.contactinfo,
               :'marker-color' => '#00607d',
               :'marker-symbol' => 'circle',
               :'marker-size' => 'medium'
