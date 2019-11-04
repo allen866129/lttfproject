@@ -8,9 +8,9 @@
   <p align=center> <font color ='blue'><strong><%=holdgame.startdate %><%= holdgame.gamename %></strong></font><br></p>
 
     <% if holdgame.lttfgameflag %>
-     <font color ='blue'>報名網址:</font> <%= link_to  holdgame.gamename, holdgame_gamegroups_path(holdgame) ,style: 'color:#FF11FF;'  %><br>
+     <font color ='blue'>報名網址:</font> <%= link_to  holdgame.gamename, holdgame_gamegroups_path(holdgame) ,style: 'color:#FF11FF;' , target: :_blank %><br>
    <% else %>
-      <font color ='blue'>報名網址:</font> <%= link_to_if(holdgame.url!="", holdgame.gamename, holdgame.url ,style: 'color:#FF11FF;' ) %></br>
+      <font color ='blue'>報名網址:</font> <%= link_to_if(holdgame.url!="", holdgame.gamename, holdgame.url ,style: 'color:#FF11FF;', target: :_blank ) %></br>
    <% end %>
    <font color ='blue'>比賽場地：<%=holdgame.courtname %></font><br>
    <font color ='blue'>比賽地址：<%=holdgame.address %></font><br>
@@ -31,9 +31,9 @@
     <%end%>
    <p style="white-space: pre-line ;width:200px; word-wrap: break-word;text-align:justify ">
     <% if holdgame.lttfgameflag %>
-     <font color ='blue'>詳細比賽辦法請參考報名網址:</font> <br><%= link_to  holdgame.gamename, holdgame_gamegroups_path(holdgame) ,style: 'color:#FF11FF;'  %><br>
+     <font color ='blue'>詳細比賽辦法請參考報名網址:</font> <br><%= link_to  holdgame.gamename, holdgame_gamegroups_path(holdgame) ,style: 'color:#FF11FF;' ,target: :_blank  %><br>
    <% else %>
-      <font color ='blue'>詳細比賽辦法請參考報名網址:</font> <br><%= link_to_if(holdgame.url!="", holdgame.gamename, holdgame.url ,style: 'color:#FF11FF;' ) %></br>
+      <font color ='blue'>詳細比賽辦法請參考報名網址:</font> <br><%= link_to_if(holdgame.url!="", holdgame.gamename, holdgame.url ,style: 'color:#FF11FF;' ,target: :_blank ) %></br>
    <% end %>
    </p>
 
