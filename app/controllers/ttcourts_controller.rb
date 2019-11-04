@@ -12,6 +12,7 @@ class TtcourtsController < ApplicationController
 
     @geojson = Array.new
     @ttcourts.each do |court|
+          popup_window_info=render_to_string :partial => "/ttcourts/my_info", :formats => [:html],:locals => { :ttcourt => court}
           @geojson << {
             type: 'Feature',
             geometry: {
@@ -31,6 +32,7 @@ class TtcourtsController < ApplicationController
               supplyinfo:court.supplyinfo,
               infosource: court.infosource,
               contactinfo: court.contactinfo,
+              popup_info: popup_window_info,
               :'marker-color' => '#00607d',
               :'marker-symbol' => 'circle',
               :'marker-size' => 'medium'
@@ -41,6 +43,7 @@ class TtcourtsController < ApplicationController
         
     @ttcourts_views_record=Webpageview.first_or_initialize
     @ttcourts_views_record.ttcourts_views_increment
+    @popup_window_info=render_to_string
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @geojson } 

@@ -94,7 +94,7 @@ _.each(js_array, function(marker, index){
   var  cur_court=marker.preperties;
   el.className = 'marker';
   var popup = new mapboxgl.Popup({ offset: 25 })
- .setHTML('<div class="wrapper">'+
+ /*.setHTML('<div class="wrapper">'+
          '<p align=center><strong>' +marker.properties.name+'</strong><br></p>'+
            '所在地址：'+marker.properties.address +'<br>'+
            '開放時間：'+marker.properties.opentime +'<br>'+
@@ -103,7 +103,9 @@ _.each(js_array, function(marker, index){
            '其他補充：'+marker.properties.supplyinfo+'<br>'+
            '聯絡資訊：'+marker.properties.contactinfo+'<br>'+
            '資料來源：'+marker.properties.infosource
-      ) 
+   */        
+   .setHTML(marker.properties.popup_info) 
+     
  .setLngLat(marker.geometry.coordinates);
 
   // make a marker for each feature and add to the map
