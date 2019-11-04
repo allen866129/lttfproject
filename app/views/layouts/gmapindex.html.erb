@@ -69,10 +69,9 @@
 
   </body>
 <script type="text/javascript">
-//var json_array= <%=raw @hash.to_json %>;
+
 var cities_arr= <%= raw @citiesarray %>;
 var courts_array =<%= raw @ttcourts.to_json %>;  
-//var courts_array = [<%= raw @geojson.to_json %>];
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWxsZW44NjYxMjkiLCJhIjoiY2syaGd5aHVyMGE3OTNobGlyZHY4a2s2aiJ9.QslC2-wkDFqWPUOqa6a8sQ';
 var map = new mapboxgl.Map({
 container: 'map', // container id
@@ -94,16 +93,6 @@ _.each(js_array, function(marker, index){
   var  cur_court=marker.preperties;
   el.className = 'marker';
   var popup = new mapboxgl.Popup({ offset: 25 })
- /*.setHTML('<div class="wrapper">'+
-         '<p align=center><strong>' +marker.properties.name+'</strong><br></p>'+
-           '所在地址：'+marker.properties.address +'<br>'+
-           '開放時間：'+marker.properties.opentime +'<br>'+
-           '場地設施：'+marker.properties.facilities+'<br>'+
-           '收費標準：'+marker.properties.playfee +'<br>'+
-           '其他補充：'+marker.properties.supplyinfo+'<br>'+
-           '聯絡資訊：'+marker.properties.contactinfo+'<br>'+
-           '資料來源：'+marker.properties.infosource
-   */        
    .setHTML(marker.properties.popup_info) 
      
  .setLngLat(marker.geometry.coordinates);
@@ -178,28 +167,10 @@ function createSidebar(json_array){
   _.each(json_array, function(json){
     var $li = $( createSidebarLi(json) );
     $li.appendTo('#sidebar_container');
-   // bindLiToMarker($li, json.marker);
 
   });
 };
-/*
-  handler = Gmaps.build('Google');
-  handler.buildMap({ provider: {auto_adjust:false}, internal: {id: 'map'}}, function(){
-  var json_array= <%=raw @hash.to_json %>;
-  var cities_arr= <%= raw @citiesarray %>
-  var courts_array =<%= raw @ttcourts_hash.to_json %>      
-  markers = handler.addMarkers(json_array);
-  handler.bounds.extendWith(markers);
 
-  _.each(json_array, function(json, index){
-  json.marker = markers[index];
-    
-  });
-  
-  handler.fitMapToBounds();
-  handler.getMap().setZoom(7);
-  handler.map.centerOn({ lat: 24, lng: 120.5 }); 
-  */
   var gamecount=0
   _.each(cities_arr, function(city, index){
     //var city_courts=_.where(js_array, {city: city});
