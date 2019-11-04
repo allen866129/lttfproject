@@ -1,8 +1,25 @@
+<%= content_for :head do %>
+<meta charset='utf-8' />
 <!script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <!script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyAeQ-zOQ8eENrd2wbVDPs7HhcmTVj-hPiI"></script>
  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/themes/hot-sneaks/jquery-ui.css" rel="stylesheet">
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+  <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+  <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.css' rel='stylesheet' />
+<style>
+body { margin:0; padding:0; }
+.marker {
+  background-image: url('/LTTF_logo.png');
+  background-size: cover;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+</style>
+<%end%>
 <%= include_gon %>
 
 <% set_meta_tags :og => { :title => @holdgame.startdate.to_s+@holdgame.gamename+'報名網頁' , :image => 'http://twlttf.org/LTTF_logo.png', :description =>'歡迎球友前往此報名網頁報名參賽', :url=>holdgame_gamegroups_url(@holdgame)} %>
@@ -71,7 +88,7 @@
     </p>
    </p>
    
-  <div id="map" style='width: 100%; height: 250px;'></div>
+  <div id="groupmap" style='width: 100%; height: 250px;'></div>
    <p style="white-space: pre-line ;width:auto; text-align:justify "><font color="blue">
 
   <div class="table-responsive datagrid" >
@@ -232,6 +249,40 @@
 
 
 <script type="text/javascript">
+ var holdgame_json = <%= raw @holdgame.to_json %>; 
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWxsZW44NjYxMjkiLCJhIjoiY2syaGd5aHVyMGE3OTNobGlyZHY4a2s2aiJ9.QslC2-wkDFqWPUOqa6a8sQ';
+var map = new mapboxgl.Map({
+container: 'groupmap', // container id
+style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+center: [holdgame_json.lng,holdgame_json.lat], // starting position [lng, lat]
+zoom: 15// starting zoom
+});
+
+
+
+  // Add the data to your map as a layer
+  
+
+//_.each(js_array, function(marker, index){
+  //json.marker = markers[index];
+
+
+  var el = document.createElement('div');
+  //var  cur_court=marker.preperties;
+  el.className = 'marker';
+  //var popup = new mapboxgl.Popup({ offset: 25 }  
+ //.setLngLat([holdgame_json.lng,holdgame_json.lat);
+
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(el)
+    .setLngLat([holdgame_json.lng,holdgame_json.lat])
+    .addTo(map);
+    //.setPopup(popup);
+
+
+
+
+
     $(window).load(function(){
 
       if( gon.log_in==0)
