@@ -9,33 +9,46 @@ class GamesmapsController < ApplicationController
 
     @holdgames=Holdgame.forgamesmaps.where("enddate >= (?)", Time.zone.now.to_date)
     @holdgames= @holdgames.reject {|v| (v.lttfgameflag==true) && (v.gamegroups.count ==0)}
-    @holdgames_hash=Array.new
-    @hash  = Gmaps4rails.build_markers @holdgames do |holdgame, marker|
-      marker.lat(holdgame.lat)
-      marker.lng(holdgame.lng)
-      marker.infowindow render_to_string(:partial => "/gamesmaps/my_info", :formats => [:html],:locals => { :holdgame => holdgame})
-      marker.picture({
-       
-                       :width  => "24",
-                       :height => "24",
-                       
-                      })
-       
-      marker.title(holdgame.courtname)
-      marker.json({ :id => holdgame.id , :name=>holdgame.startdate.to_s+'--'+holdgame.gamename+'('+holdgame.courtname+')', :city => holdgame.city,:cancel_flag=>holdgame.cancel_flag })
-      @tempgame=Hash.new
-      @tempgame['id']=holdgame.id
-      @tempgame['gamename']=holdgame.gamename
-      @tempgame['courtname']=holdgame.courtname
-      @tempgame['address']=holdgame.address
-      @tempgame['startdate']=holdgame.startdate
-      @tempgame['name']=holdgame.contact_name
-      @tempgame['phone']=holdgame.contact_phone
-      @tempgame['email']=holdgame.contact_email
-      @tempgame['gamenote']=holdgame.gamenote
-      @holdgames_hash.push( @tempgame)
-    end
-    
+    @geojson = Array.new
+    @holdgames.each do |game|
+          popup_window_info=render_to_string :partial => "/gamesmaps/my_info", :formats => [:html],:locals => { :holdgame => game}
+          @geojson << {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [game.lng, game.lat],
+              zipcode:game.zipcode
+
+            },
+            properties: {
+              holder_id: game.gameholder_id,
+              gamename: game.gamename,
+              gamenote: game.gamenote,
+              gametype:gametype,
+              startdate:game.startdate,
+              enddate:game.enddate,
+              contactname:game.contact_name,
+              address: game.address,
+              playfee: court.playfee, 
+              city: game.city,
+              county:game.county,
+              courtname:game.courtname,
+              url:game.url,
+              contact_phone: game.contact_phone,
+              contact_email: game.contact_email,
+              gameinfofile: game.gameinfofile,
+              gamedays: game.gamedays,
+              sponsors:game.sponsors,
+              cancel_flag:game.cancel_flag,
+              popup_info: popup_window_info,
+              :'marker-color' => '#00607d',
+              :'marker-symbol' => 'circle',
+              :'marker-size' => 'medium'
+            }
+          }
+        
+        end
+   
     
     respond_to do |format|
       format.html # index.html.erb
@@ -49,32 +62,46 @@ class GamesmapsController < ApplicationController
     @holdgames=Holdgame.forgamesmaps.where("enddate >= (?)", Time.zone.now.to_date).where(:lttfgameflag => true)
     @holdgames= @holdgames.select {|v| v.gamegroups.count !=0}
     @holdgames_hash=Array.new
-    @hash  = Gmaps4rails.build_markers @holdgames do |holdgame, marker|
-      marker.lat(holdgame.lat)
-      marker.lng(holdgame.lng)
-      marker.infowindow render_to_string(:partial => "/gamesmaps/my_info", :formats => [:html],:locals => { :holdgame => holdgame})
-      marker.picture({
-       
-                       :width  => "24",
-                       :height => "24",
-                       
-                      })
-       
-      marker.title(holdgame.courtname)
-      marker.json({ :id => holdgame.id , :name=>holdgame.startdate.to_s+'--'+holdgame.gamename+'('+holdgame.courtname+')', :city => holdgame.city , :cancel_flag=>holdgame.cancel_flag})
-      @tempgame=Hash.new
-      @tempgame['id']=holdgame.id
-      @tempgame['gamename']=holdgame.gamename
-      @tempgame['courtname']=holdgame.courtname
-      @tempgame['address']=holdgame.address
-      @tempgame['startdate']=holdgame.startdate
-      @tempgame['name']=holdgame.contact_name
-      @tempgame['phone']=holdgame.contact_phone
-      @tempgame['email']=holdgame.contact_email
-      @tempgame['gamenote']=holdgame.gamenote
-      @holdgames_hash.push( @tempgame)
-    end
-   
+    @geojson=Array.new
+    @holdgames.each do |game|
+          popup_window_info=render_to_string :partial => "/gamesmaps/my_info", :formats => [:html],:locals => { :holdgame => game}
+          @geojson << {
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [game.lng, game.lat],
+              zipcode:game.zipcode
+
+            },
+            properties: {
+              holder_id: game.gameholder_id,
+              holder_name: game.gameholder.user.username,
+              gamename: game.gamename,
+              gamenote: game.gamenote,
+              gametype:game.gametype,
+              startdate:game.startdate,
+              enddate:game.enddate,
+              contactname:game.contact_name,
+              address: game.address,
+              city: game.city,
+              county:game.county,
+              courtname:game.courtname,
+              url:game.url,
+              contact_phone: game.contact_phone,
+              contact_email: game.contact_email,
+              gameinfofile: game.gameinfofile,
+              gamedays: game.gamedays,
+              sponsors:game.sponsors,
+              cancel_flag:game.cancel_flag,
+              popup_info: popup_window_info,
+              :'marker-color' => '#00607d',
+              :'marker-symbol' => 'circle',
+              :'marker-size' => 'medium'
+            }
+          }
+        
+        end
+ 
     render :index
  end  
   # GET /ttcourts/1

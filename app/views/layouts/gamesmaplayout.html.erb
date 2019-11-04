@@ -73,8 +73,181 @@
 
   </body>
 <script type="text/javascript">
+var cities_arr= <%= raw @citiesarray %>;
+var courts_array =<%= raw @ttcourts.to_json %>;  
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWxsZW44NjYxMjkiLCJhIjoiY2syaGd5aHVyMGE3OTNobGlyZHY4a2s2aiJ9.QslC2-wkDFqWPUOqa6a8sQ';
+var map = new mapboxgl.Map({
+container: 'map', // container id
+style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+center: [120.5, 24], // starting position [lng, lat]
+zoom: 6// starting zoom
+});
+var js_array = <%= raw @geojson.to_json %>;
 
 
+  // Add the data to your map as a layer
+  
+
+_.each(js_array, function(marker, index){
+  //json.marker = markers[index];
+
+
+  var el = document.createElement('div');
+  var  cur_court=marker.preperties;
+  el.className = 'marker';
+  var popup = new mapboxgl.Popup({ offset: 25 })
+   .setHTML(marker.properties.popup_info) 
+     
+ .setLngLat(marker.geometry.coordinates);
+
+  // make a marker for each feature and add to the map
+  new mapboxgl.Marker(el)
+    .setLngLat(marker.geometry.coordinates)
+    .setPopup(popup)
+    .addTo(map);
+
+});
+
+
+function createSidebarLi(json){
+  return ("<li><a>" + json.placename + "</a></li>");
+};
+
+function createCollpasingSidebarLi(json_marker){
+  
+  if (!json_marker.properties.cancel_flag)
+ {
+ return ("<li><font color=\'red\'>" + json_marker.properties.gamename +"</font><ul><li>"+ 
+           "比賽日期:"+json_marker.properties.startdate+"</li><li>"+
+           "比賽場地:"+json_marker.properties.courtname+"</li><li>"+
+           "比賽地址:"+json_marker.properties.address+"</li><li>"+
+           "主辦人員:"+json_marker.properties.holdername+"</li><li>"+
+           "連絡電話:"+json_marker.properties.contact_phone+"</li>"+
+       "</ul></li>");
+        
+ }
+ else
+ {
+   return ("<li><font color=\'black\'><strike>" + json_marker.properties.gamename +"</font><ul><li>"+ 
+           "比賽日期:"+json_marker.properties.startdate+"</li><li>"+
+           "比賽場地:"+json_marker.properties.courtname+"</li><li>"+
+           "比賽地址:"+json_marker.properties.address+"</li><li>"+
+           "主辦人員:"+json_marker.properties.holdername+"</li><li>"+
+           "連絡電話:"+json_marker.properties.contact_phone+"</li>"+
+       "</ul></li>");
+ }
+};
+function bindLiToMarker($li, json_marker){
+  $li.on('click', function(){
+     map.flyTo({
+    center: json_marker.geometry.coordinates,
+    zoom: 15
+  });
+  createPopUp(json_marker);
+  var activeItem = document.getElementsByClassName('active');
+  if (activeItem[0]) {
+    activeItem[0].classList.remove('active');
+  }
+  this.parentNode.classList.add('active');
+  })
+  
+  
+};
+function flyTocourt(json_marker) {
+  map.flyTo({
+    center: json_marker.geometry.coordinates,
+    zoom: 15
+  });
+}
+function createPopUp(json_marker) {
+  var popUps = document.getElementsByClassName('mapboxgl-popup');
+  // Check if there is already a popup on the map and if so, remove it
+  if (popUps[0]) popUps[0].remove();
+
+  var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat(json_marker.geometry.coordinates)
+    .setHTML(json_marker.properties.popup_info) 
+    .addTo(map);
+}
+function createCollpasingSidebar(courts_array,json_array,index){
+ 
+  _.each(json_array, function(json_marker){
+   // var cur_court=_.findWhere(courts_array, {id: json.id});
+    var $li = $( createCollpasingSidebarLi(json_marker) );
+    var ul='city'+index;
+    $("#city"+index).append($li);
+     bindLiToMarker($li, json_marker);
+   
+  });
+ 
+};
+function createSidebar(json_array){
+  _.each(json_array, function(json){
+    var $li = $( createSidebarLi(json) );
+    $li.appendTo('#sidebar_container');
+
+  });
+};
+
+  var gamecount=0
+  _.each(cities_arr, function(city, index){
+    //var city_courts=_.where(js_array, {city: city});
+    
+    city_courts=js_array.filter(marker => marker.properties.city == city); 
+    if(city_courts.length>0)
+    {  
+      $('.collapsibleList').append("<li><strong><font color=\'blue\'>"+city+"("+city_courts.length+")"+"</font></strong><ul id=city"+ (gamecount+1)+">");
+      createCollpasingSidebar(courts_array,city_courts,(gamecount+1));
+      gamecount++;
+    } 
+  });
+    
+    CollapsibleLists.applyTo(document.getElementById('holdgamelist'));
+
+
+  map.on('click', function(e) {
+    var activeItem = document.getElementsByClassName('active');
+    if (activeItem[0]) {
+      activeItem[0].classList.remove('active');
+    }
+  // Query all the rendered points in the view
+  var features = map.queryRenderedFeatures(e.point, { layers: ['locations'] });
+
+  if (features.length) {
+    var clickedPoint = features[0];
+    // 1. Fly to the point
+    //flyToCourt(clickedPoint);
+    // 2. Close all other popups and display popup for clicked store
+    //createPopUp(clickedPoint);
+    // 3. Highlight listing in sidebar (and remove highlight for all other listings)
+    var activeItem = document.getElementsByClassName('active');
+    if (activeItem[0]) {
+      activeItem[0].classList.remove('active');
+    }
+    // Find the index of the store.features that corresponds to the clickedPoint that fired the event listener
+    var selectedFeature = clickedPoint.properties.address;
+    var target_marker= jsarray.find(marker=>marker.properties.address == selectedFeature) 
+   /* for (var i = 0; i < courts_array.length; i++) {
+      if (courts_array[i].address == selectedFeature) {
+        selectedFeatureIndex = i;
+      }
+    }
+    */
+    flyToCourt(target_marker);
+    // 2. Close all other popups and display popup for clicked store
+    //createPopUp(courts_array[selectedFeatureIndex]);
+    // 3. Highlight listing in sidebar (and remove highlight for all other listings)
+    
+    // Select the correct list item using the found index and add the active class
+    var listing = document.getElementById('listing-' + selectedFeatureIndex);
+    listing.classList.add('active');
+  }
+});
+
+
+
+
+/*
 function createSidebarLi(json){
   if (json.cancel_flag!=false)
    { 
@@ -179,6 +352,6 @@ function createSidebar(json_array){
 
     });
 
-
+*/
 </script>
 </html>
