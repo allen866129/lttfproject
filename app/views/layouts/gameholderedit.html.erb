@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 
 
-<script src="//maps.google.com/maps/api/js?key=AIzaSyCnswMTUAZSKQ1tXueA9NcGKmO1eIOPRIg"></script> 
+<%= javascript_include_tag "//maps.google.com/maps/api/js?v=3.23&key=#{APP_CONFIG['GoogleMapAPI_Key']}&libraries=geometry,places&language=&hl=&region=&callback=initMap" %>
 <script src="//maps.google.com/maps/api/js?v=3.13&sensor=false&libraries=geometry" type="text/javascript"></script>
  
 <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>

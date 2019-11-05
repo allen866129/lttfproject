@@ -117,22 +117,20 @@ function createCollpasingSidebarLi(json_marker){
   
   if (!json_marker.properties.cancel_flag)
  {
- return ("<li><font color=\'red\'>" + json_marker.properties.gamename +"</font><ul><li>"+ 
-           "比賽日期:"+json_marker.properties.startdate+"</li><li>"+
+ return ("<li><font color=\'red\'>" +json_marker.properties.startdate+ json_marker.properties.gamename +"</font><ul><li>"+ 
            "比賽場地:"+json_marker.properties.courtname+"</li><li>"+
            "比賽地址:"+json_marker.properties.address+"</li><li>"+
-           "主辦人員:"+json_marker.properties.holdername+"</li><li>"+
+           "主辦人員:"+json_marker.properties.contactname+"</li><li>"+
            "連絡電話:"+json_marker.properties.contact_phone+"</li>"+
        "</ul></li>");
         
  }
  else
  {
-   return ("<li><font color=\'black\'><strike>" + json_marker.properties.gamename +"</font><ul><li>"+ 
-           "比賽日期:"+json_marker.properties.startdate+"</li><li>"+
+   return ("<li><font color=\'black\'><strike>" +son_marker.properties.startdate+ json_marker.properties.gamename +"</font><ul><li>"+ 
            "比賽場地:"+json_marker.properties.courtname+"</li><li>"+
            "比賽地址:"+json_marker.properties.address+"</li><li>"+
-           "主辦人員:"+json_marker.properties.holdername+"</li><li>"+
+           "主辦人員:"+json_marker.properties.contactname+"</li><li>"+
            "連絡電話:"+json_marker.properties.contact_phone+"</li>"+
        "</ul></li>");
  }
