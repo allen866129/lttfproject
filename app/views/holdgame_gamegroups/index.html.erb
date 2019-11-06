@@ -252,14 +252,7 @@ body { margin:0; padding:0; }
 
 
 <script type="text/javascript">
-  $(document).ready(function(){
-  var url="https://maps.google.com/maps?q="+ <%= raw @holdgame.lat.to_s%>+","+ <%= raw @holdgame.lng.to_s%>+"&hl=es;z=14&amp;" ;//You can get this url dynamically from an ajax request or from a form etc
-  
-  // To Do : A function to populate url with a valid url from any method you prefer.
- 
-  // Set an ID for the iframe. Let us give that an id of myframe
-  $('#myframe').attr("src", url);
-})
+/*
  var holdgame_json = <%= raw @holdgame.to_json %>; 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYWxsZW44NjYxMjkiLCJhIjoiY2syaGd5aHVyMGE3OTNobGlyZHY4a2s2aiJ9.QslC2-wkDFqWPUOqa6a8sQ';
 var map = new mapboxgl.Map({
@@ -292,7 +285,7 @@ zoom: 15// starting zoom
     //.setPopup(popup);
 
 
-
+*/
 
 
     $(window).load(function(){
