@@ -5,11 +5,12 @@ class TtcourtsController < ApplicationController
   layout :resolve_layout
 
   def index
-
+    
     @citiesarray=TWZipCode_hash.keys
     @ttcourts = Ttcourt.all
     @ttcourts_hash=Array.new
-
+    @Mapboxtoken=APP_CONFIG['MapBox_accesstoken'].to_s
+    gon.token=@Mapboxtoken
     @geojson = Array.new
     @ttcourts.each do |court|
           popup_window_info=render_to_string :partial => "/ttcourts/my_info", :formats => [:html],:locals => { :ttcourt => court}

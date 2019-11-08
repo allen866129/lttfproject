@@ -9,7 +9,8 @@ class GamesmapsController < ApplicationController
 
     @holdgames=Holdgame.forgamesmaps.where("enddate >= (?)", Time.zone.now.to_date)
     @holdgames= @holdgames.reject {|v| (v.lttfgameflag==true) && (v.gamegroups.count ==0)}
-    @geojson = Array.new
+    gon.token=APP_CONFIG['MapBox_accesstoken'].to_s
+    @geojson=Array.new
     @holdgames.each do |game|
           popup_window_info=render_to_string :partial => "/gamesmaps/my_info", :formats => [:html],:locals => { :holdgame => game}
           @geojson << {
@@ -22,14 +23,14 @@ class GamesmapsController < ApplicationController
             },
             properties: {
               holder_id: game.gameholder_id,
+              holder_name: game.gameholder.user.username,
               gamename: game.gamename,
               gamenote: game.gamenote,
-              gametype:gametype,
+              gametype:game.gametype,
               startdate:game.startdate,
               enddate:game.enddate,
               contactname:game.contact_name,
               address: game.address,
-              playfee: court.playfee, 
               city: game.city,
               county:game.county,
               courtname:game.courtname,
@@ -47,6 +48,7 @@ class GamesmapsController < ApplicationController
             }
           }
         
+    
         end
    
     
@@ -61,7 +63,8 @@ class GamesmapsController < ApplicationController
     #@holdgames=Holdgame.forgamesmaps.where("startdate+gamedays >= ? ", Time.zone.now.to_date).where(:lttfgameflag => true)
     @holdgames=Holdgame.forgamesmaps.where("enddate >= (?)", Time.zone.now.to_date).where(:lttfgameflag => true)
     @holdgames= @holdgames.select {|v| v.gamegroups.count !=0}
-    @holdgames_hash=Array.new
+    #@holdgames_hash=Array.new
+    gon.token=APP_CONFIG['MapBox_accesstoken'].to_s
     @geojson=Array.new
     @holdgames.each do |game|
           popup_window_info=render_to_string :partial => "/gamesmaps/my_info", :formats => [:html],:locals => { :holdgame => game}

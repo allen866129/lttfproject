@@ -15,9 +15,9 @@
       <meta charset="utf-8">
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script data-ad-client="ca-pub-5541807843300678" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-      <!link rel="shortcut icon" href="images/lttficon.ico"/>
 
+      <!link rel="shortcut icon" href="images/lttficon.ico"/>
+      <%= Gon::Base.render_data %> 
       <%= favicon_link_tag "favicon.ico"%>
       <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
       <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,10 +31,10 @@
       <%= render :partial => "common/easy_menu" %>
       <%= render :partial => "common/marquee" %>
   </head>
-
  
   <body>
 
+ <%= include_gon %>
     <div id="wrap">
 
       <div class="container">
@@ -76,7 +76,7 @@
 <script type="text/javascript">
 var cities_arr= <%= raw @citiesarray %>;
 var courts_array =<%= raw @ttcourts.to_json %>;  
-mapboxgl.accessToken = 'pk.eyJ1IjoiYWxsZW44NjYxMjkiLCJhIjoiY2syaGd5aHVyMGE3OTNobGlyZHY4a2s2aiJ9.QslC2-wkDFqWPUOqa6a8sQ';
+mapboxgl.accessToken=  gon.token;
 var map = new mapboxgl.Map({
 container: 'map', // container id
 style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
