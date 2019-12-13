@@ -67,6 +67,7 @@ class GamesmapsController < ApplicationController
     gon.token=APP_CONFIG['MapBox_accesstoken'].to_s
     @geojson=Array.new
     @holdgames.each do |game|
+          
           popup_window_info=render_to_string :partial => "/gamesmaps/my_info", :formats => [:html],:locals => { :holdgame => game}
           @geojson << {
             type: 'Feature',
@@ -104,7 +105,7 @@ class GamesmapsController < ApplicationController
           }
         
         end
- 
+    
     render :index
  end  
   # GET /ttcourts/1
