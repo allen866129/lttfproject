@@ -67,5 +67,6 @@ module Lttfproject
     #  ENV[k.upcase] ||= v
     #end
     config.autoload_paths << Rails.root.join('lib')
+    config.browser_validations = true
   end
 end
