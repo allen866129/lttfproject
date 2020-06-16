@@ -3,12 +3,14 @@ class User < ActiveRecord::Base
   after_create  :assign_default_photo ,:create_profile 
   after_commit :assign_default_role
   validates :username, presence: true
+  validates  :phone, presence: true
   validates :username, uniqueness: true, if: -> { self.username.present? }
   validate :username_without_
   validate :username_without_space
   validate :username_not_allenglish 
   validate :fbaccount_without_email
   validate :my_email_validation
+
   validates_format_of :email,:with => Devise.email_regexp
   scope :find_by_name, ->(playername) { where username: playername }
   scope :find_by_id,->(id){where id: id}
@@ -188,6 +190,9 @@ def  rating_stars_picture
        return file_path 
   end 
  private
+    def phone_validation_blank
+      errors.add(:phone, "電話號碼不得為空白") unless !read_attribute(:phone).empty  
+    end 
     def username_without_
      
        errors.add(:username, "姓名不得含有\"_\"字元請重新輸入，請用\"-\"字元取代\"_\"字元 ") unless read_attribute(:username).to_s.exclude? "_"  

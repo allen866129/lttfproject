@@ -170,7 +170,7 @@ class Gamegroup < ActiveRecord::Base
 
         if group.holdgame != self.holdgame 
           temp=(self.starttime-group.starttime).to_i.abs 
-          if (self.starttime-group.starttime).to_i.abs < (3600*4)
+          if (self.starttime-group.starttime).to_i.abs < (3600*3)
             return true
           end 
         end 
