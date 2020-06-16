@@ -17,8 +17,11 @@ def  find_admins_superusers
     admins_superusers
 end
 def configure_permitted_parameters
-   devise_parameter_sanitizer.permit(:account_update) { |u| u.permit( :id, :playerphoto, :fbaccount, :phone, :email, :password, :password_confirmation, :current_password, 
-playerprofile_attributes: [ :id, :name, :initscore, :curscore, :totalwongames,  :totallosegames, :lastgamedate, :lastgamename, :lastscoreupdatedate, :gamehistory, :profileurl, :imageurl, :bio, :paddleholdtype, :paddlemodel, :forwardrubber, :backrubber  , :created_at , :updated_at ]) }
-
+   #devise_parameter_sanitizer.permit(:account_update) { |u| u.permit( :id, :playerphoto, :fbaccount, :phone, :email, :password, :password_confirmation, :current_password, 
+#playerprofile_attributes: [ :id, :name, :initscore, :curscore, :totalwongames,  :totallosegames, :lastgamedate, :lastgamename, :lastscoreupdatedate, :gamehistory, :profileurl, :imageurl, :bio, :paddleholdtype, :paddlemodel, :forwardrubber, :backrubber  , :created_at , :updated_at ]) }
+	user_attributes =[:id, :playerphoto, :fbaccount, :phone, :email, :password, :password_confirmation, :current_password, 
+playerprofile_attributes: [ :id, :name, :initscore, :curscore, :totalwongames,  :totallosegames, :lastgamedate, :lastgamename, :lastscoreupdatedate, :gamehistory, :profileurl, :imageurl, :bio, :paddleholdtype, :paddlemodel, :forwardrubber, :backrubber  , :created_at , :updated_at ]]
+   devise_parameter_sanitizer.permit(:sign_up, keys: user_attributes)
+   devise_parameter_sanitizer.permit(:account_update, keys: user_attributes)
 end
 end
