@@ -84,7 +84,13 @@
   <% if !user_in_group && user_meet_group && gamegroup.regtype=='single' && !@in_blacklist_data && !gamegroup.check_regsitered_same_timeframe_group(current_user) && ( !gamegroup.registration_deadline_flag ||
        (Time.now < gamegroup.registration_deadline))
        %>
-    <td> <%= button_to '本人報名',registration_holdgame_gamegroups_path(@holdgame,gamegroup),{:onclick => "return confirm('確定報名參賽?')", :method => :post}  %></td>
+ 
+     <% if current_user.phone %>  
+       <td> <%= button_to '本人報名',registration_holdgame_gamegroups_path(@holdgame,gamegroup),{:onclick => "return confirm('確定報名參賽?')", :method => :post}  %></td>
+     <% else %>
+       <td> 註冊資料無電話號碼,無法報名<br> 請用變更基本資料補輸入電話號碼後方可報名 </td>
+
+      <%end%>  
   <%end%>   
        
          
