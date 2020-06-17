@@ -551,8 +551,11 @@ def teamplayersadd
   flash.clear
    if params[:name]=='add'
       @groupattendant_id=params[:row_group].to_i
+      @group_attand=Groupattendant.find(params[:row_group].to_i)
       @teamname=Groupattendant.find(params[:row_group].to_i).teamname
-      teamplayer_ids=params[:teamarray].collect{|s| s.to_i}
+      #@teamname=@group_attand.teamname
+      #teamplayer_ids=params[:teamarray].collect{|s| s.to_i}
+      teamplayer_ids=@group_attand.attendants.collect{|s| s}
       curplayers=Attendant.find(teamplayer_ids).collect(&:player_id)
       #@playerlist=User.find( curplayers)
        @playerlist=User.where(:id=> curplayers).order_by_ids(curplayers) 
