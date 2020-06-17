@@ -661,7 +661,7 @@ def get_inputplayer(playerlist,keyword)
   elsif !(@curgroup.check_single_meet_group_score_qualify(@newplayer.playerprofile.curscore)&&@curgroup.check_player_meet_group_cert(@newplayer)) 
           flash[:alert] = "此球友("+@newplayer.id.to_s+","+@newplayer.username+","+@newplayer.playerprofile.curscore.to_s+ ")不符合此分組參賽資格，無法報名此分組比賽!"  
   
-  elsif @newplayer.phone.empty?
+  elsif !@newplayer.phone && current_user!=@curgroup.holdgame.gameholder.user
         flash[:alert] = "此球友("+@newplayer.id.to_s+","+@newplayer.username+ ")之電話號碼為空白,請用變更資料功能輸入電話號碼後才能報名"
       
   else
