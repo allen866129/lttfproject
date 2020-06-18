@@ -286,7 +286,7 @@ def teamregistration(group_id, playerlist,teamname,old_attendantrecord)
   else
     @type='playerschanged'
     @attendantrecord=Groupattendant.find(old_attendantrecord) 
-    @attendantrecord.attendants.delete_all
+    @attendantrecord.attendants.destroy
   end  
   
   @playerlist=playerlist.in_groups_of(20,false) 
@@ -764,7 +764,10 @@ end
 
 def destroy
   @gamegroup = @holdgame.gamegroups.find( params[:id] )
-  @gamegroup.groupattendants.delete_all
+  #@gamegroup.groupattendants do |ga|
+  #  ga.attendants.destroy
+  #end  
+  #@gamegroup.groupattendants.destroy
   @gamegroup.destroy
 
   redirect_to holdgame_gamegroups_url( @holdgame )

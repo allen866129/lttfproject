@@ -100,6 +100,7 @@ end
   order(order_by.join(" "))
 end
 def find_reg_unplay_groups
+
      attendants=Attendant.where(:player_id=>self.id).find_all{|v| ( v.groupattendant.gamegroup.holdgame) && (v.groupattendant.gamegroup.starttime.to_date>= Time.zone.now.to_date) }
      @groups=Array.new
       attendants.each do |attendant|

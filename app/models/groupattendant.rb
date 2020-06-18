@@ -1,7 +1,8 @@
 class Groupattendant < ActiveRecord::Base
   attr_accessible :attendee, :gamegroup_id, :phone, :registor_id, :regtype, :teamname
   belongs_to :gamegroup
-  has_many :attendants , dependent: :destroy
+  has_many :attendants , :dependent => :destroy
+
   default_scope {order('id ASC')}
   def playerlist 
   	  @playerlist=self.attendants

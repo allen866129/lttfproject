@@ -7,7 +7,7 @@ class Gamegroup < ActiveRecord::Base
   attr_accessible :registration_deadline_flag, :registration_deadline
   attr_accessible :minimal_LTTF_games_limited, :authcerts ,:need_authcert_flag, :authcondition
   belongs_to :holdgame
-  has_many :groupattendants, dependent: :destroy
+  has_many :groupattendants, :dependent => :destroy
  # before_save :check_cancel_date_time
   default_scope {order('id ASC')}
   def self.regtypes
