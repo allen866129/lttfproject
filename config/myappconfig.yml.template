@@ -1,0 +1,5 @@
+development:
+  local:
+    REDIRECT_URI: http://localhost:3000/uploadgames/callback
+  HOST_TYPE: local
+# HOST_TYPE could be local or server only
