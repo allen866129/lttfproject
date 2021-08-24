@@ -1,8 +1,19 @@
 # encoding: UTF-8;”
 require 'google_drive'
-require 'google/api_client'
-require 'google/api_client/client_secrets'
-require 'google/api_client/auth/installed_app'
+#require 'google/api_client'
+#require 'google/api_client/client_secrets'
+#require 'google/api_client/auth/installed_app'
+require "google/apis/drive_v3"
+require "googleauth"
+require "googleauth/stores/file_token_store"
+OB_URI = "urn:ietf:wg:oauth:2.0:oob".freeze
+APPLICATION_NAME = "Drive API Ruby Quickstart".freeze
+CREDENTIALS_PATH = Rails.root.join('config','service_account.json').to_s.freeze
+# The file token.yaml stores the user's access and refrresh tokens, and is
+# created automatically when the authorization flow completes for the first
+# time.
+TOKEN_PATH = Rails.root.join('config','token.yaml).to_s.freeze
+SCOPE = 'https://www.googleapis.com/auth/drive'
 
 class Uploadgame < ActiveRecord::Base
   attr_accessible :detailgameinfo, :gamedate, :gamename, :originalfileurl, :players_result, :publishedforchecking, :uploader ,:id ,:scorecaculated ,:recorder ,:adjustplayersinfo
@@ -588,25 +599,45 @@ class Uploadgame < ActiveRecord::Base
     end 
     return new_gamesrecords
   end
+
+  def self.authorize
+
+  
+  token_store = Google::Auth::Stores::FileTokenStore.new file: TOKEN_PATH
+ 
+  authorizer = Google::Auth::ServiceAccountCredentials.make_creds(
+  json_key_io: File.open(CREDENTIALS_PATH),
+  scope: SCOPE)
+
+  authorizer.fetch_access_token!
+
+  authorizer
+  end
+
   def self.upload(holdgame)
-   client = Google::APIClient.new(
-         :application_name => 'lttfprojecttest',
-          :application_version => '1.0.0')
+   #client = Google::APIClient.new(
+   #      :application_name => 'lttfprojecttest',
+   #       :application_version => '1.0.0')
    #fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
    
-    keypath = Rails.root.join('config','client.p12').to_s
-    key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
-    client.authorization = Signet::OAuth2::Client.new(
-     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-     :audience => 'https://accounts.google.com/o/oauth2/token',
-     :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
-     :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
-     :access_type => 'offline' ,
-     :approval_prompt=>'force',
-     :signing_key => key)
-     client.authorization.fetch_access_token!
+    #keypath = Rails.root.join('config','client.p12').to_s
+    #key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
+    #client.authorization = Signet::OAuth2::Client.new(
+    # :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+    # :audience => 'https://accounts.google.com/o/oauth2/token',
+    # :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
+    # :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
+    # :access_type => 'offline' ,
+    # :approval_prompt=>'force',
+    # :signing_key => key)
+    # client.authorization.fetch_access_token!
+
+    drive_service = Google::Apis::DriveV3::DriveService.new
+    drive_service.client_options.application_name = APPLICATION_NAME
+    drive_service.authorization = authorize
+
  
-    connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
+    connection = GoogleDrive.login_with_oauth( drive_service.authorization.access_token)
 	  #@newgame=Uploadgame.new
     spreadsheet = connection.spreadsheet_by_url(holdgame.inputfileurl)
     

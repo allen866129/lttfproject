@@ -1,9 +1,24 @@
 # encoding: UTF-8;”
 
 require 'google_drive'
-require 'google/api_client'
-require 'google/api_client/client_secrets'
-require 'google/api_client/auth/installed_app'
+#require 'google/api_client'
+#require 'google/api_client/client_secrets'
+#require 'google/api_client/auth/installed_app'
+require "google/apis/drive_v3"
+require "googleauth"
+require "googleauth/stores/file_token_store"
+require "fileutils"
+
+OOB_URI = "urn:ietf:wg:oauth:2.0:oob".freeze
+APPLICATION_NAME = "Drive API Ruby Quickstart".freeze
+CREDENTIALS_PATH = Rails.root.join('config','service_account.json').to_s.freeze
+# The file token.yaml stores the user's access and refrresh tokens, and is
+# created automatically when the authorization flow completes for the first
+# time.
+
+
+TOKEN_PATH = Rails.root.join('config','token.yaml').to_s.freeze
+SCOPE = 'https://www.googleapis.com/auth/drive'
 class HoldgamesController < InheritedResources::Base
 
   before_filter :authenticate_user! , :except=>[:index,:show]
@@ -234,6 +249,21 @@ def copy_file(client, origin_file_id, copy_title)
   end
 end
 
+def authorize
+
+  
+  token_store = Google::Auth::Stores::FileTokenStore.new file: TOKEN_PATH
+ 
+  authorizer = Google::Auth::ServiceAccountCredentials.make_creds(
+  json_key_io: File.open(CREDENTIALS_PATH),
+  scope: SCOPE)
+
+  authorizer.fetch_access_token!
+
+  authorizer
+end
+
+
 def copy_players_list
 
   holdgame=Holdgame.find(params[:format])
@@ -246,53 +276,64 @@ def copy_players_list
   if !playerlist.empty?
     playerlist=playerlist.uniq{|x| x.player_id}  
   end
+  #binding.pry
+ # drive = Google::Apis::DriveV3::DriveService.new
+  #drive.authorization = Google::Auth.get_application_default([Google::Apis::DriveV2::AUTH_DRIVE_FILE])
+ # perm_id = drive.get_permission_id_for_email('allen866129@gmail.com')
+  #perm = Google::Apis::DriveV2::Permission.new(role: 'writer', id: perm_id.id, type: 'user')
 
-  client = Google::APIClient.new(
-         :application_name => 'lttfprojecttest',
-          :application_version => '1.0.0')
-   #fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
+
+ # client = Google::APIClient.new(
+ #        :application_name => 'lttfprojecttest',
+ #         :application_version => '1.0.0')
    
-    keypath = Rails.root.join('config','client.p12').to_s
-    key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
-    client.authorization = Signet::OAuth2::Client.new(
-     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-     :audience => 'https://accounts.google.com/o/oauth2/token',
-     :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
-     :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
-     :access_type => 'offline' ,
-     :approval_prompt=>'force',
-     :signing_key => key)
-     client.authorization.fetch_access_token!
-    connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
-    #@newgame=Uploadgame.new
-    spreadsheet = connection.spreadsheet_by_url(holdgame.inputfileurl)
-    playerlistws=spreadsheet.worksheets[0]
-    players_count=playerlistws.num_rows
-    keepplayerlist=Array.new
+
+  
+  drive_service = Google::Apis::DriveV3::DriveService.new
+  drive_service.client_options.application_name = APPLICATION_NAME
+  drive_service.authorization = authorize
+
+
+
+  #key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
+  #client.authorization = Signet::OAuth2::Client.new(
+  #   :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
+  #   :audience => 'https://accounts.google.com/o/oauth2/token',
+  #   :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
+  #   :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
+  #   :access_type => 'offline' ,
+  #   :approval_prompt=>'force',
+  #   :signing_key => key)
+  # client.authorization.fetch_access_token!
+   connection = GoogleDrive.login_with_oauth( drive_service.authorization.access_token)
+   
+   spreadsheet = connection.spreadsheet_by_url(holdgame.inputfileurl)
+   playerlistws=spreadsheet.worksheets[0]
+   players_count=playerlistws.num_rows
+   keepplayerlist=Array.new
     (1..players_count).each do |row|
       playerlistws[row,1]=nil
       playerlistws[row,2]=nil
-     end  
+   end  
     
 
-    #playerlist=playerlist.sort_by{|e| e[:player_id]}
-    playerlistws[1,1]=holdgame.startdate.to_s+holdgame.gamename
-    playerlistws[2,1]='比賽日期:'
-    playerlistws[2,2]=holdgame.startdate
-    playerlistws[3,1]='比賽名稱:'
-    playerlistws[3,2]=holdgame.gamename
-    playerlistws[4,1]='主辦人員:'
-    playerlistws[4,2]=holdgame.gameholder.name
-    playerlistws[6,1]='已報名球員名單'
-    if !playerlist.empty? 
+   playerlistws[1,1]=holdgame.startdate.to_s+holdgame.gamename
+   playerlistws[2,1]='比賽日期:'
+   playerlistws[2,2]=holdgame.startdate
+   playerlistws[3,1]='比賽名稱:'
+   playerlistws[3,2]=holdgame.gamename
+   playerlistws[4,1]='主辦人員:'
+   playerlistws[4,2]=holdgame.gameholder.name
+   playerlistws[6,1]='已報名球員名單'
+   if !playerlist.empty? 
       playerlist.each_with_index do |player,row|
         playerlistws[row+7,1]=row+1
         playerlistws[row+7,2]=player.name
       end
-    end
+   end
 
-    playerlistws.save
-    redirect_to holdgame.inputfileurl
+   playerlistws.save
+   redirect_to holdgame.inputfileurl
   
 end
 def get_gameinputfile_from_gsheet4game
