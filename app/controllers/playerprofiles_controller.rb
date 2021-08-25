@@ -1,8 +1,8 @@
 # encoding: UTF-8;”
 
-require 'google/api_client'
-require 'google/api_client/client_secrets'
-require 'google/api_client/auth/installed_app'
+#require 'google/api_client'
+#require 'google/api_client/client_secrets'
+#require 'google/api_client/auth/installed_app'
 class PlayerprofilesController < ApplicationController
   before_filter :authenticate_user!  ,:find_user, :except=>[:show,:create,:index, :import, :lttfindex, :search]
   helper_method :sort_column, :sort_direction

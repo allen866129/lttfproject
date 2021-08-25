@@ -4,10 +4,10 @@ require 'google_drive'
 #require 'google/api_client'
 #require 'google/api_client/client_secrets'
 #require 'google/api_client/auth/installed_app'
-require "google/apis/drive_v3"
-require "googleauth"
-require "googleauth/stores/file_token_store"
-require "fileutils"
+#require "google/apis/drive_v3"
+#require "googleauth"
+#require "googleauth/stores/file_token_store"
+#require "fileutils"
 
 OOB_URI = "urn:ietf:wg:oauth:2.0:oob".freeze
 APPLICATION_NAME = "Drive API Ruby Quickstart".freeze
