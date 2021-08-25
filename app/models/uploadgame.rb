@@ -1,18 +1,17 @@
 # encoding: UTF-8;”
 require 'google_drive'
-#require 'google/api_client'
-#require 'google/api_client/client_secrets'
-#require 'google/api_client/auth/installed_app'
-require "google/apis/drive_v3"
-require "googleauth"
-require "googleauth/stores/file_token_store"
+
+
+
 OB_URI = "urn:ietf:wg:oauth:2.0:oob".freeze
 APPLICATION_NAME = "Drive API Ruby Quickstart".freeze
 CREDENTIALS_PATH = Rails.root.join('config','service_account.json').to_s.freeze
 # The file token.yaml stores the user's access and refrresh tokens, and is
 # created automatically when the authorization flow completes for the first
 # time.
-TOKEN_PATH = Rails.root.join('config','token.yaml).to_s.freeze
+
+
+TOKEN_PATH = Rails.root.join('config','token.yaml').to_s.freeze
 SCOPE = 'https://www.googleapis.com/auth/drive'
 
 class Uploadgame < ActiveRecord::Base
@@ -614,6 +613,11 @@ class Uploadgame < ActiveRecord::Base
   authorizer
   end
 
+  def self.getsheetvalues(sheet)
+
+    
+  end 
+
   def self.upload(holdgame)
    #client = Google::APIClient.new(
    #      :application_name => 'lttfprojecttest',
@@ -632,20 +636,18 @@ class Uploadgame < ActiveRecord::Base
     # :signing_key => key)
     # client.authorization.fetch_access_token!
 
-    drive_service = Google::Apis::DriveV3::DriveService.new
-    drive_service.client_options.application_name = APPLICATION_NAME
-    drive_service.authorization = authorize
 
- 
-    connection = GoogleDrive.login_with_oauth( drive_service.authorization.access_token)
+    session = GoogleDrive::Session.from_service_account_key(CREDENTIALS_PATH)
+    #connection = GoogleDrive.login_with_oauth( drive_service.authorization.access_token)
 	  #@newgame=Uploadgame.new
-    spreadsheet = connection.spreadsheet_by_url(holdgame.inputfileurl)
+    spreadsheet = session.spreadsheet_by_url(holdgame.inputfileurl)
+
     
     @newgame =   (holdgame.uploadgame==nil) ? holdgame.build_uploadgame : holdgame.uploadgame
     #@newgame=Uploadgame.waitingforprocess.where(:gamename => holdgame.gamename).first_or_initialize
    
     @oldplayerssummery=@newgame.getplayersummary
-    @newgame.gamename =spreadsheet.title()
+    @newgame.gamename =  holdgame.gamename
     @gameinfows=spreadsheet.worksheets[0] 
     @newgame=GetBasicGameInfofromWs(@newgame, @gameinfows)
  

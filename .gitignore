@@ -17,6 +17,7 @@
 config/database.yml
 config/google_analytics.yml
 config/myappconfig.yml
+config/service_account.json
 public/assets/**
 public/uploads/
 public/images/*.*

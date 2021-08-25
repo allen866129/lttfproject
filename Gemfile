@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.3'
+gem 'rails', '~> 4.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -50,7 +50,8 @@ gem 'rolify'
 gem 'carrierwave'
 gem 'mini_magick'
 gem "kaminari" 
-gem 'google_drive' , '1.0.6'
+#gem 'google_drive' , '1.0.6'
+gem 'google_drive' 
 gem "google_visualr" , ">= 2.1"
 gem 'thin'
 gem "mail"

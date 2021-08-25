@@ -1,5 +1,8 @@
 # encoding: UTF-8;”
 require 'google_drive'
+
+CREDENTIALS_PATH = Rails.root.join('config','service_account.json').to_s.freeze
+
 class Playerprofile < ActiveRecord::Base
   before_create :add_name
   # attr_accessible :title, :body
@@ -202,25 +205,12 @@ def self.findlastrow(worksheet, targetcol)
     @ws_row
 end 
 def self.googleplayerlist(fileurl)
-  client = Google::APIClient.new(
-         :application_name => 'lttfprojecttest',
-          :application_version => '1.0.0')
-   #fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
-   
-  keypath = Rails.root.join('config','client.p12').to_s
-  key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
-  client.authorization = Signet::OAuth2::Client.new(
-     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-     :audience => 'https://accounts.google.com/o/oauth2/token',
-     :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
-     :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
-     :access_type => 'offline' ,
-     :approval_prompt=>'force',
-     :signing_key => key)
-  client.authorization.fetch_access_token!
-  connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
+  
+  
+  session = GoogleDrive::Session.from_service_account_key(CREDENTIALS_PATH)
+  #connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
     #@newgame=Uploadgame.new
-  spreadsheet = connection.spreadsheet_by_url(fileurl)
+  spreadsheet = session.spreadsheet_by_url(fileurl)
   playerlistws=spreadsheet.worksheets[0]
   @playerlistsheet=spreadsheet.worksheets[0]
   @searchplayerlist= Array.new 
@@ -249,25 +239,11 @@ def self.googleplayerlist(fileurl)
   @players
 end
 def self.find_playerlist_from_googlesheet_by_name(fileurl)
-  client = Google::APIClient.new(
-         :application_name => 'lttfprojecttest',
-          :application_version => '1.0.0')
-   #fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
-   
-  keypath = Rails.root.join('config','client.p12').to_s
-  key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
-  client.authorization = Signet::OAuth2::Client.new(
-     :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-     :audience => 'https://accounts.google.com/o/oauth2/token',
-     :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
-     :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
-     :access_type => 'offline' ,
-     :approval_prompt=>'force',
-     :signing_key => key)
-  client.authorization.fetch_access_token!
-  connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
+  
+  #connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
     #@newgame=Uploadgame.new
-  spreadsheet = connection.spreadsheet_by_url(fileurl)
+  session = GoogleDrive::Session.from_service_account_key(CREDENTIALS_PATH)  
+  spreadsheet = session.spreadsheet_by_url(fileurl)
   playerlistws=spreadsheet.worksheets[0]
   @playerlistsheet=spreadsheet.worksheets[0]
   playerlistws[1,1]='序號(排名)'
