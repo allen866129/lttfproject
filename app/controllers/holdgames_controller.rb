@@ -164,11 +164,14 @@ def insert_permission(client, file_id, value)
     puts "An error occurred: #{result.data['error']['message']}"
   end
 end
-def clear_gsheet(client, fileurl)
+def clear_gsheet( spreadsheet)
   begin
-    connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
-    spreadsheet = connection.spreadsheet_by_url(fileurl)
+ #   connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
+
+ #   spreadsheet = connection.spreadsheet_by_url(fileurl)
+
     (2..spreadsheet.worksheets.count).each do |wsno|
+
       spreadsheet.worksheets[wsno-1].delete if (wsno-1)>0
     end  
     infows=spreadsheet.worksheets[0]
@@ -180,7 +183,7 @@ def clear_gsheet(client, fileurl)
   end  
     infows.save
   rescue
-    puts fileurl
+    puts spreadsheet
     flash[:notice] = "比賽資料建檔資料失敗(file clean)!請通知管理員處理！"
   end
 
@@ -275,6 +278,7 @@ def copy_players_list
     playerlistws[4,1]='主辦人員:'
     playerlistws[4,2]=holdgame.gameholder.name
     playerlistws[6,1]='已報名球員名單'
+    playerlistws[6,2]='非原報名參賽球員名單'
     if !playerlist.empty? 
       playerlist.each_with_index do |player,row|
         playerlistws[row+7,1]=row+1
@@ -292,29 +296,17 @@ def get_gameinputfile_from_gsheet4game
    
 end
 def create_gameinputfile(filename)
-  client = Google::APIClient.new(
-         :application_name => 'lttfprojecttest',
-          :application_version => '1.0.0')
-  #fileid=APP_CONFIG['Inupt_File_Template'].to_s.match(/[-\w]{25,}/).to_s
-  keypath = Rails.root.join('config','client.p12').to_s
-  key = Google::APIClient::KeyUtils.load_from_pkcs12( keypath, 'notasecret')
-  client.authorization = Signet::OAuth2::Client.new(
-    :token_credential_uri => 'https://accounts.google.com/o/oauth2/token',
-    :audience => 'https://accounts.google.com/o/oauth2/token',
-    :scope => ['https://spreadsheets.google.com/feeds/','https://www.googleapis.com/auth/drive'],
-    :issuer => APP_CONFIG[APP_CONFIG['HOST_TYPE']]['Google_Issuer'].to_s,
-    :access_type => 'offline' ,
-    :approval_prompt=>'force',
-    :signing_key => key)
-  client.authorization.fetch_access_token!
+
 
   @gsheet=Gsheet4game.available.first
   @gsheet.in_use=true
-  fileurl=@gsheet.fileulr
-  fileid=fileurl.to_s.match(/[-\w]{25,}/).to_s
+ 
+  session = GoogleDrive::Session.from_service_account_key(CREDENTIALS_PATH)
+  spreadsheet= session.spreadsheet_by_url(@gsheet.fileulr)
+  spreadsheet.title=filename
 
-  rename_file(client, fileid, filename)
-  clear_gsheet(client, fileurl)
+  #rename_file(fileid, filename)
+  clear_gsheet(spreadsheet)
   #fileinfo=copy_file(client, fileid, filename)
 
   #fileinfo.alternateLink
