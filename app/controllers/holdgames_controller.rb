@@ -166,13 +166,9 @@ def insert_permission(client, file_id, value)
 end
 def clear_gsheet( spreadsheet)
   begin
- #   connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
 
- #   spreadsheet = connection.spreadsheet_by_url(fileurl)
-
-    (2..spreadsheet.worksheets.count).each do |wsno|
-
-      spreadsheet.worksheets[wsno-1].delete if (wsno-1)>0
+    while spreadsheet.worksheets.count >1
+        spreadsheet.worksheets[spreadsheet.worksheets.count-1].delete
     end  
     infows=spreadsheet.worksheets[0]
     (7..infows.max_rows).each do |row|
@@ -257,9 +253,6 @@ def copy_players_list
 
     session = GoogleDrive::Session.from_service_account_key(CREDENTIALS_PATH)
     spreadsheet= session.spreadsheet_by_url(holdgame.inputfileurl)
-    #connection = GoogleDrive.login_with_oauth( client.authorization.access_token)
-    #@newgame=Uploadgame.new
-    #spreadsheet = connection.spreadsheet_by_url(holdgame.inputfileurl)
     playerlistws=spreadsheet.worksheets[0]
     players_count=playerlistws.num_rows
     keepplayerlist=Array.new
@@ -305,11 +298,8 @@ def create_gameinputfile(filename)
   spreadsheet= session.spreadsheet_by_url(@gsheet.fileulr)
   spreadsheet.title=filename
 
-  #rename_file(fileid, filename)
   clear_gsheet(spreadsheet)
-  #fileinfo=copy_file(client, fileid, filename)
 
-  #fileinfo.alternateLink
   @gsheet
 end
   private
