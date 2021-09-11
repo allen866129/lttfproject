@@ -647,7 +647,7 @@ class Uploadgame < ActiveRecord::Base
     #@newgame=Uploadgame.waitingforprocess.where(:gamename => holdgame.gamename).first_or_initialize
    
     @oldplayerssummery=@newgame.getplayersummary
-    @newgame.gamename =  holdgame.gamename
+    @newgame.gamename =  holdgame.startdate.to_s+holdgame.gamename
     @gameinfows=spreadsheet.worksheets[0] 
     @newgame=GetBasicGameInfofromWs(@newgame, @gameinfows)
  
