@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
+ # encoding: UTF-8;”
  before_filter :configure_permitted_parameters, if: :devise_controller?
+ before_filter :lttf_shutdown
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
  protect_from_forgery with: :exception
@@ -8,6 +10,9 @@ def authenticate_admin_user!
 end
 def authenticate_superuser!
  redirect_to new_user_session_path unless current_user && ((current_user.has_role? (:superuser)) || (current_user.has_role? (:admin)))
+end
+def lttf_shutdown
+redirect_to '/LTTF_shutdown'
 end
 
 def  find_admins_superusers 
